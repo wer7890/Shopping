@@ -54,7 +54,7 @@ namespace ShoppingWeb.Web
             using (SqlConnection con = new SqlConnection(connectionString))  
             {
                 //讀取資料庫的sql語法
-                string sql = "SELECT * from userinfo where username=@name and password=@pwd";
+                string sql = "SELECT * from t_userInfo where f_userName=@name and f_pwd=@pwd";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
                 {
