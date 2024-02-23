@@ -28,7 +28,7 @@ namespace ShoppingWeb.Web
                 {
                     labLogin.Text = "登入成功";
                     Session["userName"] = userName;
-                    Response.Redirect("Index.aspx");
+                    Response.Redirect("AddUser.aspx");
                 }
                 else
                 {
