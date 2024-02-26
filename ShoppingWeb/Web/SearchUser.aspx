@@ -7,7 +7,7 @@
         <h2 class="text-center">查詢帳號</h2>
         <br />
         <div class="row">
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowEditing="GridView1_RowEditing" OnRowDeleting="GridView1_RowDeleting" CssClass="table table-striped">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowEditing="GridView1_RowEditing" OnRowDeleting="GridView1_RowDeleting" CssClass="table table-striped table-hover">
                 <Columns>
                     <asp:BoundField DataField="f_userId" HeaderText="管理者ID" SortExpression="Id" />
                     <asp:BoundField DataField="f_pwd" HeaderText="密碼" />
