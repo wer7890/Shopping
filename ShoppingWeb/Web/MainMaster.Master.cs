@@ -11,7 +11,7 @@ namespace ShoppingWeb.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["userName"] == null)
+            if (Session["userId"] == null)
             {
                 Response.Redirect("Login.aspx");
             }
@@ -19,7 +19,7 @@ namespace ShoppingWeb.Web
 
         protected void btnSignOut_Click(object sender, EventArgs e)
         {
-            Session["userName"] = null;
+            Session["userId"] = null;
             Response.Redirect("Login.aspx");
         }
     }

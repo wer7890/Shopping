@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label for="username" class="control-label">用戶名:</label>
                     <div >
-                        <asp:TextBox ID="txbUserName" runat="server" CssClass="form-control" placeholder="請輸入用戶名"></asp:TextBox>
+                        <asp:TextBox ID="txbUserId" runat="server" CssClass="form-control" placeholder="請輸入ID"></asp:TextBox>
                     </div>
                 </div>
 

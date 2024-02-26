@@ -19,15 +19,15 @@ namespace ShoppingWeb.Web
         string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            string userName = txbUserName.Text.Trim(); //Trim()刪除空白字元
+            string userId = txbUserId.Text.Trim(); //Trim()刪除空白字元
             string pwd = txbPassword.Text.Trim();
 
             if (IsCheck())  //檢查用戶是否輸入帳號密碼，以節省性能
             {
-                if (IsLogin(userName, pwd))
+                if (IsLogin(userId, pwd))
                 {
                     labLogin.Text = "登入成功";
-                    Session["userName"] = userName;
+                    Session["userId"] = userId;
                     Response.Redirect("AddUser.aspx");
                 }
                 else
@@ -48,20 +48,20 @@ namespace ShoppingWeb.Web
         /// <param name="name"></param>
         /// <param name="pwd"></param>
         /// <returns></returns>
-        public bool IsLogin(string name, string pwd)
+        public bool IsLogin(string Id, string pwd)
         {
             bool b = false;
             using (SqlConnection con = new SqlConnection(connectionString))  
             {
                 //讀取資料庫的sql語法
-                string sql = "SELECT * from t_userInfo where f_userName=@name and f_pwd=@pwd";
+                string sql = "SELECT * from t_userInfo2 where f_userId=@Id and f_pwd=@pwd";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
                 {
                     con.Open();
 
                     //給sql語句中的變量進行附值
-                    SqlParameter parameter1 = new SqlParameter("@name", name);
+                    SqlParameter parameter1 = new SqlParameter("@Id", Id);
                     SqlParameter parameter2 = new SqlParameter("@pwd", pwd);
 
                     //把parameter變量對象附值給cmd對象
@@ -92,11 +92,7 @@ namespace ShoppingWeb.Web
         {
             bool b = true;
 
-            if (txbUserName.Text.Length == 0)
-            {
-                b = false;
-            }
-            if (txbPassword.Text.Length == 0)
+            if (txbUserId.Text.Length == 0 | txbPassword.Text.Length == 0)
             {
                 b = false;
             }
