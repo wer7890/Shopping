@@ -13,9 +13,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:Button ID="btnSignOut" runat="server" Text="登出" OnClick="btnSignOut_Click" />
-
-        <div class="container">
+        
+        <div class="container mt-5">
             <div class="row">
                 <!--左欄-->
                 <div class="col-12 col-md-3">
@@ -65,8 +64,9 @@
                                 <a href="AddUser.aspx" class="list-group-item list-group-item-action">訂單系統</a>
                             </div>
                          </div>
-
+                        <asp:Button ID="btnSignOut" runat="server" Text="登出" OnClick="btnSignOut_Click" CssClass="btn btn-outline-dark mt-3" />
                     </div>
+                    
                 </div>
 
                 <!--右欄-->

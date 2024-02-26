@@ -73,6 +73,7 @@
     <Content Include="Web\Index.aspx" />
     <Content Include="Web\Login.aspx" />
     <Content Include="Web\SearchUser.aspx" />
+    <Content Include="Web\UpDataUser.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -113,6 +114,13 @@
     </Compile>
     <Compile Include="Web\SearchUser.aspx.designer.cs">
       <DependentUpon>SearchUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\UpDataUser.aspx.cs">
+      <DependentUpon>UpDataUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\UpDataUser.aspx.designer.cs">
+      <DependentUpon>UpDataUser.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

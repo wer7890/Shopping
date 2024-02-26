@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>後臺登入</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
@@ -18,7 +18,7 @@
             <form id="form1" runat="server" class="mx-auto col-12 col-md-8 ">
                 <div class="form-group">
                     <label for="username" class="control-label">用戶名:</label>
-                    <div >
+                    <div>
                         <asp:TextBox ID="txbUserId" runat="server" CssClass="form-control" placeholder="請輸入ID"></asp:TextBox>
                     </div>
                 </div>

@@ -34,11 +34,11 @@ namespace ShoppingWeb.Web
 
                     if (IsAddUser(userId, pwd, userName, roles, permissions))
                     {
-                        labAddUser.Text = "新增成功";
+                        Response.Write("<script>alert('新增成功')</script>");
                     }
                     else
                     {
-                        labAddUser.Text = "新增失敗";
+                        Response.Write("<script>alert('新增失敗')</script>");
                     }
 
                 }
@@ -129,6 +129,10 @@ namespace ShoppingWeb.Web
             return b;
         }
 
+        /// <summary>
+        /// 檢查輸入框是否為空
+        /// </summary>
+        /// <returns></returns>
         public bool IsCheck()
         {
             bool b = true;

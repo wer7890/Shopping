@@ -1,15 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Web/MainMaster.Master" AutoEventWireup="true" CodeBehind="AddUser.aspx.cs" Inherits="ShoppingWeb.Web.AddUser" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Web/MainMaster.Master" AutoEventWireup="true" CodeBehind="UpDataUser.aspx.cs" Inherits="ShoppingWeb.Web.UpDataUser" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-        <h2 class="text-center">新增帳號</h2>
+        <h2 class="text-center">修改帳號</h2>
         <br />
         <div class="row">
             <div class="mx-auto col-12 col-md-8">
-                <label for="exampleInputEmail1" class="form-label">管理員ID</label>
-                <asp:TextBox ID="txbUserId" runat="server" CssClass="form-control"></asp:TextBox>
+                <label for="exampleInputEmail1" class="form-label">管理員ID: </label>
+                <asp:Label ID="labUserId" runat="server" Text="Label"></asp:Label>
             </div>
             <div class="mx-auto col-12 col-md-8 mt-2">
                 <label for="exampleInputPassword1" class="form-label">密碼</label>
@@ -37,7 +36,7 @@
                 </asp:DropDownList>
             </div>
 
-            <asp:Button ID="txbAddUser" runat="server" Text="新增" OnClick="txbAddUser_Click" CssClass="btn btn-outline-primary mx-auto mt-3 col-12 col-md-5" />
+            <asp:Button ID="txbUpDataUser" runat="server" Text="修改" OnClick="txbAddUser_Click" CssClass="btn btn-outline-primary mx-auto mt-3 col-12 col-md-5" />
         </div>
         <br />
         <div class="row">
