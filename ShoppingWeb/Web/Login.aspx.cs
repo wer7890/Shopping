@@ -13,21 +13,22 @@ namespace ShoppingWeb.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            string userId = txbUserId.Text.Trim(); //Trim()刪除空白字元
+            string userName = txbUserName.Text.Trim(); //Trim()刪除空白字元
             string pwd = txbPassword.Text.Trim();
+            labLogin.Text = "";
 
             if (IsCheck())  //檢查用戶是否輸入帳號密碼，以節省性能
             {
-                if (IsLogin(userId, pwd))
+                if (IsLogin(userName, pwd))
                 {
                     labLogin.Text = "登入成功";
-                    Session["userId"] = userId;
+                    Session["userName"] = userName;
                     Response.Redirect("AddUser.aspx");
                 }
                 else
@@ -39,7 +40,7 @@ namespace ShoppingWeb.Web
             {
                 labLogin.Text = "用戶名跟密碼不能為空";
             }
-            
+
         }
 
         /// <summary>
@@ -48,20 +49,20 @@ namespace ShoppingWeb.Web
         /// <param name="name"></param>
         /// <param name="pwd"></param>
         /// <returns></returns>
-        public bool IsLogin(string Id, string pwd)
+        public bool IsLogin(string name, string pwd)
         {
             bool b = false;
-            using (SqlConnection con = new SqlConnection(connectionString))  
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 //讀取資料庫的sql語法
-                string sql = "SELECT * from t_userInfo2 where f_userId=@Id and f_pwd=@pwd";
+                string sql = "SELECT * from t_userInfo2 where f_userName=@name and f_pwd=@pwd";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
                 {
                     con.Open();
 
                     //給sql語句中的變量進行附值
-                    SqlParameter parameter1 = new SqlParameter("@Id", Id);
+                    SqlParameter parameter1 = new SqlParameter("@name", name);
                     SqlParameter parameter2 = new SqlParameter("@pwd", pwd);
 
                     //把parameter變量對象附值給cmd對象
@@ -92,7 +93,7 @@ namespace ShoppingWeb.Web
         {
             bool b = true;
 
-            if (txbUserId.Text.Length == 0 | txbPassword.Text.Length == 0)
+            if (txbUserName.Text.Length == 0 | txbPassword.Text.Length == 0)
             {
                 b = false;
             }
@@ -100,6 +101,6 @@ namespace ShoppingWeb.Web
             return b;
         }
 
-        
+
     }
 }

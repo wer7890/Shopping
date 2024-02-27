@@ -16,7 +16,15 @@ namespace ShoppingWeb.Web
         string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            GridViewBinding();
+            if (CheckBrowse())
+            {
+                GridViewBinding();
+            }
+            else
+            {
+                Response.Redirect("AddUser.aspx");
+            }
+
         }
 
         /// <summary>
@@ -26,7 +34,7 @@ namespace ShoppingWeb.Web
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string sql = "SELECT f_userId, f_pwd, f_userName, f_roles, f_permissions FROM t_userInfo2";
+                string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo2";
 
                 using (SqlDataAdapter sqlData = new SqlDataAdapter(sql, con))
                 {
@@ -46,7 +54,19 @@ namespace ShoppingWeb.Web
         protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
         {
             string id = GridView1.Rows[e.NewEditIndex].Cells[0].Text;
-            Response.Redirect("UpDataUser.aspx?id=" + id);
+            int roles = Convert.ToInt32(GridView1.Rows[e.NewEditIndex].Cells[3].Text);
+
+
+            if (CheckRoles(roles))
+            {
+                Response.Redirect("UpDataUser.aspx?id=" + id);
+            }
+            else
+            {
+                e.Cancel = true;  // 取消修改操作
+                Response.Write("<script>alert('你沒有這個權限')</script>");
+            }
+
         }
 
         /// <summary>
@@ -57,28 +77,107 @@ namespace ShoppingWeb.Web
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string id = GridView1.Rows[e.RowIndex].Cells[0].Text;
+            int roles = Convert.ToInt32(GridView1.Rows[e.RowIndex].Cells[3].Text);
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            if (CheckRoles(roles))
             {
-                string sql = "DELETE FROM t_userInfo2 WHERE f_userId=@id";
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    con.Open();
-                    cmd.Parameters.Add(new SqlParameter("@Id", id));
-
-                    int r = cmd.ExecuteNonQuery();
-
-                    if (r > 0)
+                    string sql = "DELETE FROM t_userInfo2 WHERE f_userId=@id";
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
-                        Response.Write("<script>alert('刪除成功')</script>");
-                        GridViewBinding();
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('刪除失敗')</script>");
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@Id", id));
+
+                        int r = cmd.ExecuteNonQuery();
+
+                        if (r > 0)
+                        {
+                            Response.Write("<script>alert('刪除成功')</script>");
+                            GridViewBinding();
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('刪除失敗')</script>");
+                        }
                     }
                 }
             }
+            else
+            {
+                e.Cancel = true; // 取消删除操作
+                Response.Write("<script>alert('你沒有這個權限')</script>");
+            }
+
+
+        }
+
+        /// <summary>
+        /// 判斷權限是否可以查詢，修改，刪除管理員
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckRoles(int roles)
+        {
+            bool b = false;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT f_userName, f_roles FROM t_userInfo2 WHERE f_userName=@name and f_roles<=@roles";
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@name", Session["userName"]));
+                    cmd.Parameters.Add(new SqlParameter("@roles", roles));
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        b = true;
+                    }
+                    else
+                    {
+                        b = false;
+                    }
+
+                }
+            }
+
+            return b;
+        }
+
+        /// <summary>
+        /// 是權限瀏覽此網頁
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        public bool CheckBrowse()
+        {
+            bool b = false;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT f_userName, f_roles FROM t_userInfo2 WHERE f_userName=@name and f_roles<2";
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@name", Session["userName"]));
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        b = true;
+                    }
+                    else
+                    {
+                        b = false;
+                    }
+
+                }
+            }
+
+            return b;
         }
     }
 }

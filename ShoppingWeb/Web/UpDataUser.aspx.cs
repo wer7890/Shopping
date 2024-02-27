@@ -19,7 +19,7 @@ namespace ShoppingWeb.Web
             string id = Request.QueryString["id"];
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                
+
                 if (!IsPostBack)  //頁面加載第一次時
                 {
                     string sql = "SELECT * FROM t_userInfo2 WHERE f_userId=@id";
@@ -33,39 +33,32 @@ namespace ShoppingWeb.Web
                             sqlData.Fill(dt);
                             DataRow dr = dt.Rows[0];
                             labUserId.Text = id;
-                            txbPwd.Text = dr["f_pwd"].ToString();
                             txbUserName.Text = dr["f_userName"].ToString();
-                            ListItem item = ddlRoles.Items.FindByText(dr["f_roles"].ToString());
+                            txbPwd.Text = dr["f_pwd"].ToString();
+                            ListItem item = ddlRoles.Items.FindByValue(dr["f_roles"].ToString());
 
                             if (item != null)
                             {
                                 item.Selected = true;
                             }
 
-                            ListItem item2 = ddlPermissions.Items.FindByText(dr["f_permissions"].ToString());
-
-                            if (item2 != null)
-                            {
-                                item2.Selected = true;
-                            }
                         }
                     }
                 }
-                         
+
             }
         }
 
         protected void txbAddUser_Click(object sender, EventArgs e)
         {
-            string id = labUserId.Text.Trim();
-            string pwd = txbPwd.Text.Trim();
-            string userName = txbUserName.Text.Trim();
-            string roles = ddlRoles.SelectedValue;
-            string permissions = ddlPermissions.Text.Trim();
+            int id = Convert.ToInt32(labUserId.Text);
+            string pwd = txbPwd.Text;
+            string userName = txbUserName.Text;
+            int roles = Convert.ToInt32(ddlRoles.SelectedValue);
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string sql = "UPDATE t_userInfo2 SET f_pwd=@pwd, f_userName=@userName, f_roles=@roles, f_permissions=@permissions WHERE f_userId=@id";
+                string sql = "UPDATE t_userInfo2 SET f_userName=@userName, f_pwd=@pwd, f_roles=@roles WHERE f_userId=@id";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     con.Open();
@@ -74,7 +67,6 @@ namespace ShoppingWeb.Web
                     cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
                     cmd.Parameters.Add(new SqlParameter("@userName", userName));
                     cmd.Parameters.Add(new SqlParameter("@roles", roles));
-                    cmd.Parameters.Add(new SqlParameter("@permissions", permissions));
 
                     int r = cmd.ExecuteNonQuery();
 

@@ -15,13 +15,13 @@ namespace ShoppingWeb.Web
     {
 
         /// <summary>
-        /// txbUserId 控件。
+        /// txbUserName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbUserId;
+        protected global::System.Web.UI.WebControls.TextBox txbUserName;
 
         /// <summary>
         /// txbPwd 控件。
@@ -33,15 +33,6 @@ namespace ShoppingWeb.Web
         protected global::System.Web.UI.WebControls.TextBox txbPwd;
 
         /// <summary>
-        /// txbUserName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbUserName;
-
-        /// <summary>
         /// ddlRoles 控件。
         /// </summary>
         /// <remarks>
@@ -49,15 +40,6 @@ namespace ShoppingWeb.Web
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRoles;
-
-        /// <summary>
-        /// ddlPermissions 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPermissions;
 
         /// <summary>
         /// txbAddUser 控件。

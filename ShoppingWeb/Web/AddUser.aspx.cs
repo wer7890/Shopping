@@ -20,33 +20,41 @@ namespace ShoppingWeb.Web
 
         protected void txbAddUser_Click(object sender, EventArgs e)
         {
-            string userId = txbUserId.Text.Trim();
-            string pwd = txbPwd.Text.Trim();
             string userName = txbUserName.Text.Trim();
+            string pwd = txbPwd.Text.Trim();
             string roles = ddlRoles.SelectedValue;
-            string permissions = ddlPermissions.Text.Trim();
+            labAddUser.Text = "";
 
             if (IsCheck())
             {
 
-                if (!IsCheckUserId(userId))
+                if (CheckRoles())
                 {
 
-                    if (IsAddUser(userId, pwd, userName, roles, permissions))
+                    if (!IsCheckUserName(userName))
                     {
-                        Response.Write("<script>alert('新增成功')</script>");
+
+                        if (IsAddUser(userName, pwd, roles))
+                        {
+                            Response.Write("<script>alert('新增成功')</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('新增失敗')</script>");
+                        }
+
                     }
                     else
                     {
-                        Response.Write("<script>alert('新增失敗')</script>");
+                        labAddUser.Text = "管理員名稱重複";
                     }
 
                 }
                 else
                 {
-                    labAddUser.Text = "管理員ID重複";
+                    Response.Write("<script>alert('你沒有這個權限')</script>");
                 }
-                
+
             }
             else
             {
@@ -63,21 +71,19 @@ namespace ShoppingWeb.Web
         /// <param name="roles"></param>
         /// <param name="permissions"></param>
         /// <returns></returns>
-        public bool IsAddUser(string id, string pwd, string name, string roles, string permissions)
+        public bool IsAddUser(string name, string pwd, string roles)
         {
             bool b = false;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string sql = "INSERT INTO t_userInfo2 VALUES(@Id, @pwd, @name, @roles, @permissions)";
+                string sql = "INSERT INTO t_userInfo2 VALUES(@name, @pwd, @roles)";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     con.Open();
 
-                    cmd.Parameters.Add(new SqlParameter("@Id", id));
-                    cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
                     cmd.Parameters.Add(new SqlParameter("@name", name));
+                    cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
                     cmd.Parameters.Add(new SqlParameter("@roles", roles));
-                    cmd.Parameters.Add(new SqlParameter("@permissions", permissions));
 
                     int r = cmd.ExecuteNonQuery();
 
@@ -100,17 +106,17 @@ namespace ShoppingWeb.Web
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool IsCheckUserId(string id)
+        public bool IsCheckUserName(string name)
         {
             bool b = false;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * from t_userInfo2 where f_userId=@Id";
+                string sql = "SELECT * FROM t_userInfo2 where f_userName=@name";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     con.Open();
-                    cmd.Parameters.Add(new SqlParameter("@Id", id));
+                    cmd.Parameters.Add(new SqlParameter("@name", name));
 
                     SqlDataReader dr = cmd.ExecuteReader();
 
@@ -122,7 +128,7 @@ namespace ShoppingWeb.Web
                     {
                         b = false;
                     }
-            
+
                 }
             }
 
@@ -137,7 +143,7 @@ namespace ShoppingWeb.Web
         {
             bool b = true;
 
-            if (txbUserId.Text.Length == 0 | txbPwd.Text.Length == 0 | txbUserName.Text.Length == 0 | ddlRoles.SelectedValue.Length == 0 | ddlPermissions.Text.Length ==0)
+            if (txbUserName.Text.Length == 0 | txbPwd.Text.Length == 0 | ddlRoles.SelectedValue.Length == 0)
             {
                 b = false;
             }
@@ -145,5 +151,36 @@ namespace ShoppingWeb.Web
             return b;
         }
 
+        /// <summary>
+        /// 判斷權限是否可以添加管理員
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckRoles()
+        {
+            bool b = false;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT f_userName, f_roles FROM t_userInfo2 WHERE f_userName=@name and f_roles<2";
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@name", Session["userName"]));
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        b = true;
+                    }
+                    else
+                    {
+                        b = false;
+                    }
+
+                }
+            }
+
+            return b;
+        }
     }
 }
