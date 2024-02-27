@@ -18,7 +18,12 @@ namespace ShoppingWeb.Web
         {
             if (CheckBrowse())
             {
-                GridViewBinding();
+
+                if (!IsPostBack)
+                {
+                    GridViewBinding();
+                }
+                
             }
             else
             {
@@ -92,9 +97,6 @@ namespace ShoppingWeb.Web
 
                 }
             }
-
-
-
         }
 
         /// <summary>
@@ -132,7 +134,7 @@ namespace ShoppingWeb.Web
         }
 
         /// <summary>
-        /// 是權限瀏覽此網頁
+        /// 是否有權限瀏覽此網頁
         /// </summary>
         /// <param name="roles"></param>
         /// <returns></returns>
@@ -163,6 +165,78 @@ namespace ShoppingWeb.Web
             }
 
             return b;
+        }
+
+        
+        /// <summary>
+        /// 當GridView的標題SortExpression會觸發的事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            // 獲取排序字段和排序方向
+            string sortExpression = e.SortExpression;
+            string sortDirection = GetSortDirection(sortExpression);
+
+            // 在這裡添加排序邏輯，重新绑定數據
+            GridViewBinding(sortExpression, sortDirection);
+        }
+
+        /// <summary>
+        /// 獲取排序方向
+        /// </summary>
+        /// <param name="column"></param>
+        /// <returns></returns>
+        private string GetSortDirection(string column)
+        {
+            // 默認升序
+            string sortDirection = "ASC";
+
+            // 检查是否之前已经排序
+            string currentSortColumn = ViewState["SortColumn"] as string;
+            if (currentSortColumn != null && currentSortColumn == column)
+            {
+                // 如果是之前已经排序的列，則切换排序方向
+                string currentSortDirection = ViewState["SortDirection"] as string;
+                if (currentSortDirection != null && currentSortDirection == "ASC")
+                {
+                    sortDirection = "DESC";
+                }
+            }
+
+            // 保存當前排序列和方向
+            ViewState["SortColumn"] = column;
+            ViewState["SortDirection"] = sortDirection;
+
+            return sortDirection;
+        }
+
+        /// <summary>
+        /// 數據绑定方法，根据排序字段和排序方向进行排序
+        /// </summary>
+        /// <param name="sortExpression"></param>
+        /// <param name="sortDirection"></param>
+        private void GridViewBinding(string sortExpression, string sortDirection)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo2 WHERE f_roles>0";
+
+                // 添加排序邏輯
+                if (!string.IsNullOrEmpty(sortExpression))
+                {
+                    sql += " ORDER BY " + sortExpression + " " + sortDirection;
+                }
+
+                using (SqlDataAdapter sqlData = new SqlDataAdapter(sql, con))
+                {
+                    DataSet dt = new DataSet();
+                    sqlData.Fill(dt);
+                    GridView1.DataSource = dt;
+                    GridView1.DataBind();
+                }
+            }
         }
     }
 }

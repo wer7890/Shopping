@@ -7,12 +7,12 @@
         <h2 class="text-center">查詢帳號</h2>
         <br />
         <div class="row">
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowEditing="GridView1_RowEditing" OnRowDeleting="GridView1_RowDeleting" CssClass="table table-striped table-hover">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowEditing="GridView1_RowEditing" OnRowDeleting="GridView1_RowDeleting" OnSorting="GridView1_Sorting" AllowSorting="true" CssClass="table table-striped table-hover">
                 <Columns>
-                    <asp:BoundField DataField="f_userId" HeaderText="管理者ID" SortExpression="Id" />
-                    <asp:BoundField DataField="f_userName" HeaderText="名稱" />
-                    <asp:BoundField DataField="f_pwd" HeaderText="密碼" />
-                    <asp:BoundField DataField="f_roles" HeaderText="角色" />
+                    <asp:BoundField DataField="f_userId" HeaderText="管理者ID" SortExpression="f_userId" />
+                    <asp:BoundField DataField="f_userName" HeaderText="名稱" SortExpression="f_userName" />
+                    <asp:BoundField DataField="f_pwd" HeaderText="密碼" SortExpression="f_pwd" />
+                    <asp:BoundField DataField="f_roles" HeaderText="角色" SortExpression="f_roles" />
                     <asp:CommandField ShowEditButton="True" />
                     <asp:CommandField ShowDeleteButton="True" />
                 </Columns>
