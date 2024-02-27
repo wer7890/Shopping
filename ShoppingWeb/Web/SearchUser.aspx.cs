@@ -34,7 +34,7 @@ namespace ShoppingWeb.Web
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo2";
+                string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo2 WHERE f_roles>0";
 
                 using (SqlDataAdapter sqlData = new SqlDataAdapter(sql, con))
                 {
@@ -55,17 +55,8 @@ namespace ShoppingWeb.Web
         {
             string id = GridView1.Rows[e.NewEditIndex].Cells[0].Text;
             int roles = Convert.ToInt32(GridView1.Rows[e.NewEditIndex].Cells[3].Text);
+            Response.Redirect("UpDataUser.aspx?id=" + id);
 
-
-            if (CheckRoles(roles))
-            {
-                Response.Redirect("UpDataUser.aspx?id=" + id);
-            }
-            else
-            {
-                e.Cancel = true;  // 取消修改操作
-                Response.Write("<script>alert('你沒有這個權限')</script>");
-            }
 
         }
 
@@ -79,35 +70,29 @@ namespace ShoppingWeb.Web
             string id = GridView1.Rows[e.RowIndex].Cells[0].Text;
             int roles = Convert.ToInt32(GridView1.Rows[e.RowIndex].Cells[3].Text);
 
-            if (CheckRoles(roles))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                string sql = "DELETE FROM t_userInfo2 WHERE f_userId=@id";
+                using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
-                    string sql = "DELETE FROM t_userInfo2 WHERE f_userId=@id";
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@Id", id));
+
+                    int r = cmd.ExecuteNonQuery();
+
+                    if (r > 0)
                     {
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@Id", id));
-
-                        int r = cmd.ExecuteNonQuery();
-
-                        if (r > 0)
-                        {
-                            Response.Write("<script>alert('刪除成功')</script>");
-                            GridViewBinding();
-                        }
-                        else
-                        {
-                            Response.Write("<script>alert('刪除失敗')</script>");
-                        }
+                        Response.Write("<script>alert('刪除成功')</script>");
+                        GridViewBinding();
                     }
+                    else
+                    {
+                        Response.Write("<script>alert('刪除失敗')</script>");
+                    }
+
                 }
             }
-            else
-            {
-                e.Cancel = true; // 取消删除操作
-                Response.Write("<script>alert('你沒有這個權限')</script>");
-            }
+
 
 
         }
