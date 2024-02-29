@@ -26,13 +26,14 @@ namespace ShoppingWeb.Web
             string roles = ddlRoles.SelectedValue;
             labAddUser.Text = "";
 
-            if (CheckLength(userName, pwd))  //檢查長度及空白
+
+            if (CheckRoles())  //檢查權限
             {
 
-                if (CheckRoles())  //檢查權限
+                if (CheckLength(userName, pwd))  //檢查長度及空白和特殊字元
                 {
 
-                    if (!IsCheckUserName(userName)) 
+                    if (!IsCheckUserName(userName))  //檢查名稱是否重複
                     {
 
                         if (IsAddUser(userName, pwd, roles))
@@ -49,15 +50,14 @@ namespace ShoppingWeb.Web
                     {
                         labAddUser.Text = "管理員名稱重複";
                     }
-
-                }
-                else
-                {
-                    Response.Write("<script>alert('你沒有這個權限')</script>");
                 }
 
             }
-
+            else 
+            {
+                Response.Write("<script>alert('你沒有這個權限')</script>");
+            }
+           
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool IsAddUser(string name, string pwd, string roles)
         {
-            bool b = false;
+            bool addResult = false;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string sql = "INSERT INTO t_userInfo VALUES(@name, @pwd, @roles)";
@@ -87,16 +87,16 @@ namespace ShoppingWeb.Web
 
                     if (r > 0)
                     {
-                        b = true;
+                        addResult = true;
                     }
                     else
                     {
-                        b = false;
+                        addResult = false;
                     }
                 }
             }
 
-            return b;
+            return addResult;
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool IsCheckUserName(string name)
         {
-            bool b = false;
+            bool userNameExists = false;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -120,17 +120,17 @@ namespace ShoppingWeb.Web
 
                     if (dr.HasRows)
                     {
-                        b = true;
+                        userNameExists = true;
                     }
                     else
                     {
-                        b = false;
+                        userNameExists = false;
                     }
 
                 }
             }
 
-            return b;
+            return userNameExists;
         }
 
         /// <summary>
@@ -144,25 +144,25 @@ namespace ShoppingWeb.Web
             if (userName.Length == 0 | pwd.Length == 0 | ddlRoles.SelectedValue.Length == 0)
             {
                 labAddUser.Text = "資料不能為空";
-                lengthResult = false;
+                return false;
             }
 
             if (userName.Length < 6 | pwd.Length < 6)
             {
                 labAddUser.Text = "用戶名跟密碼長度不能小於6";
-                lengthResult = false;
+                return false;
             }
 
             if (userName.Length > 16 | pwd.Length > 16)
             {
                 labAddUser.Text = "用戶名跟密碼長度不能大於16";
-                lengthResult = false;
+                return false;
             }
 
             if (!IsSpecialChar(userName, pwd))
             {
                 labAddUser.Text = "用戶名跟密碼不可包含特殊字元";
-                lengthResult = false;
+                return false;
             }
 
             return lengthResult;
@@ -193,7 +193,7 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool CheckRoles()
         {
-            bool b = false;
+            bool hasPermission = false;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name and f_roles<2";
@@ -206,17 +206,17 @@ namespace ShoppingWeb.Web
 
                     if (dr.HasRows)
                     {
-                        b = true;
+                        hasPermission = true;
                     }
                     else
                     {
-                        b = false;
+                        hasPermission = false;
                     }
 
                 }
             }
 
-            return b;
+            return hasPermission;
         }
 
 

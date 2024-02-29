@@ -111,7 +111,7 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool CheckRoles(int roles)
         {
-            bool b = false;
+            bool hasPermission = false;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -126,17 +126,17 @@ namespace ShoppingWeb.Web
 
                     if (dr.HasRows)
                     {
-                        b = true;
+                        hasPermission = true;
                     }
                     else
                     {
-                        b = false;
+                        hasPermission = false;
                     }
 
                 }
             }
 
-            return b;
+            return hasPermission;
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool CheckBrowse()
         {
-            bool b = false;
+            bool hasPermission = false;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -160,17 +160,17 @@ namespace ShoppingWeb.Web
 
                     if (dr.HasRows)
                     {
-                        b = true;
+                        hasPermission = true;
                     }
                     else
                     {
-                        b = false;
+                        hasPermission = false;
                     }
 
                 }
             }
 
-            return b;
+            return hasPermission;
         }
 
         

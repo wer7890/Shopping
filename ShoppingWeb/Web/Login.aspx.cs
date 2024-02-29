@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Text.RegularExpressions;
+using System.Data;
 
 namespace ShoppingWeb.Web
 {
@@ -23,7 +25,7 @@ namespace ShoppingWeb.Web
             string pwd = txbPassword.Text.Trim();
             labLogin.Text = "";
 
-            if (IsCheck())  //檢查用戶是否輸入帳號密碼，以節省性能
+            if (CheckLength(userName, pwd))  //檢查用戶是否輸入帳號密碼，以節省性能
             {
                 if (IsLogin(userName, pwd))
                 {
@@ -48,11 +50,11 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool IsLogin(string name, string pwd)
         {
-            bool b = false;
+            bool loginSuccessful = false;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 //讀取資料庫的sql語法
-                string sql = "SELECT f_userName, f_pwd from t_userInfo where f_userName=@name and f_pwd=@pwd";
+                string sql = "SELECT f_userName, f_pwd FROM t_userInfo WHERE f_userName=@name";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
                 {
@@ -66,39 +68,78 @@ namespace ShoppingWeb.Web
                     cmd.Parameters.Add(parameter1);
                     cmd.Parameters.Add(parameter2);
 
-                    SqlDataReader dr = cmd.ExecuteReader();
+                    using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sqlData.Fill(dt);
 
-                    if (dr.HasRows)
-                    {
-                        b = true;
-                    }
-                    else
-                    {
-                        b = false;
+                        if (dt.Rows.Count > 0)
+                        {
+                            DataRow dr = dt.Rows[0];
+                            string storedPwd = dr["f_pwd"].ToString();
+
+                            if (storedPwd == pwd)
+                            {
+                                loginSuccessful = true;
+                            }
+                            else
+                            {
+                                loginSuccessful = false;
+                            }
+
+                        }
+                        else
+                        {
+                            loginSuccessful = false;
+                        }
                     }
 
                 }
             }
-            return b;
+            return loginSuccessful;
         }
 
         /// <summary>
         /// 檢查輸入框是否為空
         /// </summary>
         /// <returns></returns>
-        public bool IsCheck()
+        public bool CheckLength(string userName, string pwd)
         {
-            bool b = true;
+            bool checkLengthResult = true;
 
-            if (txbUserName.Text.Length == 0 | txbPassword.Text.Length == 0)
+            if (userName.Length == 0 | pwd.Length == 0)
             {
                 labLogin.Text = "用戶名跟密碼不能為空";
-                b = false;
+                return false;
             }
 
-            return b;
+            if (!IsSpecialChar(userName, pwd))
+            {
+                labLogin.Text = "用戶名跟密碼不可包含特殊字元";
+                return false;
+            }
+
+            return checkLengthResult;
         }
 
+        /// <summary>
+        /// 判斷是否有非法字元
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public bool IsSpecialChar(string userName, string pwd)
+        {
+            bool regUserName = Regex.IsMatch(userName, @"^[A-Za-z0-9]+$");
+            bool regPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]+$");
+
+            if (regUserName & regPwd)
+            {
+                return true;
+            }
+            return false;
+
+        }
 
     }
 }
