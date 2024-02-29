@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace ShoppingWeb.Web
 {
@@ -25,13 +26,13 @@ namespace ShoppingWeb.Web
             string roles = ddlRoles.SelectedValue;
             labAddUser.Text = "";
 
-            if (IsCheck())
+            if (CheckLength(userName, pwd))  //檢查長度及空白
             {
 
-                if (CheckRoles())
+                if (CheckRoles())  //檢查權限
                 {
 
-                    if (!IsCheckUserName(userName))
+                    if (!IsCheckUserName(userName)) 
                     {
 
                         if (IsAddUser(userName, pwd, roles))
@@ -56,10 +57,7 @@ namespace ShoppingWeb.Web
                 }
 
             }
-            else
-            {
-                labAddUser.Text = "資料不能為空";
-            }
+
         }
 
         /// <summary>
@@ -76,7 +74,7 @@ namespace ShoppingWeb.Web
             bool b = false;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string sql = "INSERT INTO t_userInfo2 VALUES(@name, @pwd, @roles)";
+                string sql = "INSERT INTO t_userInfo VALUES(@name, @pwd, @roles)";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     con.Open();
@@ -112,7 +110,7 @@ namespace ShoppingWeb.Web
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string sql = "SELECT * FROM t_userInfo2 where f_userName=@name";
+                string sql = "SELECT f_userName FROM t_userInfo where f_userName=@name";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     con.Open();
@@ -136,19 +134,57 @@ namespace ShoppingWeb.Web
         }
 
         /// <summary>
-        /// 檢查輸入框是否為空
+        /// 檢查輸入框是否為空，以及帳號密碼長度
         /// </summary>
         /// <returns></returns>
-        public bool IsCheck()
+        public bool CheckLength(string userName, string pwd)
         {
-            bool b = true;
+            bool lengthResult = true;
 
-            if (txbUserName.Text.Length == 0 | txbPwd.Text.Length == 0 | ddlRoles.SelectedValue.Length == 0)
+            if (userName.Length == 0 | pwd.Length == 0 | ddlRoles.SelectedValue.Length == 0)
             {
-                b = false;
+                labAddUser.Text = "資料不能為空";
+                lengthResult = false;
             }
 
-            return b;
+            if (userName.Length < 6 | pwd.Length < 6)
+            {
+                labAddUser.Text = "用戶名跟密碼長度不能小於6";
+                lengthResult = false;
+            }
+
+            if (userName.Length > 16 | pwd.Length > 16)
+            {
+                labAddUser.Text = "用戶名跟密碼長度不能大於16";
+                lengthResult = false;
+            }
+
+            if (!IsSpecialChar(userName, pwd))
+            {
+                labAddUser.Text = "用戶名跟密碼不可包含特殊字元";
+                lengthResult = false;
+            }
+
+            return lengthResult;
+        }
+
+        /// <summary>
+        /// 判斷是否有非法字元
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public bool IsSpecialChar(string userName, string pwd)
+        {
+            bool regUserName = Regex.IsMatch(userName, @"^[A-Za-z0-9]+$");
+            bool regPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]+$");
+
+            if (regUserName & regPwd)
+            {
+                return true;
+            }
+            return false;
+
         }
 
         /// <summary>
@@ -160,7 +196,7 @@ namespace ShoppingWeb.Web
             bool b = false;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string sql = "SELECT f_userName, f_roles FROM t_userInfo2 WHERE f_userName=@name and f_roles<2";
+                string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name and f_roles<2";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     con.Open();
@@ -182,5 +218,8 @@ namespace ShoppingWeb.Web
 
             return b;
         }
+
+
+        
     }
 }

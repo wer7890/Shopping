@@ -13,7 +13,7 @@
             </div>
             <div class="mx-auto col-12 col-md-8 mt-2">
                 <label for="exampleInputPassword1" class="form-label">密碼</label>
-                <asp:TextBox ID="txbPwd" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="txbPwd" runat="server" type="password" CssClass="form-control"></asp:TextBox>
             </div>
             <div class="mx-auto mt-3 col-12 col-md-8 mt-2">
                 <label for="exampleInputPassword1" class="form-label">角色</label>

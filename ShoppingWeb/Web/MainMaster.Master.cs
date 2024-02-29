@@ -27,7 +27,7 @@ namespace ShoppingWeb.Web
 
                 if (!IsPostBack)  //頁面加載第一次時
                 {
-                    string sql = "SELECT f_userName, f_roles FROM t_userInfo2 WHERE f_userName=@name";
+                    string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name";
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         cmd.Parameters.Add(new SqlParameter("@name", Session["userName"]));

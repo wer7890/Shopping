@@ -36,10 +36,7 @@ namespace ShoppingWeb.Web
                     labLogin.Text = "用戶名或密碼錯誤";
                 }
             }
-            else
-            {
-                labLogin.Text = "用戶名跟密碼不能為空";
-            }
+           
 
         }
 
@@ -55,7 +52,7 @@ namespace ShoppingWeb.Web
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 //讀取資料庫的sql語法
-                string sql = "SELECT * from t_userInfo2 where f_userName=@name and f_pwd=@pwd";
+                string sql = "SELECT f_userName, f_pwd from t_userInfo where f_userName=@name and f_pwd=@pwd";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
                 {
@@ -95,6 +92,7 @@ namespace ShoppingWeb.Web
 
             if (txbUserName.Text.Length == 0 | txbPassword.Text.Length == 0)
             {
+                labLogin.Text = "用戶名跟密碼不能為空";
                 b = false;
             }
 
