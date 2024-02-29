@@ -65,9 +65,7 @@ namespace ShoppingWeb.Web
         protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
         {
             string id = GridView1.Rows[e.NewEditIndex].Cells[0].Text;
-            int roles = Convert.ToInt32(GridView1.Rows[e.NewEditIndex].Cells[3].Text);
             Response.Redirect("UpDataUser.aspx?id=" + id);
-
 
         }
 
@@ -79,7 +77,6 @@ namespace ShoppingWeb.Web
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string id = GridView1.Rows[e.RowIndex].Cells[0].Text;
-            int roles = Convert.ToInt32(GridView1.Rows[e.RowIndex].Cells[3].Text);
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {

@@ -58,10 +58,10 @@ namespace ShoppingWeb.Web
 
         protected void txbAddUser_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(labUserId.Text);
+            int id = int.Parse(labUserId.Text);
             string pwd = txbPwd.Text;
             string userName = txbUserName.Text;
-            int roles = Convert.ToInt32(ddlRoles.SelectedValue);
+            int roles = int.Parse(ddlRoles.SelectedValue);
 
             if (CheckLength(userName, pwd))
             {
