@@ -111,8 +111,6 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool CheckRoles(int roles)
         {
-            bool hasPermission = false;
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name and f_roles<=@roles";
@@ -122,21 +120,13 @@ namespace ShoppingWeb.Web
                     cmd.Parameters.Add(new SqlParameter("@name", Session["userName"]));
                     cmd.Parameters.Add(new SqlParameter("@roles", roles));
 
-                    SqlDataReader dr = cmd.ExecuteReader();
-
-                    if (dr.HasRows)
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        hasPermission = true;
-                    }
-                    else
-                    {
-                        hasPermission = false;
+                        return dr.HasRows;
                     }
 
                 }
             }
-
-            return hasPermission;
         }
 
         /// <summary>
@@ -146,8 +136,6 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool CheckBrowse()
         {
-            bool hasPermission = false;
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name and f_roles<2";
@@ -156,21 +144,13 @@ namespace ShoppingWeb.Web
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@name", Session["userName"]));
 
-                    SqlDataReader dr = cmd.ExecuteReader();
-
-                    if (dr.HasRows)
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        hasPermission = true;
-                    }
-                    else
-                    {
-                        hasPermission = false;
+                        return dr.HasRows;
                     }
 
                 }
             }
-
-            return hasPermission;
         }
 
         

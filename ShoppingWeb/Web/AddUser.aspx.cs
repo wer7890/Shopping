@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Data;
 
 namespace ShoppingWeb.Web
 {
@@ -106,7 +107,6 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool IsCheckUserName(string name)
         {
-            bool userNameExists = false;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -116,21 +116,13 @@ namespace ShoppingWeb.Web
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@name", name));
 
-                    SqlDataReader dr = cmd.ExecuteReader();
-
-                    if (dr.HasRows)
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        userNameExists = true;
-                    }
-                    else
-                    {
-                        userNameExists = false;
+                        return dr.HasRows;
                     }
 
                 }
             }
-
-            return userNameExists;
         }
 
         /// <summary>
@@ -193,7 +185,6 @@ namespace ShoppingWeb.Web
         /// <returns></returns>
         public bool CheckRoles()
         {
-            bool hasPermission = false;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name and f_roles<2";
@@ -202,21 +193,13 @@ namespace ShoppingWeb.Web
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@name", Session["userName"]));
 
-                    SqlDataReader dr = cmd.ExecuteReader();
-
-                    if (dr.HasRows)
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        hasPermission = true;
-                    }
-                    else
-                    {
-                        hasPermission = false;
+                        return dr.HasRows;
                     }
 
                 }
             }
-
-            return hasPermission;
         }
 
 

@@ -63,7 +63,7 @@ namespace ShoppingWeb.Web
             string userName = txbUserName.Text;
             int roles = Convert.ToInt32(ddlRoles.SelectedValue);
 
-            if (IsSpecialChar(userName, pwd))
+            if (CheckLength(userName, pwd))
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -90,11 +90,42 @@ namespace ShoppingWeb.Web
                     }
                 }
             }
-            else
-            {
-                Response.Write("<script>alert('修改失敗，用戶名跟密碼不可包含特殊字元')</script>");
-            }
             
+        }
+
+        /// <summary>
+        /// 檢查輸入框是否為空，以及帳號密碼長度
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckLength(string userName, string pwd)
+        {
+            bool lengthResult = true;
+
+            if (userName.Length == 0 | pwd.Length == 0 | ddlRoles.SelectedValue.Length == 0)
+            {
+                labAddUser.Text = "資料不能為空";
+                return false;
+            }
+
+            if (userName.Length < 6 | pwd.Length < 6)
+            {
+                labAddUser.Text = "用戶名跟密碼長度不能小於6";
+                return false;
+            }
+
+            if (userName.Length > 16 | pwd.Length > 16)
+            {
+                labAddUser.Text = "用戶名跟密碼長度不能大於16";
+                return false;
+            }
+
+            if (!IsSpecialChar(userName, pwd))
+            {
+                labAddUser.Text = "用戶名跟密碼不可包含特殊字元";
+                return false;
+            }
+
+            return lengthResult;
         }
 
         /// <summary>
