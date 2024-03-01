@@ -25,7 +25,7 @@ namespace ShoppingWeb.Web
         }
 
         [WebMethod]
-        public static string judgeRoles()
+        public static string JudgeRoles()
         {
             string strRoles = null;
             try
