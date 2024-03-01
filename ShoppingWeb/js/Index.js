@@ -25,9 +25,9 @@
 
     //新增按鈕
     $("#btnAddUser").click(function () {
-        var userName = $("#txbUserName").val();
-        var pwd = $("#txbPwd").val();
-        var roles = $("#ddlRoles").val();
+        let userName = $("#txbUserName").val();
+        let pwd = $("#txbPwd").val();
+        let roles = $("#ddlRoles").val();
 
         $("#labAddUser").text("");
 
@@ -77,8 +77,8 @@
 
 //判斷特殊字元
 function isSpecialChar(userName, pwd) {
-    var regUserName = /^[A-Za-z0-9]+$/;
-    var regPwd = /^[A-Za-z0-9]+$/;
+    let regUserName = /^[A-Za-z0-9]+$/;
+    let regPwd = /^[A-Za-z0-9]+$/;
 
     return regUserName.test(userName) && regPwd.test(pwd);
 }
