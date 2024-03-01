@@ -6,7 +6,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>後臺登入</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="../js/Login.js"></script>
 </head>
@@ -18,17 +19,17 @@
         <hr />
         <div class="row mx-auto col-12 col-md-8">
             <div class="form-group">
-                <label for="username" class="control-label">用戶名:</label>
+                <label for="txbUserName" class="control-label">用戶名:</label>
                 <div>
-                    <input type="text" id="txbUserName" class="form-control" placeholder="請輸入用戶名" />
+                    <input type="text" id="txbUserName" class="form-control mt-2" placeholder="請輸入用戶名" />
                 </div>
             </div>
 
             <br />
-            <div class="form-group">
-                <label for="password" class="control-label">密碼:</label>
+            <div class="form-group mt-3">
+                <label for="txbPassword" class="control-label">密碼:</label>
                 <div>
-                    <input type="password" id="txbPassword" class="form-control" placeholder="請輸入密碼" />
+                    <input type="password" id="txbPassword" class="form-control mt-2" placeholder="請輸入密碼" />
                 </div>
             </div>
 

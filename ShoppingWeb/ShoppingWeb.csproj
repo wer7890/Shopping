@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="js\AddUser.js" />
+    <Content Include="js\Index.js" />
     <Content Include="js\Login.js" />
     <Content Include="Web.config" />
     <Content Include="Web\AddUser.aspx" />
