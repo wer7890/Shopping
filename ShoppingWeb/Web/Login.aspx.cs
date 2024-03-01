@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Text.RegularExpressions;
 using System.Data;
+using System.Web.Services;
 
 namespace ShoppingWeb.Web
 {
@@ -18,109 +19,69 @@ namespace ShoppingWeb.Web
 
         }
 
-        string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-        protected void btnLogin_Click(object sender, EventArgs e)
+        [WebMethod]
+        public static bool LoginUser(string userName, string pwd)
         {
-            string userName = txbUserName.Text.Trim(); //Trim()刪除空白字元
-            string pwd = txbPassword.Text.Trim();
-            labLogin.Text = "";
-
-            if (CheckLength(userName, pwd))  //檢查用戶是否輸入帳號密碼，以節省性能
+            try
             {
-                if (IsLogin(userName, pwd))
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                bool loginSuccessful = false;
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    labLogin.Text = "登入成功";
-                    Session["userName"] = userName;
-                    Response.Redirect("AddUser.aspx");
-                }
-                else
-                {
-                    labLogin.Text = "用戶名或密碼錯誤";
-                }
-            }
-           
+                    //讀取資料庫的sql語法
+                    string sql = "SELECT f_userName, f_pwd FROM t_userInfo WHERE f_userName=@name";
 
-        }
-
-        /// <summary>
-        /// 檢查資料庫中是否有資料
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="pwd"></param>
-        /// <returns></returns>
-        public bool IsLogin(string name, string pwd)
-        {
-            bool loginSuccessful = false;
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                //讀取資料庫的sql語法
-                string sql = "SELECT f_userName, f_pwd FROM t_userInfo WHERE f_userName=@name";
-
-                using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
-                {
-                    con.Open();
-
-                    //給sql語句中的變量進行附值
-                    SqlParameter parameter1 = new SqlParameter("@name", name);
-                    SqlParameter parameter2 = new SqlParameter("@pwd", pwd);
-
-                    //把parameter變量對象附值給cmd對象
-                    cmd.Parameters.Add(parameter1);
-                    cmd.Parameters.Add(parameter2);
-
-                    using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
+                    using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
                     {
-                        DataTable dt = new DataTable();
-                        sqlData.Fill(dt);
+                        con.Open();
 
-                        if (dt.Rows.Count > 0)
+                        //給sql語句中的變量進行附值
+                        SqlParameter parameter1 = new SqlParameter("@name", userName);
+
+                        //把parameter變量對象附值給cmd對象
+                        cmd.Parameters.Add(parameter1);
+
+                        using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
                         {
-                            DataRow dr = dt.Rows[0];
-                            string storedPwd = dr["f_pwd"].ToString();
+                            DataTable dt = new DataTable();
+                            sqlData.Fill(dt);
 
-                            if (storedPwd == pwd)
+                            if (dt.Rows.Count > 0)
                             {
-                                loginSuccessful = true;
+                                DataRow dr = dt.Rows[0];
+                                string storedPwd = dr["f_pwd"].ToString();
+
+                                if (storedPwd == pwd)
+                                {
+                                    setSession(HttpContext.Current.Handler as Page, userName);
+                                    loginSuccessful = true;
+                                }
+                                else
+                                {
+                                    loginSuccessful = false;
+                                }
+
                             }
                             else
                             {
                                 loginSuccessful = false;
                             }
+                        }
 
-                        }
-                        else
-                        {
-                            loginSuccessful = false;
-                        }
                     }
-
                 }
+                return loginSuccessful;
             }
-            return loginSuccessful;
-        }
-
-        /// <summary>
-        /// 檢查輸入框是否為空
-        /// </summary>
-        /// <returns></returns>
-        public bool CheckLength(string userName, string pwd)
-        {
-            bool checkLengthResult = true;
-
-            if (userName.Length == 0 | pwd.Length == 0)
+            catch (Exception ex)
             {
-                labLogin.Text = "用戶名跟密碼不能為空";
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
                 return false;
             }
-
-            if (!IsSpecialChar(userName, pwd))
-            {
-                labLogin.Text = "用戶名跟密碼不可包含特殊字元";
-                return false;
-            }
-
-            return checkLengthResult;
         }
+
+
+
 
         /// <summary>
         /// 判斷是否有非法字元
@@ -139,6 +100,16 @@ namespace ShoppingWeb.Web
             }
             return false;
 
+        }
+
+        /// <summary>
+        /// 設定Session
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="userName"></param>
+        public static void setSession(Page page, string userName)
+        {
+            page.Session["userName"] = userName;
         }
 
     }

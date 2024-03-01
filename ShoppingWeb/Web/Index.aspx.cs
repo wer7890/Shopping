@@ -11,10 +11,7 @@ namespace ShoppingWeb.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["userName"] == null)
-            {
-                Response.Redirect("Login.aspx");
-            }
+            
         }
 
         protected void btnSignOut_Click(object sender, EventArgs e)
