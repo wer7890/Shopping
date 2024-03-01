@@ -30,7 +30,7 @@ namespace ShoppingWeb.Web
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     //讀取資料庫的sql語法
-                    string sql = "SELECT f_userName, f_pwd FROM t_userInfo WHERE f_userName=@name";
+                    string sql = "SELECT f_userName, f_pwd FROM t_userInfo WHERE f_userName=@name COLLATE SQL_Latin1_General_CP1_CS_AS";
 
                     using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
                     {
