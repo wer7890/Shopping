@@ -39,6 +39,7 @@
 
     //按登出按鈕
     $("#btnSignOut").click(function () {
+        //卻少把Session清空
         window.location.href = "Login.aspx";
     });
 

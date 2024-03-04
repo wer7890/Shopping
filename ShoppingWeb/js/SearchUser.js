@@ -50,5 +50,22 @@ function deleteUser(userId) {
 }
 
 function editUser(userId) {
-    window.location.href = "RenewUser.aspx";
+    $.ajax({
+        type: "POST",
+        url: "../Web/SearchUser.aspx/setRenewSession",  // 這裡指定後端方法的位置
+        data: JSON.stringify({ userId: userId }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d === true) {
+                window.location.href = "RenewUser.aspx";
+            } else {
+                alert("失敗");
+            }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+    
 }

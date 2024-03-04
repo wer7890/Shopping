@@ -26,7 +26,6 @@ namespace ShoppingWeb.Web
                 }
                 else
                 {
-
                     // 建立 SQL 查詢
                     string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo WHERE f_roles > 0";
 
@@ -96,7 +95,12 @@ namespace ShoppingWeb.Web
             
         }
 
-        
+        [WebMethod]
+        public static bool setRenewSession(string userId)
+        {
+            HttpContext.Current.Session["userId"] = userId;  //存儲資料到 Session 變數
+            return true;
+        }
 
     }
 }
