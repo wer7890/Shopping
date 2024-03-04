@@ -71,11 +71,13 @@
     <Content Include="js\AddUser.js" />
     <Content Include="js\Index.js" />
     <Content Include="js\Login.js" />
+    <Content Include="js\SearchUser.js" />
     <Content Include="Web.config" />
     <Content Include="Web\AddUser.aspx" />
     <Content Include="Web\AddUser2.aspx" />
     <Content Include="Web\Index.aspx" />
     <Content Include="Web\Login.aspx" />
+    <Content Include="Web\RenewUser.aspx" />
     <Content Include="Web\SearchUser.aspx" />
     <Content Include="Web\SearchUser2.aspx" />
     <Content Include="Web\UpDataUser2.aspx" />
@@ -119,6 +121,13 @@
     </Compile>
     <Compile Include="Web\MainMaster.Master.designer.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Web\RenewUser.aspx.cs">
+      <DependentUpon>RenewUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\RenewUser.aspx.designer.cs">
+      <DependentUpon>RenewUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web\SearchUser.aspx.cs">
       <DependentUpon>SearchUser.aspx</DependentUpon>

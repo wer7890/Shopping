@@ -15,7 +15,14 @@ namespace ShoppingWeb.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)  //頁面加載第一次時
+            {
+                if (Session["userName"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                }
+            }
+                
         }
 
         protected void btnSignOut_Click(object sender, EventArgs e)
@@ -50,30 +57,6 @@ namespace ShoppingWeb.Web
                             sqlData.Fill(dt);
                             DataRow dr = dt.Rows[0];
                             strRoles = dr["f_roles"].ToString();
-
-                            //string s = "";
-                            //switch (dr["f_roles"].ToString())
-                            //{
-                            //    case "0":
-                            //        s = "root";
-                            //        break;
-
-                            //    case "1":
-                            //        s = "超級管理員";
-                            //        break;
-
-                            //    case "2":
-                            //        s = "會員管理員";
-                            //        break;
-
-                            //    case "3":
-                            //        s = "商品管理員";
-                            //        break;
-
-                            //    default:
-                            //        break;
-                            //}
-                            //strRoles = "身分: " + s;
                         }
                     }
 
