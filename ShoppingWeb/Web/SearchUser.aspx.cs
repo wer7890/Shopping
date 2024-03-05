@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -29,8 +30,43 @@ namespace ShoppingWeb.Web
                     // 建立 SQL 查詢
                     string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo WHERE f_roles > 0";
 
-                    // 使用 SqlConnection 連接資料庫
                     using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        // 建立 SqlDataAdapter 和 DataTable
+                        SqlDataAdapter adapter = new SqlDataAdapter(sql, con);
+                        DataTable dt = new DataTable();
+
+                        // 開啟資料庫連接
+                        con.Open();
+
+                        // 使用 SqlDataAdapter 填充 DataTable
+                        adapter.Fill(dt);
+
+                        // 動態構建 HTML 表格
+                        StringBuilder tableRows = new StringBuilder();
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            // 編輯和刪除的按鈕，您可以根據需要設計連結或其他操作
+                            string editButton = $"<button class='btn btn-primary' onclick='editUser({row["f_userId"]})'>編輯</button>";
+                            string deleteButton = $"<button class='btn btn-danger' onclick='deleteUser({row["f_userId"]})'>刪除</button>";
+
+                            tableRows.Append("<tr>")
+                                .Append($"<td>{row["f_userId"]}</td>")
+                                .Append($"<td>{row["f_userName"]}</td>")
+                                .Append($"<td>{row["f_pwd"]}</td>")
+                                .Append($"<td>{row["f_roles"]}</td>")
+                                .Append($"<td>{editButton}</td>")
+                                .Append($"<td>{deleteButton}</td>")
+                                .Append("</tr>");
+                        }
+
+                        // 將動態生成的表格行添加到 Literal 控制項
+                        tableBodyLiteral.Text = tableRows.ToString();
+                    }
+
+                    // 使用 SqlConnection 連接資料庫
+                    /*using (SqlConnection con = new SqlConnection(connectionString))
                     {
                         // 打開資料庫連接
                         con.Open();
@@ -64,11 +100,17 @@ namespace ShoppingWeb.Web
                                 tableBodyLiteral.Text = tableRows;
                             }
                         }
-                    }
+                    }*/
+
                 }
             }
         }
 
+        /// <summary>
+        /// 刪除管理員
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [WebMethod]
         public static bool deleteUser(string userId)
         {
@@ -95,8 +137,13 @@ namespace ShoppingWeb.Web
             
         }
 
+        /// <summary>
+        /// 設定Session["userId"]
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [WebMethod]
-        public static bool setRenewSession(string userId)
+        public static bool setSessionId(string userId)
         {
             HttpContext.Current.Session["userId"] = userId;  //存儲資料到 Session 變數
             return true;

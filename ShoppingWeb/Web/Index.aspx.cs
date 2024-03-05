@@ -25,12 +25,10 @@ namespace ShoppingWeb.Web
                 
         }
 
-        protected void btnSignOut_Click(object sender, EventArgs e)
-        {
-            Session["userName"] = null;
-            Response.Redirect("Login.aspx");
-        }
-
+        /// <summary>
+        /// 取得管理員身分
+        /// </summary>
+        /// <returns></returns>
         [WebMethod]
         public static string CheckUserPermission()
         {
@@ -71,6 +69,18 @@ namespace ShoppingWeb.Web
                 return strRoles;
             }
         }
-        
+
+
+        /// <summary>
+        /// 刪除Session["userName"]
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public static bool DeleteSession()
+        {
+            HttpContext.Current.Session["userName"] = null;
+            return true;
+        }
+
     }
 }

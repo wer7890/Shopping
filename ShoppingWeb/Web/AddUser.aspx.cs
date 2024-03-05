@@ -68,32 +68,6 @@ namespace ShoppingWeb.Web
         }
 
         /// <summary>
-        /// 判斷權限是否可以添加管理員
-        /// </summary>
-        /// <returns></returns>
-        public static bool CheckRoles()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name and f_roles<2";
-                string sessionUserName = HttpContext.Current.Session["UserName"] as string;
-                using (SqlCommand cmd = new SqlCommand(sql, con))
-                {
-                    con.Open();
-                    cmd.Parameters.Add(new SqlParameter("@name", sessionUserName));
-
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        return dr.HasRows;
-                    }
-
-                }
-            }
-        }
-
-
-        /// <summary>
         /// 判斷新增的ID是否重複
         /// </summary>
         /// <param name="id"></param>
@@ -103,20 +77,21 @@ namespace ShoppingWeb.Web
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string sql = "SELECT f_userName FROM t_userInfo where f_userName=@name";
+                string sql = "SELECT COUNT(*) FROM t_userInfo where f_userName=@name";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@name", name));
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        return dr.HasRows;
-                    }
+                    // 使用 ExecuteScalar 取得結果集的第一行第一列的值
+                    int count = (int)cmd.ExecuteScalar();
+
+                    return count > 0;
 
                 }
             }
         }
+
 
         /// <summary>
         /// 新增管理員資料

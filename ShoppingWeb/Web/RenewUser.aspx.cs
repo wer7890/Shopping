@@ -22,7 +22,6 @@ namespace ShoppingWeb.Web
                 {
                     Response.Redirect("Login.aspx");
                 }
-
             }
         }
 
@@ -74,7 +73,7 @@ namespace ShoppingWeb.Web
                 {
                     con.Open();
 
-                    cmd.Parameters.Add(new SqlParameter("@id", userId));
+                    cmd.Parameters.Add(new SqlParameter("@id", sessionUserId));
                     cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
                     cmd.Parameters.Add(new SqlParameter("@userName", userName));
                     cmd.Parameters.Add(new SqlParameter("@roles", roles));

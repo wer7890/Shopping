@@ -19,6 +19,12 @@ namespace ShoppingWeb.Web
 
         }
 
+        /// <summary>
+        /// 登入
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
         [WebMethod]
         public static bool LoginUser(string userName, string pwd)
         {
@@ -54,7 +60,9 @@ namespace ShoppingWeb.Web
 
                                 if (storedPwd == pwd)
                                 {
-                                    setSession(HttpContext.Current.Handler as Page, userName);
+                                    //在認證帳號密碼後，先將SessionID儲存
+                                    //HttpContext.Current.Session.Add("ID", HttpContext.Current.Session.SessionID);
+                                    HttpContext.Current.Session["userName"] = userName;
                                     loginSuccessful = true;
                                 }
                                 else

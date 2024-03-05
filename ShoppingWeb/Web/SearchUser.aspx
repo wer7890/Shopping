@@ -28,7 +28,7 @@
                 </thead>
                 <tbody>
                     <asp:Literal ID="tableBodyLiteral" runat="server"></asp:Literal>
-                    <!-- Table rows will be dynamically populated here -->
+                    <!-- 內容 -->
                 </tbody>
             </table>
         </div>

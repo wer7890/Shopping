@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     // 監聽表格標題的點擊事件
     $('#myTable th').click(function () {
         var table = $(this).parents('table').eq(0);  //獲取被點擊標題所屬的表格。
@@ -52,7 +53,7 @@ function deleteUser(userId) {
 function editUser(userId) {
     $.ajax({
         type: "POST",
-        url: "../Web/SearchUser.aspx/setRenewSession",  // 這裡指定後端方法的位置
+        url: "../Web/SearchUser.aspx/setSessionId",  // 這裡指定後端方法的位置
         data: JSON.stringify({ userId: userId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
