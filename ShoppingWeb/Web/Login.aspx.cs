@@ -110,15 +110,5 @@ namespace ShoppingWeb.Web
 
         }
 
-        /// <summary>
-        /// 設定Session
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="userName"></param>
-        public static void setSession(Page page, string userName)
-        {
-            page.Session["userName"] = userName;
-        }
-
     }
 }

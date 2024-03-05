@@ -7,11 +7,11 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace ShoppingWeb.Web
+namespace ShoppingWeb.Ajax
 {
 
 
-    public partial class AddUser
+    public partial class LoginAjax
     {
     }
 }

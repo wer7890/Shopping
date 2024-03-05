@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ajax\LoginAjax.aspx" />
     <Content Include="Global.asax" />
     <Content Include="js\AddUser.js" />
     <Content Include="js\Index.js" />
@@ -75,15 +76,19 @@
     <Content Include="js\SearchUser.js" />
     <Content Include="Web.config" />
     <Content Include="Web\AddUser.aspx" />
-    <Content Include="Web\AddUser2.aspx" />
     <Content Include="Web\Index.aspx" />
     <Content Include="Web\Login.aspx" />
     <Content Include="Web\RenewUser.aspx" />
     <Content Include="Web\SearchUser.aspx" />
-    <Content Include="Web\SearchUser2.aspx" />
-    <Content Include="Web\UpDataUser2.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ajax\LoginAjax.aspx.cs">
+      <DependentUpon>LoginAjax.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\LoginAjax.aspx.designer.cs">
+      <DependentUpon>LoginAjax.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -95,13 +100,6 @@
     </Compile>
     <Compile Include="Web\AddUser.aspx.designer.cs">
       <DependentUpon>AddUser.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\AddUser2.aspx.cs">
-      <DependentUpon>AddUser2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\AddUser2.aspx.designer.cs">
-      <DependentUpon>AddUser2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
@@ -117,13 +115,6 @@
     <Compile Include="Web\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Web\MainMaster.Master.cs">
-      <DependentUpon>MainMaster.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\MainMaster.Master.designer.cs">
-      <DependentUpon>MainMaster.Master</DependentUpon>
-    </Compile>
     <Compile Include="Web\RenewUser.aspx.cs">
       <DependentUpon>RenewUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -138,20 +129,6 @@
     <Compile Include="Web\SearchUser.aspx.designer.cs">
       <DependentUpon>SearchUser.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Web\SearchUser2.aspx.cs">
-      <DependentUpon>SearchUser2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\SearchUser2.aspx.designer.cs">
-      <DependentUpon>SearchUser2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\UpDataUser2.aspx.cs">
-      <DependentUpon>UpDataUser2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\UpDataUser2.aspx.designer.cs">
-      <DependentUpon>UpDataUser2.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -161,7 +138,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Web\MainMaster.Master" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
