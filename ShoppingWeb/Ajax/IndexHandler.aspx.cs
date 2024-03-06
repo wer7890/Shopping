@@ -98,14 +98,14 @@ namespace ShoppingWeb.Ajax
                                 DataRow dr = dt.Rows[0];
                                 HttpContext.Current.Session["dbID"] = dr["f_sessionId"].ToString();
 
-                                if (HttpContext.Current.Session["dbID"].ToString() == HttpContext.Current.Session.SessionID)
+                                if (HttpContext.Current.Session["dbID"].ToString() != HttpContext.Current.Session.SessionID)
                                 {
-                                    return true;
-                                }
-                                else
-                                {
+                                    HttpContext.Current.Session["userName"] = null;
                                     return false;
+                                    
                                 }
+
+                                return true;
 
                             }
                             else
