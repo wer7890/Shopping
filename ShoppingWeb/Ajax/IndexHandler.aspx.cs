@@ -27,17 +27,15 @@ namespace ShoppingWeb.Ajax
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
-                string sessionUserName = HttpContext.Current.Session["UserName"] as string;
-
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
 
 
-                    string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name";
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    //string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name";
+                    using (SqlCommand cmd = new SqlCommand("getRoles", con))
                     {
-                        cmd.Parameters.Add(new SqlParameter("@name", sessionUserName));
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@userName", HttpContext.Current.Session["userName"]));
 
                         using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
                         {
@@ -84,9 +82,10 @@ namespace ShoppingWeb.Ajax
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string sql = "SELECT f_sessionId FROM t_userInfo WHERE f_userName=@userName";
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    //string sql = "SELECT f_sessionId FROM t_userInfo WHERE f_userName=@userName";
+                    using (SqlCommand cmd = new SqlCommand("getSessionId", con))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userName", HttpContext.Current.Session["userName"]));
                         using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))

@@ -32,13 +32,16 @@ namespace ShoppingWeb.Ajax
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     //讀取資料庫的sql語法
-                    string sql = "SELECT f_userName, f_pwd FROM t_userInfo WHERE f_userName=@name COLLATE SQL_Latin1_General_CP1_CS_AS";
+                    //string sql = "SELECT f_userName, f_pwd FROM t_userInfo WHERE f_userName=@userName COLLATE SQL_Latin1_General_CP1_CS_AS";
 
-                    using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
+                    using (SqlCommand cmd = new SqlCommand("getPwd", con)) 
+                    //using (SqlCommand cmd = new SqlCommand(sql, con))  
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;   //設定CommandType屬性為預存程序
+
                         con.Open();
-                        
-                        cmd.Parameters.Add(new SqlParameter("@name", userName));
+
+                        cmd.Parameters.Add(new SqlParameter("@userName", userName));
 
                         using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
                         {
@@ -100,9 +103,11 @@ namespace ShoppingWeb.Ajax
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string sql = "UPDATE t_userInfo SET f_sessionId=@sessionId WHERE f_userName=@userName";
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    //string sql = "UPDATE t_userInfo SET f_sessionId=@sessionId WHERE f_userName=@userName";
+
+                    using (SqlCommand cmd = new SqlCommand("setSessionId", con))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
                         cmd.Parameters.Add(new SqlParameter("@userName", userName));
