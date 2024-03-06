@@ -40,12 +40,8 @@ namespace ShoppingWeb.Ajax
                     using (SqlCommand cmd = new SqlCommand(sql, con))  //資料庫連接對象
                     {
                         con.Open();
-
-                        //給sql語句中的變量進行附值
-                        SqlParameter parameter1 = new SqlParameter("@name", userName);
-
-                        //把parameter變量對象附值給cmd對象
-                        cmd.Parameters.Add(parameter1);
+                        
+                        cmd.Parameters.Add(new SqlParameter("@name", userName));
 
                         using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
                         {
@@ -59,10 +55,17 @@ namespace ShoppingWeb.Ajax
 
                                 if (storedPwd == pwd)
                                 {
-                                    //在認證帳號密碼後，先將SessionID儲存
-                                    //HttpContext.Current.Session.Add("ID", HttpContext.Current.Session.SessionID);
-                                    HttpContext.Current.Session["userName"] = userName;
-                                    loginSuccessful = true;
+                                    
+                                    if (SetSessionId(userName))
+                                    {
+                                        HttpContext.Current.Session["userName"] = userName;
+                                        loginSuccessful = true;
+                                    }
+                                    else
+                                    {
+                                        loginSuccessful = false;
+                                    }
+                                    
                                 }
                                 else
                                 {
@@ -87,8 +90,43 @@ namespace ShoppingWeb.Ajax
             }
         }
 
+        /// <summary>
+        /// 把SessionId寫進資料庫
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public static bool SetSessionId(string userName) 
+        {
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    string sql = "UPDATE t_userInfo SET f_sessionId=@sessionId WHERE f_userName=@userName";
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@userName", userName));
 
+                        if (cmd.ExecuteNonQuery() != 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return false;
+            }
+        }
         
     }
 }

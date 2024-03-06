@@ -43,8 +43,7 @@
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
-            url: "../Ajax/IndexHandler.aspx/DeleteSession",  // 這裡指定後端方法的位置
-            data: JSON.stringify(),
+            url: "../Ajax/IndexHandler.aspx/DeleteSession",  
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -57,10 +56,48 @@
     });
 
     $("#addUser").click(function () {
-        $("#iframeContent").attr("src", "AddUser.aspx");
+        $.ajax({
+            type: "POST",
+            url: "../Ajax/IndexHandler.aspx/AnyoneLongin",  
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                if (response.d === true) {
+                    $("#iframeContent").attr("src", "AddUser.aspx");
+                }
+                else {
+                    alert("重複登入，已被登出");
+                    window.location.href = "Login.aspx";             
+                }
+                
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        }); 
     });
     $("#searchUser").click(function () {
-        $("#iframeContent").attr("src", "SearchUser.aspx");
+        $.ajax({
+            type: "POST",
+            url: "../Ajax/IndexHandler.aspx/AnyoneLongin",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                if (response.d === true) {
+                    $("#iframeContent").attr("src", "SearchUser.aspx");
+                }
+                else {
+                    alert("重複登入，已被登出");
+                    window.location.href = "Login.aspx";
+                }
+
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        }); 
     });
 
 

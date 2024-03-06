@@ -74,5 +74,56 @@ namespace ShoppingWeb.Ajax
             HttpContext.Current.Session["userName"] = null;
             return true;
         }
+
+        /// <summary>
+        /// 確認是否有重複登入
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public static bool AnyoneLongin()
+        {
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    string sql = "SELECT f_sessionId FROM t_userInfo WHERE f_userName=@userName";
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@userName", HttpContext.Current.Session["userName"]));
+                        using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            sqlData.Fill(dt);
+                            if (dt.Rows.Count > 0)
+                            {
+                                DataRow dr = dt.Rows[0];
+                                HttpContext.Current.Session["dbID"] = dr["f_sessionId"].ToString();
+
+                                if (HttpContext.Current.Session["dbID"].ToString() == HttpContext.Current.Session.SessionID)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return false;
+            }
+        }
     }
 }

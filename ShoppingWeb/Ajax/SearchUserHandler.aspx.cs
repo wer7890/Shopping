@@ -61,7 +61,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="userId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static bool SetSessionId(string userId)
+        public static bool SetSessionUserId(string userId)
         {
             HttpContext.Current.Session["userId"] = userId;  //存儲資料到 Session 變數
             return true;

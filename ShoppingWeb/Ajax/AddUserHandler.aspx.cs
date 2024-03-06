@@ -111,7 +111,7 @@ namespace ShoppingWeb.Ajax
                 bool addResult = false;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string sql = "INSERT INTO t_userInfo VALUES(@name, @pwd, @roles)";
+                    string sql = "INSERT INTO t_userInfo VALUES(@name, @pwd, @roles, NULL)";
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         con.Open();
@@ -142,5 +142,7 @@ namespace ShoppingWeb.Ajax
             }
 
         }
+
+
     }
 }
