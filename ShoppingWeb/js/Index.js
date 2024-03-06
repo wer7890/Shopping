@@ -2,8 +2,7 @@
     //一開始登入時顯示在左邊的身分，要做權限可使用功能的顯示與隱藏
     $.ajax({
         type: "POST",
-        url: "../Ajax/IndexHandler.aspx/CheckUserPermission",  // 這裡指定後端方法的位置
-        data: JSON.stringify(),
+        url: "../Ajax/IndexHandler.aspx/CheckUserPermission",  
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -35,9 +34,9 @@
         error: function (error) {
             console.error('Error:', error);
         }
-
-
     });
+
+    CheckAnyoneLonginRedirect("");
 
     //按登出按鈕，清空Session
     $("#btnSignOut").click(function () {
@@ -56,51 +55,37 @@
     });
 
     $("#addUser").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "../Ajax/IndexHandler.aspx/AnyoneLongin",  
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-
-                if (response.d === true) {
-                    $("#iframeContent").attr("src", "AddUser.aspx");
-                }
-                else {
-                    alert("重複登入，已被登出");
-                    window.location.href = "Login.aspx";             
-                }
-                
-            },
-            error: function (error) {
-                console.error('Error:', error);
-            }
-        }); 
+        CheckAnyoneLonginRedirect("AddUser.aspx")
     });
     $("#searchUser").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "../Ajax/IndexHandler.aspx/AnyoneLongin",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-
-                if (response.d === true) {
-                    $("#iframeContent").attr("src", "SearchUser.aspx");
-                }
-                else {
-                    alert("重複登入，已被登出");
-                    window.location.href = "Login.aspx";
-                }
-
-            },
-            error: function (error) {
-                console.error('Error:', error);
-            }
-        }); 
+        CheckAnyoneLonginRedirect("SearchUser.aspx");
     });
 
-
+    
 });
+
+//如果沒重複登入就跳轉頁面
+function CheckAnyoneLonginRedirect(str) {
+    $.ajax({
+        type: "POST",
+        url: "../Ajax/IndexHandler.aspx/AnyoneLongin",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+
+            if (response.d === true) {
+                $("#iframeContent").attr("src", str);
+            }
+            else {
+                alert("重複登入，已被登出");
+                window.location.href = "Login.aspx";
+            }
+
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    }); 
+}
 
 

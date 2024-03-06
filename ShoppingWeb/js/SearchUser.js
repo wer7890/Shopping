@@ -32,13 +32,13 @@
 function deleteUser(userId) {
     $.ajax({
         type: "POST",
-        url: "../Ajax/SearchUserHandler.aspx/DeleteUser",  // 這裡指定後端方法的位置
+        url: "../Ajax/SearchUserHandler.aspx/DeleteUser",  
         data: JSON.stringify({ userId: userId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
             if (response.d === true) {
-                // 刪除成功後，刷新当前页面並刷新表格
+                // 刪除成功後，刷新當前頁面並刷新表格
                 window.location.reload();
             } else {
                 $("#labSearch").text("刪除失敗");
@@ -53,7 +53,7 @@ function deleteUser(userId) {
 function editUser(userId) {
     $.ajax({
         type: "POST",
-        url: "../Ajax/SearchUserHandler.aspx/SetSessionUserId",  // 這裡指定後端方法的位置
+        url: "../Ajax/SearchUserHandler.aspx/SetSessionUserId", 
         data: JSON.stringify({ userId: userId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

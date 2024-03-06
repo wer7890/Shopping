@@ -50,7 +50,7 @@
             dataType: "json",
             success: function (response) {
                 if (response.d === true) {
-                    history.go(-1); // 返回上一頁，並刷新頁面
+                    window.location.href = "SearchUser.aspx" 
                 } else {
                     alert("修改失敗");
                 }
