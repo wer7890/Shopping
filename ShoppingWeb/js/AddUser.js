@@ -27,7 +27,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../Web/AddUser.aspx/AddUser",  // 這裡指定後端方法的位置
+            url: "../Ajax/AddUserHandler.aspx/AddUser",  // 這裡指定後端方法的位置
             data: JSON.stringify({ userName: userName, pwd: pwd, roles: roles }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

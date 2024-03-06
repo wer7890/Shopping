@@ -67,7 +67,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Ajax\LoginAjax.aspx" />
+    <Content Include="Ajax\AddUserHandler.aspx" />
+    <Content Include="Ajax\IndexHandler.aspx" />
+    <Content Include="Ajax\LoginHandler.aspx" />
+    <Content Include="Ajax\RenewUserHandler.aspx" />
+    <Content Include="Ajax\SearchUserHandler.aspx" />
     <Content Include="Global.asax" />
     <Content Include="js\AddUser.js" />
     <Content Include="js\Index.js" />
@@ -82,12 +86,40 @@
     <Content Include="Web\SearchUser.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ajax\LoginAjax.aspx.cs">
-      <DependentUpon>LoginAjax.aspx</DependentUpon>
+    <Compile Include="Ajax\AddUserHandler.aspx.cs">
+      <DependentUpon>AddUserHandler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Ajax\LoginAjax.aspx.designer.cs">
-      <DependentUpon>LoginAjax.aspx</DependentUpon>
+    <Compile Include="Ajax\AddUserHandler.aspx.designer.cs">
+      <DependentUpon>AddUserHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\IndexHandler.aspx.cs">
+      <DependentUpon>IndexHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\IndexHandler.aspx.designer.cs">
+      <DependentUpon>IndexHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\LoginHandler.aspx.cs">
+      <DependentUpon>LoginHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\LoginHandler.aspx.designer.cs">
+      <DependentUpon>LoginHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\RenewUserHandler.aspx.cs">
+      <DependentUpon>RenewUserHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\RenewUserHandler.aspx.designer.cs">
+      <DependentUpon>RenewUserHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\SearchUserHandler.aspx.cs">
+      <DependentUpon>SearchUserHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\SearchUserHandler.aspx.designer.cs">
+      <DependentUpon>SearchUserHandler.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

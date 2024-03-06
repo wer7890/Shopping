@@ -106,48 +106,5 @@ namespace ShoppingWeb.Web
             }
         }
 
-        /// <summary>
-        /// 刪除管理員
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        [WebMethod]
-        public static bool deleteUser(string userId)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                string sql = "DELETE FROM t_userInfo WHERE f_userId=@id";
-                using (SqlCommand cmd = new SqlCommand(sql, con))
-                {
-                    con.Open();
-                    cmd.Parameters.Add(new SqlParameter("@Id", userId));
-                    int r = cmd.ExecuteNonQuery();
-                    if (r > 0)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            
-        }
-
-        /// <summary>
-        /// 設定Session["userId"]
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        [WebMethod]
-        public static bool setSessionId(string userId)
-        {
-            HttpContext.Current.Session["userId"] = userId;  //存儲資料到 Session 變數
-            return true;
-        }
-
     }
 }

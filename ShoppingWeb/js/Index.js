@@ -2,7 +2,7 @@
     //一開始登入時顯示在左邊的身分，要做權限可使用功能的顯示與隱藏
     $.ajax({
         type: "POST",
-        url: "../Web/Index.aspx/CheckUserPermission",  // 這裡指定後端方法的位置
+        url: "../Ajax/IndexHandler.aspx/CheckUserPermission",  // 這裡指定後端方法的位置
         data: JSON.stringify(),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -43,7 +43,7 @@
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
-            url: "../Web/Index.aspx/DeleteSession",  // 這裡指定後端方法的位置
+            url: "../Ajax/IndexHandler.aspx/DeleteSession",  // 這裡指定後端方法的位置
             data: JSON.stringify(),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

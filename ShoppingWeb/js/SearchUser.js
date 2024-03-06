@@ -32,7 +32,7 @@
 function deleteUser(userId) {
     $.ajax({
         type: "POST",
-        url: "../Web/SearchUser.aspx/deleteUser",  // 這裡指定後端方法的位置
+        url: "../Ajax/SearchUserHandler.aspx/DeleteUser",  // 這裡指定後端方法的位置
         data: JSON.stringify({ userId: userId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -53,7 +53,7 @@ function deleteUser(userId) {
 function editUser(userId) {
     $.ajax({
         type: "POST",
-        url: "../Web/SearchUser.aspx/setSessionId",  // 這裡指定後端方法的位置
+        url: "../Ajax/SearchUserHandler.aspx/SetSessionId",  // 這裡指定後端方法的位置
         data: JSON.stringify({ userId: userId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
