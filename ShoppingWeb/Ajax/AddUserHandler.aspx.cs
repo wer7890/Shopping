@@ -15,55 +15,45 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 新增管理員
+        /// 註冊新管理員
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="pwd"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string AddUser(string userName, string pwd, string roles)
+        public static string RegisterNewUser(string userName, string pwd, string roles)
         {
-            string strAddUserResult = null;
             try
             {
 
-                if (!IsCheckUserName(userName))  //檢查名稱是否重複
+                if (DoesUserNameExist(userName))
                 {
-
-                    if (IsAddUser(userName, pwd, roles))
-                    {
-                        strAddUserResult = "新增成功";
-                    }
-                    else
-                    {
-                        strAddUserResult = "新增失敗";
-                    }
-
+                    return "管理員名稱重複";
+                }
+                else if (AddUserData(userName, pwd, roles))
+                {
+                    return "新增成功";
                 }
                 else
                 {
-                    strAddUserResult = "管理員名稱重複";
+                    return "新增失敗";
                 }
-
-
-                return strAddUserResult;
 
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                // 將詳細錯誤信息寫入日誌或回應
                 return "發生內部錯誤: " + ex.Message;
             }
         }
 
         /// <summary>
-        /// 判斷新增的ID是否重複
+        /// 判斷使用者名稱是否存在
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static bool IsCheckUserName(string name)
+        public static bool DoesUserNameExist(string name)
         {
             try
             {
@@ -71,13 +61,11 @@ namespace ShoppingWeb.Ajax
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     //string sql = "SELECT COUNT(*) FROM t_userInfo where f_userName=@userName";
-                    using (SqlCommand cmd = new SqlCommand("getUserNameSum", con))
+                    using (SqlCommand cmd = new SqlCommand("getUserNameCount", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userName", name));
-
-                        // 使用 ExecuteScalar 取得結果集的第一行第一列的值
                         int count = (int)cmd.ExecuteScalar();
 
                         return count > 0;
@@ -90,7 +78,6 @@ namespace ShoppingWeb.Ajax
                 System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
                 return false;
             }
-
         }
 
 
@@ -101,20 +88,18 @@ namespace ShoppingWeb.Ajax
         /// <param name="pwd"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
-        public static bool IsAddUser(string name, string pwd, string roles)
+        public static bool AddUserData(string name, string pwd, string roles)
         {
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                bool addResult = false;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     //string sql = "INSERT INTO t_userInfo(f_userName, f_pwd, f_roles, f_sessionId) VALUES(@userName, @pwd, @roles, NULL)";
-                    using (SqlCommand cmd = new SqlCommand("insertUserData", con))
+                    using (SqlCommand cmd = new SqlCommand("insertUserInfo", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-
                         cmd.Parameters.Add(new SqlParameter("@userName", name));
                         cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
                         cmd.Parameters.Add(new SqlParameter("@roles", roles));
@@ -123,17 +108,16 @@ namespace ShoppingWeb.Ajax
 
                         if (r > 0)
                         {
-                            addResult = true;
+                            return true;
                         }
                         else
                         {
-                            addResult = false;
                             System.Diagnostics.Debug.WriteLine("Insert failed. Rows affected: " + r);
+                            return false;
                         }
+
                     }
                 }
-
-                return addResult;
             }
             catch (Exception ex)
             {

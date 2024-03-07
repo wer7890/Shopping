@@ -21,7 +21,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="userId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static bool DeleteUser(string userId)
+        public static bool RemoveUserInfo(string userId)
         {
             try
             {
@@ -30,7 +30,6 @@ namespace ShoppingWeb.Ajax
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     //string sql = "DELETE FROM t_userInfo WHERE f_userId=@userid";
-
                     using (SqlCommand cmd = new SqlCommand("deleteUser", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;

@@ -32,7 +32,7 @@
 function deleteUser(userId) {
     $.ajax({
         type: "POST",
-        url: "../Ajax/SearchUserHandler.aspx/DeleteUser",  
+        url: "../Ajax/SearchUserHandler.aspx/RemoveUserInfo",  
         data: JSON.stringify({ userId: userId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

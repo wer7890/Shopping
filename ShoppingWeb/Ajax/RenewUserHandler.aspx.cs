@@ -17,8 +17,12 @@ namespace ShoppingWeb.Ajax
         
         public static string publicUserName = "";
 
+        /// <summary>
+        /// 設定跳轉道編輯帳號頁面時，input裡面的預設值
+        /// </summary>
+        /// <returns></returns>
         [WebMethod]
-        public static object SetRenewUserInput()
+        public static object GetUserDataForEdit()
         {
             try
             {
@@ -64,11 +68,18 @@ namespace ShoppingWeb.Ajax
         }
 
 
-
+        /// <summary>
+        /// 更改帳號
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userName"></param>
+        /// <param name="pwd"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
         [WebMethod]
-        public static string UpDataUser(string userId, string userName, string pwd, string roles)
+        public static string EditUser(string userId, string userName, string pwd, string roles)
         {
-            if (!IsCheckUpdataUserName(userName))
+            if (!CheckUpdataUserName(userName))
             {
                 try
                 {
@@ -112,7 +123,7 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static bool IsCheckUpdataUserName(string name)
+        public static bool CheckUpdataUserName(string name)
         {
             if (publicUserName != name)
             {
@@ -122,7 +133,7 @@ namespace ShoppingWeb.Ajax
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
                         //string sql = "SELECT COUNT(*) FROM t_userInfo where f_userName=@userName";
-                        using (SqlCommand cmd = new SqlCommand("getUserNameSum", con))
+                        using (SqlCommand cmd = new SqlCommand("getUserNameCount", con))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
@@ -145,8 +156,7 @@ namespace ShoppingWeb.Ajax
             {
                 return false;
             }
-                
-
+               
         }
     }
 }

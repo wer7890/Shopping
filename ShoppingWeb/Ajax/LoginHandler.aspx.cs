@@ -31,15 +31,14 @@ namespace ShoppingWeb.Ajax
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {                  
                     //string sql = "SELECT f_pwd FROM t_userInfo WHERE f_userName=@userName COLLATE SQL_Latin1_General_CP1_CS_AS";
-
                     using (SqlCommand cmd = new SqlCommand("getPwd", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;   //設定CommandType屬性為預存程序
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userName", userName));
-                        string result = cmd.ExecuteScalar().ToString();
+                        object result = cmd.ExecuteScalar();
 
-                        if (result.ToString() == pwd)
+                        if (result != null && result.ToString() == pwd)
                         {
                             // 認證成功，設定 Session
                             if (SetSessionId(userName))
@@ -47,6 +46,7 @@ namespace ShoppingWeb.Ajax
                                 HttpContext.Current.Session["userName"] = userName;
                                 return true;
                             }
+
                         }
 
                         return false;
@@ -74,7 +74,6 @@ namespace ShoppingWeb.Ajax
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     //string sql = "UPDATE t_userInfo SET f_sessionId=@sessionId WHERE f_userName=@userName";
-
                     using (SqlCommand cmd = new SqlCommand("setSessionId", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;

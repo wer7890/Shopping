@@ -12,7 +12,7 @@ namespace ShoppingWeb.Web
         string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)  //頁面加載第一次時
+            if (!IsPostBack)  
             {
                 if (Session["userName"] == null)
                 {
@@ -22,17 +22,12 @@ namespace ShoppingWeb.Web
                 else
                 {
                     //string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo WHERE f_roles > 0";
-
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
                         // 建立 SqlDataAdapter 和 DataTable
-                        SqlDataAdapter adapter = new SqlDataAdapter("GetUsersWithRoles", con);
+                        SqlDataAdapter adapter = new SqlDataAdapter("getUsersWithRoles", con);
                         DataTable dt = new DataTable();
-
-                        // 開啟資料庫連接
                         con.Open();
-
-                        // 使用 SqlDataAdapter 填充 DataTable
                         adapter.Fill(dt);
 
                         // 動態構建 HTML 表格

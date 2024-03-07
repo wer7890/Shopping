@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.Services;
 
-
 namespace ShoppingWeb.Ajax
 {
     public partial class IndexHandler : System.Web.UI.Page
@@ -26,18 +25,16 @@ namespace ShoppingWeb.Ajax
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-          
                     //string sql = "SELECT f_roles FROM t_userInfo WHERE f_userName=@userName";
-                    using (SqlCommand cmd = new SqlCommand("getRolesSessionId", con))
+                    using (SqlCommand cmd = new SqlCommand("getRoles", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userName", HttpContext.Current.Session["userName"]));
 
-                        object result = cmd.ExecuteScalar();
+                        string result = cmd.ExecuteScalar().ToString();
 
                         if (result != null)
                         {
@@ -46,9 +43,7 @@ namespace ShoppingWeb.Ajax
                     }
 
                 }
-
                 return strRoles;
-
             }
             catch (Exception ex)
             {
@@ -81,35 +76,32 @@ namespace ShoppingWeb.Ajax
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     //string sql = "SELECT f_sessionId FROM t_userInfo WHERE f_userName=@userName";
-
-                    using (SqlCommand cmd = new SqlCommand("getRolesSessionId", con))
+                    using (SqlCommand cmd = new SqlCommand("getSessionId", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userName", HttpContext.Current.Session["userName"]));
-                        using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
+
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
                         {
-                            DataTable dt = new DataTable();
-                            sqlData.Fill(dt);
-                            if (dt.Rows.Count > 0)
+                            HttpContext.Current.Session["dbID"] = result.ToString();
+
+                            // 統一 SessionID 的存取方式
+                            string currentSessionID = HttpContext.Current.Session.SessionID;
+                            string dbSessionID = HttpContext.Current.Session["dbID"].ToString();
+
+                            if (dbSessionID != currentSessionID)
                             {
-                                DataRow dr = dt.Rows[0];
-                                HttpContext.Current.Session["dbID"] = dr["f_sessionId"].ToString();
-
-                                if (HttpContext.Current.Session["dbID"].ToString() != HttpContext.Current.Session.SessionID)
-                                {
-                                    HttpContext.Current.Session["userName"] = null;
-                                    return false;
-                                    
-                                }
-
-                                return true;
-
-                            }
-                            else
-                            {
+                                HttpContext.Current.Session["userName"] = null;
                                 return false;
                             }
+
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
                 }
