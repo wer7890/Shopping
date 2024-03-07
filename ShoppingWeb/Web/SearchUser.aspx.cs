@@ -21,13 +21,12 @@ namespace ShoppingWeb.Web
                 }
                 else
                 {
-                    // 建立 SQL 查詢
-                    string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo WHERE f_roles > 0";
+                    //string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo WHERE f_roles > 0";
 
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
                         // 建立 SqlDataAdapter 和 DataTable
-                        SqlDataAdapter adapter = new SqlDataAdapter(sql, con);
+                        SqlDataAdapter adapter = new SqlDataAdapter("GetUsersWithRoles", con);
                         DataTable dt = new DataTable();
 
                         // 開啟資料庫連接
@@ -41,7 +40,6 @@ namespace ShoppingWeb.Web
 
                         foreach (DataRow row in dt.Rows)
                         {
-                            // 編輯和刪除的按鈕，您可以根據需要設計連結或其他操作
                             string editButton = $"<button class='btn btn-primary' onclick='editUser({row["f_userId"]})'>編輯</button>";
                             string deleteButton = $"<button class='btn btn-danger' onclick='deleteUser({row["f_userId"]})'>刪除</button>";
 

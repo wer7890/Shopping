@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.Services;
@@ -28,12 +29,15 @@ namespace ShoppingWeb.Ajax
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string sql = "DELETE FROM t_userInfo WHERE f_userId=@id";
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    //string sql = "DELETE FROM t_userInfo WHERE f_userId=@userid";
+
+                    using (SqlCommand cmd = new SqlCommand("deleteUser", con))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@Id", userId));
-                        int r = cmd.ExecuteNonQuery();
+                        cmd.Parameters.Add(new SqlParameter("@userId", userId));
+
+                        int r = (int)cmd.ExecuteScalar();
                         if (r > 0)
                         {
                             return true;

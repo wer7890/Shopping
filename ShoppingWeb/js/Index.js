@@ -2,7 +2,7 @@
     //一開始登入時顯示在左邊的身分，要做權限可使用功能的顯示與隱藏
     $.ajax({
         type: "POST",
-        url: "../Ajax/IndexHandler.aspx/CheckUserPermission",  
+        url: "../Ajax/IndexHandler.aspx/GetUserPermission",  
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {

@@ -34,6 +34,7 @@
             success: function (response) {
                 if (response.d === "新增成功") {
                     alert("新增成功");
+                    window.location.href = "SearchUser.aspx" 
                 } else if (response.d === null) {
                     $("#labAddUser").text("新增失敗");
                 } else {

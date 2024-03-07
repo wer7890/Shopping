@@ -44,15 +44,16 @@
 
         $.ajax({
             type: "POST",
-            url: "../Ajax/RenewUserHandler.aspx/UpDataUser",  // 這裡指定後端方法的位置
+            url: "../Ajax/RenewUserHandler.aspx/UpDataUser", 
             data: JSON.stringify({ userId: userId, userName: userName, pwd: pwd, roles: roles }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === true) {
+                if (response.d === "修改成功") {
+                    alert("修改成功");
                     window.location.href = "SearchUser.aspx" 
                 } else {
-                    alert("修改失敗");
+                    alert(response.d);
                 }
             },
             error: function (error) {

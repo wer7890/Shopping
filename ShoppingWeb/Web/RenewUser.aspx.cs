@@ -13,9 +13,7 @@ namespace ShoppingWeb.Web
                     Response.Redirect("Login.aspx");
                 }
             }
-        }
-
-        
+        } 
 
     }
 }

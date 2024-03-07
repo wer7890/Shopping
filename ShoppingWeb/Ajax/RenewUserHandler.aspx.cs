@@ -14,6 +14,8 @@ namespace ShoppingWeb.Ajax
         {
 
         }
+        
+        public static string publicUserName = "";
 
         [WebMethod]
         public static object SetRenewUserInput()
@@ -25,10 +27,12 @@ namespace ShoppingWeb.Ajax
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo WHERE f_userId=@id";
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    //string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo WHERE f_userId=@id";
+                    using (SqlCommand cmd = new SqlCommand("getUserData", con))
                     {
-                        cmd.Parameters.Add(new SqlParameter("@Id", sessionUserId));
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
 
                         using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
                         {
@@ -41,8 +45,10 @@ namespace ShoppingWeb.Ajax
                                 UserId = dt.Rows[0]["f_userId"],
                                 UserName = dt.Rows[0]["f_userName"],
                                 Password = dt.Rows[0]["f_pwd"],
-                                Roles = dt.Rows[0]["f_roles"]
+                                Roles = dt.Rows[0]["f_roles"],
                             };
+                            publicUserName = dt.Rows[0]["f_userName"].ToString() ;
+
 
                             return userObject;
                         }
@@ -60,44 +66,86 @@ namespace ShoppingWeb.Ajax
 
 
         [WebMethod]
-        public static bool UpDataUser(string userId, string userName, string pwd, string roles)
+        public static string UpDataUser(string userId, string userName, string pwd, string roles)
         {
-            try
+            if (!IsCheckUpdataUserName(userName))
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                string sessionUserId = HttpContext.Current.Session["userID"] as string;
-
-                using (SqlConnection con = new SqlConnection(connectionString))
+                try
                 {
-                    string sql = "UPDATE t_userInfo SET f_userName=@userName, f_pwd=@pwd, f_roles=@roles WHERE f_userId=@id";
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                    string sessionUserId = HttpContext.Current.Session["userID"] as string;
+
+                    using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        con.Open();
-
-                        cmd.Parameters.Add(new SqlParameter("@id", sessionUserId));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
-                        cmd.Parameters.Add(new SqlParameter("@userName", userName));
-                        cmd.Parameters.Add(new SqlParameter("@roles", roles));
-
-                        int r = cmd.ExecuteNonQuery();
-
-                        if (r > 0)
+                        //string sql = "UPDATE t_userInfo SET f_userName=@userName, f_pwd=@pwd, f_roles=@roles WHERE f_userId=@id";
+                        using (SqlCommand cmd = new SqlCommand("updataUser", con))
                         {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+
+                            cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
+                            cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
+                            cmd.Parameters.Add(new SqlParameter("@userName", userName));
+                            cmd.Parameters.Add(new SqlParameter("@roles", roles));
+
+                            int rowsAffected = (int)cmd.ExecuteScalar();
+
+                            return (rowsAffected > 0) ? "修改成功" : "修改失敗";
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return "修改失敗";
+                }
             }
-            catch (Exception ex)
+            else
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return "管理員名稱重複";
+            } 
+
+        }
+
+        /// <summary>
+        /// 判斷修改的ID是否重複
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool IsCheckUpdataUserName(string name)
+        {
+            if (publicUserName != name)
+            {
+                try
+                {
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        //string sql = "SELECT COUNT(*) FROM t_userInfo where f_userName=@userName";
+                        using (SqlCommand cmd = new SqlCommand("getUserNameSum", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+                            cmd.Parameters.Add(new SqlParameter("@userName", name));
+
+                            int count = (int)cmd.ExecuteScalar();
+
+                            return count > 0;
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return false;
+                }
+            }
+            else
+            {
                 return false;
             }
-
+                
 
         }
     }

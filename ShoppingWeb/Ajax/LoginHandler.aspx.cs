@@ -28,60 +28,30 @@ namespace ShoppingWeb.Ajax
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
-                bool loginSuccessful = false;
                 using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    //讀取資料庫的sql語法
-                    //string sql = "SELECT f_userName, f_pwd FROM t_userInfo WHERE f_userName=@userName COLLATE SQL_Latin1_General_CP1_CS_AS";
+                {                  
+                    //string sql = "SELECT f_pwd FROM t_userInfo WHERE f_userName=@userName COLLATE SQL_Latin1_General_CP1_CS_AS";
 
-                    using (SqlCommand cmd = new SqlCommand("getPwd", con)) 
-                    //using (SqlCommand cmd = new SqlCommand(sql, con))  
+                    using (SqlCommand cmd = new SqlCommand("getPwd", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;   //設定CommandType屬性為預存程序
-
                         con.Open();
-
                         cmd.Parameters.Add(new SqlParameter("@userName", userName));
+                        string result = cmd.ExecuteScalar().ToString();
 
-                        using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
+                        if (result.ToString() == pwd)
                         {
-                            DataTable dt = new DataTable();
-                            sqlData.Fill(dt);
-
-                            if (dt.Rows.Count > 0)
+                            // 認證成功，設定 Session
+                            if (SetSessionId(userName))
                             {
-                                DataRow dr = dt.Rows[0];
-                                string storedPwd = dr["f_pwd"].ToString();
-
-                                if (storedPwd == pwd)
-                                {
-                                    
-                                    if (SetSessionId(userName))
-                                    {
-                                        HttpContext.Current.Session["userName"] = userName;
-                                        loginSuccessful = true;
-                                    }
-                                    else
-                                    {
-                                        loginSuccessful = false;
-                                    }
-                                    
-                                }
-                                else
-                                {
-                                    loginSuccessful = false;
-                                }
-
-                            }
-                            else
-                            {
-                                loginSuccessful = false;
+                                HttpContext.Current.Session["userName"] = userName;
+                                return true;
                             }
                         }
 
+                        return false;
                     }
                 }
-                return loginSuccessful;
             }
             catch (Exception ex)
             {
@@ -112,14 +82,7 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
                         cmd.Parameters.Add(new SqlParameter("@userName", userName));
 
-                        if (cmd.ExecuteNonQuery() != 0)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return cmd.ExecuteNonQuery() != 0;
                     }
                 }
             }

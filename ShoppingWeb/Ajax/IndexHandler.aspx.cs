@@ -20,7 +20,7 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public static string CheckUserPermission()
+        public static string GetUserPermission()
         {
             string strRoles = null;
             try
@@ -29,20 +29,19 @@ namespace ShoppingWeb.Ajax
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-
-
-                    //string sql = "SELECT f_userName, f_roles FROM t_userInfo WHERE f_userName=@name";
-                    using (SqlCommand cmd = new SqlCommand("getRoles", con))
+          
+                    //string sql = "SELECT f_roles FROM t_userInfo WHERE f_userName=@userName";
+                    using (SqlCommand cmd = new SqlCommand("getRolesSessionId", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userName", HttpContext.Current.Session["userName"]));
 
-                        using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null)
                         {
-                            DataTable dt = new DataTable();
-                            sqlData.Fill(dt);
-                            DataRow dr = dt.Rows[0];
-                            strRoles = dr["f_roles"].ToString();
+                            strRoles = result.ToString();
                         }
                     }
 
@@ -57,7 +56,6 @@ namespace ShoppingWeb.Ajax
                 return strRoles;
             }
         }
-
 
         /// <summary>
         /// 刪除Session["userName"]
@@ -83,7 +81,8 @@ namespace ShoppingWeb.Ajax
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     //string sql = "SELECT f_sessionId FROM t_userInfo WHERE f_userName=@userName";
-                    using (SqlCommand cmd = new SqlCommand("getSessionId", con))
+
+                    using (SqlCommand cmd = new SqlCommand("getRolesSessionId", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
