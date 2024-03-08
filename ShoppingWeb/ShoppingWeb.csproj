@@ -72,13 +72,16 @@
     <Content Include="Ajax\LoginHandler.aspx" />
     <Content Include="Ajax\RenewUserHandler.aspx" />
     <Content Include="Ajax\SearchUserHandler.aspx" />
+    <Content Include="Ajax\Test.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="js\AddProduct.js" />
     <Content Include="js\AddUser.js" />
     <Content Include="js\Index.js" />
     <Content Include="js\Login.js" />
     <Content Include="js\RenewUser.js" />
     <Content Include="js\SearchUser.js" />
     <Content Include="Web.config" />
+    <Content Include="Web\AddProduct.aspx" />
     <Content Include="Web\AddUser.aspx" />
     <Content Include="Web\Index.aspx" />
     <Content Include="Web\Login.aspx" />
@@ -121,11 +124,25 @@
     <Compile Include="Ajax\SearchUserHandler.aspx.designer.cs">
       <DependentUpon>SearchUserHandler.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Ajax\Test.aspx.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\Test.aspx.designer.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfo.cs" />
+    <Compile Include="Web\AddProduct.aspx.cs">
+      <DependentUpon>AddProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\AddProduct.aspx.designer.cs">
+      <DependentUpon>AddProduct.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Web\AddUser.aspx.cs">
       <DependentUpon>AddUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

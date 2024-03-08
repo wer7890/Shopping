@@ -52,8 +52,8 @@ D:\Code3\ShoppingWeb\ShoppingWeb\bin\roslyn\VBCSCompiler.exe
 D:\Code3\ShoppingWeb\ShoppingWeb\bin\roslyn\VBCSCompiler.exe.config
 D:\Code3\ShoppingWeb\ShoppingWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\Code3\ShoppingWeb\ShoppingWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Code3\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.csprojAssemblyReference.cache
 D:\Code3\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.csproj.CoreCompileInputs.cache
 D:\Code3\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.csproj.CopyComplete
 D:\Code3\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.dll
 D:\Code3\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.pdb
+D:\Code3\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.csprojAssemblyReference.cache

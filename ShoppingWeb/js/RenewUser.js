@@ -3,7 +3,7 @@
     //一開始input預設值
     $.ajax({
         type: "POST",
-        url: "../Ajax/RenewUserHandler.aspx/GetUserDataForEdit",
+        url: "/Ajax/RenewUserHandler.aspx/GetUserDataForEdit",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -44,7 +44,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../Ajax/RenewUserHandler.aspx/EditUser", 
+            url: "/Ajax/RenewUserHandler.aspx/EditUser", 
             data: JSON.stringify({ userId: userId, userName: userName, pwd: pwd, roles: roles }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

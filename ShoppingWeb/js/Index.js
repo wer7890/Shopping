@@ -2,7 +2,7 @@
     //一開始登入時顯示在左邊的身分，要做權限可使用功能的顯示與隱藏
     $.ajax({
         type: "POST",
-        url: "../Ajax/IndexHandler.aspx/GetUserPermission",  
+        url: "/Ajax/IndexHandler.aspx/GetUserPermission",  
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -42,7 +42,7 @@
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
-            url: "../Ajax/IndexHandler.aspx/DeleteSession",  
+            url: "/Ajax/IndexHandler.aspx/DeleteSession",  
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -60,7 +60,9 @@
     $("#searchUser").click(function () {
         CheckAnyoneLonginRedirect("SearchUser.aspx");
     });
-
+    $("#addProduct").click(function () {
+        CheckAnyoneLonginRedirect("AddProduct.aspx");
+    });
     
 });
 
@@ -68,7 +70,7 @@
 function CheckAnyoneLonginRedirect(str) {
     $.ajax({
         type: "POST",
-        url: "../Ajax/IndexHandler.aspx/AnyoneLongin",
+        url: "/Ajax/IndexHandler.aspx/AnyoneLongin",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {

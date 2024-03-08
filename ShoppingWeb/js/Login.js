@@ -4,21 +4,15 @@
         let pwd = $("#txbPassword").val();
         $("#labLogin").text("");
 
-        if (userName === "" || pwd === "") {
-            $("#labLogin").text("用戶名和密碼不能為空");
-            return;
-        }
 
-        if (!isSpecialChar(userName, pwd))
-        {
-            $("#labLogin").text("用戶名和密碼不能包含特殊字元");
+        if (!IsSpecialChar(userName, pwd)){
             return;
         }
 
 
         $.ajax({
             type: "POST",
-            url: "../Ajax/LoginHandler.aspx/LoginUser",  // 這裡指定後端方法的位置
+            url: "/Ajax/LoginHandler.aspx/LoginUser",  // 這裡指定後端方法的位置
             data: JSON.stringify({ userName: userName, pwd: pwd }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -38,11 +32,28 @@
 });
 
 
-//判斷特殊字元
-function isSpecialChar(userName, pwd) {
-    let regUserName = /^[A-Za-z0-9]+$/;
-    let regPwd = /^[A-Za-z0-9]+$/;
+//判斷特殊字元和長度 
+function IsSpecialChar(userName, pwd) {
 
-    return regUserName.test(userName) && regPwd.test(pwd);
+    if (typeof userName === 'undefined' || typeof pwd === 'undefined') {
+        $("#labLogin").text("錯誤");
+        return false;
+    }
+
+    let regex = /^[A-Za-z0-9]{6,16}$/;
+
+    let isUserNameValid = regex.test(userName);
+    let isPwdValid = regex.test(pwd);
+
+    if (!isUserNameValid && !isPwdValid) {
+        $("#labLogin").text("使用者名稱和密碼均不符合規則");
+    } else if (!isUserNameValid) {
+        $("#labLogin").text("使用者名稱不符合規則");
+    } else if (!isPwdValid) {
+        $("#labLogin").text("密碼不符合規則");
+    }
+
+    return isUserNameValid && isPwdValid;
 }
+
 
