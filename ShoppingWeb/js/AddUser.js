@@ -39,7 +39,7 @@
 function IsSpecialChar(userName, pwd) {
 
     if (typeof userName === 'undefined' || typeof pwd === 'undefined') {
-        $("#labLogin").text("錯誤");
+        $("#labLogin").text("undefined");
         return false;
     }
 

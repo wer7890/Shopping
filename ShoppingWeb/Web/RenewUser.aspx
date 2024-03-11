@@ -23,7 +23,7 @@
             </div>
             <div class="mx-auto col-12 col-md-8 mt-2">
                 <label for="txbUserName" class="form-label">管理員名稱</label>
-                <input type="text" id="txbUserName" class="form-control" />
+                <label id="txbUserName" class="form-control"></label>
             </div>
             <div class="mx-auto col-12 col-md-8 mt-2">
                 <label for="txbPwd" class="form-label">密碼</label>
