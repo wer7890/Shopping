@@ -30,7 +30,7 @@ namespace ShoppingWeb.Ajax
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("LoginUser", con))
+                    using (SqlCommand cmd = new SqlCommand("loginUser", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();

@@ -39,7 +39,7 @@
 function IsSpecialChar(userName, pwd) {
 
     if (typeof userName === 'undefined' || typeof pwd === 'undefined') {
-        $("#labLogin").text("undefined");
+        $("#labAddUser").text("undefined");
         return false;
     }
 
@@ -52,18 +52,18 @@ function IsSpecialChar(userName, pwd) {
     let nonAlphanumericPwd = nonAlphanumericRegex.test(pwd);
 
     if (!userNameValid && !pwdValid) {
-        $("#labLogin").text("使用者名稱和密碼均不符合規則");
+        $("#labAddUser").text("使用者名稱和密碼均不符合規則");
     } else if (!userNameValid) {
         if (nonAlphanumericUserName) {
-            $("#labLogin").text("使用者名稱含有非英文字母和數字");
+            $("#labAddUser").text("使用者名稱含有非英文字母和數字");
         } else {
-            $("#labLogin").text("用戶名長度應在6到16之間");
+            $("#labAddUser").text("用戶名長度應在6到16之間");
         }
     } else if (!pwdValid) {
         if (nonAlphanumericPwd) {
-            $("#labLogin").text("密碼含有非英文字母和數字");
+            $("#labAddUser").text("密碼含有非英文字母和數字");
         } else {
-            $("#labLogin").text("密碼長度應在6到16之間");
+            $("#labAddUser").text("密碼長度應在6到16之間");
         }
     }
 

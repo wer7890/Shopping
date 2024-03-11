@@ -25,7 +25,7 @@ namespace ShoppingWeb.Ajax
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                string sessionUserId = HttpContext.Current.Session["userID"] as string;
+                string sessionUserId = HttpContext.Current.Session["userId"] as string;
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -44,7 +44,7 @@ namespace ShoppingWeb.Ajax
                             // 構建包含數據的匿名對象
                             var userObject = new
                             {
-                                UserId = dt.Rows[0]["f_userId"],
+                                UserId = dt.Rows[0]["f_id"],
                                 UserName = dt.Rows[0]["f_userName"],
                                 Password = dt.Rows[0]["f_pwd"],
                                 Roles = dt.Rows[0]["f_roles"],
