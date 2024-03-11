@@ -80,25 +80,28 @@ function IsSpecialChar(pwd) {
 
 //是否有重複登入
 function CheckAnyoneLonginRedirect() {
+    var result;
     $.ajax({
         type: "POST",
         url: "/Ajax/IndexHandler.aspx/AnyoneLongin",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async: false,
         success: function (response) {
 
-            if (response.d === true) {
-                return true;
-            }
-            else {
+            if (response.d === false) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-                return false;
+                result = false;
+            } else {
+                result = true;
             }
 
         },
         error: function (error) {
             console.error('Error:', error);
+            result = false;
         }
     });
+    return result;
 }
