@@ -4,9 +4,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>修改帳號</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />  
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="../js/RenewUser.js"></script>
@@ -16,20 +16,19 @@
         <h2 class="text-center">修改帳號</h2>
         <br />
         <div class="row">
-             <div class="mx-auto col-12 col-md-8 mt-2">
-                <label for="txbUserId" class="form-label">管理員ID</label>
-                 <label id="labUserId" class="form-control"></label>
-
-            </div>
             <div class="mx-auto col-12 col-md-8 mt-2">
-                <label for="txbUserName" class="form-label">管理員名稱</label>
-                <label id="txbUserName" class="form-control"></label>
+                <span class="text-dark fs-5">管理員ID : </span>
+                <span id="labUserId" class="text-muted fs-5"></span>
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-2">
+            <div class="mx-auto col-12 col-md-8 mt-3">
+                <span class="text-dark fs-5">管理員名稱 : </span>
+                <span id="labUserName" class="text-muted fs-5"></span>
+            </div>
+            <div class="mx-auto col-12 col-md-8 mt-3">
                 <label for="txbPwd" class="form-label">密碼</label>
                 <input type="password" id="txbPwd" class="form-control" />
             </div>
-            <div class="mx-auto mt-3 col-12 col-md-8 mt-2">
+            <div class="mx-auto mt-3 col-12 col-md-8 mt-3">
                 <label for="ddlRoles" class="form-label">角色</label>
 
                 <select id="ddlRoles" class="form-select">
@@ -43,7 +42,7 @@
         </div>
         <br />
         <div class="row">
-            <label id="labRenewUser" class="col-12 col-sm-12 text-center text-success"></label>
+            <span id="labRenewUser" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
     </div>
 

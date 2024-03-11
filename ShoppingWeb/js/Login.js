@@ -39,7 +39,7 @@ function IsSpecialChar(userName, pwd) {
     }
 
     let regex = /^[A-Za-z0-9]{6,16}$/;
-    let nonAlphanumericRegex = /[^A-Za-z0-9]/;
+    let nonAlphanumericRegex = /[^A-Za-z0-9]/; //不是字母或數字
 
     let userNameValid = regex.test(userName);
     let pwdValid = regex.test(pwd);

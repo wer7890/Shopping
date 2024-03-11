@@ -9,7 +9,7 @@
         success: function (data) {
             // 直接設定 input 元素的值
             $("#labUserId").text(data.d.UserId);
-            $("#txbUserName").text(data.d.UserName);
+            $("#labUserName").text(data.d.UserName);
             $("#txbPwd").val(data.d.Password);
             $("#ddlRoles").val(data.d.Roles);
         },
