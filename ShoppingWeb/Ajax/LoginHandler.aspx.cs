@@ -16,7 +16,7 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 登入
+        /// 登入，如果成功就把sessionId寫入資料庫
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="pwd"></param>
@@ -29,24 +29,21 @@ namespace ShoppingWeb.Ajax
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
                 using (SqlConnection con = new SqlConnection(connectionString))
-                {                  
-                    //string sql = "SELECT f_pwd FROM t_userInfo WHERE f_userName=@userName COLLATE SQL_Latin1_General_CP1_CS_AS";
-                    using (SqlCommand cmd = new SqlCommand("getPwd", con))
+                {
+                    using (SqlCommand cmd = new SqlCommand("LoginUser", con))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;   //設定CommandType屬性為預存程序
+                        cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userName", userName));
+                        cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
+                        cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
+
                         object result = cmd.ExecuteScalar();
 
-                        if (result != null && result.ToString() == pwd)
+                        if (result != null && result.ToString() == "1")
                         {
-                            // 認證成功，設定 Session
-                            if (SetSessionId(userName))
-                            {
-                                HttpContext.Current.Session["userName"] = userName;
-                                return true;
-                            }
-
+                            HttpContext.Current.Session["userName"] = userName;
+                            return true;
                         }
 
                         return false;
@@ -60,37 +57,5 @@ namespace ShoppingWeb.Ajax
             }
         }
 
-        /// <summary>
-        /// 把SessionId寫進資料庫
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <returns></returns>
-        public static bool SetSessionId(string userName) 
-        {
-            try
-            {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    //string sql = "UPDATE t_userInfo SET f_sessionId=@sessionId WHERE f_userName=@userName";
-                    using (SqlCommand cmd = new SqlCommand("setSessionId", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@userName", userName));
-
-                        return cmd.ExecuteNonQuery() != 0;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return false;
-            }
-        }
-        
     }
 }

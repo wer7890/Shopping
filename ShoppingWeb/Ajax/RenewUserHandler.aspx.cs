@@ -114,7 +114,7 @@ namespace ShoppingWeb.Ajax
             else
             {
                 return "管理員名稱重複";
-            } 
+            }
 
         }
 
@@ -156,7 +156,10 @@ namespace ShoppingWeb.Ajax
             {
                 return false;
             }
-               
+
         }
+
+
+
     }
 }

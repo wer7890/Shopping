@@ -25,22 +25,9 @@
         let roles = $("#ddlRoles").val();
         $("#labRenewUser").text("");
 
-        //判斷長度
-        if (userName === "" || pwd === "") {
-            $("#labRenewUser").text("用戶名和密碼不能為空");
+        if (!IsSpecialChar(userName, pwd)) {
             return;
-        } else if (userName.length < 6 || pwd.length < 6) {
-            $("#labRenewUser").text("用戶名跟密碼長度不能小於6");
-            return;
-        } else if (userName.length > 16 || pwd.length > 16) {
-            $("#labRenewUser").text("用戶名跟密碼長度不能大於16");
-            return;
-        }
-
-        if (!isSpecialChar(userName, pwd)) {
-            $("#labRenewUser").text("用戶名和密碼不能包含特殊字元");
-            return;
-        }
+        }  
 
         $.ajax({
             type: "POST",
@@ -63,10 +50,37 @@
     })
 });
 
-//判斷特殊字元
-function isSpecialChar(userName, pwd) {
-    let regUserName = /^[A-Za-z0-9]+$/;
-    let regPwd = /^[A-Za-z0-9]+$/;
+//判斷特殊字元和長度 
+function IsSpecialChar(userName, pwd) {
 
-    return regUserName.test(userName) && regPwd.test(pwd);
+    if (typeof userName === 'undefined' || typeof pwd === 'undefined') {
+        $("#labLogin").text("錯誤");
+        return false;
+    }
+
+    let regex = /^[A-Za-z0-9]{6,16}$/;
+    let nonAlphanumericRegex = /[^A-Za-z0-9]/;
+
+    let userNameValid = regex.test(userName);
+    let pwdValid = regex.test(pwd);
+    let nonAlphanumericUserName = nonAlphanumericRegex.test(userName);
+    let nonAlphanumericPwd = nonAlphanumericRegex.test(pwd);
+
+    if (!userNameValid && !pwdValid) {
+        $("#labLogin").text("使用者名稱和密碼均不符合規則");
+    } else if (!userNameValid) {
+        if (nonAlphanumericUserName) {
+            $("#labLogin").text("使用者名稱含有非英文字母和數字");
+        } else {
+            $("#labLogin").text("用戶名長度應在6到16之間");
+        }
+    } else if (!pwdValid) {
+        if (nonAlphanumericPwd) {
+            $("#labLogin").text("密碼含有非英文字母和數字");
+        } else {
+            $("#labLogin").text("密碼長度應在6到16之間");
+        }
+    }
+
+    return userNameValid && pwdValid;
 }
