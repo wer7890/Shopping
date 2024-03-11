@@ -30,6 +30,11 @@
 })
 
 function deleteUser(userId) {
+
+    if (!CheckAnyoneLonginRedirect()) {
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/Ajax/SearchUserHandler.aspx/RemoveUserInfo",  
@@ -51,6 +56,11 @@ function deleteUser(userId) {
 }
 
 function editUser(userId) {
+
+    if (!CheckAnyoneLonginRedirect()) {
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/Ajax/SearchUserHandler.aspx/SetSessionUserId", 
@@ -68,5 +78,29 @@ function editUser(userId) {
             console.error('Error:', error);
         }
     });
-    
+}
+
+//是否有重複登入
+function CheckAnyoneLonginRedirect() {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/IndexHandler.aspx/AnyoneLongin",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+
+            if (response.d === true) {
+                return true;
+            }
+            else {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+                return false;
+            }
+
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
 }

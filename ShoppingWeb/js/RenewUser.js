@@ -19,6 +19,11 @@
     });
 
     $("#btnUpData").click(function () {
+
+        if (!CheckAnyoneLonginRedirect()) {
+            return;
+        }
+
         let pwd = $("#txbPwd").val();
         let roles = $("#ddlRoles").val();
         $("#labRenewUser").text("");
@@ -71,4 +76,29 @@ function IsSpecialChar(pwd) {
     }
 
     return pwdValid;
+}
+
+//是否有重複登入
+function CheckAnyoneLonginRedirect() {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/IndexHandler.aspx/AnyoneLongin",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+
+            if (response.d === true) {
+                return true;
+            }
+            else {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+                return false;
+            }
+
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
 }

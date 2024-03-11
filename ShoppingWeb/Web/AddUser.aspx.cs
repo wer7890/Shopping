@@ -17,6 +17,5 @@ namespace ShoppingWeb.Web
             }
 
         }
-
     }
 }

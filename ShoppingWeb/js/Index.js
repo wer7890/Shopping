@@ -55,7 +55,7 @@
     });
 
     $("#addUser").click(function () {
-        CheckAnyoneLonginRedirect("AddUser.aspx")
+        CheckAnyoneLonginRedirect("AddUser.aspx");
     });
     $("#searchUser").click(function () {
         CheckAnyoneLonginRedirect("SearchUser.aspx");
