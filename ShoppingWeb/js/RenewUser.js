@@ -65,14 +65,9 @@ function IsSpecialChar(pwd) {
     let nonAlphanumericRegex = /[^A-Za-z0-9]/;
 
     let pwdValid = regex.test(pwd);
-    let nonAlphanumericPwd = nonAlphanumericRegex.test(pwd);
 
     if (!pwdValid) {
-        if (nonAlphanumericPwd) {
-            $("#labRenewUser").text("密碼含有非英文字母和數字");
-        } else {
-            $("#labRenewUser").text("密碼長度應在6到16之間");
-        }
+        $("#labRenewUser").text("密碼不能含有非英文和數字且長度應在6到16之間");
     }
 
     return pwdValid;

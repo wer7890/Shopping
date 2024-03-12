@@ -43,23 +43,10 @@ function IsSpecialChar(userName, pwd) {
 
     let userNameValid = regex.test(userName);
     let pwdValid = regex.test(pwd);
-    let nonAlphanumericUserName = nonAlphanumericRegex.test(userName);
-    let nonAlphanumericPwd = nonAlphanumericRegex.test(pwd);
 
-    if (!userNameValid && !pwdValid) {
-        $("#labLogin").text("使用者名稱和密碼均不符合規則");
-    } else if (!userNameValid) {
-        if (nonAlphanumericUserName) {
-            $("#labLogin").text("使用者名稱含有非英文字母和數字");
-        } else {
-            $("#labLogin").text("用戶名長度應在6到16之間");
-        }
-    } else if (!pwdValid) {
-        if (nonAlphanumericPwd) {
-            $("#labLogin").text("密碼含有非英文字母和數字");
-        } else {
-            $("#labLogin").text("密碼長度應在6到16之間");
-        }
+
+    if (!userNameValid || !pwdValid) {
+        $("#labLogin").text("名稱和密碼不能含有非英文和數字且長度應在6到16之間");
     }
 
     return userNameValid && pwdValid;
