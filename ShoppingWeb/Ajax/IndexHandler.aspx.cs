@@ -87,7 +87,6 @@ namespace ShoppingWeb.Ajax
                         {
                             HttpContext.Current.Session["dbID"] = result.ToString();
 
-                            // 統一 SessionID 的存取方式
                             string currentSessionID = HttpContext.Current.Session.SessionID;
                             string dbSessionID = HttpContext.Current.Session["dbID"].ToString();
 

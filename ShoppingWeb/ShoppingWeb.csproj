@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ajax\AddProductHandler.aspx" />
     <Content Include="Ajax\AddUserHandler.aspx" />
     <Content Include="Ajax\IndexHandler.aspx" />
     <Content Include="Ajax\LoginHandler.aspx" />
@@ -89,6 +90,13 @@
     <Content Include="Web\SearchUser.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ajax\AddProductHandler.aspx.cs">
+      <DependentUpon>AddProductHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\AddProductHandler.aspx.designer.cs">
+      <DependentUpon>AddProductHandler.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Ajax\AddUserHandler.aspx.cs">
       <DependentUpon>AddUserHandler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -191,6 +199,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="css\" />
+    <Folder Include="Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

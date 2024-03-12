@@ -12,8 +12,10 @@ namespace ShoppingWeb.Web
         string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)  
             {
+
                 if (Session["userName"] == null)
                 {
                     Response.Redirect("Login.aspx");
@@ -51,10 +53,10 @@ namespace ShoppingWeb.Web
                         // 將動態生成的表格行添加到 Literal 控制項
                         tableBodyLiteral.Text = tableRows.ToString();
                     }
-
-
                 }
+
             }
+
         }
 
     }

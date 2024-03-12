@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="../js/AddProduct.js"></script>
+    <%--<script src="../js/AddProduct.js"></script>--%>
 </head>
 <body>
     <div class="container">
@@ -21,8 +21,8 @@
                 <input type="text" id="txbProductName" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-8 mt-3">
-                <label for="productType" class="form-label">商品類型</label>
-                <select id="productType" class="form-select">
+                <label for="productCategory" class="form-label">商品類型</label>
+                <select id="productCategory" class="form-select">
                     <option value="1">類型一</option>
                     <option value="2">類型二</option>
                     <option value="3">類型三</option>
@@ -37,12 +37,12 @@
                 <input type="number" id="txbProductPrice" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-8 mt-3">
-                <label for="txbProductSum" class="form-label">庫存量</label>
-                <input type="number" id="txbProductSum" class="form-control" />
+                <label for="txbProductStock" class="form-label">庫存量</label>
+                <input type="number" id="txbProductStock" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-8 mt-3">
-                <label for="productOpen" class="form-label">是否開放</label>
-                <select id="productOpen" class="form-select">
+                <label for="productIsOpen" class="form-label">是否開放</label>
+                <select id="productIsOpen" class="form-select">
                     <option value="open">是</option>
                     <option value="closure">否</option>
                 </select>

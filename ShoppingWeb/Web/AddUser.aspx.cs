@@ -7,8 +7,10 @@ namespace ShoppingWeb.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)  //頁面加載第一次時
+
+            if (!IsPostBack)  
             {
+
                 if (Session["userName"] == null)
                 {
                     Response.Redirect("Login.aspx");
