@@ -20,13 +20,33 @@ namespace ShoppingWeb.Ajax
             if (Request.HttpMethod == "POST" && Request.Files.Count > 0)
             {
                 HttpPostedFile uploadedFile = Request.Files[0];
-                string fileName = Path.GetFileName(uploadedFile.FileName);
+                // 檢查檔案是否是圖片
+                if (uploadedFile.ContentType.StartsWith("image/"))
+                {
+                    string fileName = Path.GetFileName(uploadedFile.FileName);
 
-                string filePath = Path.Combine(Server.MapPath("../Images/"), fileName);
+                    // 設定目標資料夾路徑
+                    string targetFolderPath = Server.MapPath("../Images/");
 
-                uploadedFile.SaveAs(filePath);
+                    // 檢查檔案是否已存在於目標資料夾中
+                    if (File.Exists(Path.Combine(targetFolderPath, fileName)))
+                    {
+                        Response.Write("上傳的檔案名稱已存在");
+                    }
+                    else
+                    {
+                        // 上傳檔案到目標資料夾
+                        string filePath = Path.Combine(targetFolderPath, fileName);
+                        uploadedFile.SaveAs(filePath);
 
-                Response.Write("檔案上傳成功！文件名：" + fileName);
+                        Response.Write("圖片上傳成功");
+                    }
+
+                }
+                else
+                {
+                    Response.Write("上傳的檔案不是圖片");
+                }
             }
             else
             {
@@ -36,14 +56,15 @@ namespace ShoppingWeb.Ajax
 
 
         [WebMethod]
-        public static string AddProduct(string productName, string productCategory, string productImg, string productPrice, string productStock, string productIsOpen, string productIntroduce)
+        public static int AddProduct(string productName, string productCategory, string productImg, string productPrice, string productStock, string productIsOpen, string productIntroduce)
         {
+            int result = 0;
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("", con))
+                    using (SqlCommand cmd = new SqlCommand("insertProduct", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
@@ -55,18 +76,28 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@productIsOpen", productIsOpen));
                         cmd.Parameters.Add(new SqlParameter("@productIntroduce", productIntroduce));
 
-                        string result = cmd.ExecuteScalar().ToString();
+                        SqlParameter resultParam = new SqlParameter("@result", SqlDbType.Int);
+                        resultParam.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(resultParam);
 
-                        return result;
+                        // 执行存储过程
+                        cmd.ExecuteNonQuery();
+
+                        // 获取存储过程返回值
+                        result = Convert.ToInt32(resultParam.Value);
                     }
                 }
+                return result;
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return "發生內部錯誤: " + ex.Message;
+                return -1;
             }
         }
+
+  
+
 
     }
 }
