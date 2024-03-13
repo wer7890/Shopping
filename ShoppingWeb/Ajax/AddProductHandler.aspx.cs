@@ -56,9 +56,8 @@ namespace ShoppingWeb.Ajax
 
 
         [WebMethod]
-        public static int AddProduct(string productName, string productCategory, string productImg, string productPrice, string productStock, string productIsOpen, string productIntroduce)
+        public static string AddProduct(string productName, string productCategory, string productImg, string productPrice, string productStock, string productIsOpen, string productIntroduce)
         {
-            int result = 0;
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -76,23 +75,16 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@productIsOpen", productIsOpen));
                         cmd.Parameters.Add(new SqlParameter("@productIntroduce", productIntroduce));
 
-                        SqlParameter resultParam = new SqlParameter("@result", SqlDbType.Int);
-                        resultParam.Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add(resultParam);
+                        string result = cmd.ExecuteScalar().ToString();
 
-                        // 执行存储过程
-                        cmd.ExecuteNonQuery();
-
-                        // 获取存储过程返回值
-                        result = Convert.ToInt32(resultParam.Value);
+                        return result;
                     }
                 }
-                return result;
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return -1;
+                return "發生內部錯誤: " + ex.Message;
             }
         }
 

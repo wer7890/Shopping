@@ -25,11 +25,10 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === 1) {
-                    // 商品信息写入数据库成功后，再处理文件上传
+                if (response.d === "1") {
                     UploadFile();
                 } else {
-                    $("#labAddProduct").text("新增錯誤");
+                    $("#labAddProduct").text("圖片名稱重複");
                 }
             },
             error: function (error) {
