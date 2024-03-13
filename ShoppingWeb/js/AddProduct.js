@@ -8,7 +8,10 @@
         let productIsOpen = $("#productIsOpen").val();
         let productIntroduce = $("#txbProductIntroduce").val();
 
-
+        if (productName === "" || productCategory === "" || productImg === "" || productPrice === "" || productStock === "" || productIsOpen === "" || productIntroduce === "") {
+            $("#labAddProduct").text("請填寫全部");
+            return; 
+        }
 
         $.ajax({
             type: "POST",
