@@ -14,7 +14,7 @@ namespace ShoppingWeb.Ajax
 {
     public partial class AddProductHandler : System.Web.UI.Page
     {
-        private static string pubuuid = "";
+        private static string pubguid = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             // 檢查是否有上傳的檔案
@@ -27,9 +27,9 @@ namespace ShoppingWeb.Ajax
                     string fileName = Path.GetFileName(uploadedFile.FileName);
 
                     // 建立新的檔名，GUID
-                    string uuid = Guid.NewGuid().ToString();
-                    string newFileName = DateTime.Now.ToString(uuid) + Path.GetExtension(fileName);
-                    pubuuid = newFileName;
+                    string guid = Guid.NewGuid().ToString("N");  //沒有連接符的32位數字   
+                    string newFileName = DateTime.Now.ToString(guid) + Path.GetExtension(fileName);
+                    pubguid = newFileName;
 
                     // 指定儲存路徑
                     string targetFolderPath = Server.MapPath("~/Images/" + newFileName);
@@ -73,7 +73,7 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@productName", productName));
                         cmd.Parameters.Add(new SqlParameter("@productCategory", productCategory));
-                        cmd.Parameters.Add(new SqlParameter("@productImg", pubuuid));
+                        cmd.Parameters.Add(new SqlParameter("@productImg", pubguid));
                         cmd.Parameters.Add(new SqlParameter("@productPrice", productPrice));
                         cmd.Parameters.Add(new SqlParameter("@productStock", productStock));
                         cmd.Parameters.Add(new SqlParameter("@productIsOpen", productIsOpen));
