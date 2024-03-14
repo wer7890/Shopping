@@ -14,6 +14,7 @@ namespace ShoppingWeb.Ajax
 {
     public partial class AddProductHandler : System.Web.UI.Page
     {
+        private static string pubuuid = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             // 檢查是否有上傳的檔案
@@ -25,8 +26,13 @@ namespace ShoppingWeb.Ajax
                 {
                     string fileName = Path.GetFileName(uploadedFile.FileName);
 
-                    // 設定目標資料夾路徑
-                    string targetFolderPath = Server.MapPath("../Images/");
+                    // 建立新的檔名，GUID
+                    string uuid = Guid.NewGuid().ToString();
+                    string newFileName = DateTime.Now.ToString(uuid) + Path.GetExtension(fileName);
+                    pubuuid = newFileName;
+
+                    // 指定儲存路徑
+                    string targetFolderPath = Server.MapPath("~/Images/" + newFileName);
 
                     // 檢查檔案是否已存在於目標資料夾中
                     if (File.Exists(Path.Combine(targetFolderPath, fileName)))
@@ -35,9 +41,7 @@ namespace ShoppingWeb.Ajax
                     }
                     else
                     {
-                        // 上傳檔案到目標資料夾
-                        string filePath = Path.Combine(targetFolderPath, fileName);
-                        uploadedFile.SaveAs(filePath);
+                        uploadedFile.SaveAs(targetFolderPath);
 
                         Response.Write("圖片上傳成功");
                     }
@@ -56,7 +60,7 @@ namespace ShoppingWeb.Ajax
 
 
         [WebMethod]
-        public static string AddProduct(string productName, string productCategory, string productImg, string productPrice, string productStock, string productIsOpen, string productIntroduce)
+        public static string AddProduct(string productName, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce)
         {
             try
             {
@@ -69,12 +73,12 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@productName", productName));
                         cmd.Parameters.Add(new SqlParameter("@productCategory", productCategory));
-                        cmd.Parameters.Add(new SqlParameter("@productImg", productImg));
+                        cmd.Parameters.Add(new SqlParameter("@productImg", pubuuid));
                         cmd.Parameters.Add(new SqlParameter("@productPrice", productPrice));
                         cmd.Parameters.Add(new SqlParameter("@productStock", productStock));
                         cmd.Parameters.Add(new SqlParameter("@productIsOpen", productIsOpen));
                         cmd.Parameters.Add(new SqlParameter("@productIntroduce", productIntroduce));
-
+                        cmd.Parameters.Add(new SqlParameter("@productOwner", HttpContext.Current.Session["userName"]));
                         string result = cmd.ExecuteScalar().ToString();
 
                         return result;
@@ -87,8 +91,6 @@ namespace ShoppingWeb.Ajax
                 return "發生內部錯誤: " + ex.Message;
             }
         }
-
-  
 
 
     }
