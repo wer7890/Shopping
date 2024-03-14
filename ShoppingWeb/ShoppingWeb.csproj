@@ -72,7 +72,7 @@
     <Content Include="Ajax\IndexHandler.aspx" />
     <Content Include="Ajax\LoginHandler.aspx" />
     <Content Include="Ajax\RenewUserHandler.aspx" />
-    <Content Include="Ajax\SearchProduct.aspx" />
+    <Content Include="Ajax\SearchProductHandler.aspx" />
     <Content Include="Ajax\SearchUserHandler.aspx" />
     <Content Include="Ajax\Test.aspx" />
     <Content Include="Global.asax" />
@@ -128,12 +128,12 @@
     <Compile Include="Ajax\RenewUserHandler.aspx.designer.cs">
       <DependentUpon>RenewUserHandler.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Ajax\SearchProduct.aspx.cs">
-      <DependentUpon>SearchProduct.aspx</DependentUpon>
+    <Compile Include="Ajax\SearchProductHandler.aspx.cs">
+      <DependentUpon>SearchProductHandler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Ajax\SearchProduct.aspx.designer.cs">
-      <DependentUpon>SearchProduct.aspx</DependentUpon>
+    <Compile Include="Ajax\SearchProductHandler.aspx.designer.cs">
+      <DependentUpon>SearchProductHandler.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ajax\SearchUserHandler.aspx.cs">
       <DependentUpon>SearchUserHandler.aspx</DependentUpon>

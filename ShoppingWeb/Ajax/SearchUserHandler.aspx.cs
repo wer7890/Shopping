@@ -78,8 +78,9 @@ namespace ShoppingWeb.Ajax
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT f_id, f_userName, f_pwd, f_roles FROM t_userInfo", con))
+                using (SqlCommand cmd = new SqlCommand("getAllUserData", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     DataTable dt = new DataTable();

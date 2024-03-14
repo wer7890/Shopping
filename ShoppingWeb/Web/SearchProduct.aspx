@@ -11,7 +11,7 @@
     <script src="../js/SearchProduct.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div>
         <h2 class="text-center">查詢商品</h2>
         <br />
         <div class="row">
