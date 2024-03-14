@@ -27,8 +27,7 @@
                         <th><button type="button" class="btn btn-light btn-sm " disabled>刪除</button></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <asp:Literal ID="tableBodyLiteral" runat="server"></asp:Literal>
+                <tbody id="tableBody">
                     <!-- 內容 -->
                 </tbody>
             </table>

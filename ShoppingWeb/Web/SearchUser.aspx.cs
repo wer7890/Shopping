@@ -21,40 +21,7 @@ namespace ShoppingWeb.Web
                     Response.Redirect("Login.aspx");
                     return;
                 }
-                else
-                {
-                    //string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo WHERE f_roles > 0";
-                    using (SqlConnection con = new SqlConnection(connectionString))
-                    {
-                        // 建立 SqlDataAdapter 和 DataTable
-                        SqlDataAdapter adapter = new SqlDataAdapter("getAllUserData", con);
-                        DataTable dt = new DataTable();
-                        con.Open();
-                        adapter.Fill(dt);
-
-                        // 動態構建 HTML 表格
-                        StringBuilder tableRows = new StringBuilder();
-
-                        foreach (DataRow row in dt.Rows)
-                        {
-                            string editButton = $"<button class='btn btn-primary' onclick='editUser({row["f_id"]})'>編輯</button>";
-                            string deleteButton = $"<button class='btn btn-danger' onclick='deleteUser({row["f_id"]})'>刪除</button>";
-
-                            tableRows.Append("<tr>")
-                                .Append($"<td>{row["f_id"]}</td>")
-                                .Append($"<td>{row["f_userName"]}</td>")
-                                .Append($"<td>{row["f_pwd"]}</td>")
-                                .Append($"<td>{row["f_roles"]}</td>")
-                                .Append($"<td>{editButton}</td>")
-                                .Append($"<td>{deleteButton}</td>")
-                                .Append("</tr>");
-                        }
-
-                        // 將動態生成的表格行添加到 Literal 控制項
-                        tableBodyLiteral.Text = tableRows.ToString();
-                    }
-                }
-
+                
             }
 
         }

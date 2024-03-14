@@ -38,7 +38,7 @@
                             $("#labAddProduct").text("上傳失敗");
                         } else {
                             if (response === "圖片上傳成功") {
-                                UploadFile(productName, productCategory, productPrice, productStock, productIsOpen, productIntroduce);
+                                uploadProductInfo(productName, productCategory, productPrice, productStock, productIsOpen, productIntroduce);
                             } else {
                                 $("#labAddProduct").text("上傳失敗: " + response);
                             }
@@ -57,7 +57,8 @@
     });
 });
 
-function UploadFile(productName, productCategory, productPrice, productStock, productIsOpen, productIntroduce) {
+//上傳產品資訊
+function uploadProductInfo(productName, productCategory, productPrice, productStock, productIsOpen, productIntroduce) {
     $.ajax({
         type: "POST",
         url: "/Ajax/AddProductHandler.aspx/AddProduct",
@@ -106,7 +107,6 @@ function IsSpecialChar(productName, productCategory, productImg, productIsOpen, 
 
     return true;
 }
-
 
 //判斷數字輸入框 
 function IsSpecialNum(productPrice, productStock) {
