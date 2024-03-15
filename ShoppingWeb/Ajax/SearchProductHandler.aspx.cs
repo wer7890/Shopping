@@ -19,7 +19,7 @@ namespace ShoppingWeb.Ajax
         }
 
         [WebMethod]
-        public static object GetUserData()
+        public static object GetAllProductData()
         {
             // 連接資料庫，獲取使用者資料
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -35,6 +35,37 @@ namespace ShoppingWeb.Ajax
 
                     // 將資料轉換為 JSON 格式返回
                     return ConvertDataTableToJson(dt);
+                }
+            }
+        }
+
+        [WebMethod]
+        public static object GetProductData(string searchName)
+        {
+            // 連接資料庫，獲取使用者資料
+            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("getProductData", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@productName", searchName));
+                    object result = cmd.ExecuteScalar();
+                    if (result == null)
+                    {
+                        return "null";
+                    }
+                    else
+                    {
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+
+                        // 將資料轉換為 JSON 格式返回
+                        return ConvertDataTableToJson(dt);
+                    }
+
                 }
             }
         }
