@@ -75,6 +75,7 @@ function uploadProductInfo(productName, productCategory, productPrice, productSt
         success: function (response) {
             if (response.d === "1") {
                 alert("新增成功");
+                window.location.href = "SearchProduct.aspx" 
             } else {
                 $("#labAddProduct").text("資料庫圖片名稱重複");
             }

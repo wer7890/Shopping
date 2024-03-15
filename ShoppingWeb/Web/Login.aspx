@@ -6,7 +6,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>後臺登入</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />  
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="../js/Login.js"></script>
@@ -17,7 +17,7 @@
             <h1 class="text-center mt-3">登入頁面</h1>
         </div>
         <hr />
-        <div class="row mx-auto col-12 col-md-8">
+        <div class="row mx-auto col-12 col-md-5">
             <div class="form-group">
                 <label for="txbUserName" class="control-label">用戶名:</label>
                 <div>

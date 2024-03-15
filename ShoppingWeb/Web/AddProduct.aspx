@@ -23,9 +23,9 @@
             <div class="mx-auto col-12 col-md-8 mt-3">
                 <label for="productCategory" class="form-label">商品類型</label>
                 <select id="productCategory" class="form-select">
-                    <option value="1">類型一</option>
-                    <option value="2">類型二</option>
-                    <option value="3">類型三</option>
+                    <option value="類型一">類型一</option>
+                    <option value="類型二">類型二</option>
+                    <option value="類型三">類型三</option>
                 </select>
             </div>
             <div class="mx-auto col-12 col-md-8 mt-3">

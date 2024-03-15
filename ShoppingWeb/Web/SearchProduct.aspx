@@ -14,15 +14,22 @@
     <div class="w-auto mx-3">
         <h2 class="text-center">查詢商品</h2>
         <br />
-        <div class="row w-auto">
-            <div class="col-auto">
+        <div class="row mx-auto col-12 col-md-5">
+            <div class="col-9">
                 <label for="txbProductSearch" class="visually-hidden">商品名稱搜尋</label>
                 <input type="text" class="form-control" id="txbProductSearch" placeholder="商品名稱搜尋" />
             </div>
-            <div class="col-auto">
+            <div class="col-3">
                 <button id="btnSearchProduct" type="submit" class="btn btn-primary mb-3">查詢</button>
             </div>
-
+        </div>
+        <div class="row mx-auto col-12 col-md-5 mt-1 mb-4">
+            <select id="productCategory" class="form-select">
+                <option value="0">請選擇要搜尋的商品類型</option>
+                <option value="類型一">類型一</option>
+                <option value="類型二">類型二</option>
+                <option value="類型三">類型三</option>
+            </select>
         </div>
         <div class="row" id="productTableDiv">
             <table id="myTable" class="table table-striped table-hover table-bordered">

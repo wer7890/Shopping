@@ -16,7 +16,7 @@
     <div class="container mt-5">
         <div class="row">
             <!--左欄-->
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-2">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
 
                     <div class="accordion-item" id="divAdminPanel">
@@ -67,7 +67,7 @@
 
                 </div>
 
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <label id="labUserRoles" class="fs-5 text-center align-middle mt-2"></label>
                     <br />
                     <button id="btnSignOut" class="btn btn-outline-dark mt-3">登出</button>
@@ -76,7 +76,7 @@
             </div>
 
             <!--右欄-->
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-10">
                 <iframe id="iframeContent" src="" style="width: 100%; height: 100vh; border: none;"></iframe>
             </div>
 

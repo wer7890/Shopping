@@ -5,13 +5,19 @@
     $("#btnSearchProduct").click(function () {
         $("#labSearchProduct").text("");
         let productName = $("#txbProductSearch").val();
-        var tableBody = $('#tableBody');
-        tableBody.empty();
-        SearchProduct(productName);
-    })
+        $('#tableBody').empty();
+        SearchProduct("getSearchProductNameData", "@productName", productName);
+    });
+
+    $("#productCategory").change(function () {
+        $("#labSearchProduct").text("");
+        $('#tableBody').empty();
+        let selectedValue = $(this).val();
+        SearchProduct("getSearchProductCategoryData", "@productCategory", selectedValue);
+    });
 })
 
-//商品資料
+//全部商品資料
 function SearchAllProduct() {
     $.ajax({
         url: '/Ajax/SearchProductHandler.aspx/GetAllProductData',
@@ -47,16 +53,16 @@ function SearchAllProduct() {
             
         },
         error: function (xhr, status, error) {
-            // 處理發生錯誤的情況
             console.error('Error:', error);
         }
     });
 }
 
-function SearchProduct(searchName) {
+//部分商品資料
+function SearchProduct(sqlName, sqlAdd, searchName) {
     $.ajax({
         url: '/Ajax/SearchProductHandler.aspx/GetProductData',
-        data: JSON.stringify({ searchName: searchName }),
+        data: JSON.stringify({ sqlName: sqlName, sqlAdd: sqlAdd, searchName: searchName }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -66,14 +72,10 @@ function SearchProduct(searchName) {
                 $("#labSearchProduct").text("沒有資料");
             } else {
                 $("#productTableDiv").css('display', 'block');
-                // 處理成功取得資料的情況
-                var data = JSON.parse(response.d); // 解析 JSON 資料為 JavaScript 物件
+                var data = JSON.parse(response.d);
                 var tableBody = $('#tableBody');
 
-                // 清空表格內容
                 tableBody.empty();
-
-                // 動態生成表格內容
                 $.each(data, function (index, item) {
                     var row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
@@ -96,7 +98,6 @@ function SearchProduct(searchName) {
 
         },
         error: function (xhr, status, error) {
-            // 處理發生錯誤的情況
             console.error('Error:', error);
         }
     });
