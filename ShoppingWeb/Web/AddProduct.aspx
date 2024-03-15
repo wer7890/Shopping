@@ -16,11 +16,11 @@
         <h2 class="text-center">新增商品</h2>
         <br />
         <div class="row">
-            <div class="mx-auto col-12 col-md-8 mt-2">
+            <div class="mx-auto col-12 col-md-7 mt-2">
                 <label for="txbProductName" class="form-label">商品名稱</label>
                 <input type="text" id="txbProductName" class="form-control" />
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-3">
+            <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="productCategory" class="form-label">商品類型</label>
                 <select id="productCategory" class="form-select">
                     <option value="類型一">類型一</option>
@@ -28,31 +28,31 @@
                     <option value="類型三">類型三</option>
                 </select>
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-3">
+            <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="txbProductImg" class="form-label">商品圖示</label>
                 <input type="file" id="txbProductImg" class="form-control" />
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-3">
+            <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="txbProductPrice" class="form-label">價格</label>
                 <input type="number" id="txbProductPrice" class="form-control" />
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-3">
+            <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="txbProductStock" class="form-label">庫存量</label>
                 <input type="number" id="txbProductStock" class="form-control" />
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-3">
+            <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="productIsOpen" class="form-label">是否開放</label>
                 <select id="productIsOpen" class="form-select">
                     <option value="1">是</option>
                     <option value="0">否</option>
                 </select>
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-3">
+            <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="txbProductIntroduce" class="form-label">商品細項描述</label>
                 <textarea rows="3" class="form-control" id="txbProductIntroduce" ></textarea>
             </div>
             
-             <button id="btnAddProduct" class="btn btn-outline-primary mx-auto mt-3 col-12 col-md-5">新增</button>
+             <button id="btnAddProduct" class="btn btn-outline-primary mx-auto mt-4 col-12 col-md-6">新增</button>
         </div>
         <br />
         <div class="row">

@@ -125,10 +125,13 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@productId", productId));
 
+                        //設定預存程序輸出參數的名稱與資料類型
                         cmd.Parameters.Add(new SqlParameter("@deletedProductImg", SqlDbType.NVarChar, 50));
+                        //設定參數名稱的傳遞方向
                         cmd.Parameters["@deletedProductImg"].Direction = ParameterDirection.Output;
 
                         int r = (int)cmd.ExecuteScalar();
+                        //取得預存程序的輸出參數值
                         string deletedProductImg = cmd.Parameters["@deletedProductImg"].Value.ToString();
 
                         if (r > 0)

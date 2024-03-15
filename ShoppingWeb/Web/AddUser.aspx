@@ -16,15 +16,15 @@
         <h2 class="text-center">新增帳號</h2>
         <br />
         <div class="row">
-            <div class="mx-auto col-12 col-md-8 mt-2">
+            <div class="mx-auto col-12 col-md-7 mt-2">
                 <label for="txbUserName" class="form-label">管理員名稱</label>
                 <input type="text" id="txbUserName" class="form-control" />
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-2">
+            <div class="mx-auto col-12 col-md-7 mt-2">
                 <label for="txbPwd" class="form-label">密碼</label>
                 <input type="password" id="txbPwd" class="form-control" />
             </div>
-            <div class="mx-auto mt-3 col-12 col-md-8 mt-2">
+            <div class="mx-auto mt-3 col-12 col-md-7 mt-2">
                 <label for="ddlRoles" class="form-label">角色</label>
 
                 <select id="ddlRoles" class="form-select">
@@ -34,7 +34,7 @@
                 </select>
             </div>
             
-            <button id="btnAddUser" class="btn btn-outline-primary mx-auto mt-3 col-12 col-md-5">新增</button>
+            <button id="btnAddUser" class="btn btn-outline-primary mx-auto mt-4 col-12 col-md-6">新增</button>
         </div>
         <br />
         <div class="row">
