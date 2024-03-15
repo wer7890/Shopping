@@ -10,11 +10,10 @@
         $("#labAddProduct").text("");
 
         if (!IsSpecialChar(productName, productCategory, productImg, productIsOpen, productIntroduce) || !IsSpecialNum(productPrice, productStock)) {
-            return
+            return;
         }
         
-
-        var yes = confirm('確定要新增商品嗎');
+        let yes = confirm('確定要新增商品嗎');
         if (yes == true) {
             let fileInput = $("#txbProductImg")[0];
             // 取得使用者選擇的檔案 
@@ -87,7 +86,7 @@ function uploadProductInfo(productName, productCategory, productPrice, productSt
     });
 }
 
-//判斷特殊字元和長度 
+//判斷文字長度 
 function IsSpecialChar(productName, productCategory, productImg, productIsOpen, productIntroduce) {
 
     if (typeof productName === 'undefined' || typeof productCategory === 'undefined' || typeof productImg === 'undefined' || typeof productIsOpen === 'undefined' || typeof productIntroduce === 'undefined') {
@@ -95,14 +94,8 @@ function IsSpecialChar(productName, productCategory, productImg, productIsOpen, 
         return false;
     }
 
-    let regex = /^[\u4e00-\u9fa5_A-Za-z0-9]{1,50}$/; 
-
-    let productNameValid = regex.test(productName);
-    let productCategoryValid = regex.test(productCategory);
-    let productIsOpenValid = regex.test(productIsOpen);
-
-    if (!productNameValid || !productCategoryValid || !productIsOpenValid || productImg === "" || productIntroduce === "") {
-        $("#labAddProduct").text("請填寫全部且不能有特殊字元");
+    if (productName === "" || productCategory === "" || productImg === "" || productIsOpen === "" || productIntroduce === "") {
+        $("#labAddProduct").text("請填寫全部");
         return false;
     }
 
@@ -124,7 +117,7 @@ function IsSpecialNum(productPrice, productStock) {
 
 
     if (!productPriceValid || !productStockValid) {
-        $("#labAddProduct").text("價格和庫存量只能是數字都要填寫");
+        $("#labAddProduct").text("價格和庫存量只能是數字且都要填寫");
         return false;
     }
 
