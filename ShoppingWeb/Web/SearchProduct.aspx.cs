@@ -12,6 +12,16 @@ namespace ShoppingWeb.Web
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            if (!IsPostBack)
+            {
+
+                if (Session["userName"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                }
+
+            }
+
         }
     }
 }

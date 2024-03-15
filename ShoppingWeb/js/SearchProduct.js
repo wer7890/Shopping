@@ -102,3 +102,33 @@ function SearchProduct(sqlName, sqlAdd, searchName) {
         }
     });
 }
+
+//刪除
+function deleteUser(productId) {
+    var yes = confirm('確定要刪除商品嗎');
+    if (yes == true) {
+        $.ajax({
+            type: "POST",
+            url: "/Ajax/SearchProductHandler.aspx/RemoveProduct",
+            data: JSON.stringify({ productId: productId }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.d === true) {
+                    // 刪除成功後，刷新當前頁面並刷新表格
+                    window.location.reload();
+                } else {
+                    $("#labSearch").text("刪除失敗");
+                }
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+}
+
+//編輯
+function editUser(productId) {
+
+}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -102,6 +103,53 @@ namespace ShoppingWeb.Ajax
             }
 
             return serializer.Serialize(rows);
+        }
+
+        /// <summary>
+        /// 刪除商品
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static bool RemoveProduct(string productId)
+        {
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("deleteProduct", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@productId", productId));
+
+                        cmd.Parameters.Add(new SqlParameter("@deletedProductImg", SqlDbType.NVarChar, 50));
+                        cmd.Parameters["@deletedProductImg"].Direction = ParameterDirection.Output;
+
+                        int r = (int)cmd.ExecuteScalar();
+                        string deletedProductImg = cmd.Parameters["@deletedProductImg"].Value.ToString();
+
+                        if (r > 0)
+                        {
+                            string imagePath = HttpContext.Current.Server.MapPath("~/Images/" + deletedProductImg);
+                            File.Delete(imagePath);
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return false;
+            }
         }
     }
 }
