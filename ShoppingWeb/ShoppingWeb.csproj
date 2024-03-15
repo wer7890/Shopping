@@ -71,6 +71,7 @@
     <Content Include="Ajax\AddUserHandler.aspx" />
     <Content Include="Ajax\IndexHandler.aspx" />
     <Content Include="Ajax\LoginHandler.aspx" />
+    <Content Include="Ajax\RenewProductHandler.aspx" />
     <Content Include="Ajax\RenewUserHandler.aspx" />
     <Content Include="Ajax\SearchProductHandler.aspx" />
     <Content Include="Ajax\SearchUserHandler.aspx" />
@@ -80,6 +81,7 @@
     <Content Include="js\AddUser.js" />
     <Content Include="js\Index.js" />
     <Content Include="js\Login.js" />
+    <Content Include="js\RenewProduct.js" />
     <Content Include="js\RenewUser.js" />
     <Content Include="js\SearchProduct.js" />
     <Content Include="js\SearchUser.js" />
@@ -88,6 +90,7 @@
     <Content Include="Web\AddUser.aspx" />
     <Content Include="Web\Index.aspx" />
     <Content Include="Web\Login.aspx" />
+    <Content Include="Web\RenewProduct.aspx" />
     <Content Include="Web\RenewUser.aspx" />
     <Content Include="Web\SearchProduct.aspx" />
     <Content Include="Web\SearchUser.aspx" />
@@ -120,6 +123,13 @@
     </Compile>
     <Compile Include="Ajax\LoginHandler.aspx.designer.cs">
       <DependentUpon>LoginHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\RenewProductHandler.aspx.cs">
+      <DependentUpon>RenewProductHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\RenewProductHandler.aspx.designer.cs">
+      <DependentUpon>RenewProductHandler.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ajax\RenewUserHandler.aspx.cs">
       <DependentUpon>RenewUserHandler.aspx</DependentUpon>
@@ -181,6 +191,13 @@
     </Compile>
     <Compile Include="Web\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\RenewProduct.aspx.cs">
+      <DependentUpon>RenewProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\RenewProduct.aspx.designer.cs">
+      <DependentUpon>RenewProduct.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web\RenewUser.aspx.cs">
       <DependentUpon>RenewUser.aspx</DependentUpon>

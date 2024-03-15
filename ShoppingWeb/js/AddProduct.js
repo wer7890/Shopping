@@ -19,7 +19,7 @@
             // 取得使用者選擇的檔案 
             let file = fileInput.files[0];
 
-            if (file && file.type.startsWith('image/')) {
+            if (file && checkFileExtension(file.name)) {
                 // 建立 FormData 物件來儲存檔案資料
                 let formData = new FormData();
                 // 將檔案加入到 FormData 物件中
@@ -122,4 +122,10 @@ function IsSpecialNum(productPrice, productStock) {
     }
 
     return true;
+}
+
+ // 檢查檔案是否是圖片
+function checkFileExtension(fileName) {
+    var allowedExtensions = /(\.jpg|\.png)$/i;
+    return allowedExtensions.test(fileName);
 }

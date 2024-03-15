@@ -22,8 +22,9 @@ namespace ShoppingWeb.Ajax
                 {
                     string fileName = Path.GetFileName(uploadedFile.FileName);
 
-                    // 建立新的檔名，GUID
-                    string guid = Guid.NewGuid().ToString("N");  //沒有連接符的32位數字   
+                    // 建立新的檔名，GUID每个x是0-9或a-f范围内一个32位十六进制数
+                    string guid = Guid.NewGuid().ToString("N").Substring(0, 29);   
+                    
                     string newFileName = DateTime.Now.ToString(guid) + Path.GetExtension(fileName);
                     pubguid = newFileName;
 
