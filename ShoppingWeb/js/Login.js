@@ -15,10 +15,10 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === true) {
+                if (response.d == "登入成功") {
                     window.location.href = "index.aspx";
                 } else {
-                    $("#labLogin").text("帳號密碼錯誤");
+                    $("#labLogin").text(response.d);
                 }
             },
             error: function (error) {

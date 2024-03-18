@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Services;
 
@@ -72,33 +73,61 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string EditUser(string pwd, string roles)
         {
-            try
+            if (SpecialChar(pwd, roles))
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                string sessionUserId = HttpContext.Current.Session["userId"] as string;
-                using (SqlConnection con = new SqlConnection(connectionString))
+                try
                 {
-                    using (SqlCommand cmd = new SqlCommand("editUser", con))
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                    string sessionUserId = HttpContext.Current.Session["userId"] as string;
+                    using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand("editUser", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
 
-                        cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
-                        cmd.Parameters.Add(new SqlParameter("@roles", roles));
+                            cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
+                            cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
+                            cmd.Parameters.Add(new SqlParameter("@roles", roles));
 
-                        int rowsAffected = (int)cmd.ExecuteScalar();
+                            int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "修改成功" : "修改失敗";
+                            return (rowsAffected > 0) ? "修改成功" : "修改失敗";
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return "錯誤";
+                }
             }
-            catch (Exception ex)
+            else
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return "錯誤";
+                return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
             }
                 
+        }
+
+        /// <summary>
+        /// 判斷輸入值
+        /// </summary>
+        /// <param name="pwd"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        public static bool SpecialChar(string pwd, string roles)
+        {
+            bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
+            bool cheackRoles = Regex.IsMatch(roles, @"^[0-9]{1,2}$");
+
+            if (cheackPwd && cheackRoles)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Services;
 
@@ -22,40 +23,67 @@ namespace ShoppingWeb.Ajax
         /// <param name="pwd"></param>
         /// <returns></returns>
         [WebMethod]
-        public static bool LoginUser(string userName, string pwd)
+        public static string LoginUser(string userName, string pwd)
         {
-            try
+            if (SpecialChar(userName, pwd))
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                using (SqlConnection con = new SqlConnection(connectionString))
+                try
                 {
-                    using (SqlCommand cmd = new SqlCommand("loginUser", con))
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                    using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userName", userName));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
-                        cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
-
-                        object result = cmd.ExecuteScalar();
-
-                        if (result != null && result.ToString() == "1")
+                        using (SqlCommand cmd = new SqlCommand("loginUser", con))
                         {
-                            HttpContext.Current.Session["userName"] = userName;
-                            return true;
-                        }
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+                            cmd.Parameters.Add(new SqlParameter("@userName", userName));
+                            cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
+                            cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
 
-                        return false;
+                            object result = cmd.ExecuteScalar();
+
+                            if (result != null && result.ToString() == "1")
+                            {
+                                HttpContext.Current.Session["userName"] = userName;
+                                return "登入成功";
+                            }
+
+                            return "帳號密碼錯誤";
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return "登入失敗";
+                }
             }
-            catch (Exception ex)
+            else
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return false;
+                return "名稱和密碼不能含有非英文和數字且長度應在6到16之間";
             }
         }
 
+        /// <summary>
+        /// 判斷輸入值
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public static bool SpecialChar(string userName, string pwd)
+        {
+            bool cheackUserName = Regex.IsMatch(userName, @"^[A-Za-z0-9]{6,16}$");
+            bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
+
+            if (cheackUserName && cheackPwd)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

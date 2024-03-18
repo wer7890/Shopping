@@ -56,9 +56,6 @@ namespace ShoppingWeb.Ajax
             }
         }
 
-        
-
-
         [WebMethod]
         public static string AddProduct(string productName, string productCategory, int productPrice, int productStock, string productIsOpen, string productIntroduce)
         {
