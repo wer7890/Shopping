@@ -56,6 +56,16 @@ namespace ShoppingWeb.Ajax
             }
         }
 
+        /// <summary>
+        /// 新增商品
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <param name="productCategory"></param>
+        /// <param name="productPrice"></param>
+        /// <param name="productStock"></param>
+        /// <param name="productIsOpen"></param>
+        /// <param name="productIntroduce"></param>
+        /// <returns></returns>
         [WebMethod]
         public static string AddProduct(string productName, string productCategory, int productPrice, int productStock, string productIsOpen, string productIntroduce)
         {

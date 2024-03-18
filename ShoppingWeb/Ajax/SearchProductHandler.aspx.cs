@@ -4,11 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace ShoppingWeb.Ajax
 {
@@ -190,6 +187,17 @@ namespace ShoppingWeb.Ajax
             }
         }
 
+        /// <summary>
+        /// 設定Session["productId"]
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static bool SetSessionProductId(string productId)
+        {
+            HttpContext.Current.Session["productId"] = productId; 
+            return true;
+        }
 
     }
 }

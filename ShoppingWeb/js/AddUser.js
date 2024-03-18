@@ -2,7 +2,6 @@
     //新增按鈕
     $("#btnAddUser").click(function () {
 
-
         if (!CheckAnyoneLonginRedirect()) {
             return;
         }

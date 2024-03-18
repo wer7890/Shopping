@@ -64,7 +64,7 @@ function SearchAllProduct() {
     });
 }
 
-//部分商品資料
+//搜尋商品資料
 function SearchProduct(productCategory, productName) {
     $.ajax({
         url: '/Ajax/SearchProductHandler.aspx/GetProductData',
@@ -128,7 +128,6 @@ function ToggleProductStatus(productId) {
     });
 }
 
-
 //刪除
 function deleteProduct(productId) {
     var yes = confirm('確定要刪除商品嗎');
@@ -155,5 +154,23 @@ function deleteProduct(productId) {
 
 //編輯
 function editProduct(productId) {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/SearchProductHandler.aspx/SetSessionProductId",
+        data: JSON.stringify({ productId: productId }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d === true) {
+                window.location.href = "RenewProduct.aspx";
+            } else {
+                alert("失敗");
+            }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
 
+    
 }
