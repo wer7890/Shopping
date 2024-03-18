@@ -136,7 +136,7 @@ namespace ShoppingWeb.Ajax
 
                         if (r > 0)
                         {
-                            string imagePath = HttpContext.Current.Server.MapPath("~/Images/" + deletedProductImg);
+                            string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
                             File.Delete(imagePath);
                             return true;
                         }

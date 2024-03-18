@@ -9,7 +9,7 @@
         let productIntroduce = $("#txbProductIntroduce").val();
         $("#labAddProduct").text("");
 
-        if (!IsSpecialChar(productName, productCategory, productImg, productIsOpen, productIntroduce) || !IsSpecialNum(productPrice, productStock)) {
+        if (!IsSpecialChar(productName, productCategory, productImg, productIsOpen, productIntroduce, productPrice, productStock)) {
             return;
         }
         
@@ -19,7 +19,7 @@
             // 取得使用者選擇的檔案 
             let file = fileInput.files[0];
 
-            if (file && checkFileExtension(file.name)) {
+            if (file && CheckFileExtension(file.name)) {
                 // 建立 FormData 物件來儲存檔案資料
                 let formData = new FormData();
                 // 將檔案加入到 FormData 物件中
@@ -76,7 +76,7 @@ function uploadProductInfo(productName, productCategory, productPrice, productSt
                 alert("新增成功");
                 window.location.href = "SearchProduct.aspx" 
             } else {
-                $("#labAddProduct").text("資料庫圖片名稱重複");
+                $("#labAddProduct").text(response.d);
             }
         },
         error: function (error) {
@@ -87,36 +87,34 @@ function uploadProductInfo(productName, productCategory, productPrice, productSt
 }
 
 //判斷文字長度 
-function IsSpecialChar(productName, productCategory, productImg, productIsOpen, productIntroduce) {
+function IsSpecialChar(productName, productCategory, productImg, productIsOpen, productIntroduce, productPrice, productStock) {
 
-    if (typeof productName === 'undefined' || typeof productCategory === 'undefined' || typeof productImg === 'undefined' || typeof productIsOpen === 'undefined' || typeof productIntroduce === 'undefined') {
+    if (typeof productName === 'undefined' || typeof productCategory === 'undefined' || typeof productImg === 'undefined' || typeof productIsOpen === 'undefined' || typeof productIntroduce === 'undefined' || typeof productPrice === 'undefined' || typeof productStock === 'undefined') {
         $("#labAddProduct").text("undefined");
         return false;
     }
 
-    if (productName === "" || productCategory === "" || productImg === "" || productIsOpen === "" || productIntroduce === "") {
-        $("#labAddProduct").text("請填寫全部");
+    if (!/^.{1,40}$/.test(productName)) {
+        $("#labAddProduct").text("商品名稱長度需在1到40之間");
         return false;
     }
 
-    return true;
-}
-
-//判斷數字輸入框 
-function IsSpecialNum(productPrice, productStock) {
-
-    if (typeof productPrice === 'undefined' || typeof productStock === 'undefined') {
-        $("#labAddProduct").text("undefined");
+    if (!/(\.jpg|\.png)$/i.test(productImg)) {
+        $("#labAddProduct").text("請選擇圖片檔案");
         return false;
     }
 
-    let regex = /^[0-9]{1,50}$/;  //只能是數字且長度要大於1
+    if (!/.{1,}/.test(productCategory) || !/.{1,}/.test(productIsOpen)) {
+        $("#labAddProduct").text("商品類別和是否開放必須填寫");
+        return false;
+    }
 
-    let productPriceValid = regex.test(productPrice);
-    let productStockValid = regex.test(productStock);
+    if (!/^.{1,500}$/.test(productIntroduce)) {
+        $("#labAddProduct").text("商品描述長度需在1到500之間");
+        return false;
+    }
 
-
-    if (!productPriceValid || !productStockValid) {
+    if (!/^[0-9]{1,7}$/.test(productPrice) || !/^[0-9]{1,7}$/.test(productStock)) {
         $("#labAddProduct").text("價格和庫存量只能是數字且都要填寫");
         return false;
     }
@@ -125,7 +123,7 @@ function IsSpecialNum(productPrice, productStock) {
 }
 
  // 檢查檔案是否是圖片
-function checkFileExtension(fileName) {
+function CheckFileExtension(fileName) {
     var allowedExtensions = /(\.jpg|\.png)$/i;
     return allowedExtensions.test(fileName);
 }

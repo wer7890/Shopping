@@ -43,7 +43,7 @@ function SearchAllProduct() {
                     //'<td>' + item.f_productOwner + '</td>' +
                     //'<td>' + item.f_productCreatedOn + '</td>' +
                     '<td>' + item.f_productIntroduce + '</td>' +
-                    '<td><img src="/Images/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
+                    '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
                     '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
                     '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
                     '</tr>';
@@ -87,7 +87,7 @@ function SearchProduct(sqlName, sqlAdd, searchName) {
                         //'<td>' + item.f_productOwner + '</td>' +
                         //'<td>' + item.f_productCreatedOn + '</td>' +
                         '<td>' + item.f_productIntroduce + '</td>' +
-                        '<td><img src="/Images/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
+                        '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
                         '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
                         '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
                         '</tr>';
