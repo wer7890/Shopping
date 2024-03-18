@@ -4,17 +4,23 @@
     
     $("#btnSearchProduct").click(function () {
         $("#labSearchProduct").text("");
-        let productName = $("#txbProductSearch").val();
         $('#tableBody').empty();
-        SearchProduct("getSearchProductNameData", "@productName", productName);
+        let productName = $("#txbProductSearch").val();
+        let productCategory = $("#productCategory").val();
+        SearchProduct(productCategory, productName);
     });
 
-    $("#productCategory").change(function () {
-        $("#labSearchProduct").text("");
-        $('#tableBody').empty();
-        let selectedValue = $(this).val();
-        SearchProduct("getSearchProductCategoryData", "@productCategory", selectedValue);
+
+    // 使用事件代理監聽開關的改變事件
+    $(document).on("change", ".toggle-switch", function () {
+        var productId = $(this).data('id');
+        ToggleProductStatus(productId);
     });
+    
+
+    $("#btnAddProduct").click(function () {
+        window.location.href = "AddProduct.aspx"
+    })
 })
 
 //全部商品資料
@@ -39,13 +45,13 @@ function SearchAllProduct() {
                     '<td>' + item.f_productCategory + '</td>' +
                     '<td>' + item.f_productPrice + '</td>' +
                     '<td>' + item.f_productStock + '</td>' +
-                    '<td>' + item.f_productIsOpen + '</td>' +
+                    '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_productIsOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                     //'<td>' + item.f_productOwner + '</td>' +
                     //'<td>' + item.f_productCreatedOn + '</td>' +
                     '<td>' + item.f_productIntroduce + '</td>' +
                     '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                    '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
-                    '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
+                    '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">編輯</button></td>' +
+                    '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪除</button></td>' +
                     '</tr>';
 
                 tableBody.append(row);
@@ -59,10 +65,10 @@ function SearchAllProduct() {
 }
 
 //部分商品資料
-function SearchProduct(sqlName, sqlAdd, searchName) {
+function SearchProduct(productCategory, productName) {
     $.ajax({
         url: '/Ajax/SearchProductHandler.aspx/GetProductData',
-        data: JSON.stringify({ sqlName: sqlName, sqlAdd: sqlAdd, searchName: searchName }),
+        data: JSON.stringify({ productCategory: productCategory, productName: productName }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -83,9 +89,7 @@ function SearchProduct(sqlName, sqlAdd, searchName) {
                         '<td>' + item.f_productCategory + '</td>' +
                         '<td>' + item.f_productPrice + '</td>' +
                         '<td>' + item.f_productStock + '</td>' +
-                        '<td>' + item.f_productIsOpen + '</td>' +
-                        //'<td>' + item.f_productOwner + '</td>' +
-                        //'<td>' + item.f_productCreatedOn + '</td>' +
+                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_productIsOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '<td>' + item.f_productIntroduce + '</td>' +
                         '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
                         '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
@@ -103,8 +107,30 @@ function SearchProduct(sqlName, sqlAdd, searchName) {
     });
 }
 
+//按下是否開放開關，更改資料庫
+function ToggleProductStatus(productId) {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/SearchProductHandler.aspx/ToggleProductStatus",
+        data: JSON.stringify({ productId: productId }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d === true) {
+                $("#labSearchProduct").text("更改成功");
+            } else {
+                $("#labSearchProduct").text("更改失敗");
+            }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+
 //刪除
-function deleteUser(productId) {
+function deleteProduct(productId) {
     var yes = confirm('確定要刪除商品嗎');
     if (yes == true) {
         $.ajax({
@@ -115,7 +141,6 @@ function deleteUser(productId) {
             dataType: "json",
             success: function (response) {
                 if (response.d === true) {
-                    // 刪除成功後，刷新當前頁面並刷新表格
                     window.location.reload();
                 } else {
                     $("#labSearch").text("刪除失敗");
@@ -129,6 +154,6 @@ function deleteUser(productId) {
 }
 
 //編輯
-function editUser(productId) {
+function editProduct(productId) {
 
 }

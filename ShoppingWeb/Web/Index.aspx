@@ -49,7 +49,6 @@
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                            <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="addProduct">新增商品</a>
                             <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="searchProduct">查詢商品</a>
                         </div>
                     </div>

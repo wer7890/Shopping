@@ -51,17 +51,18 @@ namespace ShoppingWeb.Ajax
         /// <param name="searchName"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetProductData(string sqlName, string sqlAdd, string searchName)
+        public static object GetProductData(string productCategory, string productName )
         {
             // 連接資料庫，獲取使用者資料
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand(sqlName, con))
+                using (SqlCommand cmd = new SqlCommand("getSearchProductData", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
-                    cmd.Parameters.Add(new SqlParameter(sqlAdd, searchName));
+                    cmd.Parameters.Add(new SqlParameter("@productCategory", productCategory));
+                    cmd.Parameters.Add(new SqlParameter("@productName", productName));
                     object result = cmd.ExecuteScalar();
                     if (result == null)
                     {
@@ -154,5 +155,41 @@ namespace ShoppingWeb.Ajax
                 return false;
             }
         }
+
+        /// <summary>
+        /// 是否開放開關
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static bool ToggleProductStatus(string productId)
+        {
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("toggleProductStatus", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@productId", productId));
+
+                        int rowsAffected = (int)cmd.ExecuteScalar();
+
+                        return (rowsAffected > 0) ? true : false;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return false;
+            }
+        }
+
+
     }
 }

@@ -60,9 +60,6 @@
     $("#searchUser").click(function () {
         CheckAnyoneLonginRedirect("SearchUser.aspx");
     });
-    $("#addProduct").click(function () {
-        CheckAnyoneLonginRedirect("AddProduct.aspx");
-    });
     $("#searchProduct").click(function () {
         CheckAnyoneLonginRedirect("SearchProduct.aspx");
     });

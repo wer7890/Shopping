@@ -14,23 +14,28 @@
     <div class="w-auto mx-3">
         <h2 class="text-center">查詢商品</h2>
         <br />
-        <div class="row mx-auto col-12 col-md-5">
-            <div class="col-9">
+        <div class="row mx-auto col-12 mb-3">
+            <div class="col">
+                <select id="productCategory" class="form-select">
+                    <option value="">請選擇要搜尋的商品類型</option>
+                    <option value="帽子">帽子</option>
+                    <option value="上衣">上衣</option>
+                    <option value="外套">外套</option>
+                    <option value="褲子">褲子</option>
+                </select>
+            </div>
+            <div class="col">
                 <label for="txbProductSearch" class="visually-hidden">商品名稱搜尋</label>
                 <input type="text" class="form-control" id="txbProductSearch" placeholder="商品名稱搜尋" />
+            </div>            
+            <div class="col-2 d-flex justify-content-center">
+                <button id="btnSearchProduct" type="submit" class="btn btn-outline-primary">查詢</button>
             </div>
-            <div class="col-3">
-                <button id="btnSearchProduct" type="submit" class="btn btn-primary mb-3">查詢</button>
+            <div class="col-2 d-flex justify-content-center">
+                <button id="btnAddProduct" type="submit" class="btn btn-outline-primary">新增商品</button>
             </div>
         </div>
-        <div class="row mx-auto col-12 col-md-5 mt-1 mb-4">
-            <select id="productCategory" class="form-select">
-                <option value="0">請選擇要搜尋的商品類型</option>
-                <option value="類型一">類型一</option>
-                <option value="類型二">類型二</option>
-                <option value="類型三">類型三</option>
-            </select>
-        </div>
+
         <div class="row" id="productTableDiv">
             <table id="myTable" class="table table-striped table-hover table-bordered">
                 <thead>
@@ -46,7 +51,7 @@
                         <th>
                             <button type="button" class="btn btn-light btn-sm ">庫存</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm ">是否上架</button></th>
+                            <button type="button" class="btn btn-light btn-sm ">開放</button></th>
                         <%--<th>
                             <button type="button" class="btn btn-light btn-sm ">建立者</button></th>
                         <th>
