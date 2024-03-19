@@ -140,19 +140,5 @@ function CheckFileSize(file) {
         $("#labAddProduct").text("圖片大小超過限制（最大500KB）");
         return false;
     }
-    else {
-        //檢查圖片長寬
-        let img = new Image();
-        img.src = URL.createObjectURL(file);
-        img.onload = function () {
-            if (this.width > 1000 || this.height > 1000) {
-                $("#labAddProduct").text("圖片尺寸超過限制（最大寬度：1000px，最大高度：1000px）");
-                return false;
-            }
-            else {
-                return true;
-            }
-        };
-    }
     return true;
 }

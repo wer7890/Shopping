@@ -22,28 +22,36 @@ namespace ShoppingWeb.Ajax
 
                 if (CheckFileExtension(Path.GetExtension(fileName)))
                 {
-                    
-                    // 建立新的檔名，GUID每个x是0-9或a-f范围内一个32位十六进制数 8 4 4 4 12
-                    string guid = Guid.NewGuid().ToString("D");   
-                    
-                    string newFileName = guid + Path.GetExtension(fileName);
-                    pubguid = newFileName;
 
-                    // 指定儲存路徑
-                    string targetFolderPath = Server.MapPath("~/ProductImg/" + newFileName);
-
-                    // 檢查檔案是否已存在於目標資料夾中
-                    if (File.Exists(Path.Combine(targetFolderPath, fileName)))
+                    // 檢查圖片大小（假設限制大小為5MB）
+                    int maxFileSize = 500 * 1024; // 500KB
+                    if (uploadedFile.ContentLength > maxFileSize)
                     {
-                        Response.Write("上傳的檔案名稱已存在");
+                        Response.Write("上傳的圖片大小超過限制（最大500KB）");
                     }
                     else
                     {
-                        uploadedFile.SaveAs(targetFolderPath);
+                        // 建立新的檔名，GUID每个x是0-9或a-f范围内一个32位十六进制数 8 4 4 4 12
+                        string guid = Guid.NewGuid().ToString("D");
 
-                        Response.Write("圖片上傳成功");
+                        string newFileName = guid + Path.GetExtension(fileName);
+                        pubguid = newFileName;
+
+                        // 指定儲存路徑
+                        string targetFolderPath = Server.MapPath("~/ProductImg/" + newFileName);
+
+                        // 檢查檔案是否已存在於目標資料夾中
+                        if (File.Exists(Path.Combine(targetFolderPath, fileName)))
+                        {
+                            Response.Write("上傳的檔案名稱已存在");
+                        }
+                        else
+                        {
+                            uploadedFile.SaveAs(targetFolderPath);
+
+                            Response.Write("圖片上傳成功");
+                        }
                     }
-
                 }
                 else
                 {
