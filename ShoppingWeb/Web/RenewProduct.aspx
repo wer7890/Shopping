@@ -16,24 +16,27 @@
         <br />
         <div class="row">
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <span class="text-dark fs-5">商品ID : </span>
-                <span id="labProductId" class="text-muted fs-5"></span>
+                <span class="text-dark fs-6">商品ID : </span>
+                <span id="labProductId" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <span class="text-dark fs-5">建立時間 : </span>
-                <span id="labProductCreatedOn" class="text-muted fs-5"></span>
+                <span class="text-dark fs-6">建立時間 : </span>
+                <span id="labProductCreatedOn" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <span class="text-dark fs-5">建立者 : </span>
-                <span id="labProductOwner" class="text-muted fs-5"></span>
+                <span class="text-dark fs-6">建立者 : </span>
+                <span id="labProductOwner" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <span class="text-dark fs-5">商品名稱 : </span>
-                <span id="labProductName" class="text-muted fs-5"></span>
+                <span class="text-dark fs-6">商品名稱 : </span>
+                <span id="labProductName" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <span class="text-dark fs-5">商品類型 : </span>
-                <span id="labProductCategory" class="text-muted fs-5"></span>
+                <span class="text-dark fs-6">商品類型 : </span>
+                <span id="labProductCategory" class="fs-6"></span>
+            </div>
+            <div class="mx-auto col-12 col-md-7 mt-3">
+                <img src="" id="imgProduct" class="img-fluid img-thumbnail w-25" alt="商品圖片" />
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="txbProductPrice" class="form-label">價格</label>

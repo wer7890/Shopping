@@ -20,6 +20,7 @@
             let file = fileInput.files[0];
 
             if (file && CheckFileExtension(file.name)) {
+
                 // 建立 FormData 物件來儲存檔案資料
                 let formData = new FormData();
                 // 將檔案加入到 FormData 物件中

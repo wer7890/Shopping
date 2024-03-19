@@ -16,19 +16,19 @@
         <h2 class="text-center">修改帳號</h2>
         <br />
         <div class="row">
-            <div class="mx-auto col-12 col-md-8 mt-2">
-                <span class="text-dark fs-5">管理員ID : </span>
-                <span id="labUserId" class="text-muted fs-5"></span>
+            <div class="mx-auto col-12 col-md-7 mt-2">
+                <span class="text-dark fs-6">管理員ID : </span>
+                <span id="labUserId" class="fs-6"></span>
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-3">
-                <span class="text-dark fs-5">管理員名稱 : </span>
-                <span id="labUserName" class="text-muted fs-5"></span>
+            <div class="mx-auto col-12 col-md-7 mt-3">
+                <span class="text-dark fs-6">管理員名稱 : </span>
+                <span id="labUserName" class="fs-6"></span>
             </div>
-            <div class="mx-auto col-12 col-md-8 mt-3">
+            <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="txbPwd" class="form-label">密碼</label>
                 <input type="password" id="txbPwd" class="form-control" />
             </div>
-            <div class="mx-auto mt-3 col-12 col-md-8 mt-3">
+            <div class="mx-auto mt-3 col-12 col-md-7 mt-3">
                 <label for="ddlRoles" class="form-label">角色</label>
 
                 <select id="ddlRoles" class="form-select">
@@ -38,7 +38,7 @@
                 </select>
             </div>
 
-            <button id="btnUpData" class="btn btn-outline-primary mx-auto mt-3 col-12 col-md-5">更改</button>
+            <button id="btnUpData" class="btn btn-outline-primary mx-auto mt-3 col-12 col-md-6">更改</button>
         </div>
         <br />
         <div class="row">

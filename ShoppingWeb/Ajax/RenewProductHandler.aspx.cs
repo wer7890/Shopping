@@ -52,7 +52,7 @@ namespace ShoppingWeb.Ajax
                                 ProductOwner = dt.Rows[0]["f_productOwner"],
                                 ProductCreatedOn = dt.Rows[0]["f_productCreatedOn"].ToString(),
                                 ProductIntroduce = dt.Rows[0]["f_productIntroduce"],
-                                //ProductImg = dt.Rows[0]["f_productImg"]
+                                ProductImg = dt.Rows[0]["f_productImg"]
                             };
 
                             return productObject;

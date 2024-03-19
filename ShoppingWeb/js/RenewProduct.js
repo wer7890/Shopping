@@ -12,7 +12,7 @@
             $("#labProductOwner").text(data.d.ProductOwner);
             $("#labProductName").text(data.d.ProductName);
             $("#labProductCategory").text(data.d.ProductCategory);
-            //$("#txbProductImg").val(data.d.ProductImg);
+            $("#imgProduct").attr("src", "/ProductImg/" + data.d.ProductImg);
             $("#txbProductPrice").val(data.d.ProductPrice);
             $("#txbProductStock").val(data.d.ProductStock);
             //$("#productIsOpen").val(data.d.ProductOwner);
