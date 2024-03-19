@@ -11,6 +11,7 @@ namespace ShoppingWeb.Ajax
 {
     public partial class SearchProductHandler : System.Web.UI.Page
     {
+       
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -22,22 +23,31 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetAllProductData()
         {
-            // 連接資料庫，獲取使用者資料
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connectionString))
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
             {
-                using (SqlCommand cmd = new SqlCommand("getAllProductData", con))
+                return "重複登入";
+            }
+            else
+            {
+                // 連接資料庫，獲取使用者資料
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    DataTable dt = new DataTable();
-                    dt.Load(reader);
+                    using (SqlCommand cmd = new SqlCommand("getAllProductData", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
 
-                    // 將資料轉換為 JSON 格式返回
-                    return ConvertDataTableToJson(dt);
+                        // 將資料轉換為 JSON 格式返回
+                        return ConvertDataTableToJson(dt);
+                    }
                 }
             }
+            
         }
 
         /// <summary>
@@ -50,31 +60,39 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetProductData(string productCategory, string productName )
         {
-            // 連接資料庫，獲取使用者資料
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connectionString))
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
             {
-                using (SqlCommand cmd = new SqlCommand("getSearchProductData", con))
+                return "重複登入";
+            }
+            else
+            {
+                // 連接資料庫，獲取使用者資料
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    cmd.Parameters.Add(new SqlParameter("@productCategory", productCategory));
-                    cmd.Parameters.Add(new SqlParameter("@productName", productName));
-                    object result = cmd.ExecuteScalar();
-                    if (result == null)
+                    using (SqlCommand cmd = new SqlCommand("getSearchProductData", con))
                     {
-                        return "null";
-                    }
-                    else
-                    {
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@productCategory", productCategory));
+                        cmd.Parameters.Add(new SqlParameter("@productName", productName));
+                        object result = cmd.ExecuteScalar();
+                        if (result == null)
+                        {
+                            return "null";
+                        }
+                        else
+                        {
+                            SqlDataReader reader = cmd.ExecuteReader();
+                            DataTable dt = new DataTable();
+                            dt.Load(reader);
 
-                        // 將資料轉換為 JSON 格式返回
-                        return ConvertDataTableToJson(dt);
-                    }
+                            // 將資料轉換為 JSON 格式返回
+                            return ConvertDataTableToJson(dt);
+                        }
 
+                    }
                 }
             }
         }
@@ -109,47 +127,55 @@ namespace ShoppingWeb.Ajax
         /// <param name="userId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static bool RemoveProduct(string productId)
+        public static string RemoveProduct(string productId)
         {
-            try
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                using (SqlConnection con = new SqlConnection(connectionString))
+                return "重複登入";
+            }
+            else
+            {
+                try
                 {
-                    using (SqlCommand cmd = new SqlCommand("deleteProduct", con))
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                    using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@productId", productId));
-
-                        //設定預存程序輸出參數的名稱與資料類型
-                        cmd.Parameters.Add(new SqlParameter("@deletedProductImg", SqlDbType.NVarChar, 50));
-                        //設定參數名稱的傳遞方向
-                        cmd.Parameters["@deletedProductImg"].Direction = ParameterDirection.Output;
-
-                        int r = (int)cmd.ExecuteScalar();
-                        //取得預存程序的輸出參數值
-                        string deletedProductImg = cmd.Parameters["@deletedProductImg"].Value.ToString();
-
-                        if (r > 0)
+                        using (SqlCommand cmd = new SqlCommand("deleteProduct", con))
                         {
-                            string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
-                            File.Delete(imagePath);
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+                            cmd.Parameters.Add(new SqlParameter("@productId", productId));
 
+                            //設定預存程序輸出參數的名稱與資料類型
+                            cmd.Parameters.Add(new SqlParameter("@deletedProductImg", SqlDbType.NVarChar, 50));
+                            //設定參數名稱的傳遞方向
+                            cmd.Parameters["@deletedProductImg"].Direction = ParameterDirection.Output;
+
+                            int r = (int)cmd.ExecuteScalar();
+                            //取得預存程序的輸出參數值
+                            string deletedProductImg = cmd.Parameters["@deletedProductImg"].Value.ToString();
+
+                            if (r > 0)
+                            {
+                                string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
+                                File.Delete(imagePath);
+                                return "刪除成功";
+                            }
+                            else
+                            {
+                                return "刪除失敗";
+                            }
+
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return false;
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return "錯誤";
+                }
             }
         }
 
@@ -159,31 +185,39 @@ namespace ShoppingWeb.Ajax
         /// <param name="productId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static bool ToggleProductStatus(string productId)
+        public static string ToggleProductStatus(string productId)
         {
-            try
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                using (SqlConnection con = new SqlConnection(connectionString))
+                return "重複登入";
+            }
+            else
+            {
+                try
                 {
-                    using (SqlCommand cmd = new SqlCommand("toggleProductStatus", con))
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                    using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@productId", productId));
+                        using (SqlCommand cmd = new SqlCommand("toggleProductStatus", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+                            cmd.Parameters.Add(new SqlParameter("@productId", productId));
 
-                        int rowsAffected = (int)cmd.ExecuteScalar();
+                            int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? true : false;
+                            return (rowsAffected > 0) ? "更改成功" : "更改失敗";
 
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return false;
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return "錯誤";
+                }
             }
         }
 
@@ -195,7 +229,7 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static bool SetSessionProductId(string productId)
         {
-            HttpContext.Current.Session["productId"] = productId; 
+            HttpContext.Current.Session["productId"] = productId;
             return true;
         }
 

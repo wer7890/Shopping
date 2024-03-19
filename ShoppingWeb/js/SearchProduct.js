@@ -30,33 +30,38 @@ function SearchAllProduct() {
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
-            // 處理成功取得資料的情況
-            var data = JSON.parse(response.d); // 解析 JSON 資料為 JavaScript 物件
-            var tableBody = $('#tableBody');
+            if (response.d == "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else {
+                // 處理成功取得資料的情況
+                var data = JSON.parse(response.d); // 解析 JSON 資料為 JavaScript 物件
+                var tableBody = $('#tableBody');
 
-            // 清空表格內容
-            tableBody.empty();
+                // 清空表格內容
+                tableBody.empty();
 
-            // 動態生成表格內容
-            $.each(data, function (index, item) {
-                var row = '<tr>' +
-                    '<td>' + item.f_id + '</td>' +
-                    '<td>' + item.f_productName + '</td>' +
-                    '<td>' + item.f_productCategory + '</td>' +
-                    '<td>' + item.f_productPrice + '</td>' +
-                    '<td>' + item.f_productStock + '</td>' +
-                    '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_productIsOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
-                    //'<td>' + item.f_productOwner + '</td>' +
-                    //'<td>' + item.f_productCreatedOn + '</td>' +
-                    '<td>' + item.f_productIntroduce + '</td>' +
-                    '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                    '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">編輯</button></td>' +
-                    '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪除</button></td>' +
-                    '</tr>';
+                // 動態生成表格內容
+                $.each(data, function (index, item) {
+                    var row = '<tr>' +
+                        '<td>' + item.f_id + '</td>' +
+                        '<td>' + item.f_productName + '</td>' +
+                        '<td>' + item.f_productCategory + '</td>' +
+                        '<td>' + item.f_productPrice + '</td>' +
+                        '<td>' + item.f_productStock + '</td>' +
+                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_productIsOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                        //'<td>' + item.f_productOwner + '</td>' +
+                        //'<td>' + item.f_productCreatedOn + '</td>' +
+                        '<td>' + item.f_productIntroduce + '</td>' +
+                        '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
+                        '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">編輯</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪除</button></td>' +
+                        '</tr>';
 
-                tableBody.append(row);
-            });
-            
+                    tableBody.append(row);
+                });
+            }
+
         },
         error: function (xhr, status, error) {
             console.error('Error:', error);
@@ -73,33 +78,37 @@ function SearchProduct(productCategory, productName) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d == "null") {
-                $("#productTableDiv").css('display', 'none'); 
-                $("#labSearchProduct").text("沒有資料");
+            if (response.d == "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
             } else {
-                $("#productTableDiv").css('display', 'block');
-                var data = JSON.parse(response.d);
-                var tableBody = $('#tableBody');
+                if (response.d == "null") {
+                    $("#productTableDiv").css('display', 'none');
+                    $("#labSearchProduct").text("沒有資料");
+                } else {
+                    $("#productTableDiv").css('display', 'block');
+                    var data = JSON.parse(response.d);
+                    var tableBody = $('#tableBody');
 
-                tableBody.empty();
-                $.each(data, function (index, item) {
-                    var row = '<tr>' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_productName + '</td>' +
-                        '<td>' + item.f_productCategory + '</td>' +
-                        '<td>' + item.f_productPrice + '</td>' +
-                        '<td>' + item.f_productStock + '</td>' +
-                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_productIsOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
-                        '<td>' + item.f_productIntroduce + '</td>' +
-                        '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                        '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
-                        '</tr>';
+                    tableBody.empty();
+                    $.each(data, function (index, item) {
+                        var row = '<tr>' +
+                            '<td>' + item.f_id + '</td>' +
+                            '<td>' + item.f_productName + '</td>' +
+                            '<td>' + item.f_productCategory + '</td>' +
+                            '<td>' + item.f_productPrice + '</td>' +
+                            '<td>' + item.f_productStock + '</td>' +
+                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_productIsOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                            '<td>' + item.f_productIntroduce + '</td>' +
+                            '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
+                            '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
+                            '</tr>';
 
-                    tableBody.append(row);
-                });
+                        tableBody.append(row);
+                    });
+                }
             }
-
         },
         error: function (xhr, status, error) {
             console.error('Error:', error);
@@ -116,10 +125,13 @@ function ToggleProductStatus(productId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === true) {
+            if (response.d === "更改成功") {
                 $("#labSearchProduct").text("更改成功");
+            } else if (response.d === "重複登入"){
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
             } else {
-                $("#labSearchProduct").text("更改失敗");
+                $("#labSearchProduct").text(response.d);
             }
         },
         error: function (error) {
@@ -139,10 +151,13 @@ function deleteProduct(productId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === true) {
+                if (response.d === "刪除成功") {
                     window.location.reload();
-                } else {
-                    $("#labSearch").text("刪除失敗");
+                } else if (response.d === "重複登入"){
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
+                }else {
+                    $("#labSearch").text(response.d);
                 }
             },
             error: function (error) {
@@ -163,8 +178,6 @@ function editProduct(productId) {
         success: function (response) {
             if (response.d === true) {
                 window.location.href = "RenewProduct.aspx";
-            } else {
-                alert("失敗");
             }
         },
         error: function (error) {

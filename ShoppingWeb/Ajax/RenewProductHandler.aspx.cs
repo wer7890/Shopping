@@ -78,41 +78,48 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string EditProduct(int productPrice, int productStock, string productIntroduce)
         {
-            if (SpecialChar(productPrice, productStock, productIntroduce))
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
             {
-                try
-                {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                    string sessionProductId = HttpContext.Current.Session["productId"] as string;
-                    using (SqlConnection con = new SqlConnection(connectionString))
-                    {
-                        using (SqlCommand cmd = new SqlCommand("editProduct", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-
-                            cmd.Parameters.Add(new SqlParameter("@productId", sessionProductId));
-                            cmd.Parameters.Add(new SqlParameter("@productPrice", productPrice));
-                            cmd.Parameters.Add(new SqlParameter("@productStock", productStock));
-                            cmd.Parameters.Add(new SqlParameter("@productIntroduce", productIntroduce));
-
-                            int rowsAffected = (int)cmd.ExecuteScalar();
-
-                            return (rowsAffected > 0) ? "修改成功" : "修改失敗";
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "錯誤";
-                }
+                return "重複登入";
             }
             else
             {
-                return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
-            }
+                if (SpecialChar(productPrice, productStock, productIntroduce))
+                {
+                    try
+                    {
+                        string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                        string sessionProductId = HttpContext.Current.Session["productId"] as string;
+                        using (SqlConnection con = new SqlConnection(connectionString))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("editProduct", con))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                con.Open();
 
+                                cmd.Parameters.Add(new SqlParameter("@productId", sessionProductId));
+                                cmd.Parameters.Add(new SqlParameter("@productPrice", productPrice));
+                                cmd.Parameters.Add(new SqlParameter("@productStock", productStock));
+                                cmd.Parameters.Add(new SqlParameter("@productIntroduce", productIntroduce));
+
+                                int rowsAffected = (int)cmd.ExecuteScalar();
+
+                                return (rowsAffected > 0) ? "修改成功" : "修改失敗";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                        return "錯誤";
+                    }
+                }
+                else
+                {
+                    return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                }
+            }
         }
 
         /// <summary>
