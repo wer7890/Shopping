@@ -21,37 +21,45 @@ namespace ShoppingWeb.Ajax
         /// <param name="userId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static bool RemoveUserInfo(string userId)
+        public static string RemoveUserInfo(string userId)
         {
-            try
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                using (SqlConnection con = new SqlConnection(connectionString))
+                return "重複登入";
+            }
+            else
+            {
+                try
                 {
-                    //string sql = "DELETE FROM t_userInfo WHERE f_userId=@userid";
-                    using (SqlCommand cmd = new SqlCommand("deleteUser", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", userId));
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
-                        int r = (int)cmd.ExecuteScalar();
-                        if (r > 0)
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        //string sql = "DELETE FROM t_userInfo WHERE f_userId=@userid";
+                        using (SqlCommand cmd = new SqlCommand("deleteUser", con))
                         {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+                            cmd.Parameters.Add(new SqlParameter("@userId", userId));
+
+                            int r = (int)cmd.ExecuteScalar();
+                            if (r > 0)
+                            {
+                                return "刪除成功";
+                            }
+                            else
+                            {
+                                return "刪除失敗";
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return false;
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return "錯誤";
+                }
             }
         }
 

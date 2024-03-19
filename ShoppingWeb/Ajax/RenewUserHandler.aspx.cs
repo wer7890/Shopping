@@ -73,38 +73,46 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string EditUser(string pwd, string roles)
         {
-            if (SpecialChar(pwd, roles))
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
             {
-                try
-                {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                    string sessionUserId = HttpContext.Current.Session["userId"] as string;
-                    using (SqlConnection con = new SqlConnection(connectionString))
-                    {
-                        using (SqlCommand cmd = new SqlCommand("editUser", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-
-                            cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
-                            cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
-                            cmd.Parameters.Add(new SqlParameter("@roles", roles));
-
-                            int rowsAffected = (int)cmd.ExecuteScalar();
-
-                            return (rowsAffected > 0) ? "修改成功" : "修改失敗";
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "錯誤";
-                }
+                return "重複登入";
             }
             else
             {
-                return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                if (SpecialChar(pwd, roles))
+                {
+                    try
+                    {
+                        string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                        string sessionUserId = HttpContext.Current.Session["userId"] as string;
+                        using (SqlConnection con = new SqlConnection(connectionString))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("editUser", con))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                con.Open();
+
+                                cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
+                                cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
+                                cmd.Parameters.Add(new SqlParameter("@roles", roles));
+
+                                int rowsAffected = (int)cmd.ExecuteScalar();
+
+                                return (rowsAffected > 0) ? "修改成功" : "修改失敗";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                        return "錯誤";
+                    }
+                }
+                else
+                {
+                    return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                }
             }
                 
         }

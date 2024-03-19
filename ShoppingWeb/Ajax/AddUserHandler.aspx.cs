@@ -25,36 +25,44 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string RegisterNewUser(string userName, string pwd, string roles)
         {
-            if (SpecialChar(userName, pwd, roles))
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
             {
-                try
-                {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                    using (SqlConnection con = new SqlConnection(connectionString))
-                    {
-                        using (SqlCommand cmd = new SqlCommand("registerNewUser", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@userName", userName));
-                            cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
-                            cmd.Parameters.Add(new SqlParameter("@roles", roles));
-
-                            string result = cmd.ExecuteScalar().ToString();
-
-                            return result;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "發生內部錯誤: " + ex.Message;
-                }
+                return "重複登入";
             }
             else
             {
-                return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                if (SpecialChar(userName, pwd, roles))
+                {
+                    try
+                    {
+                        string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                        using (SqlConnection con = new SqlConnection(connectionString))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("registerNewUser", con))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                con.Open();
+                                cmd.Parameters.Add(new SqlParameter("@userName", userName));
+                                cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
+                                cmd.Parameters.Add(new SqlParameter("@roles", roles));
+
+                                string result = cmd.ExecuteScalar().ToString();
+
+                                return result;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                        return "發生內部錯誤: " + ex.Message;
+                    }
+                }
+                else
+                {
+                    return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                }
             }
         }
 

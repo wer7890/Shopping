@@ -61,9 +61,12 @@ function deleteUser(userId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === true) {
+            if (response.d === "刪除成功") {
                 // 刪除成功後，刷新當前頁面並刷新表格
                 window.location.reload();
+            } else if (response.d === "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
             } else {
                 $("#labSearch").text("刪除失敗");
             }

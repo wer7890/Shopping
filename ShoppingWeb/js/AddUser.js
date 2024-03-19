@@ -24,9 +24,12 @@
             success: function (response) {
                 if (response.d === "1") {
                     alert("新增成功");
-                    window.location.href = "SearchUser.aspx" 
+                    window.location.href = "SearchUser.aspx"
                 } else if (response.d === "0") {
                     $("#labAddUser").text("管理員名稱重複");
+                } else if (response.d === "重複登入") {
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
                 } else {
                     $("#labAddUser").text(response.d);
                 }

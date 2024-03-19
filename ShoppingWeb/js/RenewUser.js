@@ -42,6 +42,9 @@
                 if (response.d === "修改成功") {
                     alert("修改成功");
                     window.location.href = "SearchUser.aspx" 
+                } else if (response.d === "重複登入") {
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
                 } else {
                     $("#labRenewUser").text(response.d);
                 }
