@@ -44,15 +44,14 @@ namespace ShoppingWeb.Ajax
                             var productObject = new
                             {
                                 ProductId = dt.Rows[0]["f_id"],
-                                ProductName = dt.Rows[0]["f_productName"],
-                                ProductCategory = dt.Rows[0]["f_productCategory"],
-                                ProductPrice = dt.Rows[0]["f_productPrice"],
-                                ProductStock = dt.Rows[0]["f_productStock"],
-                                //ProductIsOpen = dt.Rows[0]["f_productIsOpen"],
-                                ProductOwner = dt.Rows[0]["f_productOwner"],
-                                ProductCreatedOn = dt.Rows[0]["f_productCreatedOn"].ToString(),
-                                ProductIntroduce = dt.Rows[0]["f_productIntroduce"],
-                                ProductImg = dt.Rows[0]["f_productImg"]
+                                ProductName = dt.Rows[0]["f_name"],
+                                ProductCategory = dt.Rows[0]["f_category"],
+                                ProductPrice = dt.Rows[0]["f_price"],
+                                ProductStock = dt.Rows[0]["f_stock"],
+                                ProductOwner = dt.Rows[0]["f_owner"],
+                                ProductCreatedOn = dt.Rows[0]["f_createdTime"].ToString(),
+                                ProductIntroduce = dt.Rows[0]["f_introduce"],
+                                ProductImg = dt.Rows[0]["f_img"]
                             };
 
                             return productObject;

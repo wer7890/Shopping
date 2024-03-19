@@ -45,15 +45,15 @@ function SearchAllProduct() {
                 $.each(data, function (index, item) {
                     let row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_productName + '</td>' +
-                        '<td>' + item.f_productCategory + '</td>' +
-                        '<td>' + item.f_productPrice + '</td>' +
-                        '<td>' + item.f_productStock + '</td>' +
-                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_productIsOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                        '<td>' + item.f_name + '</td>' +
+                        '<td>' + item.f_category + '</td>' +
+                        '<td>' + item.f_price + '</td>' +
+                        '<td>' + item.f_stock + '</td>' +
+                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         //'<td>' + item.f_productOwner + '</td>' +
                         //'<td>' + item.f_productCreatedOn + '</td>' +
-                        '<td>' + item.f_productIntroduce + '</td>' +
-                        '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
+                        '<td>' + item.f_introduce + '</td>' +
+                        '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
                         '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">改</button></td>' +
                         '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪</button></td>' +
                         '</tr>';
@@ -94,13 +94,13 @@ function SearchProduct(productCategory, productName) {
                 $.each(data, function (index, item) {
                     let row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_productName + '</td>' +
-                        '<td>' + item.f_productCategory + '</td>' +
-                        '<td>' + item.f_productPrice + '</td>' +
-                        '<td>' + item.f_productStock + '</td>' +
-                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_productIsOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
-                        '<td>' + item.f_productIntroduce + '</td>' +
-                        '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
+                        '<td>' + item.f_name + '</td>' +
+                        '<td>' + item.f_category + '</td>' +
+                        '<td>' + item.f_price + '</td>' +
+                        '<td>' + item.f_stock + '</td>' +
+                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                        '<td>' + item.f_introduce + '</td>' +
+                        '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
                         '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">改</button></td>' +
                         '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪</button></td>' +
                         '</tr>';
