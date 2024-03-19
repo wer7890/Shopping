@@ -117,7 +117,7 @@ namespace ShoppingWeb.Ajax
                 }
                 else
                 {
-                    return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                    return "輸入值不符合格式";
                 }
             }
         }

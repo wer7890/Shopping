@@ -54,8 +54,8 @@ function SearchAllProduct() {
                         //'<td>' + item.f_productCreatedOn + '</td>' +
                         '<td>' + item.f_productIntroduce + '</td>' +
                         '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                        '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">編輯</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪除</button></td>' +
+                        '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">改</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪</button></td>' +
                         '</tr>';
 
                     tableBody.append(row);
@@ -101,8 +101,8 @@ function SearchProduct(productCategory, productName) {
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_productIsOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '<td>' + item.f_productIntroduce + '</td>' +
                         '<td><img src="/ProductImg/' + item.f_productImg + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                        '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">編輯</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪除</button></td>' +
+                        '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">改</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪</button></td>' +
                         '</tr>';
                     tableBody.append(row);
                 });

@@ -111,7 +111,7 @@ namespace ShoppingWeb.Ajax
             }
             else
             {
-                return "輸入數值錯誤";
+                return "輸入值不符合格式";
             }
                 
         }
@@ -126,7 +126,6 @@ namespace ShoppingWeb.Ajax
             bool checkFile = Regex.IsMatch(imgName, @"(\.jpg|\.png)$", RegexOptions.IgnoreCase);
             return checkFile;
         }
-
 
         /// <summary>
         /// 判斷輸入值

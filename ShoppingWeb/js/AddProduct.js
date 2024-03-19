@@ -125,7 +125,7 @@ function IsSpecialChar(productName, productCategory, productImg, productIsOpen, 
     return true;
 }
 
- // 檢查檔案是否是圖片
+// 檢查檔案是否是圖片
 function CheckFileExtension(fileName) {
     var allowedExtensions = /(\.jpg|\.png)$/i;
     return allowedExtensions.test(fileName);
