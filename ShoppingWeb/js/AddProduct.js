@@ -19,14 +19,16 @@
             // 取得使用者選擇的檔案 
             let file = fileInput.files[0];
 
-            if (file && CheckFileExtension(file.name)) {
+            if (!CheckFileSize(file)) {
+                return;
+            }
 
+            if (file && CheckFileExtension(file.name)) {
                 // 建立 FormData 物件來儲存檔案資料
                 let formData = new FormData();
                 // 將檔案加入到 FormData 物件中
                 formData.append("file", file);
-
-                // 處理文件上傳
+                // 圖片上傳
                 $.ajax({
                     url: "/Ajax/AddProductHandler.aspx",
                     type: "POST",
@@ -127,4 +129,30 @@ function IsSpecialChar(productName, productCategory, productImg, productIsOpen, 
 function CheckFileExtension(fileName) {
     var allowedExtensions = /(\.jpg|\.png)$/i;
     return allowedExtensions.test(fileName);
+}
+
+//判斷圖片大小
+function CheckFileSize(file) {
+
+    // 檢查圖片大小
+    const maxSizeInBytes = 500 * 1024; // 500KB
+    if (file.size > maxSizeInBytes) {
+        $("#labAddProduct").text("圖片大小超過限制（最大500KB）");
+        return false;
+    }
+    else {
+        //檢查圖片長寬
+        let img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = function () {
+            if (this.width > 1000 || this.height > 1000) {
+                $("#labAddProduct").text("圖片尺寸超過限制（最大寬度：1000px，最大高度：1000px）");
+                return false;
+            }
+            else {
+                return true;
+            }
+        };
+    }
+    return true;
 }
