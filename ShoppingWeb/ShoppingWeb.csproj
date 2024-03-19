@@ -75,7 +75,6 @@
     <Content Include="Ajax\RenewUserHandler.aspx" />
     <Content Include="Ajax\SearchProductHandler.aspx" />
     <Content Include="Ajax\SearchUserHandler.aspx" />
-    <Content Include="Ajax\Test.aspx" />
     <Content Include="Global.asax" />
     <Content Include="js\AddProduct.js" />
     <Content Include="js\AddUser.js" />
@@ -151,13 +150,6 @@
     </Compile>
     <Compile Include="Ajax\SearchUserHandler.aspx.designer.cs">
       <DependentUpon>SearchUserHandler.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Ajax\Test.aspx.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Ajax\Test.aspx.designer.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
