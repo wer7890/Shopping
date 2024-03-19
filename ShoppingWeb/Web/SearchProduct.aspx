@@ -41,7 +41,7 @@
                 <thead>
                     <tr>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm ">商品ID</button></th>
+                            <button type="button" class="btn btn-light btn-sm ">ID</button></th>
                         <th>
                             <button type="button" class="btn btn-light btn-sm ">名稱</button></th>
                         <th>
@@ -57,13 +57,13 @@
                         <th>
                             <button type="button" class="btn btn-light btn-sm ">建立時間</button></th>--%>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm " disabled>描述</button></th>
+                            <button type="button" class="btn btn-light btn-sm ">描述</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm " disabled>圖片</button></th>
+                            <button type="button" class="btn btn-light btn-sm ">圖片</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm " disabled>編輯</button></th>
+                            <button type="button" class="btn btn-light btn-sm ">編輯</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm " disabled>刪除</button></th>
+                            <button type="button" class="btn btn-light btn-sm ">刪除</button></th>
 
                     </tr>
                 </thead>
