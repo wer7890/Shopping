@@ -73,6 +73,7 @@
     <Content Include="Ajax\LoginHandler.aspx" />
     <Content Include="Ajax\RenewProductHandler.aspx" />
     <Content Include="Ajax\RenewUserHandler.aspx" />
+    <Content Include="Ajax\SearchMemberHandler.aspx" />
     <Content Include="Ajax\SearchProductHandler.aspx" />
     <Content Include="Ajax\SearchUserHandler.aspx" />
     <Content Include="Global.asax" />
@@ -82,6 +83,7 @@
     <Content Include="js\Login.js" />
     <Content Include="js\RenewProduct.js" />
     <Content Include="js\RenewUser.js" />
+    <Content Include="js\SearchMember.js" />
     <Content Include="js\SearchProduct.js" />
     <Content Include="js\SearchUser.js" />
     <Content Include="Web.config" />
@@ -91,6 +93,7 @@
     <Content Include="Web\Login.aspx" />
     <Content Include="Web\RenewProduct.aspx" />
     <Content Include="Web\RenewUser.aspx" />
+    <Content Include="Web\SearchMember.aspx" />
     <Content Include="Web\SearchProduct.aspx" />
     <Content Include="Web\SearchUser.aspx" />
   </ItemGroup>
@@ -136,6 +139,13 @@
     </Compile>
     <Compile Include="Ajax\RenewUserHandler.aspx.designer.cs">
       <DependentUpon>RenewUserHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\SearchMemberHandler.aspx.cs">
+      <DependentUpon>SearchMemberHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\SearchMemberHandler.aspx.designer.cs">
+      <DependentUpon>SearchMemberHandler.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ajax\SearchProductHandler.aspx.cs">
       <DependentUpon>SearchProductHandler.aspx</DependentUpon>
@@ -197,6 +207,13 @@
     </Compile>
     <Compile Include="Web\RenewUser.aspx.designer.cs">
       <DependentUpon>RenewUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\SearchMember.aspx.cs">
+      <DependentUpon>SearchMember.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\SearchMember.aspx.designer.cs">
+      <DependentUpon>SearchMember.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web\SearchProduct.aspx.cs">
       <DependentUpon>SearchProduct.aspx</DependentUpon>

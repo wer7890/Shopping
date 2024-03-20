@@ -63,7 +63,7 @@ function SearchAllProduct() {
             }
 
         },
-        error: function (xhr, status, error) {
+        error: function (error) {
             console.error('Error:', error);
         }
     });
@@ -109,7 +109,7 @@ function SearchProduct(productCategory, productName) {
             }
 
         },
-        error: function (xhr, status, error) {
+        error: function (error) {
             console.error('Error:', error);
         }
     });

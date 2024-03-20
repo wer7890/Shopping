@@ -38,7 +38,7 @@
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                            <a href="#" class="list-group-item list-group-item-action">會員系統</a>
+                            <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="searchMember">查詢會員</a>
                         </div>
                     </div>
 
