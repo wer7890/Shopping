@@ -89,14 +89,14 @@ namespace ShoppingWeb.Ajax
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@productName", productName));
-                            cmd.Parameters.Add(new SqlParameter("@productCategory", productCategory));
-                            cmd.Parameters.Add(new SqlParameter("@productImg", pubguid));
-                            cmd.Parameters.Add(new SqlParameter("@productPrice", productPrice));
-                            cmd.Parameters.Add(new SqlParameter("@productStock", productStock));
-                            cmd.Parameters.Add(new SqlParameter("@productIsOpen", productIsOpen));
-                            cmd.Parameters.Add(new SqlParameter("@productIntroduce", productIntroduce));
-                            cmd.Parameters.Add(new SqlParameter("@productOwner", HttpContext.Current.Session["userName"]));
+                            cmd.Parameters.Add(new SqlParameter("@name", productName));
+                            cmd.Parameters.Add(new SqlParameter("@category", productCategory));
+                            cmd.Parameters.Add(new SqlParameter("@img", pubguid));
+                            cmd.Parameters.Add(new SqlParameter("@price", productPrice));
+                            cmd.Parameters.Add(new SqlParameter("@stock", productStock));
+                            cmd.Parameters.Add(new SqlParameter("@isOpen", productIsOpen));
+                            cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
+                            cmd.Parameters.Add(new SqlParameter("@owner", HttpContext.Current.Session["userName"]));
                             string result = cmd.ExecuteScalar().ToString();
 
                             return result;

@@ -98,9 +98,9 @@ namespace ShoppingWeb.Ajax
                                 con.Open();
 
                                 cmd.Parameters.Add(new SqlParameter("@productId", sessionProductId));
-                                cmd.Parameters.Add(new SqlParameter("@productPrice", productPrice));
-                                cmd.Parameters.Add(new SqlParameter("@productStock", productStock));
-                                cmd.Parameters.Add(new SqlParameter("@productIntroduce", productIntroduce));
+                                cmd.Parameters.Add(new SqlParameter("@price", productPrice));
+                                cmd.Parameters.Add(new SqlParameter("@stock", productStock));
+                                cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
 
                                 int rowsAffected = (int)cmd.ExecuteScalar();
 

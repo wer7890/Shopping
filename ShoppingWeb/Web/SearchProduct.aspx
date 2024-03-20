@@ -18,10 +18,10 @@
             <div class="col">
                 <select id="productCategory" class="form-select">
                     <option value="">請選擇要搜尋的商品類型</option>
-                    <option value="帽子">帽子</option>
-                    <option value="上衣">上衣</option>
-                    <option value="外套">外套</option>
-                    <option value="褲子">褲子</option>
+                    <option value="1">帽子</option>
+                    <option value="2">上衣</option>
+                    <option value="3">外套</option>
+                    <option value="4">褲子</option>
                 </select>
             </div>
             <div class="col">

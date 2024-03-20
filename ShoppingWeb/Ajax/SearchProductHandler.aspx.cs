@@ -75,8 +75,8 @@ namespace ShoppingWeb.Ajax
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@productCategory", productCategory));
-                        cmd.Parameters.Add(new SqlParameter("@productName", productName));
+                        cmd.Parameters.Add(new SqlParameter("@category", productCategory));
+                        cmd.Parameters.Add(new SqlParameter("@name", productName));
                         object result = cmd.ExecuteScalar();
                         if (result == null)
                         {
