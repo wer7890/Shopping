@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    var dbStock = null;
     //一開始input預設值
     $.ajax({
         type: "POST",
@@ -12,11 +13,11 @@
             $("#labProductOwner").text(data.d.ProductOwner);
             $("#labProductName").text(data.d.ProductName);
             $("#labProductCategory").text(data.d.ProductCategory);
+            $("#labProductStock").text(data.d.ProductStock);
             $("#imgProduct").attr("src", "/ProductImg/" + data.d.ProductImg);
             $("#txbProductPrice").val(data.d.ProductPrice);
-            $("#txbProductStock").val(data.d.ProductStock);
-            //$("#productIsOpen").val(data.d.ProductOwner);
             $("#txbProductIntroduce").val(data.d.ProductIntroduce);
+            dbStock = data.d.ProductStock;
         },
         error: function (error) {
             console.error('Error:', error);
@@ -25,18 +26,24 @@
 
     $("#btnRenewProduct").click(function () {
         let productPrice = $("#txbProductPrice").val();
-        let productStock = $("#txbProductStock").val();
-        let productIntroduce = $("#txbProductIntroduce").val(); 
+        let productStock = $("#txbProductStock").val(); 
+        let productIntroduce = $("#txbProductIntroduce").val();
+        let productCheckStock = $("input[name='flexRadioDefault']:checked").val();
         $("#labRenewUser").text("");
 
         if (!IsSpecialChar(productIntroduce, productPrice, productStock)) {
             return;
         }
 
+        if (productCheckStock == 0 && productStock > dbStock) {
+            $("#labRenewProduct").text("庫存量不能小於0");
+            return;
+        }
+
         $.ajax({
             type: "POST",
             url: "/Ajax/RenewProductHandler.aspx/EditProduct",
-            data: JSON.stringify({ productPrice: productPrice, productStock: productStock, productIntroduce: productIntroduce }),
+            data: JSON.stringify({ productPrice: productPrice, productStock: productStock, productIntroduce: productIntroduce, productCheckStock: productCheckStock }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -47,7 +54,7 @@
                     alert("重複登入，已被登出");
                     window.parent.location.href = "Login.aspx";
                 } else {
-                    $("#labRenewUser").text(response.d);
+                    $("#labRenewProduct").text(response.d);
                 }
             },
             error: function (error) {

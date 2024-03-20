@@ -49,7 +49,7 @@ namespace ShoppingWeb.Ajax
                                 ProductPrice = dt.Rows[0]["f_price"],
                                 ProductStock = dt.Rows[0]["f_stock"],
                                 ProductOwner = dt.Rows[0]["f_owner"],
-                                ProductCreatedOn = dt.Rows[0]["f_createdTime"].ToString(),
+                                ProductCreatedOn = dt.Rows[0]["f_createdTime"].ToString().Substring(0, dt.Rows[0]["f_createdTime"].ToString().Length - 3),
                                 ProductIntroduce = dt.Rows[0]["f_introduce"],
                                 ProductImg = dt.Rows[0]["f_img"]
                             };
@@ -75,7 +75,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string EditProduct(int productPrice, int productStock, string productIntroduce)
+        public static string EditProduct(int productPrice, int productStock, string productIntroduce, string productCheckStock)
         {
             bool loginResult = IndexHandler.AnyoneLongin();
             if (!loginResult)
@@ -101,10 +101,11 @@ namespace ShoppingWeb.Ajax
                                 cmd.Parameters.Add(new SqlParameter("@price", productPrice));
                                 cmd.Parameters.Add(new SqlParameter("@stock", productStock));
                                 cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
+                                cmd.Parameters.Add(new SqlParameter("@checkStoct", productCheckStock));
 
                                 int rowsAffected = (int)cmd.ExecuteScalar();
 
-                                return (rowsAffected > 0) ? "修改成功" : "修改失敗";
+                                return (rowsAffected > 0) ? "修改成功" : "修改失敗，庫存量不能小於0";
                             }
                         }
                     }
