@@ -2,11 +2,13 @@
     SearchAllMember();
 
     $(document).on("change", ".toggle-switch", function () {
+        $("#labSearchMember").text("");
         let memberId = $(this).data('id');
         ToggleMemberStatus(memberId);
     });
 
     $(document).on("change", ".f_level", function () {
+        $("#labSearchMember").text("");
         let memberId = $(this).data('id');
         let level = $(this).val();
         ToggleMemberLevel(memberId, level);

@@ -13,6 +13,7 @@
 
     // 使用事件代理監聽開關的改變事件
     $(document).on("change", ".toggle-switch", function () {
+        $("#labSearchProduct").text("");
         let productId = $(this).data('id');
         ToggleProductStatus(productId);
     });
