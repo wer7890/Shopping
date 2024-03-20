@@ -77,7 +77,7 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 是否停權
+        /// 是否啟用
         /// </summary>
         /// <param name="memberId"></param>
         /// <returns></returns>
@@ -102,6 +102,50 @@ namespace ShoppingWeb.Ajax
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
                             cmd.Parameters.Add(new SqlParameter("@memberId", memberId));
+
+                            int rowsAffected = (int)cmd.ExecuteScalar();
+
+                            return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return "錯誤";
+                }
+            }
+        }
+
+        /// <summary>
+        /// 更改會員等級
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="level"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static string ToggleMemberLevel(string memberId, string level)
+        {
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
+            {
+                return "重複登入";
+            }
+            else
+            {
+                try
+                {
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("toggleMemberLevel", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+                            cmd.Parameters.Add(new SqlParameter("@memberId", memberId));
+                            cmd.Parameters.Add(new SqlParameter("@level", level));
 
                             int rowsAffected = (int)cmd.ExecuteScalar();
 

@@ -1,10 +1,15 @@
 ﻿$(document).ready(function () {
     SearchAllMember();
 
-    // 使用事件代理監聽開關的改變事件
     $(document).on("change", ".toggle-switch", function () {
         let memberId = $(this).data('id');
-        ToggleProductStatus(memberId);
+        ToggleMemberStatus(memberId);
+    });
+
+    $(document).on("change", ".f_level", function () {
+        let memberId = $(this).data('id');
+        let level = $(this).val();
+        ToggleMemberLevel(memberId, level);
     });
 
 })
@@ -30,7 +35,13 @@ function SearchAllMember() {
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_name + '</td>' +
                         '<td>' + item.f_pwd + '</td>' +
-                        '<td>' + item.f_level + '</td>' +
+                        '<td>' +
+                        '<select class="form-select form-select-sm f_level" data-id="' + item.f_id + '">' +
+                        '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + '>等級1</option>' +
+                        '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + '>等級2</option>' +
+                        '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + '>等級3</option>' +
+                        '</select>' +
+                        '</td>' +
                         '<td>' + item.f_wallet + '</td>' +
                         '<td>' + item.f_phoneNumber + '</td>' +
                         '<td>' + item.f_email + '</td>' +
@@ -49,8 +60,8 @@ function SearchAllMember() {
     });
 }
 
-//按下是否停權，更改資料庫
-function ToggleProductStatus(memberId) {
+//按下是否啟用，更改資料庫
+function ToggleMemberStatus(memberId) {
     $.ajax({
         type: "POST",
         url: "/Ajax/SearchMemberHandler.aspx/ToggleProductStatus",
@@ -59,7 +70,31 @@ function ToggleProductStatus(memberId) {
         dataType: "json",
         success: function (response) {
             if (response.d === "更改成功") {
-                $("#labSearchMember").text("更改成功");
+                $("#labSearchMember").text("帳號狀態更改成功");
+            } else if (response.d === "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else {
+                $("#labSearchMember").text(response.d);
+            }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+//更改會員等級
+function ToggleMemberLevel(memberId, level) {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/SearchMemberHandler.aspx/ToggleMemberLevel",
+        data: JSON.stringify({ memberId: memberId, level: level }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d === "更改成功") {
+                $("#labSearchMember").text("等級更改成功");
             } else if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
