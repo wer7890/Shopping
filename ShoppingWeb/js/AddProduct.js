@@ -12,7 +12,7 @@
         if (!IsSpecialChar(productName, productCategory, productImg, productIsOpen, productIntroduce, productPrice, productStock)) {
             return;
         }
-        
+
         let yes = confirm('確定要新增商品嗎');
         if (yes == true) {
             let fileInput = $("#txbProductImg")[0];
@@ -23,71 +23,42 @@
                 return;
             }
 
-            if (file && CheckFileExtension(file.name)) {
-                // 建立 FormData 物件來儲存檔案資料
-                let formData = new FormData();
-                // 將檔案加入到 FormData 物件中
-                formData.append("file", file);
-                // 圖片上傳
-                $.ajax({
-                    url: "/Ajax/AddProductHandler.aspx",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        if (response === "未選擇要上傳的檔案") {
-                            $("#labAddProduct").text("上傳失敗");
-                        } else {
-                            if (response === "圖片上傳成功") {
-                                uploadProductInfo(productName, productCategory, productPrice, productStock, productIsOpen, productIntroduce);
-                            } else {
-                                $("#labAddProduct").text("上傳失敗: " + response);
-                            }
-                        }
-                    },
-                    error: function () {
-                        console.log("Error: " + error);
-                        $("#labAddProduct").text("上傳失敗: " + error);
+            // 建立 FormData 物件來儲存檔案資料
+            let formData = new FormData();
+            // 將檔案加入到 FormData 物件中
+            formData.append("file", file);
+            formData.append("productName", productName);
+            formData.append("productCategory", productCategory);
+            formData.append("productPrice", productPrice);
+            formData.append("productStock", productStock);
+            formData.append("productIsOpen", productIsOpen);
+            formData.append("productIntroduce", productIntroduce);
+
+            // 圖片上傳
+            $.ajax({
+                url: "/Ajax/AddProductHandler.aspx",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response === "1") {
+                        alert("新增成功");
+                        window.location.href = "SearchProduct.aspx"
+                    } else {
+                        $("#labAddProduct").text("新增失敗: " + response);
                     }
-                });
-            } else {
-                $("#labAddProduct").text("請選擇圖片檔案");
-            }
-        } 
+                },
+                error: function () {
+                    console.log("Error: " + error);
+                    $("#labAddProduct").text("發生錯誤: " + error);
+                }
+            });
+        }
 
     });
 });
 
-//上傳產品資訊
-function uploadProductInfo(productName, productCategory, productPrice, productStock, productIsOpen, productIntroduce) {
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/AddProductHandler.aspx/AddProduct",
-        data: JSON.stringify({
-            productName: productName,
-            productCategory: productCategory,
-            productPrice: productPrice,
-            productStock: productStock,
-            productIsOpen: productIsOpen,
-            productIntroduce: productIntroduce
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            if (response.d === "1") {
-                alert("新增成功");
-                window.location.href = "SearchProduct.aspx" 
-            } else {
-                $("#labAddProduct").text(response.d);
-            }
-        },
-        error: function (error) {
-            console.error('AJAX Error:', error);
-            $("#labAddProduct").text("發生錯誤，請查看控制台");
-        }
-    });
-}
 
 //判斷文字長度 
 function IsSpecialChar(productName, productCategory, productImg, productIsOpen, productIntroduce, productPrice, productStock) {
@@ -123,12 +94,6 @@ function IsSpecialChar(productName, productCategory, productImg, productIsOpen, 
     }
 
     return true;
-}
-
-// 檢查檔案是否是圖片
-function CheckFileExtension(fileName) {
-    var allowedExtensions = /(\.jpg|\.png)$/i;
-    return allowedExtensions.test(fileName);
 }
 
 //判斷圖片大小

@@ -5,13 +5,13 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Services;
 
 namespace ShoppingWeb.Ajax
 {
     public partial class AddProductHandler : System.Web.UI.Page
     {
-        private static string pubguid = "";
+        private static string pubguid = "";      
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // 檢查是否有上傳的檔案
@@ -22,34 +22,34 @@ namespace ShoppingWeb.Ajax
 
                 if (CheckFileExtension(Path.GetExtension(fileName)))
                 {
-
-                    // 檢查圖片大小（假設限制大小為5MB）
-                    int maxFileSize = 500 * 1024; // 500KB
+                    int maxFileSize = 500 * 1024;  // 檢查圖片大小（假設限制大小為500KB）
                     if (uploadedFile.ContentLength > maxFileSize)
                     {
                         Response.Write("上傳的圖片大小超過限制（最大500KB）");
                     }
                     else
                     {
-                        // 建立新的檔名，GUID每个x是0-9或a-f范围内一个32位十六进制数 8 4 4 4 12
-                        string guid = Guid.NewGuid().ToString("D");
+                        string guid = Guid.NewGuid().ToString("D");  // 建立新的檔名，GUID每个x是0-9或a-f范围内一个32位十六进制数 8 4 4 4 12
 
                         string newFileName = guid + Path.GetExtension(fileName);
                         pubguid = newFileName;
-
-                        // 指定儲存路徑
-                        string targetFolderPath = Server.MapPath("~/ProductImg/" + newFileName);
-
-                        // 檢查檔案是否已存在於目標資料夾中
-                        if (File.Exists(Path.Combine(targetFolderPath, fileName)))
+                        string targetFolderPath = Server.MapPath("~/ProductImg/" + newFileName);  // 指定儲存路徑
+                       
+                        if (File.Exists(Path.Combine(targetFolderPath, fileName)))   // 檢查檔案是否已存在於目標資料夾中
                         {
                             Response.Write("上傳的檔案名稱已存在");
                         }
                         else
                         {
                             uploadedFile.SaveAs(targetFolderPath);
+                            string productName = Request.Form["productName"];
+                            string productCategory = Request.Form["productCategory"];
+                            string productPrice = Request.Form["productPrice"];
+                            string productStock = Request.Form["productStock"];
+                            string productIsOpen = Request.Form["productIsOpen"];
+                            string productIntroduce = Request.Form["productIntroduce"];
+                            Response.Write(AddProduct(productName, productCategory, productPrice, productStock, productIsOpen, productIntroduce));
 
-                            Response.Write("圖片上傳成功");
                         }
                     }
                 }
@@ -74,8 +74,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="productIsOpen"></param>
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
-        [WebMethod]
-        public static string AddProduct(string productName, string productCategory, int productPrice, int productStock, string productIsOpen, string productIntroduce)
+        public static string AddProduct(string productName, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce)
         {
 
             if (SpecialChar(productName, productCategory, productIsOpen, productIntroduce, productPrice, productStock))
@@ -137,14 +136,14 @@ namespace ShoppingWeb.Ajax
         /// <param name="productPrice"></param>
         /// <param name="productStock"></param>
         /// <returns></returns>
-        public static bool SpecialChar(string productName, string productCategory, string productIsOpen, string productIntroduce, int productPrice, int productStock)
+        public static bool SpecialChar(string productName, string productCategory, string productIsOpen, string productIntroduce, string productPrice, string productStock)
         { 
             bool cheackName = Regex.IsMatch(productName, @"^.{1,40}$");
             bool cheackCategory = Regex.IsMatch(productCategory, @"^.{1,}$");
             bool cheackIsOpen = Regex.IsMatch(productIsOpen, @"^.{1,}$");
             bool cheackIntroduce = Regex.IsMatch(productIntroduce, @"^.{1,500}$");
-            bool cheackPrice = Regex.IsMatch(productPrice.ToString(), @"^[0-9]{1,7}$");
-            bool cheackStock = Regex.IsMatch(productStock.ToString(), @"^[0-9]{1,7}$");
+            bool cheackPrice = Regex.IsMatch(productPrice, @"^[0-9]{1,7}$");
+            bool cheackStock = Regex.IsMatch(productStock, @"^[0-9]{1,7}$");
 
             if (cheackName && cheackCategory && cheackIsOpen && cheackIntroduce && cheackPrice && cheackStock)
             {
