@@ -27,16 +27,12 @@
                 default:
                     $("#labUserRoles").text("身分 : 讀取錯誤");
                     break;
-            }
-
-   
+            } 
         },
         error: function (error) {
             console.error('Error:', error);
         }
     });
-
-    CheckAnyoneLonginRedirect("");
 
     //按登出按鈕，清空Session
     $("#btnSignOut").click(function () {
@@ -55,42 +51,16 @@
     });
 
     $("#addUser").click(function () {
-        CheckAnyoneLonginRedirect("AddUser.aspx");
+        $("#iframeContent").attr("src", "AddUser.aspx");
     });
     $("#searchUser").click(function () {
-        CheckAnyoneLonginRedirect("SearchUser.aspx");
+        $("#iframeContent").attr("src", "SearchUser.aspx");
     });
     $("#searchProduct").click(function () {
-        CheckAnyoneLonginRedirect("SearchProduct.aspx");
+        $("#iframeContent").attr("src", "SearchProduct.aspx");
     });
     $("#searchMember").click(function () {
-        CheckAnyoneLonginRedirect("SearchMember.aspx");
+        $("#iframeContent").attr("src", "SearchMember.aspx");
     });
     
 });
-
-//如果沒重複登入就跳轉頁面
-function CheckAnyoneLonginRedirect(str) {
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/IndexHandler.aspx/AnyoneLongin",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-
-            if (response.d === true) {
-                $("#iframeContent").attr("src", str);
-            }
-            else {
-                alert("重複登入，已被登出");
-                window.location.href = "Login.aspx";
-            }
-
-        },
-        error: function (error) {
-            console.error('Error:', error);
-        }
-    }); 
-}
-
-

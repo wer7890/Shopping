@@ -82,20 +82,27 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetUserData()
         {
-            // 連接資料庫，獲取使用者資料
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connectionString))
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
             {
-                using (SqlCommand cmd = new SqlCommand("getAllUserData", con))
+                return "重複登入";
+            }
+            else
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    DataTable dt = new DataTable();
-                    dt.Load(reader);
+                    using (SqlCommand cmd = new SqlCommand("getAllUserData", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
 
-                    // 將資料轉換為 JSON 格式返回
-                    return ConvertDataTableToJson(dt);
+                        // 將資料轉換為 JSON 格式返回
+                        return ConvertDataTableToJson(dt);
+                    }
                 }
             }
         }

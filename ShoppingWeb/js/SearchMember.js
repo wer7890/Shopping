@@ -16,7 +16,7 @@
 
 })
 
-//全部商品資料
+//全部會員資料
 function SearchAllMember() {
     $.ajax({
         url: '/Ajax/SearchMemberHandler.aspx/GetAllMemberData',
@@ -71,11 +71,11 @@ function ToggleMemberStatus(memberId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "更改成功") {
-                $("#labSearchMember").text("帳號狀態更改成功");
-            } else if (response.d === "重複登入") {
+            if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
+            }else if (response.d === "更改成功") {
+                $("#labSearchMember").text("帳號狀態更改成功");
             } else {
                 $("#labSearchMember").text(response.d);
             }
@@ -95,11 +95,11 @@ function ToggleMemberLevel(memberId, level) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "更改成功") {
-                $("#labSearchMember").text("等級更改成功");
-            } else if (response.d === "重複登入") {
+            if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
+            }else if (response.d === "更改成功") {
+                $("#labSearchMember").text("等級更改成功");
             } else {
                 $("#labSearchMember").text(response.d);
             }

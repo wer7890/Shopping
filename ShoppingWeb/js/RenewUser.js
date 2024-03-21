@@ -19,11 +19,6 @@
     });
 
     $("#btnUpData").click(function () {
-
-        if (!CheckAnyoneLonginRedirect()) {
-            return;
-        }
-
         let pwd = $("#txbPwd").val();
         let roles = $("#ddlRoles").val();
         $("#labRenewUser").text("");
@@ -39,12 +34,13 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === "修改成功") {
-                    alert("修改成功");
-                    window.location.href = "SearchUser.aspx" 
-                } else if (response.d === "重複登入") {
+
+                if (response.d === "重複登入") {
                     alert("重複登入，已被登出");
                     window.parent.location.href = "Login.aspx";
+                }else if (response.d === "修改成功") {
+                    alert("修改成功");
+                    window.location.href = "SearchUser.aspx" 
                 } else {
                     $("#labRenewUser").text(response.d);
                 }
@@ -73,32 +69,4 @@ function IsSpecialChar(pwd) {
     }
 
     return pwdValid;
-}
-
-//是否有重複登入
-function CheckAnyoneLonginRedirect() {
-    var result;
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/IndexHandler.aspx/AnyoneLongin",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        async: false,
-        success: function (response) {
-
-            if (response.d === false) {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-                result = false;
-            } else {
-                result = true;
-            }
-
-        },
-        error: function (error) {
-            console.error('Error:', error);
-            result = false;
-        }
-    });
-    return result;
 }

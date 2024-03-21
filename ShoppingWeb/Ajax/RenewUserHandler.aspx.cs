@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Services;
 
-
 namespace ShoppingWeb.Ajax
 {
     public partial class RenewUserHandler : System.Web.UI.Page
@@ -30,7 +29,6 @@ namespace ShoppingWeb.Ajax
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    //string sql = "SELECT f_userId, f_userName, f_pwd, f_roles FROM t_userInfo WHERE f_userId=@id";
                     using (SqlCommand cmd = new SqlCommand("getUserData", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;

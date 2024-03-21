@@ -125,11 +125,12 @@ function ToggleProductStatus(productId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "更改成功") {
-                $("#labSearchProduct").text("更改成功");
-            } else if (response.d === "重複登入"){
+
+            if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
+            }else if (response.d === "更改成功"){
+                $("#labSearchProduct").text("更改成功");
             } else {
                 $("#labSearchProduct").text(response.d);
             }
@@ -151,11 +152,11 @@ function deleteProduct(productId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === "刪除成功") {
-                    window.location.reload();
-                } else if (response.d === "重複登入"){
+                if (response.d === "重複登入") {
                     alert("重複登入，已被登出");
                     window.parent.location.href = "Login.aspx";
+                }else if (response.d === "刪除成功"){
+                    window.location.reload();
                 }else {
                     $("#labSearch").text(response.d);
                 }

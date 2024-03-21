@@ -1,36 +1,6 @@
 ﻿$(document).ready(function () {
-    // 使用 AJAX 從後端取得資料
-    $.ajax({
-        url: '/Ajax/SearchUserHandler.aspx/GetUserData',
-        type: 'POST',
-        contentType: 'application/json',
-        success: function (response) {
-            // 處理成功取得資料的情況
-            var data = JSON.parse(response.d); // 解析 JSON 資料為 JavaScript 物件
-            var tableBody = $('#tableBody');
 
-            // 清空表格內容
-            tableBody.empty();
-
-            // 動態生成表格內容
-            $.each(data, function (index, item) {
-                var row = '<tr>' +
-                    '<td>' + item.f_id + '</td>' +
-                    '<td>' + item.f_userName + '</td>' +
-                    '<td>' + item.f_pwd + '</td>' +
-                    '<td>' + item.f_roles + '</td>' +
-                    '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
-                    '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
-                    '</tr>';
-
-                tableBody.append(row);
-            });
-        },
-        error: function (xhr, status, error) {
-            // 處理發生錯誤的情況
-            console.error('Error:', error);
-        }
-    });
+    searchAllUserInfo();
 
     // 監聽表格標題的點擊事件
     $('#myTable th').click(function () {
@@ -47,13 +17,48 @@
 
 })
 
+//全部管理員資料
+function searchAllUserInfo() {
+    $.ajax({
+        url: '/Ajax/SearchUserHandler.aspx/GetUserData',
+        type: 'POST',
+        contentType: 'application/json',
+        success: function (response) {
+            if (response.d == "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else {
+                // 處理成功取得資料的情況
+                var data = JSON.parse(response.d); // 解析 JSON 資料為 JavaScript 物件
+                var tableBody = $('#tableBody');
+
+                // 清空表格內容
+                tableBody.empty();
+
+                // 動態生成表格內容
+                $.each(data, function (index, item) {
+                    var row = '<tr>' +
+                        '<td>' + item.f_id + '</td>' +
+                        '<td>' + item.f_userName + '</td>' +
+                        '<td>' + item.f_pwd + '</td>' +
+                        '<td>' + item.f_roles + '</td>' +
+                        '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
+                        '</tr>';
+
+                    tableBody.append(row);
+                });
+            }
+        },
+        error: function (xhr, status, error) {
+            // 處理發生錯誤的情況
+            console.error('Error:', error);
+        }
+    });
+}
+
 //刪除
 function deleteUser(userId) {
-
-    if (!CheckAnyoneLonginRedirect()) {
-        return;
-    }
-
     $.ajax({
         type: "POST",
         url: "/Ajax/SearchUserHandler.aspx/RemoveUserInfo",  
@@ -61,12 +66,13 @@ function deleteUser(userId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "刪除成功") {
-                // 刪除成功後，刷新當前頁面並刷新表格
-                window.location.reload();
-            } else if (response.d === "重複登入") {
+
+            if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
+            }else if (response.d === "刪除成功") {
+                // 刪除成功後，刷新當前頁面並刷新表格
+                window.location.reload();
             } else {
                 $("#labSearch").text("刪除失敗");
             }
@@ -79,11 +85,6 @@ function deleteUser(userId) {
 
 //編輯
 function editUser(userId) {
-
-    if (!CheckAnyoneLonginRedirect()) {
-        return;
-    }
-
     $.ajax({
         type: "POST",
         url: "/Ajax/SearchUserHandler.aspx/SetSessionUserId", 
@@ -101,34 +102,6 @@ function editUser(userId) {
             console.error('Error:', error);
         }
     });
-}
-
-//是否有重複登入
-function CheckAnyoneLonginRedirect() {
-    var result;
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/IndexHandler.aspx/AnyoneLongin",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        async: false,
-        success: function (response) {
-
-            if (response.d === false) {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-                result = false;
-            } else {
-                result = true;
-            }
-
-        },
-        error: function (error) {
-            console.error('Error:', error);
-            result = false;
-        }
-    });
-    return result;
 }
 
 // 比較函數，根據列的索引進行比較，根據給定索引值比較兩個行的值。如果值是數字，則使用數字比較，否則使用字典順序比較。
