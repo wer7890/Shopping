@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
+using ShoppingWeb.Ajax;
 
 namespace ShoppingWeb.Ajax
 {
@@ -14,27 +15,31 @@ namespace ShoppingWeb.Ajax
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 檢查是否有上傳的檔案
-            if (Request.HttpMethod == "POST" && Request.Files.Count > 0)
-            {
-                HttpPostedFile uploadedFile = Request.Files[0];
-                string fileName = Path.GetFileName(uploadedFile.FileName);
+            IndexHandler indexHandler = new IndexHandler();
+            bool loginResult = IndexHandler.AnyoneLongin();
 
-                if (CheckFileExtension(Path.GetExtension(fileName)))
+            if (!loginResult)
+            {
+                Response.Write("重複登入");
+            }
+            else
+            {
+                // 檢查是否有上傳的檔案
+                if (Request.HttpMethod == "POST" && Request.Files.Count > 0)
                 {
-                    int maxFileSize = 500 * 1024;  // 檢查圖片大小（假設限制大小為500KB）
-                    if (uploadedFile.ContentLength > maxFileSize)
-                    {
-                        Response.Write("上傳的圖片大小超過限制（最大500KB）");
-                    }
-                    else
+                    HttpPostedFile uploadedFile = Request.Files[0];
+                    string fileName = Path.GetFileName(uploadedFile.FileName);
+                    int maxFileSize = 500 * 1024;
+
+                    // 檢查是否為圖片和圖片大小（限制大小為500KB）
+                    if (CheckFileExtension(Path.GetExtension(fileName)) && !(uploadedFile.ContentLength > maxFileSize))
                     {
                         string guid = Guid.NewGuid().ToString("D");  // 建立新的檔名，GUID每个x是0-9或a-f范围内一个32位十六进制数 8 4 4 4 12
 
                         string newFileName = guid + Path.GetExtension(fileName);
                         pubguid = newFileName;
                         string targetFolderPath = Server.MapPath("~/ProductImg/" + newFileName);  // 指定儲存路徑
-                       
+
                         if (File.Exists(Path.Combine(targetFolderPath, fileName)))   // 檢查檔案是否已存在於目標資料夾中
                         {
                             Response.Write("上傳的檔案名稱已存在");
@@ -52,15 +57,15 @@ namespace ShoppingWeb.Ajax
 
                         }
                     }
+                    else
+                    {
+                        Response.Write("上傳的不是圖片或圖片大小超過限制（最大500KB）");
+                    }
                 }
                 else
                 {
-                    Response.Write("上傳的檔案不是圖片");
+                    Response.Write("未選擇要上傳的檔案");
                 }
-            }
-            else
-            {
-                Response.Write("未選擇要上傳的檔案");
             }
         }
 

@@ -42,7 +42,10 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response === "1") {
+                    if (response === "重複登入") {
+                        alert("重複登入，已被登出");
+                        window.parent.location.href = "Login.aspx";
+                    }else if (response === "1") {
                         alert("新增成功");
                         window.location.href = "SearchProduct.aspx"
                     } else {
