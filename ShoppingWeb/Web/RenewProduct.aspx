@@ -12,10 +12,10 @@
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">修改商品</h2>
+        <h2 class="text-center">編輯商品</h2>
         <br />
         <div class="row">
-            <div class="mx-auto col-12 col-md-7 mt-2">
+            <div class="mx-auto col-12 col-md-7">
                 <span class="text-dark fs-6">商品ID : </span>
                 <span id="labProductId" class="fs-6"></span>
             </div>
