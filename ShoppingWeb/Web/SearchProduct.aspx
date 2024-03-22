@@ -27,7 +27,7 @@
             <div class="col">
                 <label for="txbProductSearch" class="visually-hidden">商品名稱搜尋</label>
                 <input type="text" class="form-control" id="txbProductSearch" placeholder="商品名稱搜尋" />
-            </div>            
+            </div>
             <div class="col-2 d-flex justify-content-center">
                 <button id="btnSearchProduct" type="submit" class="btn btn-outline-primary">查詢</button>
             </div>
@@ -71,7 +71,7 @@
         <div class="row mx-auto">
             <span id="labSearchProduct" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
-        
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>

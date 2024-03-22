@@ -18,15 +18,15 @@
             <table id="myTable" class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th><button type="button" class="btn btn-light btn-sm ">ID</button></th>
-                        <th><button type="button" class="btn btn-light btn-sm ">名稱</button></th>
-                        <th><button type="button" class="btn btn-light btn-sm ">密碼</button></th>
-                        <th><button type="button" class="btn btn-light btn-sm ">等級</button></th>
-                        <th><button type="button" class="btn btn-light btn-sm ">錢包</button></th>
-                        <th><button type="button" class="btn btn-light btn-sm ">電話</button></th>
-                        <th><button type="button" class="btn btn-light btn-sm ">信箱</button></th>
-                        <th><button type="button" class="btn btn-light btn-sm ">創建時間</button></th>
-                        <th><button type="button" class="btn btn-light btn-sm ">狀態</button></th>
+                        <th>ID</th>
+                        <th>名稱</th>
+                        <th>密碼</th>
+                        <th>等級</th>
+                        <th>錢包</th>
+                        <th>電話</th>
+                        <th>信箱</th>
+                        <th>創建時間</th>
+                        <th>狀態</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
