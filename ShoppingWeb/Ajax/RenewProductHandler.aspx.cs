@@ -48,7 +48,7 @@ namespace ShoppingWeb.Ajax
                                 ProductCategory = dt.Rows[0]["f_category"],
                                 ProductPrice = dt.Rows[0]["f_price"],
                                 ProductStock = dt.Rows[0]["f_stock"],
-                                ProductOwner = dt.Rows[0]["f_owner"],
+                                ProductOwner = dt.Rows[0]["f_createdUser"],
                                 ProductCreatedOn = dt.Rows[0]["f_createdTime"].ToString(),
                                 ProductIntroduce = dt.Rows[0]["f_introduce"],
                                 ProductImg = dt.Rows[0]["f_img"]

@@ -103,18 +103,31 @@ namespace ShoppingWeb.Ajax
                             cmd.Parameters.Add(new SqlParameter("@owner", HttpContext.Current.Session["userName"]));
                             string result = cmd.ExecuteScalar().ToString();
 
-                            return result;
+                            if (result == "1") 
+                            {
+                                return result;
+                            }
+                            else
+                            {
+                                string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
+                                File.Delete(imagePath);
+                                return result;
+                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
+                    File.Delete(imagePath);
                     return "發生內部錯誤: " + ex.Message;
                 }
             }
             else
             {
+                string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
+                File.Delete(imagePath);
                 return "輸入值不符合格式";
             }
                 
