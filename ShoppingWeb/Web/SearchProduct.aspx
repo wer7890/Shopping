@@ -52,10 +52,6 @@
                             <button type="button" class="btn btn-light btn-sm ">庫存</button></th>
                         <th>
                             <button type="button" class="btn btn-light btn-sm ">開放</button></th>
-                        <%--<th>
-                            <button type="button" class="btn btn-light btn-sm ">建立者</button></th>
-                        <th>
-                            <button type="button" class="btn btn-light btn-sm ">建立時間</button></th>--%>
                         <th>
                             <button type="button" class="btn btn-light btn-sm ">描述</button></th>
                         <th>

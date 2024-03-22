@@ -20,7 +20,7 @@
     
 
     $("#btnAddProduct").click(function () {
-        window.location.href = "AddProduct.aspx"
+        window.location.href = "AddProduct.aspx";
     })
 })
 

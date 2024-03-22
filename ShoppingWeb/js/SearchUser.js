@@ -2,6 +2,10 @@
 
     searchAllUserInfo();
 
+    $("#btnAddUser").click(function () {
+        window.location.href = "AddUser.aspx";
+    })
+
     // 監聽表格標題的點擊事件
     $('#myTable th').click(function () {
         var table = $(this).parents('table').eq(0);  //獲取被點擊標題所屬的表格。

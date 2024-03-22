@@ -50,9 +50,6 @@
         }); 
     });
 
-    $("#addUser").click(function () {
-        $("#iframeContent").attr("src", "AddUser.aspx");
-    });
     $("#searchUser").click(function () {
         $("#iframeContent").attr("src", "SearchUser.aspx");
     });
@@ -61,6 +58,9 @@
     });
     $("#searchMember").click(function () {
         $("#iframeContent").attr("src", "SearchMember.aspx");
+    });
+    $("#searchOrder").click(function () {
+        $("#iframeContent").attr("src", "SearchOrder.aspx");
     });
     
 });
