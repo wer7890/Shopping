@@ -43,7 +43,7 @@ function searchAllUserInfo() {
                 $.each(data, function (index, item) {
                     var row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_userName + '</td>' +
+                        '<td>' + item.f_name + '</td>' +
                         '<td>' + item.f_pwd + '</td>' +
                         '<td>' + item.f_roles + '</td>' +
                         '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +

@@ -2,6 +2,8 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Services;
 
@@ -44,7 +46,7 @@ namespace ShoppingWeb.Ajax
                                 cmd.CommandType = CommandType.StoredProcedure;
                                 con.Open();
                                 cmd.Parameters.Add(new SqlParameter("@userName", userName));
-                                cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
+                                cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(pwd)));
                                 cmd.Parameters.Add(new SqlParameter("@roles", roles));
 
                                 string result = cmd.ExecuteScalar().ToString();
@@ -87,6 +89,25 @@ namespace ShoppingWeb.Ajax
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// SHA256加密
+        /// </summary>
+        /// <param name="strData"></param>
+        /// <returns></returns>
+        public static string GetSHA256HashFromString(string strData)
+        {
+            byte[] bytValue = Encoding.UTF8.GetBytes(strData);
+            SHA256 sha256 = new SHA256CryptoServiceProvider();
+
+            byte[] retVal = sha256.ComputeHash(bytValue);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < retVal.Length; i++)
+            {
+                sb.Append(retVal[i].ToString("x2"));
+            }
+            return sb.ToString();
         }
 
     }

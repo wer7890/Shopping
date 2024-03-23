@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <div class="row">
+        <div class="row mt-2">
             <!--左欄-->
             <div class="col-12 col-md-2">
                 <div class="list-group">
