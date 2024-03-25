@@ -57,7 +57,7 @@
         $("#iframeContent").attr("src", "SearchProduct.aspx");
     });
     $("#searchMember").click(function () {
-        $("#iframeContent").attr("src", "SearchMember.aspx");
+        //$("#iframeContent").attr("src", "SearchMember.aspx");
     });
     $("#searchOrder").click(function () {
         $("#iframeContent").attr("src", "SearchOrder.aspx");

@@ -44,8 +44,7 @@ namespace ShoppingWeb.Ajax
                             var userObject = new
                             {
                                 UserId = dt.Rows[0]["f_id"],
-                                UserName = dt.Rows[0]["f_userName"],
-                                Password = dt.Rows[0]["f_pwd"],
+                                UserName = dt.Rows[0]["f_name"],
                                 Roles = dt.Rows[0]["f_roles"],
                             };
 
@@ -69,7 +68,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="roles"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string EditUser(string pwd, string roles)
+        public static string EditUser(string pwd)
         {
             bool loginResult = IndexHandler.AnyoneLongin();
             if (!loginResult)
@@ -78,7 +77,7 @@ namespace ShoppingWeb.Ajax
             }
             else
             {
-                if (SpecialChar(pwd, roles))
+                if (SpecialChar(pwd))
                 {
                     try
                     {
@@ -92,8 +91,7 @@ namespace ShoppingWeb.Ajax
                                 con.Open();
 
                                 cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
-                                cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
-                                cmd.Parameters.Add(new SqlParameter("@roles", roles));
+                                cmd.Parameters.Add(new SqlParameter("@pwd", AddUserHandler.GetSHA256HashFromString(pwd)));
 
                                 int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -121,12 +119,11 @@ namespace ShoppingWeb.Ajax
         /// <param name="pwd"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
-        public static bool SpecialChar(string pwd, string roles)
+        public static bool SpecialChar(string pwd)
         {
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
-            bool cheackRoles = Regex.IsMatch(roles, @"^[0-9]{1,2}$");
 
-            if (cheackPwd && cheackRoles)
+            if (cheackPwd)
             {
                 return true;
             }

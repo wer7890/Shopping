@@ -36,7 +36,6 @@ namespace ShoppingWeb.Ajax
 
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        //string sql = "DELETE FROM t_userInfo WHERE f_userId=@userid";
                         using (SqlCommand cmd = new SqlCommand("deleteUser", con))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
@@ -129,6 +128,50 @@ namespace ShoppingWeb.Ajax
             }
 
             return serializer.Serialize(rows);
+        }
+
+        /// <summary>
+        /// 更改管理員身分
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static string ToggleUserRoles(string userId, string roles)
+        {
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
+            {
+                return "重複登入";
+            }
+            else
+            {
+                try
+                {
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("toggleUserRoles", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+                            cmd.Parameters.Add(new SqlParameter("@userId", userId));
+                            cmd.Parameters.Add(new SqlParameter("@roles", roles));
+
+                            int rowsAffected = (int)cmd.ExecuteScalar();
+
+                            return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return "錯誤";
+                }
+            }
         }
     }
 }

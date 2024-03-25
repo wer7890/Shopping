@@ -7,6 +7,7 @@
         ToggleMemberStatus(memberId);
     });
 
+    //等級下拉選單
     $(document).on("change", ".f_level", function () {
         $("#labSearchMember").text("");
         let memberId = $(this).data('id');

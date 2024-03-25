@@ -19,6 +19,14 @@
         }
     });
 
+    //身分下拉選單
+    $(document).on("change", ".f_roles", function () {
+        $("#labSearchMember").text("");
+        let userId = $(this).data('id');
+        let roles = $(this).val();
+        ToggleUserRoles(userId, roles);
+    });
+
 })
 
 //全部管理員資料
@@ -44,8 +52,13 @@ function searchAllUserInfo() {
                     var row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_name + '</td>' +
-                        '<td>' + item.f_pwd + '</td>' +
-                        '<td>' + item.f_roles + '</td>' +
+                        '<td>' +
+                        '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
+                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>超級管理員</option>' +
+                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>會員管理員</option>' +
+                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>商品管理員</option>' +
+                        '</select>' +
+                        '</td>' +
                         '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
                         '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
                         '</tr>';
@@ -100,6 +113,30 @@ function editUser(userId) {
                 window.location.href = "RenewUser.aspx";
             } else {
                 alert("失敗");
+            }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+//更改管理員身分
+function ToggleUserRoles(userId, roles) {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/SearchUserHandler.aspx/ToggleUserRoles",
+        data: JSON.stringify({ userId: userId, roles: roles }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d === "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else if (response.d === "更改成功") {
+                $("#labSearchUser").text("身分更改成功");
+            } else {
+                $("#labSearchUser").text(response.d);
             }
         },
         error: function (error) {

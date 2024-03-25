@@ -38,7 +38,7 @@ namespace ShoppingWeb.Ajax
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
                             cmd.Parameters.Add(new SqlParameter("@userName", userName));
-                            cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
+                            cmd.Parameters.Add(new SqlParameter("@pwd",AddUserHandler.GetSHA256HashFromString(pwd)));
                             cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
 
                             object result = cmd.ExecuteScalar();

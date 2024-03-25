@@ -31,8 +31,6 @@
                         <th>
                             <button type="button" class="btn btn-light btn-sm ">名稱</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm ">密碼</button></th>
-                        <th>
                             <button type="button" class="btn btn-light btn-sm ">角色</button></th>
                         <th>
                             <button type="button" class="btn btn-light btn-sm " disabled>編輯</button></th>
@@ -45,7 +43,9 @@
                 </tbody>
             </table>
         </div>
-        <label id="labSearch" class="col-12 col-sm-12 text-center text-success"></label>
+        <div class="row mx-auto">
+            <span id="labSearchUser" class="col-12 col-sm-12 text-center text-success"></span>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>

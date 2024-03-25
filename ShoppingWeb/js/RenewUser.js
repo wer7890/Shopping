@@ -10,8 +10,21 @@
             // 直接設定 input 元素的值
             $("#labUserId").text(data.d.UserId);
             $("#labUserName").text(data.d.UserName);
-            $("#txbPwd").val(data.d.Password);
-            $("#ddlRoles").val(data.d.Roles);
+            switch (data.d.Roles) {
+                case 1:
+                    $("#labUserRoles").text("超級管理員");
+                    break;
+                case 2:
+                    $("#labUserRoles").text("會員管理員");
+                    break;
+                case 3:
+                    $("#labUserRoles").text("商品管理員");
+                    break;
+                default:
+                    $("#labUserRoles").text("錯誤");
+                    break;
+            }
+            
         },
         error: function (error) {
             console.error('Error:', error);
@@ -20,7 +33,6 @@
 
     $("#btnUpData").click(function () {
         let pwd = $("#txbPwd").val();
-        let roles = $("#ddlRoles").val();
         $("#labRenewUser").text("");
 
         if (!IsSpecialChar(pwd)) {
@@ -30,7 +42,7 @@
         $.ajax({
             type: "POST",
             url: "/Ajax/RenewUserHandler.aspx/EditUser", 
-            data: JSON.stringify({pwd: pwd, roles: roles }),
+            data: JSON.stringify({pwd: pwd}),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
