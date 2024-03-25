@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace ShoppingWeb.Web
 {
     public partial class AddUser1 : System.Web.UI.Page
@@ -11,7 +10,7 @@ namespace ShoppingWeb.Web
             if (!IsPostBack)  
             {
 
-                if (Session["userName"] == null)
+                if (Session["userId"] == null)
                 {
                     Response.Redirect("Login.aspx");
                 }

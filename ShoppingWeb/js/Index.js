@@ -9,14 +9,17 @@
             switch (response.d) {
                 case "1":
                     $("#labUserRoles").text("身分 : 超級管理員");
+                    $("#iframeContent").attr("src", "SearchUser.aspx");
                     break;
                 case "2":
                     $("#labUserRoles").text("身分 : 會員管理員");
+                    $("#iframeContent").attr("src", "SearchOrder.aspx");
                     $("#adminPanel").hide();
                     $("#productPanel").hide();
                     break;
                 case "3":
                     $("#labUserRoles").text("身分 : 商品管理員");
+                    $("#iframeContent").attr("src", "SearchProduct.aspx");
                     $("#adminPanel").hide();
                     $("#memberPanel").hide();
                     $("#orderPanel").hide();
@@ -47,16 +50,16 @@
         }); 
     });
 
-    $("#searchUser").click(function () {
+    $("#adminPanel").click(function () {
         $("#iframeContent").attr("src", "SearchUser.aspx");
     });
-    $("#searchProduct").click(function () {
+    $("#productPanel").click(function () {
         $("#iframeContent").attr("src", "SearchProduct.aspx");
     });
-    $("#searchMember").click(function () {
+    $("#memberPanel").click(function () {
         //$("#iframeContent").attr("src", "SearchMember.aspx");
     });
-    $("#searchOrder").click(function () {
+    $("#orderPanel").click(function () {
         $("#iframeContent").attr("src", "SearchOrder.aspx");
     });
     

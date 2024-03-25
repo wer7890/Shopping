@@ -104,7 +104,7 @@ function deleteUser(userId) {
 function editUser(userId) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/SearchUserHandler.aspx/SetSessionUserId", 
+        url: "/Ajax/SearchUserHandler.aspx/SetSessionSelectUserId", 
         data: JSON.stringify({ userId: userId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

@@ -25,7 +25,7 @@ namespace ShoppingWeb.Ajax
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                string sessionUserId = HttpContext.Current.Session["userId"] as string;
+                string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -60,12 +60,11 @@ namespace ShoppingWeb.Ajax
             }
 
         }
-        
+
         /// <summary>
-        /// 更改密碼或身分
+        /// 更改密碼
         /// </summary>
         /// <param name="pwd"></param>
-        /// <param name="roles"></param>
         /// <returns></returns>
         [WebMethod]
         public static string EditUser(string pwd)
@@ -82,7 +81,7 @@ namespace ShoppingWeb.Ajax
                     try
                     {
                         string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                        string sessionUserId = HttpContext.Current.Session["userId"] as string;
+                        string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
                         using (SqlConnection con = new SqlConnection(connectionString))
                         {
                             using (SqlCommand cmd = new SqlCommand("editUser", con))

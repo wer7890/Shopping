@@ -27,12 +27,11 @@ namespace ShoppingWeb.Ajax
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    //string sql = "SELECT f_roles FROM t_userInfo WHERE f_userName=@userName";
                     using (SqlCommand cmd = new SqlCommand("getRoles", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userName", HttpContext.Current.Session["userName"]));
+                        cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
 
                         string result = cmd.ExecuteScalar().ToString();
 
@@ -53,13 +52,13 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 刪除Session["userName"]
+        /// 刪除Session["userId"]
         /// </summary>
         /// <returns></returns>
         [WebMethod]
         public static bool DeleteSession()
         {
-            HttpContext.Current.Session["userName"] = null;
+            HttpContext.Current.Session["userId"] = null;
             return true;
         }
 
@@ -75,12 +74,11 @@ namespace ShoppingWeb.Ajax
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    //string sql = "SELECT f_sessionId FROM t_userInfo WHERE f_userName=@userName";
                     using (SqlCommand cmd = new SqlCommand("getSessionId", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userName", HttpContext.Current.Session["userName"]));
+                        cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
 
                         object result = cmd.ExecuteScalar();
                         if (result != null)
@@ -92,7 +90,7 @@ namespace ShoppingWeb.Ajax
 
                             if (dbSessionID != currentSessionID)
                             {
-                                HttpContext.Current.Session["userName"] = null;
+                                HttpContext.Current.Session["userId"] = null;
                                 return false;
                             }
 

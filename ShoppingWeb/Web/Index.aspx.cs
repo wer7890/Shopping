@@ -9,7 +9,7 @@ namespace ShoppingWeb.Web
             if (!IsPostBack)  //頁面加載第一次時
             {
 
-                if (Session["userName"] == null)
+                if (Session["userId"] == null)
                 {
                     Response.Redirect("Login.aspx");
                 }

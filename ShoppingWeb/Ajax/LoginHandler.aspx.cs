@@ -17,7 +17,7 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 登入，如果成功就把sessionId寫入資料庫
+        /// 登入，如果成功就把sessionId寫入資料庫，並且把userId存到Session["userId"]
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="pwd"></param>
@@ -40,12 +40,14 @@ namespace ShoppingWeb.Ajax
                             cmd.Parameters.Add(new SqlParameter("@userName", userName));
                             cmd.Parameters.Add(new SqlParameter("@pwd",AddUserHandler.GetSHA256HashFromString(pwd)));
                             cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
+                            cmd.Parameters.Add(new SqlParameter("@userId", SqlDbType.Int));
+                            cmd.Parameters["@userId"].Direction = ParameterDirection.Output;
 
                             object result = cmd.ExecuteScalar();
 
                             if (result != null && result.ToString() == "1")
                             {
-                                HttpContext.Current.Session["userName"] = userName;
+                                HttpContext.Current.Session["userId"] = cmd.Parameters["@userId"].Value.ToString();
                                 return "登入成功";
                             }
 
@@ -65,6 +67,7 @@ namespace ShoppingWeb.Ajax
             }
         }
 
+        
         /// <summary>
         /// 判斷輸入值
         /// </summary>
