@@ -18,10 +18,10 @@
             <!--左欄-->
             <div class="col-12 col-md-2">
                 <div class="list-group">
-                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="searchUser">管理員系統</a>
-                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="searchMember">會員系統</a>
-                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="searchProduct">商品系統</a>
-                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="searchOrder">訂單系統</a>
+                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="adminPanel">管理員系統</a>
+                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="memberPanel">會員系統</a>
+                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="productPanel">商品系統</a>
+                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="orderPanel">訂單系統</a>
                 </div>
                 <div class="row mt-2">
                     <label id="labUserRoles" class="fs-5 text-center align-middle mt-2"></label>

@@ -7,22 +7,19 @@
         dataType: "json",
         success: function (response) {
             switch (response.d) {
-                case "0":
-                    $("#labUserRoles").text("身分 : root");
-                    break;
                 case "1":
                     $("#labUserRoles").text("身分 : 超級管理員");
                     break;
                 case "2":
                     $("#labUserRoles").text("身分 : 會員管理員");
-                    $("#divAdminPanel").hide();
-                    $("#divProductPanel").hide();
+                    $("#adminPanel").hide();
+                    $("#productPanel").hide();
                     break;
                 case "3":
                     $("#labUserRoles").text("身分 : 商品管理員");
-                    $("#divAdminPanel").hide();
-                    $("#divMemberPanel").hide();
-                    $("#divOrderPanel").hide();
+                    $("#adminPanel").hide();
+                    $("#memberPanel").hide();
+                    $("#orderPanel").hide();
                     break;
                 default:
                     $("#labUserRoles").text("身分 : 讀取錯誤");
