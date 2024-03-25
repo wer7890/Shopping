@@ -75,7 +75,7 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 表格
+        /// 顯示所有管理員
         /// </summary>
         /// <returns></returns>
         [WebMethod]

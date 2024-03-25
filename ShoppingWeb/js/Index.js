@@ -34,7 +34,7 @@
         }
     });
 
-    //按登出按鈕，清空Session
+    //按登出按鈕，清空Session["userId"]
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
