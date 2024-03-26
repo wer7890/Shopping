@@ -1,13 +1,112 @@
 ﻿$(document).ready(function () {
-    
+    // 大分類
+    let majorCategories = {
+        "10": "帽子",
+        "11": "上衣",
+        "12": "外套",
+        "13": "褲子"
+    };
+
+    // 小分類
+    let minorCategories = {
+        "0": {
+            "0": "請先選擇類型"
+        },
+        "10": {
+            "01": "其他",
+            "02": "棒球帽",
+            "03": "漁夫帽",
+            "04": "遮陽帽"
+        },
+        "11": {
+            "01": "其他",
+            "02": "襯衫",
+            "03": "毛衣",
+            "04": "帽T"
+        },
+        "12": {
+            "01": "其他",
+            "02": "皮外套",
+            "03": "風衣",
+            "04": "牛仔外套"
+        },
+        "13": {
+            "01": "其他",
+            "02": "運動褲",
+            "03": "休閒褲",
+            "04": "西褲"
+        }
+    };
+
+    // 品牌分類
+    let brand = {
+        "00": "所有",
+        "01": "其他",
+        "02": "NIKE",
+        "03": "FILA",
+        "04": "ADIDAS",
+        "05": "PUMA"
+    }
+
+    // 創建 select 元素並初始化大分類選項
+    var categorySelect = $("<select>").attr("id", "productCategory").addClass("form-select");
+    categorySelect.prepend($("<option>").attr("value", "0").text("請選擇商品類型"));
+    for (let key in majorCategories) {
+
+        if (Object.prototype.hasOwnProperty.call(majorCategories, key)) {
+            categorySelect.append($("<option>").attr("value", key).text(majorCategories[key]));
+        }
+
+    }
+    $("#divCategories").append(categorySelect);
+
+    // 根據所選的大分類更新小分類選項
+    $("#productCategory").change(function () {
+        var selectedMajorCategory = $(this).val(); // 獲取所選的大分類
+        var minorCategorySelect = $("<select>").attr("id", "minorCategory").addClass("form-select");
+
+        // 根據所選的大分類更新小分類選項
+        for (let key in minorCategories[selectedMajorCategory]) {
+
+            if (Object.prototype.hasOwnProperty.call(minorCategories[selectedMajorCategory], key)) {
+                minorCategorySelect.append($("<option>").attr("value", key).text(minorCategories[selectedMajorCategory][key]));
+            }
+
+        }
+
+        // 替換原有的小分類 select 元素
+        $("#divMinorCategory").empty().append(minorCategorySelect);
+    });
+
+    // 創建品牌 select 元素
+    var brandSelect = $("<select>").attr("id", "brandCategory").addClass("form-select");
+    for (let key in brand) {
+
+        if (Object.prototype.hasOwnProperty.call(brand, key)) {
+            brandSelect.append($("<option>").attr("value", key).text(brand[key]));
+        }
+
+    }
+    $("#divBrand").append(brandSelect);
+
+    //顯示全部商品
     SearchAllProduct();
     
     $("#btnSearchProduct").click(function () {
         $("#labSearchProduct").text("");
         $('#tableBody').empty();
         let productName = $("#txbProductSearch").val();
-        let productCategory = $("#productCategory").val();
-        SearchProduct(productCategory, productName);
+        let productCategory = $("#productCategory").val();  // 獲取大分類值
+        let productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
+        let productBrand = $("#brandCategory").val(); // 獲取品牌值
+        let checkAllBrand = false;  //是否為全部品牌
+
+        if (productBrand == "00") {
+            checkAllBrand = true;
+        }
+
+        let newCategory = productCategory + productMinorCategory + productBrand;
+        SearchProduct(newCategory, productName, checkAllBrand);
     });
 
 
@@ -71,10 +170,10 @@ function SearchAllProduct() {
 }
 
 //搜尋商品資料
-function SearchProduct(productCategory, productName) {
+function SearchProduct(productCategory, productName, checkAllBrand) {
     $.ajax({
         url: '/Ajax/SearchProductHandler.aspx/GetProductData',
-        data: JSON.stringify({ productCategory: productCategory, productName: productName }),
+        data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllBrand: checkAllBrand }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",

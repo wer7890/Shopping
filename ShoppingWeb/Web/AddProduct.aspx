@@ -20,15 +20,23 @@
                 <label for="txbProductName" class="form-label">商品名稱</label>
                 <input type="text" id="txbProductName" class="form-control" />
             </div>
-            <div class="mx-auto col-12 col-md-7 mt-3">
-                <label for="productCategory" class="form-label">商品類型</label>
-                <select id="productCategory" class="form-select">
-                    <option value="">請選擇要搜尋的商品類型</option>
-                    <option value="1">帽子</option>
-                    <option value="2">上衣</option>
-                    <option value="3">外套</option>
-                    <option value="4">褲子</option>
-                </select>
+            <div class="row mx-auto col-12 col-md-7 mt-3">
+
+                <div class="col px-0" id="divCategories">
+                    <label for="productCategory" class="form-label">商品類型</label>
+                </div>
+
+                <div class="col" id="divMinorCategory">
+                    <label for="minorCategory" class="form-label">子類型</label>
+                    <select id="minorCategory" class="form-select">
+                        <option value="">請先選擇類型</option>
+                    </select>
+                </div>
+
+                <div class="col px-0" id="divBrand">
+                    <label for="brandCategory" class="form-label">品牌</label>
+                </div>
+              
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="txbProductImg" class="form-label">商品圖示</label>
@@ -49,6 +57,7 @@
                     <option value="1">是</option>
                 </select>
             </div>
+
             <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="txbProductIntroduce" class="form-label">商品細項描述</label>
                 <textarea rows="3" class="form-control" id="txbProductIntroduce" ></textarea>

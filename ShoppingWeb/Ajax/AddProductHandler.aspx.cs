@@ -157,7 +157,7 @@ namespace ShoppingWeb.Ajax
         public static bool SpecialChar(string productName, string productCategory, string productIsOpen, string productIntroduce, string productPrice, string productStock)
         { 
             bool cheackName = Regex.IsMatch(productName, @"^.{1,40}$");
-            bool cheackCategory = Regex.IsMatch(productCategory, @"^.{1,}$");
+            bool cheackCategory = Regex.IsMatch(productCategory, @"^.{6,}$");
             bool cheackIsOpen = Regex.IsMatch(productIsOpen, @"^.{1,}$");
             bool cheackIntroduce = Regex.IsMatch(productIntroduce, @"^.{1,500}$");
             bool cheackPrice = Regex.IsMatch(productPrice, @"^[0-9]{1,7}$");
