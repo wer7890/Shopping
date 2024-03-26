@@ -58,7 +58,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="searchName"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetProductData(string productCategory, string productName, bool checkAllBrand)
+        public static object GetProductData(string productCategory, string productName, bool checkAllMinorCategories, bool checkAllBrand)
         {
             bool loginResult = IndexHandler.AnyoneLongin();
             if (!loginResult)
@@ -77,6 +77,7 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@category", productCategory));
                         cmd.Parameters.Add(new SqlParameter("@name", productName));
+                        cmd.Parameters.Add(new SqlParameter("@allMinorCategories", checkAllMinorCategories));
                         cmd.Parameters.Add(new SqlParameter("@allBrand", checkAllBrand));
                         bool a = checkAllBrand;
                         object result = cmd.ExecuteScalar();

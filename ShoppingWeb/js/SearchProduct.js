@@ -13,24 +13,28 @@
             "0": "請先選擇類型"
         },
         "10": {
+            "00": "全部",
             "01": "其他",
             "02": "棒球帽",
             "03": "漁夫帽",
             "04": "遮陽帽"
         },
         "11": {
+            "00": "全部",
             "01": "其他",
             "02": "襯衫",
             "03": "毛衣",
             "04": "帽T"
         },
         "12": {
+            "00": "全部",
             "01": "其他",
             "02": "皮外套",
             "03": "風衣",
             "04": "牛仔外套"
         },
         "13": {
+            "00": "全部",
             "01": "其他",
             "02": "運動褲",
             "03": "休閒褲",
@@ -40,7 +44,7 @@
 
     // 品牌分類
     let brand = {
-        "00": "所有",
+        "00": "全部",
         "01": "其他",
         "02": "NIKE",
         "03": "FILA",
@@ -49,7 +53,7 @@
     }
 
     // 創建 select 元素並初始化大分類選項
-    var categorySelect = $("<select>").attr("id", "productCategory").addClass("form-select");
+    let categorySelect = $("<select>").attr("id", "productCategory").addClass("form-select");
     categorySelect.prepend($("<option>").attr("value", "0").text("請選擇商品類型"));
     for (let key in majorCategories) {
 
@@ -62,8 +66,8 @@
 
     // 根據所選的大分類更新小分類選項
     $("#productCategory").change(function () {
-        var selectedMajorCategory = $(this).val(); // 獲取所選的大分類
-        var minorCategorySelect = $("<select>").attr("id", "minorCategory").addClass("form-select");
+        let selectedMajorCategory = $(this).val(); // 獲取所選的大分類
+        let minorCategorySelect = $("<select>").attr("id", "minorCategory").addClass("form-select");
 
         // 根據所選的大分類更新小分類選項
         for (let key in minorCategories[selectedMajorCategory]) {
@@ -79,7 +83,7 @@
     });
 
     // 創建品牌 select 元素
-    var brandSelect = $("<select>").attr("id", "brandCategory").addClass("form-select");
+    let brandSelect = $("<select>").attr("id", "brandCategory").addClass("form-select");
     for (let key in brand) {
 
         if (Object.prototype.hasOwnProperty.call(brand, key)) {
@@ -99,14 +103,19 @@
         let productCategory = $("#productCategory").val();  // 獲取大分類值
         let productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
         let productBrand = $("#brandCategory").val(); // 獲取品牌值
+        let checkAllMinorCategories = false;  //是否為全部小分類
         let checkAllBrand = false;  //是否為全部品牌
+
+        if (productMinorCategory == "00") {
+            checkAllMinorCategories = true;
+        }
 
         if (productBrand == "00") {
             checkAllBrand = true;
         }
 
         let newCategory = productCategory + productMinorCategory + productBrand;
-        SearchProduct(newCategory, productName, checkAllBrand);
+        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand);
     });
 
 

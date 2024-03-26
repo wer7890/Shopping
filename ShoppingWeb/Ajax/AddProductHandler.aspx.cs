@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
-using ShoppingWeb.Ajax;
 
 namespace ShoppingWeb.Ajax
 {
@@ -15,7 +14,6 @@ namespace ShoppingWeb.Ajax
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            IndexHandler indexHandler = new IndexHandler();
             bool loginResult = IndexHandler.AnyoneLongin();
 
             if (!loginResult)
@@ -126,8 +124,6 @@ namespace ShoppingWeb.Ajax
             }
             else
             {
-                string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
-                File.Delete(imagePath);
                 return "輸入值不符合格式";
             }
                 
