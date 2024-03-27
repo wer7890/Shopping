@@ -1,6 +1,29 @@
 ﻿$(document).ready(function () {
+    var currentPage = 1; // 初始頁碼為 1
+    var pageSize = 2; // 每頁顯示的資料筆數
 
-    searchAllUserInfo();
+    searchAllUserInfoTest(currentPage, pageSize);
+
+    $('#previousPage').on('click', function () {
+        if (currentPage > 1) {
+            currentPage--;
+            searchAllUserInfoTest(currentPage, pageSize);
+        }
+    });
+
+    $('#nextPage').on('click', function () {
+        currentPage++;
+        searchAllUserInfoTest(currentPage, pageSize);
+    });
+
+    $('#pagination').on('click', 'a.pageNumber', function () {
+        currentPage = parseInt($(this).text());
+        searchAllUserInfoTest(currentPage, pageSize);
+    });
+
+
+
+    //searchAllUserInfo();
 
     $("#btnAddUser").click(function () {
         window.location.href = "AddUser.aspx";
@@ -157,4 +180,58 @@ function compareValues(index) {
 // 獲取單元格的值
 function getCellValue(row, index) {
     return $(row).children('td').eq(index).text();
+}
+
+
+function searchAllUserInfoTest(pageNumber, pageSize) {
+    $.ajax({
+        url: '/Ajax/SearchUserHandler.aspx/GetUserDataTest',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }), // 傳遞分頁相關的參數
+        success: function (response) {
+            if (response.d == "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else {
+                // 處理成功取得資料的情況
+                var data = JSON.parse(response.d); // 解析 JSON 資料為 JavaScript 物件
+                var tableBody = $('#tableBody');
+
+                // 清空表格內容
+                tableBody.empty();
+
+                // 動態生成表格內容
+                $.each(data, function (index, item) {
+                    var row = '<tr>' +
+                        '<td>' + item.f_id + '</td>' +
+                        '<td>' + item.f_account + '</td>' +
+                        '<td>' +
+                        '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
+                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>超級管理員</option>' +
+                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>會員管理員</option>' +
+                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>商品管理員</option>' +
+                        '</select>' +
+                        '</td>' +
+                        '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
+                        '</tr>';
+
+                    tableBody.append(row);
+                });
+            }
+
+            updatePaginationControls(pageNumber);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+// 更新分頁控制元件的狀態
+function updatePaginationControls(currentPage) {
+    // 根據當前頁碼，更新頁碼按鈕的狀態，例如高亮當前頁碼按鈕
+    $('#pagination .page-item').removeClass('active');
+    $('#page' + currentPage).addClass('active');
 }

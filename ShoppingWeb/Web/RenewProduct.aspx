@@ -24,7 +24,7 @@
                 <span id="labProductCreatedOn" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <span class="text-dark fs-6">建立者 : </span>
+                <span class="text-dark fs-6">建立者ID : </span>
                 <span id="labProductOwner" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">

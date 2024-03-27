@@ -173,5 +173,35 @@ namespace ShoppingWeb.Ajax
                 }
             }
         }
+
+        [WebMethod]
+        public static object GetUserDataTest(int pageNumber, int pageSize)
+        {
+            bool loginResult = IndexHandler.AnyoneLongin();
+            if (!loginResult)
+            {
+                return "重複登入";
+            }
+            else
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("test2", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@PageNumber", pageNumber);
+                        cmd.Parameters.AddWithValue("@PageSize", pageSize);
+                        con.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+
+                        // 將資料轉換為 JSON 格式返回
+                        return ConvertDataTableToJson(dt);
+                    }
+                }
+            }
+        }
     }
 }

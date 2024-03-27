@@ -33,7 +33,7 @@
 
             <!--右欄-->
             <div class="col-12 col-md-10">
-                <iframe id="iframeContent" src="" style="width: 100%; height: 100vh; border: none;"></iframe>
+                <iframe id="iframeContent" src="" style="width: 100%; height: 90vh; border: none;"></iframe>
             </div>
 
         </div>

@@ -16,7 +16,6 @@
         <br />
         <div class="row mx-auto col-12 mb-3">
             <div class="col px-0" id="divCategories">
-                <label for="productCategory" class="form-label">商品類型</label>
             </div>
             <div class="col" id="divMinorCategory">
                 <label for="minorCategory" class="form-label">子類型</label>
@@ -25,7 +24,6 @@
                 </select>
             </div>
             <div class="col ps-0" id="divBrand">
-                <label for="brandCategory" class="form-label">品牌</label>
             </div>
             <div class="col px-0">
                 <label for="txbProductSearch" class="form-label">商品名稱搜尋</label>

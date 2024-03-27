@@ -62,7 +62,7 @@
         }
 
     }
-    $("#divCategories").append(categorySelect);
+    $("#divCategories").append('<label for="productCategory" class="form-label">商品類型</label>').append(categorySelect);
 
     // 根據所選的大分類更新小分類選項
     $("#productCategory").change(function () {
@@ -91,7 +91,7 @@
         }
 
     }
-    $("#divBrand").append(brandSelect);
+    $("#divBrand").append('<label for="brandCategory" class="form-label">品牌</label>').append(brandSelect);
 
     //顯示全部商品
     SearchAllProduct();
