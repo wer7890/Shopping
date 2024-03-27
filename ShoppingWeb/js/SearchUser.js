@@ -51,7 +51,7 @@ function searchAllUserInfo() {
                 $.each(data, function (index, item) {
                     var row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_name + '</td>' +
+                        '<td>' + item.f_account + '</td>' +
                         '<td>' +
                         '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
                         '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>超級管理員</option>' +

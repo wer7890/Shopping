@@ -1,19 +1,19 @@
 ﻿$(document).ready(function () {
     //新增按鈕
     $("#btnAddUser").click(function () {
-        let userName = $("#txbUserName").val();
+        let account = $("#txbAccount").val();
         let pwd = $("#txbPwd").val();
         let roles = $("#ddlRoles").val();
         $("#labAddUser").text("");
 
-        if (!IsSpecialChar(userName, pwd)) {
+        if (!IsSpecialChar(account, pwd)) {
             return;
         }    
 
         $.ajax({
             type: "POST",
             url: "/Ajax/AddUserHandler.aspx/RegisterNewUser",  // 這裡指定後端方法的位置
-            data: JSON.stringify({ userName: userName, pwd: pwd, roles: roles }),
+            data: JSON.stringify({ account: account, pwd: pwd, roles: roles }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -21,7 +21,7 @@
                     alert("新增成功");
                     window.location.href = "SearchUser.aspx"
                 } else if (response.d === "0") {
-                    $("#labAddUser").text("管理員名稱重複");
+                    $("#labAddUser").text("帳號重複");
                 } else if (response.d === "重複登入") {
                     alert("重複登入，已被登出");
                     window.parent.location.href = "Login.aspx";
@@ -39,21 +39,21 @@
 
 
 //判斷特殊字元和長度
-function IsSpecialChar(userName, pwd) {
+function IsSpecialChar(account, pwd) {
 
-    if (typeof userName === 'undefined' || typeof pwd === 'undefined') {
+    if (typeof account === 'undefined' || typeof pwd === 'undefined') {
         $("#labAddUser").text("undefined");
         return false;
     }
 
     let regex = /^[A-Za-z0-9]{6,16}$/;
 
-    let userNameValid = regex.test(userName);
+    let accountValid = regex.test(account);
     let pwdValid = regex.test(pwd);
 
-    if (!userNameValid || !pwdValid) {
-        $("#labAddUser").text("名稱和密碼不能含有非英文和數字且長度應在6到16之間");
+    if (!accountValid || !pwdValid) {
+        $("#labAddUser").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間");
     }
 
-    return userNameValid && pwdValid;
+    return accountValid && pwdValid;
 }

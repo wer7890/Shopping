@@ -9,7 +9,7 @@
         success: function (data) {
             // 直接設定 input 元素的值
             $("#labUserId").text(data.d.UserId);
-            $("#labUserName").text(data.d.UserName);
+            $("#labAccount").text(data.d.Account);
             switch (data.d.Roles) {
                 case 1:
                     $("#labUserRoles").text("超級管理員");

@@ -21,8 +21,8 @@
                 <span id="labUserId" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">
-                <span class="text-dark fs-6">管理員名稱 : </span>
-                <span id="labUserName" class="fs-6"></span>
+                <span class="text-dark fs-6">帳號 : </span>
+                <span id="labAccount" class="fs-6"></span>
             </div>
             <div class="mx-auto mt-3 col-12 col-md-7 mt-3">
                 <span class="text-dark fs-6">角色 : </span>

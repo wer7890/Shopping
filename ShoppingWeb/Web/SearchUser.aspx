@@ -29,7 +29,7 @@
                         <th>
                             <button type="button" class="btn btn-light btn-sm ">管理者ID</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm ">名稱</button></th>
+                            <button type="button" class="btn btn-light btn-sm ">帳號</button></th>
                         <th>
                             <button type="button" class="btn btn-light btn-sm ">角色</button></th>
                         <th>

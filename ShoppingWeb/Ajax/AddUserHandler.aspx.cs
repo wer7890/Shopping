@@ -20,12 +20,12 @@ namespace ShoppingWeb.Ajax
         /// <summary>
         /// 判斷使用者名稱是否存在，如果沒有就新增管理員
         /// </summary>
-        /// <param name="userName"></param>
+        /// <param name="account"></param>
         /// <param name="pwd"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string RegisterNewUser(string userName, string pwd, string roles)
+        public static string RegisterNewUser(string account, string pwd, string roles)
         {
             bool loginResult = IndexHandler.AnyoneLongin();
             if (!loginResult)
@@ -34,7 +34,7 @@ namespace ShoppingWeb.Ajax
             }
             else
             {
-                if (SpecialChar(userName, pwd, roles))
+                if (SpecialChar(account, pwd, roles))
                 {
                     try
                     {
@@ -45,7 +45,7 @@ namespace ShoppingWeb.Ajax
                             {
                                 cmd.CommandType = CommandType.StoredProcedure;
                                 con.Open();
-                                cmd.Parameters.Add(new SqlParameter("@userName", userName));
+                                cmd.Parameters.Add(new SqlParameter("@account", account));
                                 cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(pwd)));
                                 cmd.Parameters.Add(new SqlParameter("@roles", roles));
 
@@ -63,7 +63,7 @@ namespace ShoppingWeb.Ajax
                 }
                 else
                 {
-                    return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                    return "帳號和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
                 }
             }
         }
@@ -71,17 +71,17 @@ namespace ShoppingWeb.Ajax
         /// <summary>
         /// 判斷輸入值
         /// </summary>
-        /// <param name="userName"></param>
+        /// <param name="account"></param>
         /// <param name="pwd"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
-        public static bool SpecialChar(string userName, string pwd, string roles)
+        public static bool SpecialChar(string account, string pwd, string roles)
         {
-            bool cheackUserName = Regex.IsMatch(userName, @"^[A-Za-z0-9]{6,16}$");
+            bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
             bool cheackRoles = Regex.IsMatch(roles, @"^[0-9]{1,2}$");
 
-            if (cheackUserName && cheackPwd && cheackRoles)
+            if (cheackAccount && cheackPwd && cheackRoles)
             {
                 return true;
             }

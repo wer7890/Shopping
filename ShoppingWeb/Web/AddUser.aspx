@@ -17,8 +17,8 @@
         <br />
         <div class="row">
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <label for="txbUserName" class="form-label">管理員名稱</label>
-                <input type="text" id="txbUserName" class="form-control" />
+                <label for="txbAccount" class="form-label">帳號</label>
+                <input type="text" id="txbAccount" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
                 <label for="txbPwd" class="form-label">密碼</label>

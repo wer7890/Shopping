@@ -19,9 +19,9 @@
         <hr />
         <div class="row mx-auto col-12 col-md-5">
             <div class="form-group">
-                <label for="txbUserName" class="control-label">用戶名:</label>
+                <label for="txbAccount" class="control-label">帳號:</label>
                 <div>
-                    <input type="text" id="txbUserName" class="form-control mt-2" placeholder="請輸入用戶名" />
+                    <input type="text" id="txbAccount" class="form-control mt-2" placeholder="請輸入帳號" />
                 </div>
             </div>
 

@@ -1,17 +1,17 @@
 ﻿$(document).ready(function () {
     $("#btnLogin").click(function () {
-        let userName = $("#txbUserName").val();
+        let account = $("#txbAccount").val();
         let pwd = $("#txbPassword").val();
         $("#labLogin").text("");
 
-        if (!IsSpecialChar(userName, pwd)){
+        if (!IsSpecialChar(account, pwd)){
             return;
         }
 
         $.ajax({
             type: "POST",
             url: "/Ajax/LoginHandler.aspx/LoginUser",  // 這裡指定後端方法的位置
-            data: JSON.stringify({ userName: userName, pwd: pwd }),
+            data: JSON.stringify({ account: account, pwd: pwd }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -31,24 +31,24 @@
 
 
 //判斷特殊字元和長度 
-function IsSpecialChar(userName, pwd) {
+function IsSpecialChar(account, pwd) {
 
-    if (typeof userName === 'undefined' || typeof pwd === 'undefined') {
+    if (typeof account === 'undefined' || typeof pwd === 'undefined') {
         $("#labLogin").text("undefined");
         return false;
     }
 
     let regex = /^[A-Za-z0-9]{6,16}$/;
 
-    let userNameValid = regex.test(userName);
+    let accountValid = regex.test(account);
     let pwdValid = regex.test(pwd);
 
 
-    if (!userNameValid || !pwdValid) {
-        $("#labLogin").text("名稱和密碼不能含有非英文和數字且長度應在6到16之間");
+    if (!accountValid || !pwdValid) {
+        $("#labLogin").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間");
     }
 
-    return userNameValid && pwdValid;
+    return accountValid && pwdValid;
 }
 
 

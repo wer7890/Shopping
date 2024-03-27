@@ -44,7 +44,7 @@ namespace ShoppingWeb.Ajax
                             var userObject = new
                             {
                                 UserId = dt.Rows[0]["f_id"],
-                                UserName = dt.Rows[0]["f_name"],
+                                Account = dt.Rows[0]["f_account"],
                                 Roles = dt.Rows[0]["f_roles"],
                             };
 

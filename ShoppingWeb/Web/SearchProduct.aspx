@@ -72,6 +72,11 @@
             </table>
         </div>
         <div class="row mx-auto">
+            <div id="pagination">
+                <button id="prevPage">上一頁</button>
+                <span id="currentPage"></span>/ <span id="totalPages"></span>
+                <button id="nextPage">下一頁</button>
+            </div>
             <span id="labSearchProduct" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
 
