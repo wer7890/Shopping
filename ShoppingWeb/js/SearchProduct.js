@@ -79,7 +79,7 @@
         }
 
         // 替換原有的小分類 select 元素
-        $("#divMinorCategory").empty().append(minorCategorySelect);
+        $("#divMinorCategory").empty().append('<label for="minorCategory" class="form-label">子類型</label>').append(minorCategorySelect);
     });
 
     // 創建品牌 select 元素
@@ -179,10 +179,10 @@ function SearchAllProduct() {
 }
 
 //搜尋商品資料
-function SearchProduct(productCategory, productName, checkAllBrand) {
+function SearchProduct(productCategory, productName, checkAllMinorCategories, checkAllBrand) {
     $.ajax({
         url: '/Ajax/SearchProductHandler.aspx/GetProductData',
-        data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllBrand: checkAllBrand }),
+        data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllMinorCategories: checkAllMinorCategories, checkAllBrand: checkAllBrand }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",

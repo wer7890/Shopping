@@ -16,25 +16,25 @@
         <br />
         <div class="row mx-auto col-12 mb-3">
             <div class="col px-0" id="divCategories">
-                <label for="productCategory" class="visually-hidden">商品類型</label>
+                <label for="productCategory" class="form-label">商品類型</label>
             </div>
             <div class="col" id="divMinorCategory">
-                <label for="minorCategory" class="visually-hidden">子類型</label>
+                <label for="minorCategory" class="form-label">子類型</label>
                 <select id="minorCategory" class="form-select">
                     <option value="">請先選擇類型</option>
                 </select>
             </div>
             <div class="col ps-0" id="divBrand">
-                <label for="brandCategory" class="visually-hidden">品牌</label>
+                <label for="brandCategory" class="form-label">品牌</label>
             </div>
             <div class="col px-0">
-                <label for="txbProductSearch" class="visually-hidden">商品名稱搜尋</label>
+                <label for="txbProductSearch" class="form-label">商品名稱搜尋</label>
                 <input type="text" class="form-control" id="txbProductSearch" placeholder="商品名稱搜尋" />
             </div>
-            <div class="col-1 px-0 d-flex justify-content-center align-items-center">
+            <div class="col-1 px-0 d-flex justify-content-center align-items-end">
                 <button id="btnSearchProduct" type="submit" class="btn btn-outline-primary">查詢</button>
             </div>
-            <div class="col-2 px-0 d-flex justify-content-center align-items-center">
+            <div class="col-2 px-0 d-flex justify-content-center align-items-end">
                 <button id="btnAddProduct" type="submit" class="btn btn-outline-primary">新增商品</button>
             </div>
         </div>
