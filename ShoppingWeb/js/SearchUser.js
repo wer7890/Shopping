@@ -2,7 +2,6 @@
     let currentPage = 1; // 初始頁碼為 1
     let pageSize = 5; // 每頁顯示的資料筆數
 
-    searchTotalPage(pageSize);
     searchAllUserInfo(currentPage, pageSize);
 
     //上一頁
@@ -70,7 +69,7 @@ function searchAllUserInfo(pageNumber, pageSize) {
                 window.parent.location.href = "Login.aspx";
             } else {
                 // 處理成功取得資料的情況
-                var data = JSON.parse(response.d); // 解析 JSON 資料為 JavaScript 物件
+                var data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
                 var tableBody = $('#tableBody');
 
                 // 清空表格內容
@@ -94,37 +93,23 @@ function searchAllUserInfo(pageNumber, pageSize) {
 
                     tableBody.append(row);
                 });
+
+                //依資料筆數來開分頁頁數
+                if (response.d.TotalPages > 0) {
+                    let ulPagination = $('#ulPagination');
+                    ulPagination.empty();
+                    ulPagination.append('<li class="page-item" id="previousPage"><a class="page-link" href="#"> << </a></li>');
+                    for (let i = 1; i <= response.d.TotalPages; i++) {
+                        ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link pageNumber" href="#">' + i + '</a></li>');
+                    }
+                    ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
+
+                }
             }
             updatePaginationControls(pageNumber);
         },
         error: function (xhr, status, error) {
             // 處理發生錯誤的情況
-            console.error('Error:', error);
-        }
-    });
-}
-
-//依資料筆數來開分頁頁數
-function searchTotalPage(pageSize) {
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/SearchUserHandler.aspx/GetTotalPage",
-        data: JSON.stringify({ pageSize: pageSize }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            if (response.d > 0) {
-                let ulPagination = $('#ulPagination');
-
-                ulPagination.append('<li class="page-item" id="previousPage"><a class="page-link" href="#"> << </a></li>');
-                for (let i = 1; i <= response.d; i++) {
-                    ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link pageNumber" href="#">' + i + '</a></li>');
-                }
-                ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
-
-            }
-        },
-        error: function (error) {
             console.error('Error:', error);
         }
     });

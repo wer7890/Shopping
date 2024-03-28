@@ -99,42 +99,24 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
                         cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
                         SqlDataReader reader = cmd.ExecuteReader();
                         DataTable dt = new DataTable();
                         dt.Load(reader);
 
-                        // 將資料轉換為 JSON 格式返回
-                        return ConvertDataTableToJson(dt);
+                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                        int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+                        var result = new
+                        {
+                            Data = ConvertDataTableToJson(dt),
+                            TotalPages = totalPages
+                        };
+
+                        return result;
                     }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 分頁按鈕
-        /// </summary>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
-        [WebMethod]
-        public static int GetTotalPage(int pageSize)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("getAllUserCount", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
-
-                    object result = cmd.ExecuteScalar();
-
-                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-
-                    return totalPages;
                 }
             }
         }
