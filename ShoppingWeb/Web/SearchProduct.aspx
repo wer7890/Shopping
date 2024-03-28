@@ -69,15 +69,14 @@
                 </tbody>
             </table>
         </div>
-        <div class="row mx-auto">
-            <div id="pagination">
-                <button id="prevPage">上一頁</button>
-                <span id="currentPage"></span>/ <span id="totalPages"></span>
-                <button id="nextPage">下一頁</button>
+        <div class="row">
+            <div id="pagination" class="text-center d-flex justify-content-center">
+                <ul class="pagination" id="ulPagination">
+                    <!-- 分頁按鈕 -->
+                </ul>
             </div>
             <span id="labSearchProduct" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
