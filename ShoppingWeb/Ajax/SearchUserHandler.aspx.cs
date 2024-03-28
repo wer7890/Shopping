@@ -75,11 +75,13 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 顯示所有管理員
+        /// 顯示所有管理員，依照分頁
         /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <param name="pageSize"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetUserData()
+        public static object GetUserData(int pageNumber, int pageSize)
         {
             bool loginResult = IndexHandler.AnyoneLongin();
             if (!loginResult)
@@ -95,6 +97,9 @@ namespace ShoppingWeb.Ajax
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+
                         SqlDataReader reader = cmd.ExecuteReader();
                         DataTable dt = new DataTable();
                         dt.Load(reader);
@@ -102,6 +107,34 @@ namespace ShoppingWeb.Ajax
                         // 將資料轉換為 JSON 格式返回
                         return ConvertDataTableToJson(dt);
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 分頁按鈕
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static int GetTotalPage(int pageSize)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("getAllUserCount", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+
+                    object result = cmd.ExecuteScalar();
+
+                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+                    return totalPages;
                 }
             }
         }
@@ -174,34 +207,6 @@ namespace ShoppingWeb.Ajax
             }
         }
 
-        [WebMethod]
-        public static object GetUserDataTest(int pageNumber, int pageSize)
-        {
-            bool loginResult = IndexHandler.AnyoneLongin();
-            if (!loginResult)
-            {
-                return "重複登入";
-            }
-            else
-            {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("test2", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@PageNumber", pageNumber);
-                        cmd.Parameters.AddWithValue("@PageSize", pageSize);
-                        con.Open();
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-
-                        // 將資料轉換為 JSON 格式返回
-                        return ConvertDataTableToJson(dt);
-                    }
-                }
-            }
-        }
+        
     }
 }

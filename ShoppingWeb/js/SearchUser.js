@@ -1,35 +1,40 @@
 ﻿$(document).ready(function () {
-    var currentPage = 1; // 初始頁碼為 1
-    var pageSize = 2; // 每頁顯示的資料筆數
+    let currentPage = 1; // 初始頁碼為 1
+    let pageSize = 5; // 每頁顯示的資料筆數
 
-    searchAllUserInfoTest(currentPage, pageSize);
+    searchTotalPage(pageSize);
+    searchAllUserInfo(currentPage, pageSize);
 
-    $('#previousPage').on('click', function () {
+    //上一頁
+    $(document).on("click", "#previousPage", function () {
         if (currentPage > 1) {
             currentPage--;
-            searchAllUserInfoTest(currentPage, pageSize);
+            searchAllUserInfo(currentPage, pageSize);
         }
+        $("#labSearchUser").text("");
     });
 
-    $('#nextPage').on('click', function () {
-        currentPage++;
-        searchAllUserInfoTest(currentPage, pageSize);
+    //下一頁
+    $(document).on("click", "#nextPage", function () {
+        if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
+            currentPage++;
+            searchAllUserInfo(currentPage, pageSize);
+        }
+        $("#labSearchUser").text("");
     });
 
+    //數字頁數
     $('#pagination').on('click', 'a.pageNumber', function () {
         currentPage = parseInt($(this).text());
-        searchAllUserInfoTest(currentPage, pageSize);
+        searchAllUserInfo(currentPage, pageSize);
+        $("#labSearchUser").text("");
     });
-
-
-
-    //searchAllUserInfo();
 
     $("#btnAddUser").click(function () {
         window.location.href = "AddUser.aspx";
     })
 
-    // 監聽表格標題的點擊事件
+    // 監聽表格標題的點擊事件，排序
     $('#myTable th').click(function () {
         var table = $(this).parents('table').eq(0);  //獲取被點擊標題所屬的表格。
         var rows = table.find('tr:gt(0)').toArray().sort(compareValues($(this).index()));  //獲取表格中的所有行 (除了表頭行)，然後使用 sort 方法根據標題的索引值進行排序。compareValues 函數用於定義排序的規則。
@@ -53,11 +58,12 @@
 })
 
 //全部管理員資料
-function searchAllUserInfo() {
+function searchAllUserInfo(pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/SearchUserHandler.aspx/GetUserData',
         type: 'POST',
         contentType: 'application/json',
+        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
             if (response.d == "重複登入") {
                 alert("重複登入，已被登出");
@@ -89,9 +95,36 @@ function searchAllUserInfo() {
                     tableBody.append(row);
                 });
             }
+            updatePaginationControls(pageNumber);
         },
         error: function (xhr, status, error) {
             // 處理發生錯誤的情況
+            console.error('Error:', error);
+        }
+    });
+}
+
+//依資料筆數來開分頁頁數
+function searchTotalPage(pageSize) {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/SearchUserHandler.aspx/GetTotalPage",
+        data: JSON.stringify({ pageSize: pageSize }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d > 0) {
+                let ulPagination = $('#ulPagination');
+
+                ulPagination.append('<li class="page-item" id="previousPage"><a class="page-link" href="#"> << </a></li>');
+                for (let i = 1; i <= response.d; i++) {
+                    ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link pageNumber" href="#">' + i + '</a></li>');
+                }
+                ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
+
+            }
+        },
+        error: function (error) {
             console.error('Error:', error);
         }
     });
@@ -168,6 +201,12 @@ function ToggleUserRoles(userId, roles) {
     });
 }
 
+// 當切換到哪個頁面時，就把該頁面的按鈕變色
+function updatePaginationControls(currentPage) {
+    $('#pagination .page-item').removeClass('active');
+    $('#page' + currentPage).addClass('active');
+}
+
 // 比較函數，根據列的索引進行比較，根據給定索引值比較兩個行的值。如果值是數字，則使用數字比較，否則使用字典順序比較。
 function compareValues(index) {
     return function (a, b) {
@@ -180,58 +219,4 @@ function compareValues(index) {
 // 獲取單元格的值
 function getCellValue(row, index) {
     return $(row).children('td').eq(index).text();
-}
-
-
-function searchAllUserInfoTest(pageNumber, pageSize) {
-    $.ajax({
-        url: '/Ajax/SearchUserHandler.aspx/GetUserDataTest',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }), // 傳遞分頁相關的參數
-        success: function (response) {
-            if (response.d == "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            } else {
-                // 處理成功取得資料的情況
-                var data = JSON.parse(response.d); // 解析 JSON 資料為 JavaScript 物件
-                var tableBody = $('#tableBody');
-
-                // 清空表格內容
-                tableBody.empty();
-
-                // 動態生成表格內容
-                $.each(data, function (index, item) {
-                    var row = '<tr>' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_account + '</td>' +
-                        '<td>' +
-                        '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
-                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>超級管理員</option>' +
-                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>會員管理員</option>' +
-                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>商品管理員</option>' +
-                        '</select>' +
-                        '</td>' +
-                        '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
-                        '</tr>';
-
-                    tableBody.append(row);
-                });
-            }
-
-            updatePaginationControls(pageNumber);
-        },
-        error: function (xhr, status, error) {
-            console.error('Error:', error);
-        }
-    });
-}
-
-// 更新分頁控制元件的狀態
-function updatePaginationControls(currentPage) {
-    // 根據當前頁碼，更新頁碼按鈕的狀態，例如高亮當前頁碼按鈕
-    $('#pagination .page-item').removeClass('active');
-    $('#page' + currentPage).addClass('active');
 }

@@ -43,18 +43,11 @@
                 </tbody>
             </table>
         </div>
-        <%--<div class="row mx-auto">
-            <span id="labSearchUser" class="col-12 col-sm-12 text-center text-success"></span>
-        </div>--%>
 
         <div class="row">
             <div id="pagination" class="text-center d-flex justify-content-center">
-                <ul class="pagination">
-                    <li class="page-item" id="previousPage"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item" id="page1"><a class="page-link pageNumber" href="#">1</a></li>
-                    <li class="page-item" id="page2"><a class="page-link pageNumber" href="#">2</a></li>
-                    <li class="page-item" id="page3"><a class="page-link pageNumber" href="#">3</a></li>
-                    <li class="page-item" id="nextPage"><a class="page-link" href="#">Next</a></li>
+                <ul class="pagination" id="ulPagination">
+                    <!-- 分頁按鈕 -->
                 </ul>
             </div>
             <span id="labSearchUser" class="col-12 col-sm-12 text-center text-success"></span>
