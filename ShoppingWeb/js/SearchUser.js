@@ -35,13 +35,13 @@
 
     // 監聽表格標題的點擊事件，排序
     $('#myTable th').click(function () {
-        var table = $(this).parents('table').eq(0);  //獲取被點擊標題所屬的表格。
-        var rows = table.find('tr:gt(0)').toArray().sort(compareValues($(this).index()));  //獲取表格中的所有行 (除了表頭行)，然後使用 sort 方法根據標題的索引值進行排序。compareValues 函數用於定義排序的規則。
+        let table = $(this).parents('table').eq(0);  //獲取被點擊標題所屬的表格。
+        let rows = table.find('tr:gt(0)').toArray().sort(compareValues($(this).index()));  //獲取表格中的所有行 (除了表頭行)，然後使用 sort 方法根據標題的索引值進行排序。compareValues 函數用於定義排序的規則。
         this.asc = !this.asc;  // 切換排序的方向。首次點擊設置為升序，再次點擊設置為降序。
         if (!this.asc) {  // 如果排序方向為降序，反轉行的順序。
             rows = rows.reverse();
         }
-        for (var i = 0; i < rows.length; i++) {  //根據排序結果，將行重新附加到表格，從而達到排序的效果。
+        for (let i = 0; i < rows.length; i++) {  //根據排序結果，將行重新附加到表格，從而達到排序的效果。
             table.append(rows[i]);
         }
     });
@@ -69,15 +69,15 @@ function searchAllUserInfo(pageNumber, pageSize) {
                 window.parent.location.href = "Login.aspx";
             } else {
                 // 處理成功取得資料的情況
-                var data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
-                var tableBody = $('#tableBody');
+                let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
+                let tableBody = $('#tableBody');
 
                 // 清空表格內容
                 tableBody.empty();
 
                 // 動態生成表格內容
                 $.each(data, function (index, item) {
-                    var row = '<tr>' +
+                    let row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_account + '</td>' +
                         '<td>' +
@@ -195,8 +195,8 @@ function updatePaginationControls(currentPage) {
 // 比較函數，根據列的索引進行比較，根據給定索引值比較兩個行的值。如果值是數字，則使用數字比較，否則使用字典順序比較。
 function compareValues(index) {
     return function (a, b) {
-        var valA = getCellValue(a, index);
-        var valB = getCellValue(b, index);
+        let valA = getCellValue(a, index);
+        let valB = getCellValue(b, index);
         return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB);
     };
 }

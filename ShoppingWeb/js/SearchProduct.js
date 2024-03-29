@@ -1,85 +1,64 @@
-﻿let currentPage = 1; // 初始頁碼為 1
-let pageSize = 5; // 每頁顯示的資料筆數
-$(document).ready(function () {
+﻿$(document).ready(function () {
+    let currentPage = 1; // 初始頁碼為 1
+    let pageSize = 5; // 每頁顯示的資料筆數
+
     // 初始化
-    initialize();
+    productDataReady();
+    SearchAllProduct(currentPage, pageSize);
 
     // 上一頁按鈕點擊事件
-    $(document).on("click", "#previousPage", previousPageClicked);
+    $(document).on("click", "#previousPage", function () {
+        if (currentPage > 1) {
+            currentPage--;
+            SearchAllProduct(currentPage, pageSize);
+        }
+        $("#labSearchProduct").text("");
+    });
 
     // 下一頁按鈕點擊事件
-    $(document).on("click", "#nextPage", nextPageClicked);
+    $(document).on("click", "#nextPage", function () {
+        if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
+            currentPage++;
+            SearchAllProduct(currentPage, pageSize);
+        }
+        $("#labSearchProduct").text("");
+    });
 
     // 數字頁數點擊事件
-    $('#pagination').on('click', 'a.pageNumber', pageNumberClicked);
+    $('#pagination').on('click', 'a.pageNumber', function () {
+        currentPage = parseInt($(this).text());
+        SearchAllProduct(currentPage, pageSize);
+        $("#labSearchProduct").text("");
+    });
 
     // 搜尋按鈕點擊事件
-    $("#btnSearchProduct").click(searchProductButtonClicked);
+    $("#btnSearchProduct").click(function () {
+        $("#labSearchProduct").text("");
+        $('#tableBody').empty();
+        $('#ulPagination').empty();
+        let productName = $("#txbProductSearch").val();
+        let productCategory = $("#productCategory").val();  // 獲取大分類值
+        let productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
+        let productBrand = $("#brandCategory").val(); // 獲取品牌值
+        let checkAllMinorCategories = (productMinorCategory == "00");  //是否為全部小分類
+        let checkAllBrand = (productBrand == "00");  //是否為全部品牌
+
+        let newCategory = productCategory + productMinorCategory + productBrand;
+        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand);
+    });
 
     // 開關改變事件
-    $(document).on("change", ".toggle-switch", toggleSwitchChanged);
+    $(document).on("change", ".toggle-switch", function () {
+        $("#labSearchProduct").text("");
+        let productId = $(this).data('id');
+        ToggleProductStatus(productId);
+    });
 
     // 新增商品按鈕點擊事件
-    $("#btnAddProduct").click(addProductButtonClicked);
+    $("#btnAddProduct").click(function () {
+        window.location.href = "AddProduct.aspx";
+    })
 });
-
-// 初始化
-function initialize() {
-    productDataReady();
-    SearchAllProduct(currentPage, pageSize); // 預設顯示第一頁，每頁5條數據
-}
-
-// 上一頁按鈕點擊事件
-function previousPageClicked() {
-    if (currentPage > 1) {
-        currentPage--;
-        SearchAllProduct(currentPage, pageSize);
-    }
-    $("#labSearchUser").text("");
-}
-
-// 下一頁按鈕點擊事件
-function nextPageClicked() {
-    if (currentPage < $('#ulPagination').children('li').length - 2) {
-        currentPage++;
-        SearchAllProduct(currentPage, pageSize);
-    }
-    $("#labSearchUser").text("");
-}
-
-// 數字頁數點擊事件
-function pageNumberClicked() {
-    currentPage = parseInt($(this).text());
-    SearchAllProduct(currentPage, pageSize);
-    $("#labSearchUser").text("");
-}
-
-// 搜尋按鈕點擊事件
-function searchProductButtonClicked() {
-    $("#labSearchProduct").text("");
-    $('#tableBody').empty();
-    let productName = $("#txbProductSearch").val();
-    let productCategory = $("#productCategory").val();
-    let productMinorCategory = $("#minorCategory").val();
-    let productBrand = $("#brandCategory").val();
-    let checkAllMinorCategories = (productMinorCategory == "00");
-    let checkAllBrand = (productBrand == "00");
-
-    let newCategory = productCategory + productMinorCategory + productBrand;
-    SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand);
-}
-
-// 開關改變事件
-function toggleSwitchChanged() {
-    $("#labSearchProduct").text("");
-    let productId = $(this).data('id');
-    ToggleProductStatus(productId);
-}
-
-// 新增商品按鈕點擊事件
-function addProductButtonClicked() {
-    window.location.href = "AddProduct.aspx";
-}
 
 //全部商品資料
 function SearchAllProduct(pageNumber, pageSize) {
@@ -232,7 +211,7 @@ function deleteProduct(productId) {
                 } else if (response.d === "刪除成功") {
                     window.location.reload();
                 } else {
-                    $("#labSearch").text(response.d);
+                    $("#labSearchProduct").text(response.d);
                 }
             },
             error: function (error) {
