@@ -3,7 +3,7 @@
     let pageSize = 5; // 每頁顯示的資料筆數
 
     // 初始化
-    productDataReady();
+    ProductDataReady();
     SearchAllProduct(currentPage, pageSize);
 
     // 上一頁按鈕點擊事件
@@ -33,6 +33,8 @@
 
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
+        currentPage = 1;
+        pageSize = 5;
         $("#labSearchProduct").text("");
         $('#tableBody').empty();
         $('#ulPagination').empty();
@@ -44,7 +46,7 @@
         let checkAllBrand = (productBrand == "00");  //是否為全部品牌
 
         let newCategory = productCategory + productMinorCategory + productBrand;
-        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand);
+        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
     });
 
     // 開關改變事件
@@ -90,8 +92,8 @@ function SearchAllProduct(pageNumber, pageSize) {
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '<td>' + item.f_introduce + '</td>' +
                         '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                        '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">改</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪</button></td>' +
+                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">改</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">刪</button></td>' +
                         '</tr>';
 
                     tableBody.append(row);
@@ -109,7 +111,7 @@ function SearchAllProduct(pageNumber, pageSize) {
 
                 }
             }
-            updatePaginationControls(pageNumber);
+            UpdatePaginationControls(pageNumber);
         },
         error: function (error) {
             console.error('Error:', error);
@@ -117,17 +119,11 @@ function SearchAllProduct(pageNumber, pageSize) {
     });
 }
 
-//當切換到哪個頁面時，就把該頁面的按鈕變色
-function updatePaginationControls(currentPage) {
-    $('#pagination .page-item').removeClass('active');
-    $('#page' + currentPage).addClass('active');
-}
-
 //搜尋商品資料
-function SearchProduct(productCategory, productName, checkAllMinorCategories, checkAllBrand) {
+function SearchProduct(productCategory, productName, checkAllMinorCategories, checkAllBrand, pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/SearchProductHandler.aspx/GetProductData',
-        data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllMinorCategories: checkAllMinorCategories, checkAllBrand: checkAllBrand }),
+        data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllMinorCategories: checkAllMinorCategories, checkAllBrand: checkAllBrand, pageNumber: pageNumber, pageSize: pageSize }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -141,10 +137,9 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                 $("#labSearchProduct").text("沒有資料");
             } else {
                 $("#productTableDiv").css('display', 'block');
-                let data = JSON.parse(response.d);
+                let data = JSON.parse(response.d.Data);
                 let tableBody = $('#tableBody');
 
-                tableBody.empty();
                 $.each(data, function (index, item) {
                     let row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
@@ -155,18 +150,34 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '<td>' + item.f_introduce + '</td>' +
                         '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                        '<td><button class="btn btn-primary" onclick="editProduct(' + item.f_id + ')">改</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="deleteProduct(' + item.f_id + ')">刪</button></td>' +
+                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">改</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">刪</button></td>' +
                         '</tr>';
                     tableBody.append(row);
                 });
-            }
 
+                if (response.d.TotalPages > 0) {
+                    let ulPagination = $('#ulPagination');
+                    ulPagination.append('<li class="page-item" id="previousPage"><a class="page-link" href="#"> << </a></li>');
+                    for (let i = 1; i <= response.d.TotalPages; i++) {
+                        ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link pageNumber" href="#">' + i + '</a></li>');
+                    }
+                    ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
+
+                }
+            }
+            UpdatePaginationControls(pageNumber);
         },
         error: function (error) {
             console.error('Error:', error);
         }
     });
+}
+
+//當切換到哪個頁面時，就把該頁面的按鈕變色
+function UpdatePaginationControls(currentPage) {
+    $('#pagination .page-item').removeClass('active');
+    $('#page' + currentPage).addClass('active');
 }
 
 //按下是否開放開關，更改資料庫
@@ -195,7 +206,7 @@ function ToggleProductStatus(productId) {
 }
 
 //刪除
-function deleteProduct(productId) {
+function DeleteProduct(productId) {
     let yes = confirm('確定要刪除商品嗎');
     if (yes == true) {
         $.ajax({
@@ -222,7 +233,7 @@ function deleteProduct(productId) {
 }
 
 //編輯
-function editProduct(productId) {
+function EditProduct(productId) {
     $.ajax({
         type: "POST",
         url: "/Ajax/SearchProductHandler.aspx/SetSessionProductId",
@@ -243,7 +254,7 @@ function editProduct(productId) {
 }
 
 //商品分類，選擇框設定
-function productDataReady() {
+function ProductDataReady() {
     // 大分類
     let majorCategories = {
         "10": "帽子",

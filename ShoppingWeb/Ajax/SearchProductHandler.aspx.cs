@@ -71,7 +71,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="searchName"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetProductData(string productCategory, string productName, bool checkAllMinorCategories, bool checkAllBrand)
+        public static object GetProductData(string productCategory, string productName, bool checkAllMinorCategories, bool checkAllBrand, int pageNumber, int pageSize)
         {
             bool loginResult = IndexHandler.AnyoneLongin();
             if (!loginResult)
@@ -92,9 +92,17 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@name", productName));
                         cmd.Parameters.Add(new SqlParameter("@allMinorCategories", checkAllMinorCategories));
                         cmd.Parameters.Add(new SqlParameter("@allBrand", checkAllBrand));
-                        bool a = checkAllBrand;
-                        object result = cmd.ExecuteScalar();
-                        if (result == null)
+                        cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+
+                        object resultObj = cmd.ExecuteScalar();
+
+                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                        int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+                        if (resultObj == null)
                         {
                             return "null";
                         }
@@ -104,8 +112,13 @@ namespace ShoppingWeb.Ajax
                             DataTable dt = new DataTable();
                             dt.Load(reader);
 
+                            var result = new
+                            {
+                                Data = ConvertDataTableToJson(dt),
+                                TotalPages = totalPages
+                            };
                             // 將資料轉換為 JSON 格式返回
-                            return ConvertDataTableToJson(dt);
+                            return result;
                         }
 
                     }

@@ -2,13 +2,13 @@
     let currentPage = 1; // 初始頁碼為 1
     let pageSize = 5; // 每頁顯示的資料筆數
 
-    searchAllUserInfo(currentPage, pageSize);
+    SearchAllUserInfo(currentPage, pageSize);
 
     //上一頁
     $(document).on("click", "#previousPage", function () {
         if (currentPage > 1) {
             currentPage--;
-            searchAllUserInfo(currentPage, pageSize);
+            SearchAllUserInfo(currentPage, pageSize);
         }
         $("#labSearchUser").text("");
     });
@@ -17,7 +17,7 @@
     $(document).on("click", "#nextPage", function () {
         if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
             currentPage++;
-            searchAllUserInfo(currentPage, pageSize);
+            SearchAllUserInfo(currentPage, pageSize);
         }
         $("#labSearchUser").text("");
     });
@@ -25,7 +25,7 @@
     //數字頁數
     $('#pagination').on('click', 'a.pageNumber', function () {
         currentPage = parseInt($(this).text());
-        searchAllUserInfo(currentPage, pageSize);
+        SearchAllUserInfo(currentPage, pageSize);
         $("#labSearchUser").text("");
     });
 
@@ -36,7 +36,7 @@
     // 監聽表格標題的點擊事件，排序
     $('#myTable th').click(function () {
         let table = $(this).parents('table').eq(0);  //獲取被點擊標題所屬的表格。
-        let rows = table.find('tr:gt(0)').toArray().sort(compareValues($(this).index()));  //獲取表格中的所有行 (除了表頭行)，然後使用 sort 方法根據標題的索引值進行排序。compareValues 函數用於定義排序的規則。
+        let rows = table.find('tr:gt(0)').toArray().sort(CompareValues($(this).index()));  //獲取表格中的所有行 (除了表頭行)，然後使用 sort 方法根據標題的索引值進行排序。CompareValues 函數用於定義排序的規則。
         this.asc = !this.asc;  // 切換排序的方向。首次點擊設置為升序，再次點擊設置為降序。
         if (!this.asc) {  // 如果排序方向為降序，反轉行的順序。
             rows = rows.reverse();
@@ -57,7 +57,7 @@
 })
 
 //全部管理員資料
-function searchAllUserInfo(pageNumber, pageSize) {
+function SearchAllUserInfo(pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/SearchUserHandler.aspx/GetUserData',
         type: 'POST',
@@ -87,8 +87,8 @@ function searchAllUserInfo(pageNumber, pageSize) {
                         '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>商品管理員</option>' +
                         '</select>' +
                         '</td>' +
-                        '<td><button class="btn btn-primary" onclick="editUser(' + item.f_id + ')">編輯</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="deleteUser(' + item.f_id + ')">刪除</button></td>' +
+                        '<td><button class="btn btn-primary" onclick="EditUser(' + item.f_id + ')">編輯</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="DeleteUser(' + item.f_id + ')">刪除</button></td>' +
                         '</tr>';
 
                     tableBody.append(row);
@@ -106,7 +106,7 @@ function searchAllUserInfo(pageNumber, pageSize) {
 
                 }
             }
-            updatePaginationControls(pageNumber);
+            UpdatePaginationControls(pageNumber);
         },
         error: function (xhr, status, error) {
             // 處理發生錯誤的情況
@@ -116,7 +116,7 @@ function searchAllUserInfo(pageNumber, pageSize) {
 }
 
 //刪除
-function deleteUser(userId) {
+function DeleteUser(userId) {
     $.ajax({
         type: "POST",
         url: "/Ajax/SearchUserHandler.aspx/RemoveUserInfo",  
@@ -142,7 +142,7 @@ function deleteUser(userId) {
 }
 
 //編輯
-function editUser(userId) {
+function EditUser(userId) {
     $.ajax({
         type: "POST",
         url: "/Ajax/SearchUserHandler.aspx/SetSessionSelectUserId", 
@@ -187,21 +187,21 @@ function ToggleUserRoles(userId, roles) {
 }
 
 // 當切換到哪個頁面時，就把該頁面的按鈕變色
-function updatePaginationControls(currentPage) {
+function UpdatePaginationControls(currentPage) {
     $('#pagination .page-item').removeClass('active');
     $('#page' + currentPage).addClass('active');
 }
 
 // 比較函數，根據列的索引進行比較，根據給定索引值比較兩個行的值。如果值是數字，則使用數字比較，否則使用字典順序比較。
-function compareValues(index) {
+function CompareValues(index) {
     return function (a, b) {
-        let valA = getCellValue(a, index);
-        let valB = getCellValue(b, index);
+        let valA = GetCellValue(a, index);
+        let valB = GetCellValue(b, index);
         return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB);
     };
 }
 
 // 獲取單元格的值
-function getCellValue(row, index) {
+function GetCellValue(row, index) {
     return $(row).children('td').eq(index).text();
 }
