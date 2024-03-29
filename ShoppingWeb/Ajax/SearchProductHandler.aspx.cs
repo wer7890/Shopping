@@ -97,28 +97,25 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
-                        object resultObj = cmd.ExecuteScalar();
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
                         int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-
-                        if (resultObj == null)
+                        
+                        if (totalCount > 0)
                         {
-                            return "null";
-                        }
-                        else
-                        {
-                            SqlDataReader reader = cmd.ExecuteReader();
-                            DataTable dt = new DataTable();
-                            dt.Load(reader);
-
                             var result = new
                             {
                                 Data = ConvertDataTableToJson(dt),
                                 TotalPages = totalPages
                             };
-                            // 將資料轉換為 JSON 格式返回
                             return result;
+                        }
+                        else
+                        {
+                            return "null";
                         }
 
                     }

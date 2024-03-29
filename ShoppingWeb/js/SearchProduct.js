@@ -36,8 +36,19 @@
         currentPage = 1;
         pageSize = 5;
         $("#labSearchProduct").text("");
-        $('#tableBody').empty();
-        $('#ulPagination').empty();
+        let productName = $("#txbProductSearch").val();
+        let productCategory = $("#productCategory").val();  // 獲取大分類值
+        let productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
+        let productBrand = $("#brandCategory").val(); // 獲取品牌值
+        let checkAllMinorCategories = (productMinorCategory == "00");  //是否為全部小分類
+        let checkAllBrand = (productBrand == "00");  //是否為全部品牌
+        
+        let newCategory = productCategory + productMinorCategory + productBrand;  //類別編號組合
+        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
+    });
+
+    // 搜尋後上一頁按鈕點擊事件
+    $(document).on("click", "#searchPreviousPage", function () {
         let productName = $("#txbProductSearch").val();
         let productCategory = $("#productCategory").val();  // 獲取大分類值
         let productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
@@ -46,7 +57,43 @@
         let checkAllBrand = (productBrand == "00");  //是否為全部品牌
 
         let newCategory = productCategory + productMinorCategory + productBrand;
+        if (currentPage > 1) {
+            currentPage--;
+            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
+        }
+        $("#labSearchProduct").text("");
+    });
+
+    // 搜尋後下一頁按鈕點擊事件
+    $(document).on("click", "#searchNextPage", function () {
+        let productName = $("#txbProductSearch").val();
+        let productCategory = $("#productCategory").val();
+        let productMinorCategory = $("#minorCategory").val();
+        let productBrand = $("#brandCategory").val();
+        let checkAllMinorCategories = (productMinorCategory == "00");
+        let checkAllBrand = (productBrand == "00");
+
+        let newCategory = productCategory + productMinorCategory + productBrand;
+        if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
+            currentPage++;
+            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
+        }
+        $("#labSearchProduct").text("");
+    });
+
+    // 搜尋後數字頁數點擊事件
+    $('#pagination').on('click', 'a.searchPageNumber', function () {
+        let productName = $("#txbProductSearch").val();
+        let productCategory = $("#productCategory").val();
+        let productMinorCategory = $("#minorCategory").val();
+        let productBrand = $("#brandCategory").val();
+        let checkAllMinorCategories = (productMinorCategory == "00");
+        let checkAllBrand = (productBrand == "00");
+
+        let newCategory = productCategory + productMinorCategory + productBrand;
+        currentPage = parseInt($(this).text());
         SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
+        $("#labSearchProduct").text("");
     });
 
     // 開關改變事件
@@ -135,10 +182,13 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
             } else if (response.d == "null") {
                 $("#productTableDiv").css('display', 'none');
                 $("#labSearchProduct").text("沒有資料");
+                $('#ulPagination').empty();
             } else {
                 $("#productTableDiv").css('display', 'block');
                 let data = JSON.parse(response.d.Data);
                 let tableBody = $('#tableBody');
+
+                tableBody.empty();
 
                 $.each(data, function (index, item) {
                     let row = '<tr>' +
@@ -158,11 +208,12 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
 
                 if (response.d.TotalPages > 0) {
                     let ulPagination = $('#ulPagination');
-                    ulPagination.append('<li class="page-item" id="previousPage"><a class="page-link" href="#"> << </a></li>');
+                    ulPagination.empty();
+                    ulPagination.append('<li class="page-item" id="searchPreviousPage"><a class="page-link" href="#"> << </a></li>');
                     for (let i = 1; i <= response.d.TotalPages; i++) {
-                        ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link pageNumber" href="#">' + i + '</a></li>');
+                        ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link searchPageNumber" href="#">' + i + '</a></li>');
                     }
-                    ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
+                    ulPagination.append('<li class="page-item" id="searchNextPage"><a class="page-link" href="#"> >> </a></li>');
 
                 }
             }
