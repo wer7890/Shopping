@@ -29,6 +29,7 @@
         $("#labSearchUser").text("");
     });
 
+    //新增管理員
     $("#btnAddUser").click(function () {
         window.location.href = "AddUser.aspx";
     })
