@@ -15,7 +15,7 @@ $(document).ready(function () {
     SearchAllProduct(currentPage, pageSize);
 
     // 上一頁按鈕點擊事件
-    $(document).on("click", "#previousPage", function () {
+    $("#ulPagination").on("click", "#previousPage", function () {
         if (currentPage > 1) {
             currentPage--;
             SearchAllProduct(currentPage, pageSize);
@@ -24,7 +24,7 @@ $(document).ready(function () {
     });
 
     // 下一頁按鈕點擊事件
-    $(document).on("click", "#nextPage", function () {
+    $("#ulPagination").on("click", "#nextPage", function () {
         if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
             currentPage++;
             SearchAllProduct(currentPage, pageSize);
@@ -33,7 +33,7 @@ $(document).ready(function () {
     });
 
     // 數字頁數點擊事件
-    $('#pagination').on('click', 'a.pageNumber', function () {
+    $("#pagination").on('click', 'a.pageNumber', function () {
         currentPage = parseInt($(this).text());
         SearchAllProduct(currentPage, pageSize);
         $("#labSearchProduct").text("");
@@ -56,7 +56,7 @@ $(document).ready(function () {
     });
 
     // 搜尋後上一頁按鈕點擊事件
-    $(document).on("click", "#searchPreviousPage", function () {
+    $("#ulPagination").on("click", "#searchPreviousPage", function () {
         if (currentPage > 1) {
             currentPage--;
             SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
@@ -65,7 +65,7 @@ $(document).ready(function () {
     });
 
     // 搜尋後下一頁按鈕點擊事件
-    $(document).on("click", "#searchNextPage", function () {
+    $("#ulPagination").on("click", "#searchNextPage", function () {
         if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
             currentPage++;
             SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
@@ -74,7 +74,7 @@ $(document).ready(function () {
     });
 
     // 搜尋後數字頁數點擊事件
-    $('#pagination').on('click', 'a.searchPageNumber', function () {
+    $("#pagination").on('click', 'a.searchPageNumber', function () {
         currentPage = parseInt($(this).text());
         SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
         $("#labSearchProduct").text("");
