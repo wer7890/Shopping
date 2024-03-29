@@ -1,4 +1,12 @@
-﻿$(document).ready(function () {
+﻿let productName = null;
+let productCategory = null;
+let productMinorCategory = null;
+let productBrand = null;
+let checkAllMinorCategories = null;
+let checkAllBrand = null;
+let newCategory = null;
+
+$(document).ready(function () {
     let currentPage = 1; // 初始頁碼為 1
     let pageSize = 5; // 每頁顯示的資料筆數
 
@@ -36,27 +44,19 @@
         currentPage = 1;
         pageSize = 5;
         $("#labSearchProduct").text("");
-        let productName = $("#txbProductSearch").val();
-        let productCategory = $("#productCategory").val();  // 獲取大分類值
-        let productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
-        let productBrand = $("#brandCategory").val(); // 獲取品牌值
-        let checkAllMinorCategories = (productMinorCategory == "00");  //是否為全部小分類
-        let checkAllBrand = (productBrand == "00");  //是否為全部品牌
+        productName = $("#txbProductSearch").val();
+        productCategory = $("#productCategory").val();  // 獲取大分類值
+        productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
+        productBrand = $("#brandCategory").val(); // 獲取品牌值
+        checkAllMinorCategories = (productMinorCategory == "00");  //是否為全部小分類
+        checkAllBrand = (productBrand == "00");  //是否為全部品牌
         
-        let newCategory = productCategory + productMinorCategory + productBrand;  //類別編號組合
+        newCategory = productCategory + productMinorCategory + productBrand;  //類別編號組合
         SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
     });
 
     // 搜尋後上一頁按鈕點擊事件
     $(document).on("click", "#searchPreviousPage", function () {
-        let productName = $("#txbProductSearch").val();
-        let productCategory = $("#productCategory").val();  // 獲取大分類值
-        let productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
-        let productBrand = $("#brandCategory").val(); // 獲取品牌值
-        let checkAllMinorCategories = (productMinorCategory == "00");  //是否為全部小分類
-        let checkAllBrand = (productBrand == "00");  //是否為全部品牌
-
-        let newCategory = productCategory + productMinorCategory + productBrand;
         if (currentPage > 1) {
             currentPage--;
             SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
@@ -66,14 +66,6 @@
 
     // 搜尋後下一頁按鈕點擊事件
     $(document).on("click", "#searchNextPage", function () {
-        let productName = $("#txbProductSearch").val();
-        let productCategory = $("#productCategory").val();
-        let productMinorCategory = $("#minorCategory").val();
-        let productBrand = $("#brandCategory").val();
-        let checkAllMinorCategories = (productMinorCategory == "00");
-        let checkAllBrand = (productBrand == "00");
-
-        let newCategory = productCategory + productMinorCategory + productBrand;
         if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
             currentPage++;
             SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
@@ -83,14 +75,6 @@
 
     // 搜尋後數字頁數點擊事件
     $('#pagination').on('click', 'a.searchPageNumber', function () {
-        let productName = $("#txbProductSearch").val();
-        let productCategory = $("#productCategory").val();
-        let productMinorCategory = $("#minorCategory").val();
-        let productBrand = $("#brandCategory").val();
-        let checkAllMinorCategories = (productMinorCategory == "00");
-        let checkAllBrand = (productBrand == "00");
-
-        let newCategory = productCategory + productMinorCategory + productBrand;
         currentPage = parseInt($(this).text());
         SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
         $("#labSearchProduct").text("");
