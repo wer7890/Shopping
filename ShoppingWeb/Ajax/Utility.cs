@@ -22,7 +22,7 @@ namespace ShoppingWeb.Ajax
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("getSessionId", con))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getSessionId", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();

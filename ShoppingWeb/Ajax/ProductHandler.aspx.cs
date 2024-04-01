@@ -85,7 +85,7 @@ namespace ShoppingWeb.Ajax
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("getAllProductData", con))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllProductData", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
@@ -135,7 +135,7 @@ namespace ShoppingWeb.Ajax
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("getSearchProductData", con))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getSearchProductData", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
@@ -195,7 +195,7 @@ namespace ShoppingWeb.Ajax
 
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand("deleteProduct", con))
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_delProductData", con))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
@@ -253,7 +253,7 @@ namespace ShoppingWeb.Ajax
 
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand("toggleProductStatus", con))
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_editProductStatus", con))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
@@ -308,7 +308,7 @@ namespace ShoppingWeb.Ajax
                     string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand("insertProduct", con))
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_AddProductData", con))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
@@ -406,7 +406,7 @@ namespace ShoppingWeb.Ajax
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("getProductData", con))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getProductData", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
@@ -469,7 +469,7 @@ namespace ShoppingWeb.Ajax
                         string sessionProductId = HttpContext.Current.Session["productId"] as string;
                         using (SqlConnection con = new SqlConnection(connectionString))
                         {
-                            using (SqlCommand cmd = new SqlCommand("editProduct", con))
+                            using (SqlCommand cmd = new SqlCommand("pro_sw_editProductData", con))
                             {
                                 cmd.CommandType = CommandType.StoredProcedure;
                                 con.Open();

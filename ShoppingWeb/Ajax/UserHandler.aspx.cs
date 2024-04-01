@@ -34,7 +34,7 @@ namespace ShoppingWeb.Ajax
 
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand("loginUser", con))
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_getPwdAndEditSessionId", con))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
@@ -104,7 +104,7 @@ namespace ShoppingWeb.Ajax
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("getUserAccountRoles", con))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAccountRoles", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
@@ -166,7 +166,7 @@ namespace ShoppingWeb.Ajax
 
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand("deleteUser", con))
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_delUserData", con))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
@@ -223,7 +223,7 @@ namespace ShoppingWeb.Ajax
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("getAllUserData", con))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllUserData", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
@@ -273,7 +273,7 @@ namespace ShoppingWeb.Ajax
 
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand("toggleUserRoles", con))
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_editRoles", con))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
@@ -321,7 +321,7 @@ namespace ShoppingWeb.Ajax
                         string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                         using (SqlConnection con = new SqlConnection(connectionString))
                         {
-                            using (SqlCommand cmd = new SqlCommand("registerNewUser", con))
+                            using (SqlCommand cmd = new SqlCommand("pro_sw_addUserData", con))
                             {
                                 cmd.CommandType = CommandType.StoredProcedure;
                                 con.Open();
@@ -404,7 +404,7 @@ namespace ShoppingWeb.Ajax
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("getUserData", con))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getUserData", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
@@ -459,7 +459,7 @@ namespace ShoppingWeb.Ajax
                         string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
                         using (SqlConnection con = new SqlConnection(connectionString))
                         {
-                            using (SqlCommand cmd = new SqlCommand("editUser", con))
+                            using (SqlCommand cmd = new SqlCommand("pro_sw_editPwd", con))
                             {
                                 cmd.CommandType = CommandType.StoredProcedure;
                                 con.Open();
