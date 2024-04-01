@@ -67,10 +67,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Ajax\IndexHandler.aspx" />
+    <Content Include="Ajax\MemberHandler.aspx" />
+    <Content Include="Ajax\OrderHandler.aspx" />
     <Content Include="Ajax\ProductHandler.aspx" />
-    <Content Include="Ajax\SearchMemberHandler.aspx" />
-    <Content Include="Ajax\SearchOrderHandler.aspx" />
     <Content Include="Ajax\UserHandler.aspx" />
     <Content Include="Global.asax" />
     <Content Include="js\AddProduct.js" />
@@ -97,12 +96,19 @@
     <Content Include="Web\UserManagement.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ajax\IndexHandler.aspx.cs">
-      <DependentUpon>IndexHandler.aspx</DependentUpon>
+    <Compile Include="Ajax\MemberHandler.aspx.cs">
+      <DependentUpon>MemberHandler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Ajax\IndexHandler.aspx.designer.cs">
-      <DependentUpon>IndexHandler.aspx</DependentUpon>
+    <Compile Include="Ajax\MemberHandler.aspx.designer.cs">
+      <DependentUpon>MemberHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajax\OrderHandler.aspx.cs">
+      <DependentUpon>OrderHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\OrderHandler.aspx.designer.cs">
+      <DependentUpon>OrderHandler.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ajax\ProductHandler.aspx.cs">
       <DependentUpon>ProductHandler.aspx</DependentUpon>
@@ -110,20 +116,6 @@
     </Compile>
     <Compile Include="Ajax\ProductHandler.aspx.designer.cs">
       <DependentUpon>ProductHandler.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Ajax\SearchMemberHandler.aspx.cs">
-      <DependentUpon>SearchMemberHandler.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Ajax\SearchMemberHandler.aspx.designer.cs">
-      <DependentUpon>SearchMemberHandler.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Ajax\SearchOrderHandler.aspx.cs">
-      <DependentUpon>SearchOrderHandler.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Ajax\SearchOrderHandler.aspx.designer.cs">
-      <DependentUpon>SearchOrderHandler.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ajax\UserHandler.aspx.cs">
       <DependentUpon>UserHandler.aspx</DependentUpon>

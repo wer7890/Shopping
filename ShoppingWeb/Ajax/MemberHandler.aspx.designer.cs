@@ -11,7 +11,7 @@ namespace ShoppingWeb.Ajax
 {
 
 
-    public partial class SearchOrderHandler
+    public partial class MemberHandler
     {
     }
 }

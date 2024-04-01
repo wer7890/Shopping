@@ -7,7 +7,7 @@ using System.Web.Services;
 
 namespace ShoppingWeb.Ajax
 {
-    public partial class SearchMemberHandler : System.Web.UI.Page
+    public partial class MemberHandler : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,7 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetAllMemberData()
         {
-            bool loginResult = IndexHandler.AnyoneLongin();
+            bool loginResult = Utility.CheckDuplicateLogin();
             if (!loginResult)
             {
                 return "重複登入";
@@ -41,35 +41,11 @@ namespace ShoppingWeb.Ajax
                         dt.Load(reader);
 
                         // 將資料轉換為 JSON 格式返回
-                        return ConvertDataTableToJson(dt);
+                        return Utility.ConvertDataTableToJson(dt);
                     }
                 }
             }
 
-        }
-
-        /// <summary>
-        /// 將 DataTable 轉換為 JSON 字串的輔助方法
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        private static string ConvertDataTableToJson(DataTable dt)
-        {
-            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            System.Collections.ArrayList rows = new System.Collections.ArrayList();
-            System.Collections.IDictionary row;
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in dt.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-
-            return serializer.Serialize(rows);
         }
 
         /// <summary>
@@ -80,7 +56,7 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string ToggleProductStatus(string memberId)
         {
-            bool loginResult = IndexHandler.AnyoneLongin();
+            bool loginResult = Utility.CheckDuplicateLogin();
             if (!loginResult)
             {
                 return "重複登入";
@@ -123,7 +99,7 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string ToggleMemberLevel(string memberId, string level)
         {
-            bool loginResult = IndexHandler.AnyoneLongin();
+            bool loginResult = Utility.CheckDuplicateLogin();
             if (!loginResult)
             {
                 return "重複登入";

@@ -20,7 +20,7 @@
 //全部會員資料
 function SearchAllMember() {
     $.ajax({
-        url: '/Ajax/SearchMemberHandler.aspx/GetAllMemberData',
+        url: '/Ajax/MemberHandler.aspx/GetAllMemberData',
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
@@ -67,7 +67,7 @@ function SearchAllMember() {
 function ToggleMemberStatus(memberId) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/SearchMemberHandler.aspx/ToggleProductStatus",
+        url: "/Ajax/MemberHandler.aspx/ToggleProductStatus",
         data: JSON.stringify({ memberId: memberId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -91,7 +91,7 @@ function ToggleMemberStatus(memberId) {
 function ToggleMemberLevel(memberId, level) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/SearchMemberHandler.aspx/ToggleMemberLevel",
+        url: "/Ajax/MemberHandler.aspx/ToggleMemberLevel",
         data: JSON.stringify({ memberId: memberId, level: level }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
