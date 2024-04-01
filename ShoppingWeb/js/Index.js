@@ -1,39 +1,12 @@
 ﻿$(document).ready(function () {
     //一開始登入時顯示在左邊的身分，要做權限可使用功能的顯示與隱藏
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/UserHandler.aspx/GetUserPermission",  
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            $("#labUserRoles").text("帳號 : " + response.d.Account);
-            switch (response.d.Roles) {
-                case "1":
-                    break;
-                case "2":
-                    $("#adminPanel").remove();
-                    $("#productPanel").remove();
-                    break;
-                case "3":
-                    $("#adminPanel").remove();
-                    $("#memberPanel").remove();
-                    $("#orderPanel").remove();
-                    break;
-                default:
-                    $("#labUserRoles").text("身分 : 讀取錯誤");
-                    break;
-            } 
-        },
-        error: function (error) {
-            console.error('Error:', error);
-        }
-    });
+    getUserPermission();
 
     //按登出按鈕，清空Session["userId"]
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
-            url: "/Ajax/IndexHandler.aspx/DeleteSession",  
+            url: "/Ajax/UserHandler.aspx/DeleteSession",  
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -46,16 +19,58 @@
     });
 
     $("#adminPanel").click(function () {
+        getUserPermission();
         $("#iframeContent").attr("src", "UserManagement.aspx");
     });
     $("#productPanel").click(function () {
+        getUserPermission();
         $("#iframeContent").attr("src", "ProductManagement.aspx");
     });
     $("#memberPanel").click(function () {
+        getUserPermission();
         //$("#iframeContent").attr("src", "MemberManagement.aspx");
     });
     $("#orderPanel").click(function () {
+        getUserPermission();
         $("#iframeContent").attr("src", "OrderManagement.aspx");
     });
     
 });
+
+function getUserPermission() {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/UserHandler.aspx/GetUserPermission",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+
+            if (response.d === "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else {
+                $("#labUserRoles").text("帳號 : " + response.d.Account);
+                switch (response.d.Roles) {
+                    case "1":
+                        break;
+                    case "2":
+                        $("#adminPanel").remove();
+                        $("#productPanel").remove();
+                        break;
+                    case "3":
+                        $("#adminPanel").remove();
+                        $("#memberPanel").remove();
+                        $("#orderPanel").remove();
+                        break;
+                    default:
+                        $("#labUserRoles").text("身分 : 讀取錯誤");
+                        break;
+                }
+            }
+
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}

@@ -99,37 +99,46 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetUserPermission()
         {
-            try
+            bool loginResult = Utility.CheckDuplicateLogin();
+            if (!loginResult)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(connectionString))
+                return "重複登入";
+            }
+            else
+            {
+                try
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAccountRoles", con))
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
-                        SqlDataAdapter da = new SqlDataAdapter();
-                        DataTable dt = new DataTable();
-                        da.SelectCommand = cmd;
-                        da.Fill(dt);
-
-                        var result = new
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_getAccountRoles", con))
                         {
-                            Account = dt.Rows[0]["f_account"].ToString(),
-                            Roles = dt.Rows[0]["f_roles"].ToString(),
-                        };
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+                            cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
+                            SqlDataAdapter da = new SqlDataAdapter();
+                            DataTable dt = new DataTable();
+                            da.SelectCommand = cmd;
+                            da.Fill(dt);
 
-                        return result;
+                            var result = new
+                            {
+                                Account = dt.Rows[0]["f_account"].ToString(),
+                                Roles = dt.Rows[0]["f_roles"].ToString(),
+                            };
+
+                            return result;
+                        }
+
                     }
-
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                    return "發生內部錯誤: " + ex.Message;
                 }
             }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return "發生內部錯誤: " + ex.Message;
-            }
+
         }
 
         /// <summary>
