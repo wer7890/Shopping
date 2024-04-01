@@ -7,19 +7,14 @@ using System.Web.Services;
 
 namespace ShoppingWeb.Ajax
 {
-    public partial class IndexHandler : System.Web.UI.Page
+    public class Utility
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// 確認是否有重複登入
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public static bool AnyoneLongin()
+        public static bool CheckDuplicateLogin()
         {
             try
             {

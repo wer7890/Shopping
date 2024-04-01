@@ -60,7 +60,7 @@
 //全部管理員資料
 function SearchAllUserInfo(pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/SearchUserHandler.aspx/GetUserData',
+        url: '/Ajax/UserHandler.aspx/GetUserData',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
@@ -118,35 +118,39 @@ function SearchAllUserInfo(pageNumber, pageSize) {
 
 //刪除
 function DeleteUser(userId) {
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/SearchUserHandler.aspx/RemoveUserInfo",  
-        data: JSON.stringify({ userId: userId }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
+    let yes = confirm('確定要刪除該用戶嗎');
+    if (yes == true) {
+        $.ajax({
+            type: "POST",
+            url: "/Ajax/UserHandler.aspx/RemoveUserInfo",
+            data: JSON.stringify({ userId: userId }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
 
-            if (response.d === "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            }else if (response.d === "刪除成功") {
-                // 刪除成功後，刷新當前頁面並刷新表格
-                window.location.reload();
-            } else {
-                $("#labSearch").text("刪除失敗");
+                if (response.d === "重複登入") {
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
+                } else if (response.d === "刪除成功") {
+                    // 刪除成功後，刷新當前頁面並刷新表格
+                    window.location.reload();
+                } else {
+                    $("#labSearch").text(response.d);
+                }
+
+            },
+            error: function (error) {
+                console.error('Error:', error);
             }
-        },
-        error: function (error) {
-            console.error('Error:', error);
-        }
-    });
+        });
+    }
 }
 
 //編輯
 function EditUser(userId) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/SearchUserHandler.aspx/SetSessionSelectUserId", 
+        url: "/Ajax/UserHandler.aspx/SetSessionSelectUserId", 
         data: JSON.stringify({ userId: userId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -167,7 +171,7 @@ function EditUser(userId) {
 function ToggleUserRoles(userId, roles) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/SearchUserHandler.aspx/ToggleUserRoles",
+        url: "/Ajax/UserHandler.aspx/ToggleUserRoles",
         data: JSON.stringify({ userId: userId, roles: roles }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

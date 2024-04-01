@@ -11,7 +11,7 @@ namespace ShoppingWeb.Ajax
 {
 
 
-    public partial class AddUserHandler
+    public partial class UserHandler
     {
     }
 }

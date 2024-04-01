@@ -3,7 +3,7 @@
     //一開始input預設值
     $.ajax({
         type: "POST",
-        url: "/Ajax/RenewUserHandler.aspx/GetUserDataForEdit",
+        url: "/Ajax/UserHandler.aspx/GetUserDataForEdit",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -31,6 +31,7 @@
         }
     });
 
+    //按下更改按鈕
     $("#btnUpData").click(function () {
         let pwd = $("#txbPwd").val();
         $("#labRenewUser").text("");
@@ -41,7 +42,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Ajax/RenewUserHandler.aspx/EditUser", 
+            url: "/Ajax/UserHandler.aspx/EditUser", 
             data: JSON.stringify({pwd: pwd}),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

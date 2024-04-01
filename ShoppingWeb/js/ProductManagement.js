@@ -242,7 +242,7 @@ function ToggleProductStatus(productId) {
 
 //刪除
 function DeleteProduct(productId) {
-    let yes = confirm('確定要刪除商品嗎');
+    let yes = confirm('確定要刪除該商品嗎');
     if (yes == true) {
         $.ajax({
             type: "POST",

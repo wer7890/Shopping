@@ -12,14 +12,14 @@
 
         $.ajax({
             type: "POST",
-            url: "/Ajax/AddUserHandler.aspx/RegisterNewUser",  // 這裡指定後端方法的位置
+            url: "/Ajax/UserHandler.aspx/RegisterNewUser",  // 這裡指定後端方法的位置
             data: JSON.stringify({ account: account, pwd: pwd, roles: roles }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
                 if (response.d === "1") {
                     alert("新增成功");
-                    window.location.href = "SearchUser.aspx"
+                    window.location.href = "UserManagement.aspx"
                 } else if (response.d === "0") {
                     $("#labAddUser").text("帳號重複");
                 } else if (response.d === "重複登入") {

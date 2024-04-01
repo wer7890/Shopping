@@ -10,7 +10,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Ajax/LoginHandler.aspx/LoginUser",  // 這裡指定後端方法的位置
+            url: "/Ajax/UserHandler.aspx/LoginUser",  // 這裡指定後端方法的位置
             data: JSON.stringify({ account: account, pwd: pwd }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
