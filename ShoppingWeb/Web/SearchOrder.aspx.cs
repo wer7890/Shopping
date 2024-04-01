@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace ShoppingWeb.Web
 {
@@ -11,15 +6,12 @@ namespace ShoppingWeb.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+
+            if (Session["userId"] == null)
             {
-
-                if (Session["userId"] == null)
-                {
-                    Response.Redirect("Login.aspx");
-                }
-
+                Response.Redirect("Login.aspx");
             }
+
         }
     }
 }

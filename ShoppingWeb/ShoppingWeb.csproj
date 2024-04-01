@@ -91,6 +91,7 @@
     <Content Include="Web.config" />
     <Content Include="Web\AddProduct.aspx" />
     <Content Include="Web\AddUser.aspx" />
+    <Content Include="Web\Default.aspx" />
     <Content Include="Web\Index.aspx" />
     <Content Include="Web\Login.aspx" />
     <Content Include="Web\RenewProduct.aspx" />
@@ -188,6 +189,13 @@
     </Compile>
     <Compile Include="Web\AddUser.aspx.designer.cs">
       <DependentUpon>AddUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

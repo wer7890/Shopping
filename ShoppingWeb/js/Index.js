@@ -8,16 +8,11 @@
         success: function (response) {
             $("#labUserRoles").text("帳號 : " + response.d.Account);
             switch (response.d.Roles) {
-                case "1":
-                    $("#iframeContent").attr("src", "SearchUser.aspx");
-                    break;
                 case "2":
-                    $("#iframeContent").attr("src", "SearchOrder.aspx");
                     $("#adminPanel").hide();
                     $("#productPanel").hide();
                     break;
                 case "3":
-                    $("#iframeContent").attr("src", "SearchProduct.aspx");
                     $("#adminPanel").hide();
                     $("#memberPanel").hide();
                     $("#orderPanel").hide();
