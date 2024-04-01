@@ -211,7 +211,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetUserData(int pageNumber, int pageSize)
+        public static object GetAllUserData(int pageNumber, int pageSize)
         {
             bool loginResult = Utility.CheckDuplicateLogin();
             if (!loginResult)
@@ -314,7 +314,7 @@ namespace ShoppingWeb.Ajax
             }
             else
             {
-                if (AddSpecialChar(account, pwd, roles))
+                if (AddUserSpecialChar(account, pwd, roles))
                 {
                     try
                     {
@@ -355,7 +355,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="pwd"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
-        public static bool AddSpecialChar(string account, string pwd, string roles)
+        public static bool AddUserSpecialChar(string account, string pwd, string roles)
         {
             bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
@@ -451,7 +451,7 @@ namespace ShoppingWeb.Ajax
             }
             else
             {
-                if (RenewSpecialChar(pwd))
+                if (RenewUserSpecialChar(pwd))
                 {
                     try
                     {
@@ -493,7 +493,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="pwd"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
-        public static bool RenewSpecialChar(string pwd)
+        public static bool RenewUserSpecialChar(string pwd)
         {
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
 

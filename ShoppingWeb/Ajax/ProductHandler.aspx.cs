@@ -301,7 +301,7 @@ namespace ShoppingWeb.Ajax
         public static string AddProduct(string productName, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce)
         {
 
-            if (SpecialChar(productName, productCategory, productIsOpen, productIntroduce, productPrice, productStock))
+            if (AddProductSpecialChar(productName, productCategory, productIsOpen, productIntroduce, productPrice, productStock))
             {
                 try
                 {
@@ -371,7 +371,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="productPrice"></param>
         /// <param name="productStock"></param>
         /// <returns></returns>
-        public static bool SpecialChar(string productName, string productCategory, string productIsOpen, string productIntroduce, string productPrice, string productStock)
+        public static bool AddProductSpecialChar(string productName, string productCategory, string productIsOpen, string productIntroduce, string productPrice, string productStock)
         {
             bool cheackName = Regex.IsMatch(productName, @"^.{1,40}$");
             bool cheackCategory = Regex.IsMatch(productCategory, @"^.{6,}$");
@@ -461,7 +461,7 @@ namespace ShoppingWeb.Ajax
             }
             else
             {
-                if (SpecialChar(productPrice, productStock, productIntroduce))
+                if (RenewProductSpecialChar(productPrice, productStock, productIntroduce))
                 {
                     try
                     {
@@ -506,7 +506,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="productStock"></param>
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
-        public static bool SpecialChar(int productPrice, int productStock, string productIntroduce)
+        public static bool RenewProductSpecialChar(int productPrice, int productStock, string productIntroduce)
         {
             bool cheackIntroduce = Regex.IsMatch(productIntroduce, @"^.{1,500}$");
             bool cheackPrice = Regex.IsMatch(productPrice.ToString(), @"^[0-9]{1,7}$");

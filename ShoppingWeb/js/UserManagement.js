@@ -60,7 +60,7 @@
 //全部管理員資料
 function SearchAllUserInfo(pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/UserHandler.aspx/GetUserData',
+        url: '/Ajax/UserHandler.aspx/GetAllUserData',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
