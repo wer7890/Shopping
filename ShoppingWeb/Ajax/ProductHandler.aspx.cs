@@ -308,7 +308,7 @@ namespace ShoppingWeb.Ajax
                     string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                     using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand("pro_sw_AddProductData", con))
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_addProductData", con))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             con.Open();
