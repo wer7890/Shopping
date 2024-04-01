@@ -11,7 +11,7 @@ namespace ShoppingWeb.Web
 {
 
 
-    public partial class SearchMember
+    public partial class ProductManagement
     {
     }
 }

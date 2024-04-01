@@ -84,10 +84,10 @@
     <Content Include="js\Login.js" />
     <Content Include="js\RenewProduct.js" />
     <Content Include="js\RenewUser.js" />
-    <Content Include="js\SearchMember.js" />
-    <Content Include="js\SearchOrder.js" />
-    <Content Include="js\SearchProduct.js" />
-    <Content Include="js\SearchUser.js" />
+    <Content Include="js\MemberManagement.js" />
+    <Content Include="js\OrderManagement.js" />
+    <Content Include="js\ProductManagement.js" />
+    <Content Include="js\UserManagement.js" />
     <Content Include="Web.config" />
     <Content Include="Web\AddProduct.aspx" />
     <Content Include="Web\AddUser.aspx" />
@@ -96,10 +96,10 @@
     <Content Include="Web\Login.aspx" />
     <Content Include="Web\RenewProduct.aspx" />
     <Content Include="Web\RenewUser.aspx" />
-    <Content Include="Web\SearchMember.aspx" />
-    <Content Include="Web\SearchOrder.aspx" />
-    <Content Include="Web\SearchProduct.aspx" />
-    <Content Include="Web\SearchUser.aspx" />
+    <Content Include="Web\MemberManagement.aspx" />
+    <Content Include="Web\OrderManagement.aspx" />
+    <Content Include="Web\ProductManagement.aspx" />
+    <Content Include="Web\UserManagement.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ajax\AddProductHandler.aspx.cs">
@@ -225,33 +225,33 @@
     <Compile Include="Web\RenewUser.aspx.designer.cs">
       <DependentUpon>RenewUser.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Web\SearchMember.aspx.cs">
-      <DependentUpon>SearchMember.aspx</DependentUpon>
+    <Compile Include="Web\MemberManagement.aspx.cs">
+      <DependentUpon>MemberManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Web\SearchMember.aspx.designer.cs">
-      <DependentUpon>SearchMember.aspx</DependentUpon>
+    <Compile Include="Web\MemberManagement.aspx.designer.cs">
+      <DependentUpon>MemberManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Web\SearchOrder.aspx.cs">
-      <DependentUpon>SearchOrder.aspx</DependentUpon>
+    <Compile Include="Web\OrderManagement.aspx.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Web\SearchOrder.aspx.designer.cs">
-      <DependentUpon>SearchOrder.aspx</DependentUpon>
+    <Compile Include="Web\OrderManagement.aspx.designer.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Web\SearchProduct.aspx.cs">
-      <DependentUpon>SearchProduct.aspx</DependentUpon>
+    <Compile Include="Web\ProductManagement.aspx.cs">
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Web\SearchProduct.aspx.designer.cs">
-      <DependentUpon>SearchProduct.aspx</DependentUpon>
+    <Compile Include="Web\ProductManagement.aspx.designer.cs">
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Web\SearchUser.aspx.cs">
-      <DependentUpon>SearchUser.aspx</DependentUpon>
+    <Compile Include="Web\UserManagement.aspx.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Web\SearchUser.aspx.designer.cs">
-      <DependentUpon>SearchUser.aspx</DependentUpon>
+    <Compile Include="Web\UserManagement.aspx.designer.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 
 namespace ShoppingWeb.Web
 {
-    public partial class SearchProduct : System.Web.UI.Page
+    public partial class MemberManagement : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -8,14 +8,16 @@
         success: function (response) {
             $("#labUserRoles").text("帳號 : " + response.d.Account);
             switch (response.d.Roles) {
+                case "1":
+                    break;
                 case "2":
-                    $("#adminPanel").hide();
-                    $("#productPanel").hide();
+                    $("#adminPanel").remove();
+                    $("#productPanel").remove();
                     break;
                 case "3":
-                    $("#adminPanel").hide();
-                    $("#memberPanel").hide();
-                    $("#orderPanel").hide();
+                    $("#adminPanel").remove();
+                    $("#memberPanel").remove();
+                    $("#orderPanel").remove();
                     break;
                 default:
                     $("#labUserRoles").text("身分 : 讀取錯誤");
@@ -44,16 +46,16 @@
     });
 
     $("#adminPanel").click(function () {
-        $("#iframeContent").attr("src", "SearchUser.aspx");
+        $("#iframeContent").attr("src", "UserManagement.aspx");
     });
     $("#productPanel").click(function () {
-        $("#iframeContent").attr("src", "SearchProduct.aspx");
+        $("#iframeContent").attr("src", "ProductManagement.aspx");
     });
     $("#memberPanel").click(function () {
-        //$("#iframeContent").attr("src", "SearchMember.aspx");
+        //$("#iframeContent").attr("src", "MemberManagement.aspx");
     });
     $("#orderPanel").click(function () {
-        $("#iframeContent").attr("src", "SearchOrder.aspx");
+        $("#iframeContent").attr("src", "OrderManagement.aspx");
     });
     
 });

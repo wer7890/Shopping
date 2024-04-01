@@ -2,7 +2,7 @@
 
 namespace ShoppingWeb.Web
 {
-    public partial class SearchMember : System.Web.UI.Page
+    public partial class UserManagement : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -13,5 +13,6 @@ namespace ShoppingWeb.Web
             }
 
         }
+
     }
 }
