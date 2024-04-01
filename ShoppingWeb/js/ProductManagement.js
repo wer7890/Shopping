@@ -96,7 +96,7 @@ $(document).ready(function () {
 //全部商品資料
 function SearchAllProduct(pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/SearchProductHandler.aspx/GetAllProductData',
+        url: '/Ajax/ProductHandler.aspx/GetAllProductData',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
@@ -153,7 +153,7 @@ function SearchAllProduct(pageNumber, pageSize) {
 //搜尋商品資料
 function SearchProduct(productCategory, productName, checkAllMinorCategories, checkAllBrand, pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/SearchProductHandler.aspx/GetProductData',
+        url: '/Ajax/ProductHandler.aspx/GetProductData',
         data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllMinorCategories: checkAllMinorCategories, checkAllBrand: checkAllBrand, pageNumber: pageNumber, pageSize: pageSize }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
@@ -219,7 +219,7 @@ function UpdatePaginationControls(currentPage) {
 function ToggleProductStatus(productId) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/SearchProductHandler.aspx/ToggleProductStatus",
+        url: "/Ajax/ProductHandler.aspx/ToggleProductStatus",
         data: JSON.stringify({ productId: productId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -246,7 +246,7 @@ function DeleteProduct(productId) {
     if (yes == true) {
         $.ajax({
             type: "POST",
-            url: "/Ajax/SearchProductHandler.aspx/RemoveProduct",
+            url: "/Ajax/ProductHandler.aspx/RemoveProduct",
             data: JSON.stringify({ productId: productId }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -271,7 +271,7 @@ function DeleteProduct(productId) {
 function EditProduct(productId) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/SearchProductHandler.aspx/SetSessionProductId",
+        url: "/Ajax/ProductHandler.aspx/SetSessionProductId",
         data: JSON.stringify({ productId: productId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

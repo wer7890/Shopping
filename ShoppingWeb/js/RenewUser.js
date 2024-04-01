@@ -53,7 +53,7 @@
                     window.parent.location.href = "Login.aspx";
                 }else if (response.d === "修改成功") {
                     alert("修改成功");
-                    window.location.href = "SearchUser.aspx" 
+                    window.location.href = "UserManagement.aspx" 
                 } else {
                     $("#labRenewUser").text(response.d);
                 }

@@ -3,7 +3,7 @@
     //一開始input預設值
     $.ajax({
         type: "POST",
-        url: "/Ajax/RenewProductHandler.aspx/GetProductDataForEdit",
+        url: "/Ajax/ProductHandler.aspx/GetProductDataForEdit",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -42,7 +42,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Ajax/RenewProductHandler.aspx/EditProduct",
+            url: "/Ajax/ProductHandler.aspx/EditProduct",
             data: JSON.stringify({ productPrice: productPrice, productStock: productStock, productIntroduce: productIntroduce, productCheckStock: productCheckStock }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -52,7 +52,7 @@
                     window.parent.location.href = "Login.aspx";
                 }else if (response.d === "修改成功") {
                     alert("修改成功");
-                    window.location.href = "SearchProduct.aspx";
+                    window.location.href = "ProductManagement.aspx";
                 } else {
                     $("#labRenewProduct").text(response.d);
                 }

@@ -88,6 +88,7 @@
     }
     $("#divBrand").append(brandSelect);
 
+    //按下新增按鈕時
     $("#btnAddProduct").click(function () {
         let productName = $("#txbProductName").val();
         let productCategory = $("#productCategory").val();  // 獲取大分類值
@@ -128,7 +129,7 @@
 
             // 圖片上傳
             $.ajax({
-                url: "/Ajax/AddProductHandler.aspx",
+                url: "/Ajax/ProductHandler.aspx",
                 type: "POST",
                 data: formData,
                 contentType: false,
@@ -139,7 +140,7 @@
                         window.parent.location.href = "Login.aspx";
                     }else if (response === "1") {
                         alert("新增成功");
-                        window.location.href = "SearchProduct.aspx"
+                        window.location.href = "ProductManagement.aspx"
                     } else {
                         $("#labAddProduct").text("新增失敗: " + response);
                     }

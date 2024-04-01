@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -55,6 +56,30 @@ namespace ShoppingWeb.Ajax
                 System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
                 return false;
             }
+        }
+
+        /// <summary>
+        /// 將 DataTable 轉換為 JSON 字串的輔助方法
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static string ConvertDataTableToJson(DataTable dt)
+        {
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            System.Collections.ArrayList rows = new System.Collections.ArrayList();
+            System.Collections.IDictionary row;
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in dt.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return serializer.Serialize(rows);
         }
     }
 }

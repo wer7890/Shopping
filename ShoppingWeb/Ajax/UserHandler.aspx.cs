@@ -241,7 +241,7 @@ namespace ShoppingWeb.Ajax
 
                         var result = new
                         {
-                            Data = ConvertDataTableToJson(dt),
+                            Data = Utility.ConvertDataTableToJson(dt),
                             TotalPages = totalPages
                         };
 
@@ -249,30 +249,6 @@ namespace ShoppingWeb.Ajax
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// 將 DataTable 轉換為 JSON 字串的輔助方法
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        private static string ConvertDataTableToJson(DataTable dt)
-        {
-            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            System.Collections.ArrayList rows = new System.Collections.ArrayList();
-            System.Collections.IDictionary row;
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                row = new System.Collections.Generic.Dictionary<string, object>();
-                foreach (DataColumn col in dt.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-
-            return serializer.Serialize(rows);
         }
 
         /// <summary>
