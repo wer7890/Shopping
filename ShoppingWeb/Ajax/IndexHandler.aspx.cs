@@ -19,35 +19,38 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public static string GetUserPermission()
+        public static object GetUserPermission()
         {
-            string strRoles = null;
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand("getRoles", con))
+                    using (SqlCommand cmd = new SqlCommand("getUserAccountRoles", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
+                        SqlDataAdapter da = new SqlDataAdapter();
+                        DataTable dt = new DataTable();
+                        da.SelectCommand = cmd;
+                        da.Fill(dt);
 
-                        string result = cmd.ExecuteScalar().ToString();
-
-                        if (result != null)
+                        var result = new
                         {
-                            strRoles = result.ToString();
-                        }
+                            Account = dt.Rows[0]["f_account"].ToString(),
+                            Roles = dt.Rows[0]["f_roles"].ToString(),
+                        };
+
+                        return result;
                     }
 
                 }
-                return strRoles;
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return strRoles;
+                return "發生內部錯誤: " + ex.Message;
             }
         }
 

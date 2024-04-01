@@ -6,19 +6,17 @@
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.d) {
+            $("#labUserRoles").text("帳號 : " + response.d.Account);
+            switch (response.d.Roles) {
                 case "1":
-                    $("#labUserRoles").text("身分 : 超級管理員");
                     $("#iframeContent").attr("src", "SearchUser.aspx");
                     break;
                 case "2":
-                    $("#labUserRoles").text("身分 : 會員管理員");
                     $("#iframeContent").attr("src", "SearchOrder.aspx");
                     $("#adminPanel").hide();
                     $("#productPanel").hide();
                     break;
                 case "3":
-                    $("#labUserRoles").text("身分 : 商品管理員");
                     $("#iframeContent").attr("src", "SearchProduct.aspx");
                     $("#adminPanel").hide();
                     $("#memberPanel").hide();
