@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RenewProduct.aspx.cs" Inherits="ShoppingWeb.Web.RenewProduct" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditProduct.aspx.cs" Inherits="ShoppingWeb.Web.EditProduct" %>
 
 <!DOCTYPE html>
 
@@ -8,7 +8,7 @@
     <title>修改商品</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="../js/RenewProduct.js"></script>
+    <script src="../js/EditProduct.js"></script>
 </head>
 <body>
     <div class="container">

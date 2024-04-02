@@ -2,7 +2,7 @@
 
 namespace ShoppingWeb.Web
 {
-    public partial class RenewUser : System.Web.UI.Page
+    public partial class EditProduct : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -12,7 +12,6 @@ namespace ShoppingWeb.Web
                 Response.Write("<script>window.parent.location.href = 'Login.aspx';</script>");
             }
 
-        } 
-
+        }
     }
 }

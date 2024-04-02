@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RenewUser.aspx.cs" Inherits="ShoppingWeb.Web.RenewUser" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditUser.aspx.cs" Inherits="ShoppingWeb.Web.EditUser" %>
 
 <!DOCTYPE html>
 
@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="../js/RenewUser.js"></script>
+    <script src="../js/EditUser.js"></script>
 </head>
 <body>
     <div class="container">

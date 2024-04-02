@@ -16,7 +16,7 @@
             dataType: "json",
             success: function (response) {
                 if (response.d == "登入成功") {
-                    window.location.href = "index.aspx";
+                    window.location.href = "Frame.aspx";
                 } else {
                     $("#labLogin").text(response.d);
                 }

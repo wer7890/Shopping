@@ -11,7 +11,7 @@ namespace ShoppingWeb.Web
 {
 
 
-    public partial class Index
+    public partial class EditUser
     {
     }
 }

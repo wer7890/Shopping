@@ -11,7 +11,7 @@ namespace ShoppingWeb.Web
 {
 
 
-    public partial class RenewUser
+    public partial class EditProduct
     {
     }
 }
