@@ -17,6 +17,7 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static bool CheckDuplicateLogin()
         {
+            bool result = false;
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -28,26 +29,27 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
 
-                        object result = cmd.ExecuteScalar();
-                        if (result != null)
+                        object dbResult = cmd.ExecuteScalar();
+
+                        if (dbResult != null)
                         {
-                            HttpContext.Current.Session["dbID"] = result.ToString();
+                            HttpContext.Current.Session["dbID"] = dbResult.ToString();
 
                             string currentSessionID = HttpContext.Current.Session.SessionID;
                             string dbSessionID = HttpContext.Current.Session["dbID"].ToString();
 
-                            if (dbSessionID != currentSessionID)
+                            if (dbSessionID == currentSessionID)
+                            {
+                                result = true;
+                            }
+                            else
                             {
                                 HttpContext.Current.Session["userId"] = null;
-                                return false;
                             }
+                        }
 
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return result;
+
                     }
                 }
             }

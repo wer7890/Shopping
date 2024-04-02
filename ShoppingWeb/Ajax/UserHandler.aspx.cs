@@ -43,12 +43,15 @@ namespace ShoppingWeb.Ajax
                             cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
                             cmd.Parameters.Add(new SqlParameter("@userId", SqlDbType.Int));
                             cmd.Parameters["@userId"].Direction = ParameterDirection.Output;
+                            cmd.Parameters.Add(new SqlParameter("@roles", SqlDbType.Int));
+                            cmd.Parameters["@roles"].Direction = ParameterDirection.Output;
 
                             object result = cmd.ExecuteScalar();
 
                             if (result != null && result.ToString() == "1")
                             {
                                 HttpContext.Current.Session["userId"] = cmd.Parameters["@userId"].Value.ToString();
+                                HttpContext.Current.Session["roles"] = cmd.Parameters["@roles"].Value.ToString();
                                 return "登入成功";
                             }
 
@@ -99,44 +102,36 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetUserPermission()
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+            try
             {
-                return "重複登入";
-            }
-            else
-            {
-                try
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                    using (SqlConnection con = new SqlConnection(connectionString))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAccountRoles", con))
                     {
-                        using (SqlCommand cmd = new SqlCommand("pro_sw_getAccountRoles", con))
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
+                        SqlDataAdapter da = new SqlDataAdapter();
+                        DataTable dt = new DataTable();
+                        da.SelectCommand = cmd;
+                        da.Fill(dt);
+
+                        var result = new
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
-                            SqlDataAdapter da = new SqlDataAdapter();
-                            DataTable dt = new DataTable();
-                            da.SelectCommand = cmd;
-                            da.Fill(dt);
+                            Account = dt.Rows[0]["f_account"].ToString(),
+                            Roles = dt.Rows[0]["f_roles"].ToString(),
+                        };
 
-                            var result = new
-                            {
-                                Account = dt.Rows[0]["f_account"].ToString(),
-                                Roles = dt.Rows[0]["f_roles"].ToString(),
-                            };
-
-                            return result;
-                        }
-
+                        return result;
                     }
+
                 }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "發生內部錯誤: " + ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return "發生內部錯誤: " + ex.Message;
             }
 
         }
