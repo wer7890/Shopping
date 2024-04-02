@@ -6,6 +6,59 @@ let checkAllMinorCategories = null;
 let checkAllBrand = null;
 let newCategory = null;
 
+// 大分類
+let majorCategories = {
+    "10": "帽子",
+    "11": "上衣",
+    "12": "外套",
+    "13": "褲子"
+};
+
+// 小分類
+let minorCategories = {
+    "0": {
+        "0": "請先選擇類型"
+    },
+    "10": {
+        "00": "全部",
+        "01": "其他",
+        "02": "棒球帽",
+        "03": "漁夫帽",
+        "04": "遮陽帽"
+    },
+    "11": {
+        "00": "全部",
+        "01": "其他",
+        "02": "襯衫",
+        "03": "毛衣",
+        "04": "帽T"
+    },
+    "12": {
+        "00": "全部",
+        "01": "其他",
+        "02": "皮外套",
+        "03": "風衣",
+        "04": "牛仔外套"
+    },
+    "13": {
+        "00": "全部",
+        "01": "其他",
+        "02": "運動褲",
+        "03": "休閒褲",
+        "04": "西褲"
+    }
+};
+
+// 品牌分類
+let brand = {
+    "00": "全部",
+    "01": "其他",
+    "02": "NIKE",
+    "03": "FILA",
+    "04": "ADIDAS",
+    "05": "PUMA"
+}
+
 $(document).ready(function () {
     let currentPage = 1; // 初始頁碼為 1
     let pageSize = 5; // 每頁顯示的資料筆數
@@ -118,7 +171,7 @@ function SearchAllProduct(pageNumber, pageSize) {
                     let row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_name + '</td>' +
-                        '<td>' + item.f_category + '</td>' +
+                        '<td>' + CategoryCodeToText(item.f_category.toString()) + '</td>' +
                         '<td>' + item.f_price + '</td>' +
                         '<td>' + item.f_stock + '</td>' +
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
@@ -179,7 +232,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     let row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_name + '</td>' +
-                        '<td>' + item.f_category + '</td>' +
+                        '<td>' + CategoryCodeToText(item.f_category.toString()) + '</td>' +
                         '<td>' + item.f_price + '</td>' +
                         '<td>' + item.f_stock + '</td>' +
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
@@ -291,58 +344,6 @@ function EditProduct(productId) {
 
 //商品分類，選擇框設定
 function ProductDataReady() {
-    // 大分類
-    let majorCategories = {
-        "10": "帽子",
-        "11": "上衣",
-        "12": "外套",
-        "13": "褲子"
-    };
-
-    // 小分類
-    let minorCategories = {
-        "0": {
-            "0": "請先選擇類型"
-        },
-        "10": {
-            "00": "全部",
-            "01": "其他",
-            "02": "棒球帽",
-            "03": "漁夫帽",
-            "04": "遮陽帽"
-        },
-        "11": {
-            "00": "全部",
-            "01": "其他",
-            "02": "襯衫",
-            "03": "毛衣",
-            "04": "帽T"
-        },
-        "12": {
-            "00": "全部",
-            "01": "其他",
-            "02": "皮外套",
-            "03": "風衣",
-            "04": "牛仔外套"
-        },
-        "13": {
-            "00": "全部",
-            "01": "其他",
-            "02": "運動褲",
-            "03": "休閒褲",
-            "04": "西褲"
-        }
-    };
-
-    // 品牌分類
-    let brand = {
-        "00": "全部",
-        "01": "其他",
-        "02": "NIKE",
-        "03": "FILA",
-        "04": "ADIDAS",
-        "05": "PUMA"
-    }
 
     // 創建 select 元素並初始化大分類選項
     let categorySelect = $("<select>").attr("id", "productCategory").addClass("form-select");
@@ -384,4 +385,14 @@ function ProductDataReady() {
 
     }
     $("#divBrand").append('<label for="brandCategory" class="form-label">品牌</label>').append(brandSelect);
+}
+
+//把類型代號轉成文字
+function CategoryCodeToText(category) {
+    let dbMajorCategories = category.substring(0, 2);
+    let dbMinorCategories = category.substring(2, 4);
+    let dbBrand = category.substring(4, 6);
+
+    let result = majorCategories[dbMajorCategories] + "-" + minorCategories[dbMajorCategories][dbMinorCategories] + "-" + brand[dbBrand];
+    return result;
 }
