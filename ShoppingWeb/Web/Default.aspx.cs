@@ -8,7 +8,7 @@ namespace ShoppingWeb.Web
         {
             if (Session["userId"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Write("<script>window.parent.location.href = 'Login.aspx';</script>");
             }
         }
     }

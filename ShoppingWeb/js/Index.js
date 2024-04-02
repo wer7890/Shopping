@@ -19,19 +19,15 @@
     });
 
     $("#adminPanel").click(function () {
-        getUserPermission();
         $("#iframeContent").attr("src", "UserManagement.aspx");
     });
     $("#productPanel").click(function () {
-        getUserPermission();
         $("#iframeContent").attr("src", "ProductManagement.aspx");
     });
     $("#memberPanel").click(function () {
-        getUserPermission();
         //$("#iframeContent").attr("src", "MemberManagement.aspx");
     });
     $("#orderPanel").click(function () {
-        getUserPermission();
         $("#iframeContent").attr("src", "OrderManagement.aspx");
     });
     

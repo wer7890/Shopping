@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    window.parent.getUserPermission();
+
     // 大分類
     let majorCategories = {
         "10": "帽子",

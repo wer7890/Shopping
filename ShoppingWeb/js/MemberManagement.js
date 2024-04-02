@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    window.parent.getUserPermission();
+
     SearchAllMember();
 
     $(document).on("change", ".toggle-switch", function () {
