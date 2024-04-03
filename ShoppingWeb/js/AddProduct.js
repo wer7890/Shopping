@@ -52,7 +52,10 @@
                     if (response === "重複登入") {
                         alert("重複登入，已被登出");
                         window.parent.location.href = "Login.aspx";
-                    }else if (response === "1") {
+                    } else if (response === "權限不足") {
+                        alert("權限不足");
+                        parent.location.reload();
+                    } else if (response === "1") {
                         alert("新增成功");
                         window.location.href = "ProductManagement.aspx"
                     } else {

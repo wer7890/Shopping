@@ -155,9 +155,12 @@ function SearchAllProduct(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
-            if (response.d == "重複登入") {
+            if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
             } else {
                 // 處理成功取得資料的情況
                 let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
@@ -213,11 +216,13 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-
-            if (response.d == "重複登入") {
+            if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d == "null") {
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
+            } else if (response.d === "null") {
                 $("#productTableDiv").css('display', 'none');
                 $("#labSearchProduct").text("沒有資料");
                 $('#ulPagination').empty();
@@ -278,10 +283,12 @@ function ToggleProductStatus(productId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-
             if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
             } else if (response.d === "更改成功") {
                 $("#labSearchProduct").text("更改成功");
             } else {
@@ -308,6 +315,9 @@ function DeleteProduct(productId) {
                 if (response.d === "重複登入") {
                     alert("重複登入，已被登出");
                     window.parent.location.href = "Login.aspx";
+                } else if (response.d === "權限不足") {
+                    alert("權限不足");
+                    parent.location.reload();
                 } else if (response.d === "刪除成功") {
                     window.location.reload();
                 } else {
@@ -331,7 +341,7 @@ function EditProduct(productId) {
         dataType: "json",
         success: function (response) {
             if (response.d === true) {
-                window.location.href = "RenewProduct.aspx";
+                window.location.href = "EditProduct.aspx";
             }
         },
         error: function (error) {

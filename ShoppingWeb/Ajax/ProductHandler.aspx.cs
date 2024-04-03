@@ -12,13 +12,18 @@ namespace ShoppingWeb.Ajax
     public partial class ProductHandler : System.Web.UI.Page
     {
         private static string pubguid = "";
+        private const int permittedProductRoles = 1;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
 
-            if (!loginResult)
+            if (!Utility.CheckDuplicateLogin())
             {
                 Response.Write("重複登入");
+            }
+            else if (!Utility.CheckRoles(permittedProductRoles))
+            {
+                Response.Write("權限不足");
             }
             else
             {
@@ -81,44 +86,45 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetAllProductData(int pageNumber, int pageSize)
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+
+            if (!Utility.CheckDuplicateLogin())
             {
                 return "重複登入";
             }
-            else
+
+            if (!Utility.CheckRoles(permittedProductRoles))
             {
-                // 連接資料庫，獲取使用者資料
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllProductData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
-                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
-
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-
-                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-
-                        var result = new
-                        {
-                            Data = Utility.ConvertDataTableToJson(dt),
-                            TotalPages = totalPages
-                        };
-
-                        return result;
-                    }
-                }
+                return "權限不足";
             }
 
+            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("pro_sw_getAllProductData", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
+                    cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+                    var result = new
+                    {
+                        Data = Utility.ConvertDataTableToJson(dt),
+                        TotalPages = totalPages
+                    };
+
+                    return result;
+                }
+            }
         }
 
         /// <summary>
@@ -131,52 +137,54 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetProductData(string productCategory, string productName, bool checkAllMinorCategories, bool checkAllBrand, int pageNumber, int pageSize)
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+
+            if (!Utility.CheckDuplicateLogin())
             {
                 return "重複登入";
             }
-            else
+
+            if (!Utility.CheckRoles(permittedProductRoles))
             {
-                // 連接資料庫，獲取使用者資料
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(connectionString))
+                return "權限不足";
+            }
+
+            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("pro_sw_getSearchProductData", con))
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getSearchProductData", con))
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@category", productCategory));
+                    cmd.Parameters.Add(new SqlParameter("@name", productName));
+                    cmd.Parameters.Add(new SqlParameter("@allMinorCategories", checkAllMinorCategories));
+                    cmd.Parameters.Add(new SqlParameter("@allBrand", checkAllBrand));
+                    cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
+                    cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+                    if (totalCount > 0)
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@category", productCategory));
-                        cmd.Parameters.Add(new SqlParameter("@name", productName));
-                        cmd.Parameters.Add(new SqlParameter("@allMinorCategories", checkAllMinorCategories));
-                        cmd.Parameters.Add(new SqlParameter("@allBrand", checkAllBrand));
-                        cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
-                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
-
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-
-                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-
-                        if (totalCount > 0)
+                        var result = new
                         {
-                            var result = new
-                            {
-                                Data = Utility.ConvertDataTableToJson(dt),
-                                TotalPages = totalPages
-                            };
-                            return result;
-                        }
-                        else
-                        {
-                            return "null";
-                        }
-
+                            Data = Utility.ConvertDataTableToJson(dt),
+                            TotalPages = totalPages
+                        };
+                        return result;
                     }
+                    else
+                    {
+                        return "null";
+                    }
+
                 }
             }
         }
@@ -189,53 +197,56 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string RemoveProduct(string productId)
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+
+            if (!Utility.CheckDuplicateLogin())
             {
                 return "重複登入";
             }
-            else
+
+            if (!Utility.CheckRoles(permittedProductRoles))
             {
-                try
+                return "權限不足";
+            }
+
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                    using (SqlConnection con = new SqlConnection(connectionString))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_delProductData", con))
                     {
-                        using (SqlCommand cmd = new SqlCommand("pro_sw_delProductData", con))
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@productId", productId));
+
+                        //設定預存程序輸出參數的名稱與資料類型
+                        cmd.Parameters.Add(new SqlParameter("@deletedProductImg", SqlDbType.NVarChar, 50));
+                        //設定參數名稱的傳遞方向
+                        cmd.Parameters["@deletedProductImg"].Direction = ParameterDirection.Output;
+
+                        int r = (int)cmd.ExecuteScalar();
+                        //取得預存程序的輸出參數值
+                        string deletedProductImg = cmd.Parameters["@deletedProductImg"].Value.ToString();
+
+                        if (r > 0)
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@productId", productId));
-
-                            //設定預存程序輸出參數的名稱與資料類型
-                            cmd.Parameters.Add(new SqlParameter("@deletedProductImg", SqlDbType.NVarChar, 50));
-                            //設定參數名稱的傳遞方向
-                            cmd.Parameters["@deletedProductImg"].Direction = ParameterDirection.Output;
-
-                            int r = (int)cmd.ExecuteScalar();
-                            //取得預存程序的輸出參數值
-                            string deletedProductImg = cmd.Parameters["@deletedProductImg"].Value.ToString();
-
-                            if (r > 0)
-                            {
-                                string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
-                                File.Delete(imagePath);
-                                return "刪除成功";
-                            }
-                            else
-                            {
-                                return "刪除失敗";
-                            }
-
+                            string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
+                            File.Delete(imagePath);
+                            return "刪除成功";
                         }
+                        else
+                        {
+                            return "刪除失敗";
+                        }
+
                     }
                 }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "錯誤";
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return "錯誤";
             }
         }
 
@@ -247,37 +258,40 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string ToggleProductStatus(string productId)
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+
+            if (!Utility.CheckDuplicateLogin())
             {
                 return "重複登入";
             }
-            else
+
+            if (!Utility.CheckRoles(permittedProductRoles))
             {
-                try
+                return "權限不足";
+            }
+
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                    using (SqlConnection con = new SqlConnection(connectionString))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_editProductStatus", con))
                     {
-                        using (SqlCommand cmd = new SqlCommand("pro_sw_editProductStatus", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@productId", productId));
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@productId", productId));
 
-                            int rowsAffected = (int)cmd.ExecuteScalar();
+                        int rowsAffected = (int)cmd.ExecuteScalar();
 
-                            return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                        return (rowsAffected > 0) ? "更改成功" : "更改失敗";
 
-                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "錯誤";
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return "錯誤";
             }
         }
 
@@ -308,53 +322,50 @@ namespace ShoppingWeb.Ajax
         public static string AddProduct(string productName, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce)
         {
 
-            if (AddProductSpecialChar(productName, productCategory, productIsOpen, productIntroduce, productPrice, productStock))
-            {
-                try
-                {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                    using (SqlConnection con = new SqlConnection(connectionString))
-                    {
-                        using (SqlCommand cmd = new SqlCommand("pro_sw_addProductData", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@name", productName));
-                            cmd.Parameters.Add(new SqlParameter("@category", productCategory));
-                            cmd.Parameters.Add(new SqlParameter("@img", pubguid));
-                            cmd.Parameters.Add(new SqlParameter("@price", productPrice));
-                            cmd.Parameters.Add(new SqlParameter("@stock", productStock));
-                            cmd.Parameters.Add(new SqlParameter("@isOpen", productIsOpen));
-                            cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
-                            cmd.Parameters.Add(new SqlParameter("@owner", HttpContext.Current.Session["userId"]));
-                            string result = cmd.ExecuteScalar().ToString();
-
-                            if (result == "1")
-                            {
-                                return result;
-                            }
-                            else
-                            {
-                                string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
-                                File.Delete(imagePath);
-                                return result;
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
-                    File.Delete(imagePath);
-                    return "發生內部錯誤: " + ex.Message;
-                }
-            }
-            else
+            if (!AddProductSpecialChar(productName, productCategory, productIsOpen, productIntroduce, productPrice, productStock))
             {
                 return "輸入值不符合格式";
             }
 
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_addProductData", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@name", productName));
+                        cmd.Parameters.Add(new SqlParameter("@category", productCategory));
+                        cmd.Parameters.Add(new SqlParameter("@img", pubguid));
+                        cmd.Parameters.Add(new SqlParameter("@price", productPrice));
+                        cmd.Parameters.Add(new SqlParameter("@stock", productStock));
+                        cmd.Parameters.Add(new SqlParameter("@isOpen", productIsOpen));
+                        cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
+                        cmd.Parameters.Add(new SqlParameter("@owner", HttpContext.Current.Session["userId"]));
+                        string result = cmd.ExecuteScalar().ToString();
+
+                        if (result == "1")
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
+                            File.Delete(imagePath);
+                            return result;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
+                File.Delete(imagePath);
+                return "發生內部錯誤: " + ex.Message;
+            }
         }
 
         /// <summary>
@@ -461,48 +472,49 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string EditProduct(int productPrice, int productStock, string productIntroduce, string productCheckStock)
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+
+            if (!Utility.CheckDuplicateLogin())
             {
                 return "重複登入";
             }
-            else
+
+            if (!Utility.CheckRoles(permittedProductRoles))
             {
-                if (RenewProductSpecialChar(productPrice, productStock, productIntroduce))
+                return "權限不足";
+            }
+
+            if (!RenewProductSpecialChar(productPrice, productStock, productIntroduce))
+            {
+                return "輸入值不符合格式";
+            }
+
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                string sessionProductId = HttpContext.Current.Session["productId"] as string;
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    try
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_editProductData", con))
                     {
-                        string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                        string sessionProductId = HttpContext.Current.Session["productId"] as string;
-                        using (SqlConnection con = new SqlConnection(connectionString))
-                        {
-                            using (SqlCommand cmd = new SqlCommand("pro_sw_editProductData", con))
-                            {
-                                cmd.CommandType = CommandType.StoredProcedure;
-                                con.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
 
-                                cmd.Parameters.Add(new SqlParameter("@productId", sessionProductId));
-                                cmd.Parameters.Add(new SqlParameter("@price", productPrice));
-                                cmd.Parameters.Add(new SqlParameter("@stock", productStock));
-                                cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
-                                cmd.Parameters.Add(new SqlParameter("@checkStoct", productCheckStock));
+                        cmd.Parameters.Add(new SqlParameter("@productId", sessionProductId));
+                        cmd.Parameters.Add(new SqlParameter("@price", productPrice));
+                        cmd.Parameters.Add(new SqlParameter("@stock", productStock));
+                        cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
+                        cmd.Parameters.Add(new SqlParameter("@checkStoct", productCheckStock));
 
-                                int rowsAffected = (int)cmd.ExecuteScalar();
+                        int rowsAffected = (int)cmd.ExecuteScalar();
 
-                                return (rowsAffected > 0) ? "修改成功" : "修改失敗，庫存量不能小於0";
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                        return "錯誤";
+                        return (rowsAffected > 0) ? "修改成功" : "修改失敗，庫存量不能小於0";
                     }
                 }
-                else
-                {
-                    return "輸入值不符合格式";
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return "錯誤";
             }
         }
 

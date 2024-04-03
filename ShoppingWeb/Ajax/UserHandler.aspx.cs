@@ -12,7 +12,8 @@ namespace ShoppingWeb.Ajax
 {
     public partial class UserHandler : System.Web.UI.Page
     {
-        private static int currentUserRoles = 1;
+        private const int permittedUserRoles = 1;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -162,7 +163,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(currentUserRoles))
+            if (!Utility.CheckRoles(permittedUserRoles))
             {
                 return "權限不足";
             }
@@ -225,7 +226,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(currentUserRoles))
+            if (!Utility.CheckRoles(permittedUserRoles))
             {
                 return "權限不足";
             }
@@ -275,7 +276,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(currentUserRoles))
+            if (!Utility.CheckRoles(permittedUserRoles))
             {
                 return "權限不足";
             }
@@ -325,7 +326,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(currentUserRoles))
+            if (!Utility.CheckRoles(permittedUserRoles))
             {
                 return "權限不足";
             }
@@ -463,7 +464,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(currentUserRoles))
+            if (!Utility.CheckRoles(permittedUserRoles))
             {
                 return "權限不足";
             }
