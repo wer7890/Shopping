@@ -66,10 +66,13 @@ function SearchAllUserInfo(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
-            if (response.d == "重複登入") {
+            if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else {
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
+            }else {
                 // 處理成功取得資料的情況
                 let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
                 let tableBody = $('#tableBody');
@@ -132,7 +135,10 @@ function DeleteUser(userId) {
                 if (response.d === "重複登入") {
                     alert("重複登入，已被登出");
                     window.parent.location.href = "Login.aspx";
-                } else if (response.d === "刪除成功") {
+                } else if (response.d === "權限不足") {
+                    alert("權限不足");
+                    parent.location.reload();
+                }else if (response.d === "刪除成功") {
                     // 刪除成功後，刷新當前頁面並刷新表格
                     window.location.reload();
                 } else {
@@ -157,7 +163,7 @@ function EditUser(userId) {
         dataType: "json",
         success: function (response) {
             if (response.d === true) {
-                window.location.href = "RenewUser.aspx";
+                window.location.href = "EditUser.aspx";
             } else {
                 alert("失敗");
             }
@@ -180,6 +186,9 @@ function ToggleUserRoles(userId, roles) {
             if (response.d === "重複登入") {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
             } else if (response.d === "更改成功") {
                 $("#labSearchUser").text("身分更改成功");
             } else {

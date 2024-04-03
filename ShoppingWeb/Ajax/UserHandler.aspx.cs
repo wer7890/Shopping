@@ -51,7 +51,7 @@ namespace ShoppingWeb.Ajax
                             if (result != null && result.ToString() == "1")
                             {
                                 HttpContext.Current.Session["userId"] = cmd.Parameters["@userId"].Value.ToString();
-                                HttpContext.Current.Session["roles"] = cmd.Parameters["@roles"].Value.ToString();
+                                HttpContext.Current.Session["roles"] = cmd.Parameters["@roles"].Value;
                                 return "登入成功";
                             }
 
@@ -70,7 +70,6 @@ namespace ShoppingWeb.Ajax
                 return "帳號和密碼不能含有非英文和數字且長度應在6到16之間";
             }
         }
-
 
         /// <summary>
         /// 判斷輸入值
@@ -158,41 +157,48 @@ namespace ShoppingWeb.Ajax
         public static string RemoveUserInfo(string userId)
         {
             bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+            if (loginResult)
             {
-                return "重複登入";
-            }
-            else
-            {
-                try
+                if ((int)HttpContext.Current.Session["roles"] == 1)
                 {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                    using (SqlConnection con = new SqlConnection(connectionString))
+                    try
                     {
-                        using (SqlCommand cmd = new SqlCommand("pro_sw_delUserData", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@userId", userId));
+                        string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
-                            int r = (int)cmd.ExecuteScalar();
-                            if (r > 0)
+                        using (SqlConnection con = new SqlConnection(connectionString))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("pro_sw_delUserData", con))
                             {
-                                return "刪除成功";
-                            }
-                            else
-                            {
-                                return "刪除失敗";
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                con.Open();
+                                cmd.Parameters.Add(new SqlParameter("@userId", userId));
+
+                                int r = (int)cmd.ExecuteScalar();
+                                if (r > 0)
+                                {
+                                    return "刪除成功";
+                                }
+                                else
+                                {
+                                    return "刪除失敗";
+                                }
                             }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                        return "錯誤";
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "錯誤";
+                    return "權限不足";
                 }
+            }
+            else
+            {
+                return "重複登入";
             }
         }
 
@@ -218,40 +224,47 @@ namespace ShoppingWeb.Ajax
         public static object GetAllUserData(int pageNumber, int pageSize)
         {
             bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+            if (loginResult)
             {
-                return "重複登入";
+                if ((int)HttpContext.Current.Session["roles"] == 1)
+                {
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_getAllUserData", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
+                            cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
+                            cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+                            cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                            cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+
+                            SqlDataReader reader = cmd.ExecuteReader();
+                            DataTable dt = new DataTable();
+                            dt.Load(reader);
+
+                            int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                            int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+                            var result = new
+                            {
+                                Data = Utility.ConvertDataTableToJson(dt),
+                                TotalPages = totalPages
+                            };
+
+                            return result;
+                        }
+                    }
+                }
+                else
+                {
+                    return "權限不足";
+                }
             }
             else
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllUserData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
-                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
-
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-
-                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-
-                        var result = new
-                        {
-                            Data = Utility.ConvertDataTableToJson(dt),
-                            TotalPages = totalPages
-                        };
-
-                        return result;
-                    }
-                }
+                return "重複登入";
             }
         }
 
@@ -265,37 +278,44 @@ namespace ShoppingWeb.Ajax
         public static string ToggleUserRoles(string userId, string roles)
         {
             bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+            if (loginResult)
             {
-                return "重複登入";
+                if ((int)HttpContext.Current.Session["roles"] == 1)
+                {
+                    try
+                    {
+                        string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                        using (SqlConnection con = new SqlConnection(connectionString))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("pro_sw_editRoles", con))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                con.Open();
+                                cmd.Parameters.Add(new SqlParameter("@userId", userId));
+                                cmd.Parameters.Add(new SqlParameter("@roles", roles));
+
+                                int rowsAffected = (int)cmd.ExecuteScalar();
+
+                                return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                        return "錯誤";
+                    }
+                }
+                else
+                {
+                    return "權限不足";
+                }               
             }
             else
             {
-                try
-                {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                    using (SqlConnection con = new SqlConnection(connectionString))
-                    {
-                        using (SqlCommand cmd = new SqlCommand("pro_sw_editRoles", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@userId", userId));
-                            cmd.Parameters.Add(new SqlParameter("@roles", roles));
-
-                            int rowsAffected = (int)cmd.ExecuteScalar();
-
-                            return (rowsAffected > 0) ? "更改成功" : "更改失敗";
-
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "錯誤";
-                }
+                return "重複登入";
             }
         }
 
@@ -312,43 +332,50 @@ namespace ShoppingWeb.Ajax
         public static string RegisterNewUser(string account, string pwd, string roles)
         {
             bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+            if (loginResult)
             {
-                return "重複登入";
-            }
-            else
-            {
-                if (AddUserSpecialChar(account, pwd, roles))
+                if ((int)HttpContext.Current.Session["roles"] == 1)
                 {
-                    try
+                    if (AddUserSpecialChar(account, pwd, roles))
                     {
-                        string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                        using (SqlConnection con = new SqlConnection(connectionString))
+                        try
                         {
-                            using (SqlCommand cmd = new SqlCommand("pro_sw_addUserData", con))
+                            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                            using (SqlConnection con = new SqlConnection(connectionString))
                             {
-                                cmd.CommandType = CommandType.StoredProcedure;
-                                con.Open();
-                                cmd.Parameters.Add(new SqlParameter("@account", account));
-                                cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(pwd)));
-                                cmd.Parameters.Add(new SqlParameter("@roles", roles));
+                                using (SqlCommand cmd = new SqlCommand("pro_sw_addUserData", con))
+                                {
+                                    cmd.CommandType = CommandType.StoredProcedure;
+                                    con.Open();
+                                    cmd.Parameters.Add(new SqlParameter("@account", account));
+                                    cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(pwd)));
+                                    cmd.Parameters.Add(new SqlParameter("@roles", roles));
 
-                                string result = cmd.ExecuteScalar().ToString();
+                                    string result = cmd.ExecuteScalar().ToString();
 
-                                return result;
+                                    return result;
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                            return "發生內部錯誤: " + ex.Message;
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                        return "發生內部錯誤: " + ex.Message;
+                        return "帳號和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
                     }
                 }
                 else
                 {
-                    return "帳號和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                    return "權限不足";
                 }
+            }
+            else
+            {
+                return "重複登入";
             }
         }
 
@@ -449,44 +476,51 @@ namespace ShoppingWeb.Ajax
         public static string EditUser(string pwd)
         {
             bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+            if (loginResult)
             {
-                return "重複登入";
-            }
-            else
-            {
-                if (RenewUserSpecialChar(pwd))
+                if ((int)HttpContext.Current.Session["roles"] == 1)
                 {
-                    try
+                    if (RenewUserSpecialChar(pwd))
                     {
-                        string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                        string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
-                        using (SqlConnection con = new SqlConnection(connectionString))
+                        try
                         {
-                            using (SqlCommand cmd = new SqlCommand("pro_sw_editPwd", con))
+                            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                            string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
+                            using (SqlConnection con = new SqlConnection(connectionString))
                             {
-                                cmd.CommandType = CommandType.StoredProcedure;
-                                con.Open();
+                                using (SqlCommand cmd = new SqlCommand("pro_sw_editPwd", con))
+                                {
+                                    cmd.CommandType = CommandType.StoredProcedure;
+                                    con.Open();
 
-                                cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
-                                cmd.Parameters.Add(new SqlParameter("@pwd",GetSHA256HashFromString(pwd)));
+                                    cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
+                                    cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(pwd)));
 
-                                int rowsAffected = (int)cmd.ExecuteScalar();
+                                    int rowsAffected = (int)cmd.ExecuteScalar();
 
-                                return (rowsAffected > 0) ? "修改成功" : "修改失敗";
+                                    return (rowsAffected > 0) ? "修改成功" : "修改失敗";
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                            return "錯誤";
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                        return "錯誤";
+                        return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
                     }
                 }
                 else
                 {
-                    return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                    return "權限不足";
                 }
+            }
+            else
+            {
+                return "重複登入";
             }
 
         }

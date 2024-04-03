@@ -19,14 +19,17 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === "1") {
+                if (response.d === "重複登入") {
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
+                } else if (response.d === "權限不足") {
+                    alert("權限不足");
+                    parent.location.reload();
+                } else if (response.d === "1") {
                     alert("新增成功");
                     window.location.href = "UserManagement.aspx"
                 } else if (response.d === "0") {
                     $("#labAddUser").text("帳號重複");
-                } else if (response.d === "重複登入") {
-                    alert("重複登入，已被登出");
-                    window.parent.location.href = "Login.aspx";
                 } else {
                     $("#labAddUser").text(response.d);
                 }
