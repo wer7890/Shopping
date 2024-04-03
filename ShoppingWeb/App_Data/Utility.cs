@@ -91,7 +91,7 @@ namespace ShoppingWeb.Ajax
         /// <returns></returns>
         public static bool CheckRoles(int roles)
         {
-            return ((int)HttpContext.Current.Session["roles"] == roles);
+            return ((int)HttpContext.Current.Session["roles"] == 1 || (int)HttpContext.Current.Session["roles"] == roles);
         }
     }
 }

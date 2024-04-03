@@ -12,7 +12,11 @@ namespace ShoppingWeb.Ajax
     public partial class ProductHandler : System.Web.UI.Page
     {
         private static string pubguid = "";
-        private const int PERMITTED_PRODUCT_ROLES = 1;
+
+        /// <summary>
+        /// 商品系統所要求的權限
+        /// </summary>
+        private const int PERMITTED_PRODUCT_ROLES = 3;
 
         protected void Page_Load(object sender, EventArgs e)
         {
