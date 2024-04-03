@@ -83,5 +83,15 @@ namespace ShoppingWeb.Ajax
 
             return serializer.Serialize(rows);
         }
+
+        /// <summary>
+        /// 判斷權限
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        public static bool CheckRoles(int roles)
+        {
+            return ((int)HttpContext.Current.Session["roles"] == roles);
+        }
     }
 }
