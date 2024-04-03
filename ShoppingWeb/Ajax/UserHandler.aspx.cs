@@ -12,7 +12,7 @@ namespace ShoppingWeb.Ajax
 {
     public partial class UserHandler : System.Web.UI.Page
     {
-        private const int permittedUserRoles = 1;
+        private const int PERMITTED_USER_ROLES = 1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -163,7 +163,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedUserRoles))
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }
@@ -226,7 +226,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedUserRoles))
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }
@@ -276,7 +276,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedUserRoles))
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }
@@ -311,7 +311,7 @@ namespace ShoppingWeb.Ajax
 
 
         /// <summary>
-        /// 判斷使用者名稱是否存在，如果沒有就新增管理員
+        /// 新增管理員，會先判斷使用者名稱是否存在
         /// </summary>
         /// <param name="account"></param>
         /// <param name="pwd"></param>
@@ -326,7 +326,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedUserRoles))
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }
@@ -464,7 +464,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedUserRoles))
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }

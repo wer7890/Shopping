@@ -12,7 +12,7 @@ namespace ShoppingWeb.Ajax
     public partial class ProductHandler : System.Web.UI.Page
     {
         private static string pubguid = "";
-        private const int permittedProductRoles = 1;
+        private const int PERMITTED_PRODUCT_ROLES = 1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,7 @@ namespace ShoppingWeb.Ajax
             {
                 Response.Write("重複登入");
             }
-            else if (!Utility.CheckRoles(permittedProductRoles))
+            else if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 Response.Write("權限不足");
             }
@@ -92,7 +92,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedProductRoles))
+            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }
@@ -143,7 +143,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedProductRoles))
+            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }
@@ -203,7 +203,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedProductRoles))
+            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }
@@ -264,7 +264,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedProductRoles))
+            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }
@@ -478,7 +478,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(permittedProductRoles))
+            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }
