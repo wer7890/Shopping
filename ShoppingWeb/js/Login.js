@@ -50,5 +50,3 @@ function IsSpecialChar(account, pwd) {
 
     return accountValid && pwdValid;
 }
-
-

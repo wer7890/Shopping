@@ -350,16 +350,13 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@owner", HttpContext.Current.Session["userId"]));
                         string result = cmd.ExecuteScalar().ToString();
 
-                        if (result == "1")
-                        {
-                            return result;
-                        }
-                        else
+                        if (result != "1")
                         {
                             string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
                             File.Delete(imagePath);
-                            return result;
                         }
+
+                        return result;
                     }
                 }
             }
@@ -402,14 +399,7 @@ namespace ShoppingWeb.Ajax
             bool cheackPrice = Regex.IsMatch(productPrice, @"^[0-9]{1,7}$");
             bool cheackStock = Regex.IsMatch(productStock, @"^[0-9]{1,7}$");
 
-            if (cheackName && cheackCategory && cheackIsOpen && cheackIntroduce && cheackPrice && cheackStock)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return cheackName && cheackCategory && cheackIsOpen && cheackIntroduce && cheackPrice && cheackStock;
         }
 
 
@@ -535,14 +525,7 @@ namespace ShoppingWeb.Ajax
             bool cheackPrice = Regex.IsMatch(productPrice.ToString(), @"^[0-9]{1,7}$");
             bool cheackStock = Regex.IsMatch(productStock.ToString(), @"^[0-9]{1,7}$");
 
-            if (cheackIntroduce && cheackPrice && cheackStock)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return cheackIntroduce && cheackPrice && cheackStock;
         }
     }
 }

@@ -86,14 +86,7 @@ namespace ShoppingWeb.Ajax
             bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
 
-            if (cheackAccount && cheackPwd)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (cheackAccount && cheackPwd);
         }
 
 
@@ -184,14 +177,8 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@userId", userId));
 
                         int r = (int)cmd.ExecuteScalar();
-                        if (r > 0)
-                        {
-                            return "刪除成功";
-                        }
-                        else
-                        {
-                            return "刪除失敗";
-                        }
+
+                        return (r > 0) ? "刪除成功" : "刪除失敗";
                     }
                 }
             }
@@ -378,14 +365,7 @@ namespace ShoppingWeb.Ajax
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
             bool cheackRoles = Regex.IsMatch(roles, @"^[0-9]{1,2}$");
 
-            if (cheackAccount && cheackPwd && cheackRoles)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return cheackAccount && cheackPwd && cheackRoles;
         }
 
         /// <summary>
@@ -514,14 +494,7 @@ namespace ShoppingWeb.Ajax
         {
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
 
-            if (cheackPwd)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return cheackPwd;
         }
 
     }
