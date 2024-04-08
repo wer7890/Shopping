@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     window.parent.getUserPermission();
 
-    //新增按鈕
+    //按下新增按鈕
     $("#btnAddUser").click(function () {
         let account = $("#txbAccount").val();
         let pwd = $("#txbPwd").val();

@@ -8,6 +8,8 @@
     <title>查詢會員</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.1/dist/tw-city-selector.min.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment.js"></script>
     <script src="../js/MemberManagement.js"></script>
 </head>
 <body>
@@ -26,10 +28,10 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>名稱</th>
+                        <th>帳號</th>
                         <th>密碼</th>
+                        <th>名稱</th>
                         <th>等級</th>
-                        <th>錢包</th>
                         <th>電話</th>
                         <th>信箱</th>
                         <th>創建時間</th>

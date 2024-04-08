@@ -6,6 +6,10 @@
     $("#txbBirthday").text(GetRandomDate());
     $("#txbPhoneNumber").text(GetRandomPhone());
     $("#txbEmail").text(GetRandomEmail());
+    for (let i = 0; i < 10; i++) {
+        console.log(GetRandomStr(), GetRandomName(), GetRandomDate(), GetRandomPhone(), GetRandomEmail());
+    }
+
 });
 
 
@@ -13,23 +17,23 @@ const numeric = "0123456789";
 const lowerCase = "abcdefghijklmnopqrstuvwxyz"
 const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-const email_suffix = ["@gmail.com", "@yahoo.com", "@msn.com", "@hotmail.com",
+const emailSuffix = ["@gmail.com", "@yahoo.com", "@msn.com", "@hotmail.com",
     "@aol.com", "@ask.com", "@live.com", "@qq.com", "@0355.net", "@163.com",
     "@163.net", "@263.net", "@3721.net", "@yeah.net", "@126.com", "@sina.com",
     "@sohu.com", "@yahoo.com.cn"];
 
-//隨機生成(min,max)范围的数字
+//隨機生成(min,max)範圍的數字
 function randomInt(min, max) {
     return min + Math.floor(Math.random() * (max - min + 1))
 }
 
-//隨機从list取值生成一段长度为len字符序列
+//隨機從list取值生成一段長度為len字符序列
 function randomSequence(len, list) {
     if (len <= 1) {
         len = 1;
     }
-    var s = "";
-    var n = list.length;
+    let s = "";
+    let n = list.length;
     if (typeof list === "string") {
         while (len-- > 0) {
             s += list.charAt(Math.random() * n)
@@ -76,7 +80,7 @@ function GetRandomPhone() {
 //隨機生成信箱
 function GetRandomEmail() {
     var opt = numeric + lowerCase + upperCase
-    return randomSequence(randomInt(4, 10), opt) + randomSequence(1, email_suffix);
+    return randomSequence(randomInt(4, 10), opt) + randomSequence(1, emailSuffix);
 }
 
 

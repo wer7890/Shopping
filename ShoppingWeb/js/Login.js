@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    //按下登入按鈕
     $("#btnLogin").click(function () {
         let account = $("#txbAccount").val();
         let pwd = $("#txbPassword").val();

@@ -2,7 +2,7 @@
     window.parent.getUserPermission();
     ProductDataReady();
     
-    //按下新增按鈕時
+    //按下新增按鈕
     $("#btnAddProduct").click(function () {
         let productName = $("#txbProductName").val();
         let productCategory = $("#productCategory").val();  // 獲取大分類值

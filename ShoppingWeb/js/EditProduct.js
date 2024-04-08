@@ -26,6 +26,7 @@
         }
     });
 
+    //按下修改按鈕
     $("#btnRenewProduct").click(function () {
         let productPrice = $("#txbProductPrice").val();
         let productStock = $("#txbProductStock").val(); 

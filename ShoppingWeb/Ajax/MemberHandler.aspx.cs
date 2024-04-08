@@ -22,28 +22,30 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetAllMemberData()
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+
+            if (!Utility.CheckDuplicateLogin())
             {
                 return "重複登入";
             }
-            else
-            {
-                // 連接資料庫，獲取使用者資料
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("getAllMemberData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
 
-                        // 將資料轉換為 JSON 格式返回
-                        return Utility.ConvertDataTableToJson(dt);
-                    }
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return "權限不足";
+            }
+
+            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("pro_sw_getAllMemberData", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    // 將資料轉換為 JSON 格式返回
+                    return Utility.ConvertDataTableToJson(dt);
                 }
             }
 
@@ -57,37 +59,40 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string ToggleProductStatus(string memberId)
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+
+            if (!Utility.CheckDuplicateLogin())
             {
                 return "重複登入";
             }
-            else
+
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
-                try
+                return "權限不足";
+            }
+
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                    using (SqlConnection con = new SqlConnection(connectionString))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_editMemberStatus", con))
                     {
-                        using (SqlCommand cmd = new SqlCommand("toggleMemberStatus", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@memberId", memberId));
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@memberId", memberId));
 
-                            int rowsAffected = (int)cmd.ExecuteScalar();
+                        int rowsAffected = (int)cmd.ExecuteScalar();
 
-                            return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                        return (rowsAffected > 0) ? "更改成功" : "更改失敗";
 
-                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "錯誤";
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return "錯誤";
             }
         }
 
@@ -100,38 +105,41 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string ToggleMemberLevel(string memberId, string level)
         {
-            bool loginResult = Utility.CheckDuplicateLogin();
-            if (!loginResult)
+
+            if (!Utility.CheckDuplicateLogin())
             {
                 return "重複登入";
             }
-            else
+
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
-                try
+                return "權限不足";
+            }
+
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                    using (SqlConnection con = new SqlConnection(connectionString))
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_editMemberLevel", con))
                     {
-                        using (SqlCommand cmd = new SqlCommand("toggleMemberLevel", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            con.Open();
-                            cmd.Parameters.Add(new SqlParameter("@memberId", memberId));
-                            cmd.Parameters.Add(new SqlParameter("@level", level));
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@memberId", memberId));
+                        cmd.Parameters.Add(new SqlParameter("@level", level));
 
-                            int rowsAffected = (int)cmd.ExecuteScalar();
+                        int rowsAffected = (int)cmd.ExecuteScalar();
 
-                            return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                        return (rowsAffected > 0) ? "更改成功" : "更改失敗";
 
-                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                    return "錯誤";
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return "錯誤";
             }
         }
 
@@ -140,7 +148,7 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public static string RandomMember()
+        public static string AddMember(string account, string pwd, string name, string birthday, string phone, string email, string address)
         {
 
             if (!Utility.CheckDuplicateLogin())
@@ -153,49 +161,36 @@ namespace ShoppingWeb.Ajax
                 return "權限不足";
             }
 
-            //int numberOfMembersToAdd = 10;
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("AddMember", con))
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    string username = GenerateRandomUsername();
-                    string email = GenerateRandomEmail();
-                    string password = GenerateRandomPassword();
-
-                    cmd.Parameters.Add(new SqlParameter("@Username", username));
-
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_addMemberData", con))
                     {
-                        return "成功";
-                    }
-                    else
-                    {
-                        return "失敗";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@account", account));
+                        cmd.Parameters.Add(new SqlParameter("@pwd", pwd));
+                        cmd.Parameters.Add(new SqlParameter("@name", name));
+                        cmd.Parameters.Add(new SqlParameter("@birthday", birthday));
+                        cmd.Parameters.Add(new SqlParameter("@phone", phone));
+                        cmd.Parameters.Add(new SqlParameter("@email", email));
+                        cmd.Parameters.Add(new SqlParameter("@address", address));
+
+                        string result = cmd.ExecuteScalar().ToString();
+
+                        return result;
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                return "發生內部錯誤: " + ex.Message;
+            }
         }
 
-        // 生成隨機的會員資料方法示例
-        static string GenerateRandomUsername()
-        {
-            return "RandomUsername" + Guid.NewGuid().ToString().Substring(0, 8);
-        }
-
-        static string GenerateRandomEmail()
-        {
-            return "random" + Guid.NewGuid().ToString().Substring(0, 8) + "@example.com";
-        }
-
-        static string GenerateRandomPassword()
-        {
-            return Guid.NewGuid().ToString().Substring(0, 8);
-        }
+        
     }
 }
