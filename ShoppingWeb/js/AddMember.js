@@ -6,9 +6,7 @@
     $("#txbBirthday").text(GetRandomDate());
     $("#txbPhoneNumber").text(GetRandomPhone());
     $("#txbEmail").text(GetRandomEmail());
-    for (let i = 0; i < 10; i++) {
-        console.log(GetRandomStr(), GetRandomName(), GetRandomDate(), GetRandomPhone(), GetRandomEmail());
-    }
+    
 
 });
 
@@ -82,9 +80,4 @@ function GetRandomEmail() {
     var opt = numeric + lowerCase + upperCase
     return randomSequence(randomInt(4, 10), opt) + randomSequence(1, emailSuffix);
 }
-
-
-
-
-
 

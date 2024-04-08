@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Web.Services;
 
 namespace ShoppingWeb.Ajax
@@ -191,6 +192,18 @@ namespace ShoppingWeb.Ajax
             }
         }
 
-        
+        /// <summary>
+        /// 判斷輸入值
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public static bool AddMemberSpecialChar(string account, string pwd)
+        {
+            bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
+            bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
+
+            return (cheackAccount && cheackPwd);
+        }
     }
 }

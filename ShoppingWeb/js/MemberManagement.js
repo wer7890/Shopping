@@ -143,7 +143,7 @@ function SearchAllMember() {
                 $.each(data, function (index, item) {
                     let row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_name + '</td>' +
+                        '<td>' + item.f_account + '</td>' +
                         '<td>' + item.f_pwd + '</td>' +
                         '<td>' + item.f_name + '</td>' +
                         '<td>' +
@@ -156,7 +156,6 @@ function SearchAllMember() {
                         '</td>' +
                         '<td>' + item.f_phoneNumber + '</td>' +
                         '<td>' + item.f_email + '</td>' +
-                        '<td>' + item.f_createdTime + '</td>' +
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_accountStatus ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '</tr>';
 
