@@ -25,7 +25,7 @@
         $("#iframeContent").attr("src", "ProductManagement.aspx");
     });
     $("#memberPanel").click(function () {
-        //$("#iframeContent").attr("src", "MemberManagement.aspx");
+        $("#iframeContent").attr("src", "MemberManagement.aspx");
     });
     $("#orderPanel").click(function () {
         $("#iframeContent").attr("src", "OrderManagement.aspx");

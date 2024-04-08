@@ -72,6 +72,7 @@
     <Content Include="Ajax\ProductHandler.aspx" />
     <Content Include="Ajax\UserHandler.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="js\AddMember.js" />
     <Content Include="js\AddProduct.js" />
     <Content Include="js\AddUser.js" />
     <Content Include="js\Frame.js" />
@@ -83,6 +84,7 @@
     <Content Include="js\ProductManagement.js" />
     <Content Include="js\UserManagement.js" />
     <Content Include="Web.config" />
+    <Content Include="Web\AddMember.aspx" />
     <Content Include="Web\AddProduct.aspx" />
     <Content Include="Web\AddUser.aspx" />
     <Content Include="Web\Default.aspx" />
@@ -129,6 +131,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\AddMember.aspx.cs">
+      <DependentUpon>AddMember.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\AddMember.aspx.designer.cs">
+      <DependentUpon>AddMember.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Web\AddProduct.aspx.cs">
       <DependentUpon>AddProduct.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

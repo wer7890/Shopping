@@ -12,7 +12,14 @@
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">會員帳號</h2>
+        <div class="row">
+            <div class="col-10 d-flex justify-content-center">
+                <h2 class="text-center">會員帳號</h2>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+                <button id="btnAddMember" type="submit" class="btn btn-outline-primary">新增會員</button>
+            </div>
+        </div>
         <br />
         <div class="row">
             <table id="myTable" class="table table-striped table-hover table-bordered">

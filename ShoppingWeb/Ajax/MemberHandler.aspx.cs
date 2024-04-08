@@ -9,6 +9,7 @@ namespace ShoppingWeb.Ajax
 {
     public partial class MemberHandler : System.Web.UI.Page
     {
+        private const int PERMITTED_USER_ROLES = 2;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -132,6 +133,69 @@ namespace ShoppingWeb.Ajax
                     return "錯誤";
                 }
             }
+        }
+
+        /// <summary>
+        /// 新增會員資料
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public static string RandomMember()
+        {
+
+            if (!Utility.CheckDuplicateLogin())
+            {
+                return "重複登入";
+            }
+
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return "權限不足";
+            }
+
+            //int numberOfMembersToAdd = 10;
+            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("AddMember", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    string username = GenerateRandomUsername();
+                    string email = GenerateRandomEmail();
+                    string password = GenerateRandomPassword();
+
+                    cmd.Parameters.Add(new SqlParameter("@Username", username));
+
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        return "成功";
+                    }
+                    else
+                    {
+                        return "失敗";
+                    }
+                }
+            }
+        }
+
+        // 生成隨機的會員資料方法示例
+        static string GenerateRandomUsername()
+        {
+            return "RandomUsername" + Guid.NewGuid().ToString().Substring(0, 8);
+        }
+
+        static string GenerateRandomEmail()
+        {
+            return "random" + Guid.NewGuid().ToString().Substring(0, 8) + "@example.com";
+        }
+
+        static string GenerateRandomPassword()
+        {
+            return Guid.NewGuid().ToString().Substring(0, 8);
         }
     }
 }
