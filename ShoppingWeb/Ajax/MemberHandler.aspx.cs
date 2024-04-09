@@ -208,10 +208,10 @@ namespace ShoppingWeb.Ajax
             string s = birthday;
             bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
-            bool cheackName = Regex.IsMatch(name, @"^[\u4E00-\u9FFF]{2,15}$");
+            bool cheackName = Regex.IsMatch(name, @"^[\u4E00-\u9FFF]{1,15}$");
             bool cheackBirthday = Regex.IsMatch(birthday, @"^[0-9-]{8,10}$");
             bool cheackPhone = Regex.IsMatch(phone, @"^[0-9]{10}$");
-            bool cheackEmail = Regex.IsMatch(email, @"^[A-Za-z0-9@.]{2,40}$");
+            bool cheackEmail = Regex.IsMatch(email, @"^[a-zA-Z0-9_.+-]{1,25}@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
             bool cheackAddress = Regex.IsMatch(address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$");
 
             return (cheackAccount && cheackPwd && cheackName && cheackBirthday && cheackPhone && cheackEmail && cheackAddress);

@@ -85,7 +85,7 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 判斷權限
+        /// 判斷權限是否可使用該功能
         /// </summary>
         /// <param name="roles"></param>
         /// <returns></returns>

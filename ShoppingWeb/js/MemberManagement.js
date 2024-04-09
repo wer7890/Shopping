@@ -54,10 +54,7 @@ const numeric = "0123456789";
 const lowerCase = "abcdefghijklmnopqrstuvwxyz"
 const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-const emailSuffix = ["@gmail.com", "@yahoo.com", "@msn.com", "@hotmail.com",
-    "@aol.com", "@ask.com", "@live.com", "@qq.com", "@0355.net", "@163.com",
-    "@163.net", "@263.net", "@3721.net", "@yeah.net", "@126.com", "@sina.com",
-    "@sohu.com", "@yahoo.com.cn"];
+const emailSuffix = ["@hotmail.com", "@yahoo.com", "@gmail.com", "@live.com", "@qq.com"];
 
 //隨機生成(min,max)範圍的數字
 function randomInt(min, max) {
@@ -89,7 +86,7 @@ function GetRandomStr() {
     return randomSequence(randomInt(6, 16), opt)
 }
 
-//隨機生成中文姓名
+//隨機生成中文姓名，使用Unicode(萬國碼)編碼
 function GetRandomName() {
     function randomAccess(min, max) {
         return Math.floor(Math.random() * (min - max) + max)
@@ -105,7 +102,7 @@ function GetRandomName() {
 function GetRandomDate() { 
     min = new Date(0);  //1970-01-01
     max = new Date()
-    var res = new Date(Math.random() * (max.getTime() - min.getTime()))
+    let res = new Date(Math.random() * (max.getTime() - min.getTime()));
     return res.getFullYear() + "-" + (res.getMonth() + 1) + "-" + res.getDate();
 }
 
@@ -116,7 +113,7 @@ function GetRandomPhone() {
 
 //隨機生成信箱
 function GetRandomEmail() {
-    var opt = numeric + lowerCase + upperCase
+    let opt = numeric + lowerCase + upperCase
     return randomSequence(randomInt(4, 10), opt) + randomSequence(1, emailSuffix);
 }
 
