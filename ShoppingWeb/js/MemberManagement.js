@@ -96,7 +96,7 @@ function GetRandomName() {
     }
     let name = ""
     for (let i = 0; i < 3; i++) {
-        name += String.fromCharCode(randomAccess(0x4E00, 0x9FA5))
+        name += String.fromCharCode(randomAccess(0x4E00, 0x9FFF))
     }
     return name
 }
@@ -157,6 +157,8 @@ function SearchAllMember() {
                         '<td>' + item.f_phoneNumber + '</td>' +
                         '<td>' + item.f_email + '</td>' +
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_accountStatus ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                        '<td>' + item.f_amount + '</td>' +
+                        '<td>' + item.f_totalSpent + '</td>' +
                         '</tr>';
 
                     tableBody.append(row);

@@ -4,14 +4,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>查詢會員</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="../js/MemberManagement.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="w-auto mx-3">
         <div class="row">
             <div class="col-10 d-flex justify-content-center">
                 <h2 class="text-center">會員帳號</h2>
@@ -33,6 +33,8 @@
                         <th>電話</th>
                         <th>信箱</th>
                         <th>狀態</th>
+                        <th>錢包</th>
+                        <th>總花費</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
