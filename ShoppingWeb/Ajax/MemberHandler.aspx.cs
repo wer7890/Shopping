@@ -162,6 +162,11 @@ namespace ShoppingWeb.Ajax
                 return "權限不足";
             }
 
+            if (!AddMemberSpecialChar(account, pwd, name, birthday, phone, email, address))
+            {
+                return "輸入值錯誤";
+            }
+
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -198,12 +203,18 @@ namespace ShoppingWeb.Ajax
         /// <param name="account"></param>
         /// <param name="pwd"></param>
         /// <returns></returns>
-        public static bool AddMemberSpecialChar(string account, string pwd)
+        public static bool AddMemberSpecialChar(string account, string pwd, string name, string birthday, string phone, string email, string address)
         {
+            string s = birthday;
             bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
+            bool cheackName = Regex.IsMatch(name, @"^[\u4E00-\u9FFF]{2,15}$");
+            bool cheackBirthday = Regex.IsMatch(birthday, @"^[0-9-]{8,10}$");
+            bool cheackPhone = Regex.IsMatch(phone, @"^[0-9]{10}$");
+            bool cheackEmail = Regex.IsMatch(email, @"^[A-Za-z0-9@.]{2,40}$");
+            bool cheackAddress = Regex.IsMatch(address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$");
 
-            return (cheackAccount && cheackPwd);
+            return (cheackAccount && cheackPwd && cheackName && cheackBirthday && cheackPhone && cheackEmail && cheackAddress);
         }
     }
 }

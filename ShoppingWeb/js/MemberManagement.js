@@ -20,14 +20,14 @@
                 } else if (response.d === "1") {
                     window.location.reload();
                 } else if (response.d === "0") {
-                    $("#labAddUser").text("新增失敗");
+                    $("#labSearchMember").text("新增失敗");
                 } else {
-                    $("#labAddUser").text(response.d);
+                    $("#labSearchMember").text(response.d);
                 }
             },
             error: function (error) {
                 console.error('AJAX Error:', error);
-                $("#labAddUser").text("發生錯誤，請查看控制台");
+                $("#labSearchMember").text("發生錯誤，請查看控制台");
             }
         });      
     })
@@ -102,11 +102,11 @@ function GetRandomName() {
 }
 
 //隨機生成日期
-function GetRandomDate(min, max) { // min, max
-    min = min === undefined ? new Date(0) : min
-    max = max === undefined ? new Date() : max
+function GetRandomDate() { 
+    min = new Date(0);  //1970-01-01
+    max = new Date()
     var res = new Date(Math.random() * (max.getTime() - min.getTime()))
-    return res.getFullYear() + "-" + res.getMonth() + "-" + res.getDay();
+    return res.getFullYear() + "-" + (res.getMonth() + 1) + "-" + res.getDate();
 }
 
 //隨機生成手機號碼
