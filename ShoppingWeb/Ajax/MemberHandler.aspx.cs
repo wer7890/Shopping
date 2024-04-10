@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,13 +7,15 @@ using System.Web.Services;
 
 namespace ShoppingWeb.Ajax
 {
-    public partial class MemberHandler : System.Web.UI.Page
+    public partial class MemberHandler : BasePage
     {
         private const int PERMITTED_USER_ROLES = 2;
-        protected void Page_Load(object sender, EventArgs e)
+
+        public MemberHandler() 
         {
 
         }
+      
 
         /// <summary>
         /// 一開始顯示所有會員資訊

@@ -9,7 +9,7 @@ using System.IO;
 
 namespace ShoppingWeb.Ajax
 {
-    public partial class ProductHandler : System.Web.UI.Page
+    public partial class ProductHandler : BasePage
     {
         private static string pubguid = "";
 
@@ -17,6 +17,11 @@ namespace ShoppingWeb.Ajax
         /// 商品系統所要求的權限
         /// </summary>
         private const int PERMITTED_PRODUCT_ROLES = 3;
+
+        public ProductHandler()
+        { 
+        
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

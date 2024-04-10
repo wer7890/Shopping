@@ -10,16 +10,16 @@ using System.Security.Cryptography;
 
 namespace ShoppingWeb.Ajax
 {
-    public partial class UserHandler : System.Web.UI.Page
+    public partial class UserHandler : BasePage
     {
         /// <summary>
         /// 帳號系統所要求的權限
         /// </summary>
         private const int PERMITTED_USER_ROLES = 1;
 
-        protected void Page_Load(object sender, EventArgs e)
+        public UserHandler() 
         {
-
+            
         }
 
         /// <summary>

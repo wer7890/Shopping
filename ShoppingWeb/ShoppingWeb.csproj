@@ -96,6 +96,9 @@
     <Content Include="Web\UserManagement.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Ajax\MemberHandler.aspx.cs">
       <DependentUpon>MemberHandler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
