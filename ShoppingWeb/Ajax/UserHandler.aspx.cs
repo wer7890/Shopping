@@ -19,7 +19,7 @@ namespace ShoppingWeb.Ajax
 
         public UserHandler() 
         {
-            
+            //判斷權限是否可使用該功能
         }
 
         /// <summary>

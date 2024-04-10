@@ -13,9 +13,9 @@ namespace ShoppingWeb.Ajax
 
         public MemberHandler() 
         {
-
+            //判斷權限是否可使用該功能
         }
-      
+
 
         /// <summary>
         /// 一開始顯示所有會員資訊

@@ -9,7 +9,9 @@ namespace ShoppingWeb.Ajax
     {
         public BasePage() 
         {
-            
+            //判斷是否重複登入
         }
+
+        //可把原本寫在Uyility的共用方法寫在這
     }
 }

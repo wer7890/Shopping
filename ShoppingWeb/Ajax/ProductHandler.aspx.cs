@@ -19,8 +19,8 @@ namespace ShoppingWeb.Ajax
         private const int PERMITTED_PRODUCT_ROLES = 3;
 
         public ProductHandler()
-        { 
-        
+        {
+            //判斷權限是否可使用該功能
         }
 
         protected void Page_Load(object sender, EventArgs e)
