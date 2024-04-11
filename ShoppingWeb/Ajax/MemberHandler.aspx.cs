@@ -12,9 +12,14 @@ namespace ShoppingWeb.Ajax
     {
         private const int PERMITTED_USER_ROLES = 2;
 
+        private static string ROLES_VAILD = null;
+
         public MemberHandler()
         {
-            
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                ROLES_VAILD = "權限不足";
+            }
         }
 
 
@@ -25,8 +30,7 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetAllMemberData()
         {
-
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            if (!string.IsNullOrEmpty(ROLES_VAILD))
             {
                 return "權限不足";
             }
