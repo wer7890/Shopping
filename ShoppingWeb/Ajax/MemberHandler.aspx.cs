@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Services;
 
 namespace ShoppingWeb.Ajax
@@ -13,8 +14,7 @@ namespace ShoppingWeb.Ajax
 
         public MemberHandler()
         {
-            //判斷權限是否可使用該功能
-
+            
         }
 
 
@@ -26,12 +26,10 @@ namespace ShoppingWeb.Ajax
         public static object GetAllMemberData()
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "重複登入";
+                return "權限不足";
             }
-
-           
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -59,11 +57,6 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string ToggleProductStatus(string memberId)
         {
-
-            if (!Utility.CheckDuplicateLogin())
-            {
-                return "重複登入";
-            }
 
             if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
@@ -105,12 +98,6 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string ToggleMemberLevel(string memberId, string level)
         {
-
-            if (!Utility.CheckDuplicateLogin())
-            {
-                return "重複登入";
-            }
-
             if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
@@ -150,11 +137,6 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string AddMember(string account, string pwd, string name, string birthday, string phone, string email, string address)
         {
-
-            if (!Utility.CheckDuplicateLogin())
-            {
-                return "重複登入";
-            }
 
             if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
             {

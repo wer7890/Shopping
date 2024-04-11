@@ -27,19 +27,22 @@ namespace ShoppingWeb.Ajax
         public BasePage() 
         {
             //判斷是否有登入
-            this.Load += new EventHandler(BasePage_Load);
-
+            this.Init += new EventHandler(BasePage_Init);  //EventHandler: 委派事件
         }
 
-        void BasePage_Load(object sender, EventArgs e)
+        public void BasePage_Init(object sender, EventArgs e)
         {
             if (Session["userId"] == null)
             {
                 Response.Write("<script>window.parent.location.href = 'Login.aspx';</script>");
             }
+
+            if (!CheckDuplicateLogin())
+            {
+                Response.Write("<script>alert('重複登入，已被登出');window.parent.location.href = 'Login.aspx';</script>");
+            }
         }
 
-        
 
         /// <summary>
         /// 確認是否有重複登入
