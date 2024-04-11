@@ -1,16 +1,12 @@
 ﻿using System;
+using ShoppingWeb.Ajax;
 
 namespace ShoppingWeb.Web
 {
-    public partial class ProductManagement : System.Web.UI.Page
+    public partial class ProductManagement : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (Session["userId"] == null)
-            {
-                Response.Write("<script>window.parent.location.href = 'Login.aspx';</script>");
-            }
 
         }
     }

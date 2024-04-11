@@ -11,9 +11,10 @@ namespace ShoppingWeb.Ajax
     {
         private const int PERMITTED_USER_ROLES = 2;
 
-        public MemberHandler() 
+        public MemberHandler()
         {
             //判斷權限是否可使用該功能
+
         }
 
 
@@ -30,10 +31,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
-            {
-                return "權限不足";
-            }
+           
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))

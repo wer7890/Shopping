@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Services;
 
@@ -10,12 +12,34 @@ namespace ShoppingWeb.Ajax
 {
     public class BasePage : System.Web.UI.Page
     {
+        private static UserInfo userInfo;
+
+        /// <summary>
+        /// 取得使用者資訊物件
+        /// </summary>
+        public static UserInfo UserInfo
+        { 
+            set { userInfo = value; } 
+            get { return userInfo; } 
+        }
+        
+
         public BasePage() 
         {
-            //判斷是否重複登入
+            //判斷是否有登入
+            this.Load += new EventHandler(BasePage_Load);
+
         }
 
-        //可把原本寫在Uyility的共用方法寫在這
+        void BasePage_Load(object sender, EventArgs e)
+        {
+            if (Session["userId"] == null)
+            {
+                Response.Write("<script>window.parent.location.href = 'Login.aspx';</script>");
+            }
+        }
+
+        
 
         /// <summary>
         /// 確認是否有重複登入
@@ -34,7 +58,7 @@ namespace ShoppingWeb.Ajax
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
+                        cmd.Parameters.Add(new SqlParameter("@userId", userInfo.UID));
 
                         object dbResult = cmd.ExecuteScalar();
 
@@ -98,7 +122,24 @@ namespace ShoppingWeb.Ajax
         /// <returns></returns>
         public static bool CheckRoles(int roles)
         {
-            return ((int)HttpContext.Current.Session["roles"] == 1 || (int)HttpContext.Current.Session["roles"] == roles);
+            return (userInfo.Roles == 1 || userInfo.Roles == roles);
+        }
+
+        /// <summary>
+        /// SHA256加密
+        /// </summary>
+        /// <param name="strData"></param>
+        /// <returns></returns>
+        public static string GetSHA256HashFromString(string strData)
+        {
+            byte[] bytValue = Encoding.UTF8.GetBytes(strData);
+            byte[] retVal = SHA256.Create().ComputeHash(bytValue);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < retVal.Length; i++)
+            {
+                sb.Append(retVal[i].ToString("x2"));
+            }
+            return sb.ToString();
         }
 
     }

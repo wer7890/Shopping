@@ -21,6 +21,10 @@ namespace ShoppingWeb.Ajax
         public ProductHandler()
         {
             //判斷權限是否可使用該功能
+            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
+            {
+
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)

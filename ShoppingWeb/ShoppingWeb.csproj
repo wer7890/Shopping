@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ajax\LoginHandler.aspx" />
     <Content Include="Ajax\MemberHandler.aspx" />
     <Content Include="Ajax\OrderHandler.aspx" />
     <Content Include="Ajax\ProductHandler.aspx" />
@@ -96,6 +97,14 @@
     <Content Include="Web\UserManagement.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ajax\LoginHandler.aspx.cs">
+      <DependentUpon>LoginHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajax\LoginHandler.aspx.designer.cs">
+      <DependentUpon>LoginHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\UserInfo.cs" />
     <Compile Include="App_Data\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
