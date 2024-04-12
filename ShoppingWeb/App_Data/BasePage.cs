@@ -26,8 +26,7 @@ namespace ShoppingWeb.Ajax
 
         public BasePage() 
         {
-            
-            this.Init += new EventHandler(BasePage_Init);  //EventHandler: 委派事件
+            this.Init += new EventHandler(BasePage_Init);  //EventHandler: 委派事件  Init:頁面初始化階段
         }
 
         /// <summary>

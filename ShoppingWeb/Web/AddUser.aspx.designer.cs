@@ -11,7 +11,7 @@ namespace ShoppingWeb.Web
 {
 
 
-    public partial class AddUser1
+    public partial class AddUser
     {
     }
 }
