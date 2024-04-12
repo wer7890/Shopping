@@ -21,20 +21,17 @@ namespace ShoppingWeb.Ajax
         public ProductHandler()
         {
             //判斷權限是否可使用該功能
-            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
-            {
-
-            }
+            
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 Response.Write("重複登入");
             }
-            else if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
+            else if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 Response.Write("權限不足");
             }
@@ -100,12 +97,12 @@ namespace ShoppingWeb.Ajax
         public static object GetAllProductData(int pageNumber, int pageSize)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
+            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }
@@ -131,7 +128,7 @@ namespace ShoppingWeb.Ajax
 
                     var result = new
                     {
-                        Data = Utility.ConvertDataTableToJson(dt),
+                        Data = ConvertDataTableToJson(dt),
                         TotalPages = totalPages
                     };
 
@@ -151,12 +148,12 @@ namespace ShoppingWeb.Ajax
         public static object GetProductData(string productCategory, string productName, bool checkAllMinorCategories, bool checkAllBrand, int pageNumber, int pageSize)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
+            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }
@@ -188,7 +185,7 @@ namespace ShoppingWeb.Ajax
                     {
                         var result = new
                         {
-                            Data = Utility.ConvertDataTableToJson(dt),
+                            Data = ConvertDataTableToJson(dt),
                             TotalPages = totalPages
                         };
                         return result;
@@ -211,12 +208,12 @@ namespace ShoppingWeb.Ajax
         public static string RemoveProduct(string productId)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
+            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }
@@ -273,12 +270,12 @@ namespace ShoppingWeb.Ajax
         public static string ToggleProductStatus(string productId)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
+            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }
@@ -479,12 +476,12 @@ namespace ShoppingWeb.Ajax
         public static string EditProduct(int productPrice, int productStock, string productIntroduce, string productCheckStock)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_PRODUCT_ROLES))
+            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
                 return "權限不足";
             }

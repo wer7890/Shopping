@@ -36,11 +36,6 @@ namespace ShoppingWeb.Ajax
             {
                 Response.Write("<script>window.parent.location.href = 'Login.aspx';</script>");
             }
-
-            if (!CheckDuplicateLogin())
-            {
-                Response.Write("<script>alert('重複登入，已被登出');window.parent.location.href = 'Login.aspx';</script>");
-            }
         }
 
 

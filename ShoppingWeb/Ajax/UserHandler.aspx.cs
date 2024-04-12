@@ -59,10 +59,12 @@ namespace ShoppingWeb.Ajax
 
                         if (result != null && result.ToString() == "1")
                         {
-                            UserInfo user = new UserInfo();
-                            user.UID = (int)cmd.Parameters["@userId"].Value;
-                            user.Roles = (int)cmd.Parameters["@roles"].Value;
-                            user.SessionID = HttpContext.Current.Session.SessionID.ToString();
+                            UserInfo user = new UserInfo
+                            {
+                                UID = (int)cmd.Parameters["@userId"].Value,
+                                Roles = (int)cmd.Parameters["@roles"].Value,
+                                SessionID = HttpContext.Current.Session.SessionID.ToString()
+                            };
                             UserInfo = user;
                             HttpContext.Current.Session["userId"] = cmd.Parameters["@userId"].Value.ToString();
                             HttpContext.Current.Session["roles"] = cmd.Parameters["@roles"].Value;
@@ -161,12 +163,12 @@ namespace ShoppingWeb.Ajax
         public static string RemoveUserInfo(string userId)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }
@@ -219,12 +221,12 @@ namespace ShoppingWeb.Ajax
         public static object GetAllUserData(int pageNumber, int pageSize)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }
@@ -250,7 +252,7 @@ namespace ShoppingWeb.Ajax
 
                     var result = new
                     {
-                        Data = Utility.ConvertDataTableToJson(dt),
+                        Data = ConvertDataTableToJson(dt),
                         TotalPages = totalPages
                     };
 
@@ -269,12 +271,12 @@ namespace ShoppingWeb.Ajax
         public static string ToggleUserRoles(string userId, string roles)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }
@@ -320,12 +322,12 @@ namespace ShoppingWeb.Ajax
         public static string RegisterNewUser(string account, string pwd, string roles)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }
@@ -436,12 +438,12 @@ namespace ShoppingWeb.Ajax
         public static string EditUser(string pwd)
         {
 
-            if (!Utility.CheckDuplicateLogin())
+            if (!CheckDuplicateLogin())
             {
                 return "重複登入";
             }
 
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles(PERMITTED_USER_ROLES))
             {
                 return "權限不足";
             }

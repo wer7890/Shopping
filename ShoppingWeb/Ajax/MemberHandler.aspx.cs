@@ -27,9 +27,14 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetAllMemberData()
         {
-            if (!string.IsNullOrEmpty(ROLES_VAILD))
+            if (!CheckDuplicateLogin())
             {
-                return ROLES_VAILD;
+                return "重複登入";
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return "權限不足";
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -44,7 +49,7 @@ namespace ShoppingWeb.Ajax
                     dt.Load(reader);
 
                     // 將資料轉換為 JSON 格式返回
-                    return Utility.ConvertDataTableToJson(dt);
+                    return ConvertDataTableToJson(dt);
                 }
             }
 
@@ -59,9 +64,14 @@ namespace ShoppingWeb.Ajax
         public static string ToggleProductStatus(string memberId)
         {
 
-            if (!string.IsNullOrEmpty(ROLES_VAILD))
+            if (!CheckDuplicateLogin())
             {
-                return ROLES_VAILD;
+                return "重複登入";
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return "權限不足";
             }
 
             try
@@ -100,9 +110,15 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string ToggleMemberLevel(string memberId, string level)
         {
-            if (!string.IsNullOrEmpty(ROLES_VAILD))
+
+            if (!CheckDuplicateLogin())
             {
-                return ROLES_VAILD;
+                return "重複登入";
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return "權限不足";
             }
 
             try
@@ -141,9 +157,14 @@ namespace ShoppingWeb.Ajax
         public static string AddMember(string account, string pwd, string name, string birthday, string phone, string email, string address)
         {
 
-            if (!string.IsNullOrEmpty(ROLES_VAILD))
+            if (!CheckDuplicateLogin())
             {
-                return ROLES_VAILD;
+                return "重複登入";
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return "權限不足";
             }
 
             if (!AddMemberSpecialChar(account, pwd, name, birthday, phone, email, address))
