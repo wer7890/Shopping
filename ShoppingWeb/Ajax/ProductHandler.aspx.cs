@@ -37,7 +37,7 @@ namespace ShoppingWeb.Ajax
             }
             else
             {
-                //檢查ProductImg是否存在，如果不存在就建立資料夾
+                //檢查ProductImg資料夾是否存在，如果不存在就建立資料夾
                 string checkTargetFolderPath = Server.MapPath("~/ProductImg/");
                 if (!Directory.Exists(checkTargetFolderPath))
                 {

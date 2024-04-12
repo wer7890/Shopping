@@ -15,10 +15,19 @@ namespace ShoppingWeb.Ajax
             // 設定日誌文件路徑
             logFilePath = HttpContext.Current.Server.MapPath("~/Logs/log.txt");
 
-            // 檢查文件是否存在，如果不存在則創建該文件
+            // 取得日誌文件所在的資料夾路徑
+            string logDirectory = Path.GetDirectoryName(logFilePath);
+
+            // 檢查資料夾是否存在，如果不存在則創建該資料夾和文件
+            if (!Directory.Exists(logDirectory))
+            {
+                Directory.CreateDirectory(logDirectory);
+                File.Create(logFilePath).Close();
+            }
+
+            // 檢查txt文件是否存在，如果不存在則創建該文件
             if (!File.Exists(logFilePath))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(logFilePath));
                 File.Create(logFilePath).Close();
             }
         }
