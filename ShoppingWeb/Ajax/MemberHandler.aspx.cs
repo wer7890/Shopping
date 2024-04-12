@@ -16,10 +16,7 @@ namespace ShoppingWeb.Ajax
 
         public MemberHandler()
         {
-            if (!CheckRoles(PERMITTED_USER_ROLES))
-            {
-                ROLES_VAILD = "權限不足";
-            }
+            ROLES_VAILD = CheckRoles(PERMITTED_USER_ROLES) ? null : "權限不足";
         }
 
 
@@ -32,7 +29,7 @@ namespace ShoppingWeb.Ajax
         {
             if (!string.IsNullOrEmpty(ROLES_VAILD))
             {
-                return "權限不足";
+                return ROLES_VAILD;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -62,9 +59,9 @@ namespace ShoppingWeb.Ajax
         public static string ToggleProductStatus(string memberId)
         {
 
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            if (!string.IsNullOrEmpty(ROLES_VAILD))
             {
-                return "權限不足";
+                return ROLES_VAILD;
             }
 
             try
@@ -88,6 +85,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
+                Logger logger = new Logger();
+                logger.LogException(ex);
                 System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
                 return "錯誤";
             }
@@ -102,9 +101,9 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static string ToggleMemberLevel(string memberId, string level)
         {
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            if (!string.IsNullOrEmpty(ROLES_VAILD))
             {
-                return "權限不足";
+                return ROLES_VAILD;
             }
 
             try
@@ -142,9 +141,9 @@ namespace ShoppingWeb.Ajax
         public static string AddMember(string account, string pwd, string name, string birthday, string phone, string email, string address)
         {
 
-            if (!Utility.CheckRoles(PERMITTED_USER_ROLES))
+            if (!string.IsNullOrEmpty(ROLES_VAILD))
             {
-                return "權限不足";
+                return ROLES_VAILD;
             }
 
             if (!AddMemberSpecialChar(account, pwd, name, birthday, phone, email, address))
