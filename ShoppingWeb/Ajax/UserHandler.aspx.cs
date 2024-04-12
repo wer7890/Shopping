@@ -75,7 +75,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                Logger logger = new Logger();
+                logger.LogException(ex);
                 return "登入失敗";
             }
         }
@@ -131,7 +132,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                Logger logger = new Logger();
+                logger.LogException(ex);
                 return "發生內部錯誤: " + ex.Message;
             }
 
@@ -189,7 +191,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                Logger logger = new Logger();
+                logger.LogException(ex);
                 return "錯誤";
             }
         }
@@ -298,7 +301,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                Logger logger = new Logger();
+                logger.LogException(ex);
                 return "錯誤";
             }
         }
@@ -352,7 +356,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                Logger logger = new Logger();
+                logger.LogException(ex);
                 return "發生內部錯誤: " + ex.Message;
             }
         }
@@ -415,7 +420,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                Logger logger = new Logger();
+                logger.LogException(ex);
                 return ex;
             }
 
@@ -467,7 +473,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                Logger logger = new Logger();
+                logger.LogException(ex);
                 return "錯誤";
             }
         }
