@@ -23,7 +23,7 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 登入，如果成功就把sessionId寫入資料庫，並且把userId存到Session["userId"]
+        /// 登入，如果成功就把sessionId寫入資料庫，並且創建userInfo物件把userId和roles存到userInfo物件中，再存到Session["userInfo"]
         /// </summary>
         /// <param name="account"></param>
         /// <param name="pwd"></param>
