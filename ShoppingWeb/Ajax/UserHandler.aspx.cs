@@ -62,12 +62,10 @@ namespace ShoppingWeb.Ajax
                             UserInfo user = new UserInfo
                             {
                                 UID = (int)cmd.Parameters["@userId"].Value,
-                                Roles = (int)cmd.Parameters["@roles"].Value,
-                                SessionID = HttpContext.Current.Session.SessionID.ToString()
+                                Roles = (int)cmd.Parameters["@roles"].Value
                             };
                             UserInfo = user;
-                            HttpContext.Current.Session["userId"] = cmd.Parameters["@userId"].Value.ToString();
-                            HttpContext.Current.Session["roles"] = cmd.Parameters["@roles"].Value;
+                            HttpContext.Current.Session["userInfo"] = user;
                             return "登入成功";
                         }
 
@@ -115,7 +113,7 @@ namespace ShoppingWeb.Ajax
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", HttpContext.Current.Session["userId"]));
+                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UID));
                         SqlDataAdapter da = new SqlDataAdapter();
                         DataTable dt = new DataTable();
                         da.SelectCommand = cmd;
@@ -148,7 +146,7 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static bool DeleteSession()
         {
-            HttpContext.Current.Session["userId"] = null;
+            HttpContext.Current.Session["userInfo"] = null;
             return true;
         }
 

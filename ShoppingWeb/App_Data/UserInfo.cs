@@ -13,7 +13,6 @@ namespace ShoppingWeb.Ajax
 
         private int iUid;           //使用者代號
         private int iRoles;         //使用者身分
-        private string sSessionID;  //使用者登入的SessionID
 
         #endregion
 
@@ -28,11 +27,6 @@ namespace ShoppingWeb.Ajax
         /// 取得或設定使用者身分
         /// </summary>
         public int Roles { set { this.iRoles = value; } get { return this.iRoles; } }
-
-        /// <summary>
-        /// 取得或設定SessionID
-        /// </summary>
-        public string SessionID { set { this.sSessionID = value; } get { return this.sSessionID; } }
 
         #endregion
     }

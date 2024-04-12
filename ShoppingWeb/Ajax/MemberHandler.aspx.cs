@@ -12,11 +12,9 @@ namespace ShoppingWeb.Ajax
     {
         private const int PERMITTED_USER_ROLES = 2;
 
-        private static string ROLES_VAILD = null;
-
         public MemberHandler()
         {
-            ROLES_VAILD = CheckRoles(PERMITTED_USER_ROLES) ? null : "權限不足";
+
         }
 
 

@@ -26,21 +26,25 @@ namespace ShoppingWeb.Ajax
 
         public BasePage() 
         {
-            //判斷是否有登入
+            
             this.Init += new EventHandler(BasePage_Init);  //EventHandler: 委派事件
         }
 
+        /// <summary>
+        /// 未登入時，不可進入其他頁面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BasePage_Init(object sender, EventArgs e)
         {
-            if (Session["userId"] == null)
+            if (Session["userInfo"] == null)
             {
                 Response.Write("<script>window.parent.location.href = 'Login.aspx';</script>");
             }
         }
 
-
         /// <summary>
-        /// 確認是否有重複登入
+        /// 判斷同一隻帳號是否有重複登入
         /// </summary>
         /// <returns></returns>
         [WebMethod]
@@ -62,19 +66,17 @@ namespace ShoppingWeb.Ajax
 
                         if (dbResult != null)
                         {
-                            HttpContext.Current.Session["dbID"] = dbResult.ToString();
-
                             string currentSessionID = HttpContext.Current.Session.SessionID;
-                            string dbSessionID = HttpContext.Current.Session["dbID"].ToString();
 
-                            if (dbSessionID == currentSessionID)
+                            if (dbResult.ToString() == currentSessionID)
                             {
                                 result = true;
                             }
                             else
                             {
-                                HttpContext.Current.Session["userId"] = null;
+                                HttpContext.Current.Session["userInfo"] = null;
                             }
+
                         }
 
                         return result;
