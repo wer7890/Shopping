@@ -38,11 +38,12 @@
             <table id="myTable" class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>編號</th>
-                        <th>會員ID</th>
-                        <th>建立時間</th>
-                        <th>到貨日期</th>
-                        <th>狀態</th>
+                        <th>訂單編號</th>
+                        <th>訂購人</th>
+                        <th>訂單時間</th>
+                        <th>訂單狀態</th>
+                        <th>付款狀態</th>
+                        <th>配送狀態</th>
                         <th>配送方式</th>
                         <th>總金額</th>
                     </tr>

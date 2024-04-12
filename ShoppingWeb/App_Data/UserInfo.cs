@@ -7,7 +7,6 @@ namespace ShoppingWeb.Ajax
 {
     public class UserInfo
     {
-        public UserInfo() { }
 
         #region 全域變數
 
