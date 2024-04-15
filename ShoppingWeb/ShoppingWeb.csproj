@@ -81,6 +81,7 @@
     <Content Include="js\EditUser.js" />
     <Content Include="js\MemberManagement.js" />
     <Content Include="js\OrderManagement.js" />
+    <Content Include="js\ProductCategories.js" />
     <Content Include="js\ProductManagement.js" />
     <Content Include="js\UserManagement.js" />
     <Content Include="Web.config" />

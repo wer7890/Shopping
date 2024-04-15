@@ -34,59 +34,6 @@ let deliveryMethod = {
     "3": "宅配"
 };
 
-// 大分類
-let majorCategories = {
-    "10": "帽子",
-    "11": "上衣",
-    "12": "外套",
-    "13": "褲子"
-};
-
-// 小分類
-let minorCategories = {
-    "0": {
-        "0": "請先選擇類型"
-    },
-    "10": {
-        "00": "全部",
-        "01": "其他",
-        "02": "棒球帽",
-        "03": "漁夫帽",
-        "04": "遮陽帽"
-    },
-    "11": {
-        "00": "全部",
-        "01": "其他",
-        "02": "襯衫",
-        "03": "毛衣",
-        "04": "帽T"
-    },
-    "12": {
-        "00": "全部",
-        "01": "其他",
-        "02": "皮外套",
-        "03": "風衣",
-        "04": "牛仔外套"
-    },
-    "13": {
-        "00": "全部",
-        "01": "其他",
-        "02": "運動褲",
-        "03": "休閒褲",
-        "04": "西褲"
-    }
-};
-
-// 品牌分類
-let brand = {
-    "00": "全部",
-    "01": "其他",
-    "02": "NIKE",
-    "03": "FILA",
-    "04": "ADIDAS",
-    "05": "PUMA"
-}
-
 
 $(document).ready(function () {
     window.parent.getUserPermission();
@@ -202,13 +149,3 @@ function showOrderDetail(element, orderId) {
 
 }
 
-
-//把類型代號轉成文字
-function CategoryCodeToText(category) {
-    let dbMajorCategories = category.substring(0, 2);
-    let dbMinorCategories = category.substring(2, 4);
-    let dbBrand = category.substring(4, 6);
-
-    let result = majorCategories[dbMajorCategories] + "-" + minorCategories[dbMajorCategories][dbMinorCategories] + "-" + brand[dbBrand];
-    return result;
-}

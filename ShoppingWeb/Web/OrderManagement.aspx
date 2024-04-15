@@ -8,6 +8,7 @@
     <title>查詢訂單</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="../js/ProductCategories.js"></script>
     <script src="../js/OrderManagement.js"></script>
 </head>
 <body>
