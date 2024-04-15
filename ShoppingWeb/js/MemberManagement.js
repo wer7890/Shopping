@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    window.parent.getUserPermission();
     SearchAllMember();
 
     //按下新增會員按鈕

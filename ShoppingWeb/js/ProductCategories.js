@@ -96,7 +96,6 @@ function ProductDataReady() {
     $("#divBrand").append('<label for="brandCategory" class="form-label">品牌</label>').append(brandSelect);
 }
 
-
 //把類型代號轉成文字
 function CategoryCodeToText(category) {
     let dbMajorCategories = category.substring(0, 2);

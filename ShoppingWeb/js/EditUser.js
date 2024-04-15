@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    window.parent.getUserPermission();
 
     //一開始input預設值
     $.ajax({

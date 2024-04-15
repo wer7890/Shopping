@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
-    window.parent.getUserPermission();
 
-    var dbStock = null;
+    let dbStock = null;
     //一開始input預設值
     $.ajax({
         type: "POST",

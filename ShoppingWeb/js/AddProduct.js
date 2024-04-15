@@ -47,7 +47,6 @@ brand = {
 }
 
 $(document).ready(function () {
-    window.parent.getUserPermission();
     ProductDataReady();
     
     //按下新增按鈕

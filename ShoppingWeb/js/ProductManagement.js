@@ -11,7 +11,6 @@ $(document).ready(function () {
     let pageSize = 5; // 每頁顯示的資料筆數
 
     // 初始化
-    window.parent.getUserPermission();
     ProductDataReady();
     SearchAllProduct(currentPage, pageSize);
 

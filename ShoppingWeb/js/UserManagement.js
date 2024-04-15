@@ -2,7 +2,6 @@
     let currentPage = 1; // 初始頁碼為 1
     let pageSize = 5; // 每頁顯示的資料筆數
 
-    window.parent.getUserPermission();
     SearchAllUserInfo(currentPage, pageSize);
 
     //上一頁
