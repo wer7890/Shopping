@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace ShoppingWeb.Ajax
 {
@@ -53,6 +47,7 @@ namespace ShoppingWeb.Ajax
         /// <summary>
         /// 顯示訂單詳細資訊
         /// </summary>
+        /// <param name="orderId"></param>
         /// <returns></returns>
         [WebMethod]
         public static object GetOrderDetailsData(int orderId)

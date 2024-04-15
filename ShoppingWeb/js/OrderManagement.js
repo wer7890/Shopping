@@ -108,9 +108,9 @@ function showOrderDetail(element, orderId) {
                 parent.location.reload();
             } else {
                 let data = JSON.parse(response.d);
-                let index2 = $(element).index() / 2;
-                let detailElement = $('#orderDetail_' + index2);
-                let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered">' +
+                let trIndex = $(element).index() / 2;
+                let detailElement = $('#orderDetail_' + trIndex);
+                let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered mt-2">' +
                     '<thead>' +
                     '<tr>' +
                     '<th>訂單ID</th>' +
@@ -145,6 +145,5 @@ function showOrderDetail(element, orderId) {
             console.error('Error:', error);
         }
     });
-
 }
 

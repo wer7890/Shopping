@@ -40,7 +40,7 @@
                 <thead>
                     <tr>
                         <th>訂單編號</th>
-                        <th>訂購人</th>
+                        <th>訂購者ID</th>
                         <th>訂單時間</th>
                         <th>訂單狀態</th>
                         <th>付款狀態</th>
