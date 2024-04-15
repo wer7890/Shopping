@@ -13,14 +13,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-10 d-flex justify-content-center">
-                <h2 class="text-center">訂單</h2>
-            </div>
-            <div class="col-2 d-flex justify-content-center">
-                <button id="btnAddUser" type="submit" class="btn btn-outline-primary">新增訂單</button>
-            </div>
-        </div>
+        <h2 class="text-center">訂單</h2>
         <br />
         <div class="row">
             <div class="btn-group me-2" role="group" aria-label="First group">
