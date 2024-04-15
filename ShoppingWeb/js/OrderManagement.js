@@ -62,7 +62,7 @@ function SearchAllOrder() {
                 tableBody.empty();
 
                 $.each(data, function (index, item) {
-                    let row = '<tr>' +
+                    let row2 = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_memberId + '</td>' +
                         '<td>' + item.f_createdTime + '</td>' +
@@ -78,6 +78,23 @@ function SearchAllOrder() {
                         '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
                         '<td>' + item.f_total + '</td>' +
                         '</tr>';
+
+                    let row = '<tr data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '">' +
+                        '<td>' + item.f_id + '</td>' +
+                        '<td>' + item.f_memberId + '</td>' +
+                        '<td>' + item.f_createdTime + '</td>' +
+                        '<td>' +
+                        '<span class="px-2 rounded ' + orderStatus[item.f_orderStatus].color + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
+                        '</td>' +
+                        '<td>' + paymentStatus[item.f_paymentStatus] + '</td>' +
+                        '<td>' + deliveryStatus[item.f_deliveryStatus] + '</td>' +
+                        '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
+                        '<td>' + item.f_total + '</td>' +
+                        '</tr>' +
+                        '<tr id="collapse_' + index + '" class="collapse">' +
+                        '<td colspan="8">細項內容</td>' +
+                        '</tr>';
+
 
                     tableBody.append(row);
                 });
