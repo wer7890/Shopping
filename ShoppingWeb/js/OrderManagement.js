@@ -34,11 +34,63 @@ let deliveryMethod = {
     "3": "宅配"
 };
 
+// 大分類
+let majorCategories = {
+    "10": "帽子",
+    "11": "上衣",
+    "12": "外套",
+    "13": "褲子"
+};
+
+// 小分類
+let minorCategories = {
+    "0": {
+        "0": "請先選擇類型"
+    },
+    "10": {
+        "00": "全部",
+        "01": "其他",
+        "02": "棒球帽",
+        "03": "漁夫帽",
+        "04": "遮陽帽"
+    },
+    "11": {
+        "00": "全部",
+        "01": "其他",
+        "02": "襯衫",
+        "03": "毛衣",
+        "04": "帽T"
+    },
+    "12": {
+        "00": "全部",
+        "01": "其他",
+        "02": "皮外套",
+        "03": "風衣",
+        "04": "牛仔外套"
+    },
+    "13": {
+        "00": "全部",
+        "01": "其他",
+        "02": "運動褲",
+        "03": "休閒褲",
+        "04": "西褲"
+    }
+};
+
+// 品牌分類
+let brand = {
+    "00": "全部",
+    "01": "其他",
+    "02": "NIKE",
+    "03": "FILA",
+    "04": "ADIDAS",
+    "05": "PUMA"
+}
+
 
 $(document).ready(function () {
     window.parent.getUserPermission();
     SearchAllOrder();
-
 
 });
 
@@ -62,7 +114,7 @@ function SearchAllOrder() {
                 tableBody.empty();
 
                 $.each(data, function (index, item) {
-                    let row2 = '<tr>' +
+                    let row = '<tr data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="showOrderDetail(this, \'' + item.f_id + '\')">' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_memberId + '</td>' +
                         '<td>' + item.f_createdTime + '</td>' +
@@ -76,25 +128,11 @@ function SearchAllOrder() {
                         '<span class="px-2 rounded ' + deliveryStatus[item.f_deliveryStatus].color + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
                         '</td>' +
                         '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
-                        '<td>' + item.f_total + '</td>' +
-                        '</tr>';
-
-                    let row = '<tr data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '">' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_memberId + '</td>' +
-                        '<td>' + item.f_createdTime + '</td>' +
-                        '<td>' +
-                        '<span class="px-2 rounded ' + orderStatus[item.f_orderStatus].color + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
-                        '</td>' +
-                        '<td>' + paymentStatus[item.f_paymentStatus] + '</td>' +
-                        '<td>' + deliveryStatus[item.f_deliveryStatus] + '</td>' +
-                        '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
-                        '<td>' + item.f_total + '</td>' +
+                        '<td>NT$' + item.f_total + '</td>' +
                         '</tr>' +
                         '<tr id="collapse_' + index + '" class="collapse">' +
-                        '<td colspan="8">細項內容</td>' +
+                        '<td colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
                         '</tr>';
-
 
                     tableBody.append(row);
                 });
@@ -105,4 +143,72 @@ function SearchAllOrder() {
             console.error('Error:', error);
         }
     });
+}
+
+// 顯示訂單詳細內容
+function showOrderDetail(element, orderId) {
+    $.ajax({
+        url: '/Ajax/OrderHandler.aspx/GetOrderDetailsData',
+        data: JSON.stringify({ orderId: orderId }),
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d == "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
+            } else {
+                let data = JSON.parse(response.d);
+                let index2 = $(element).index() / 2;
+                let detailElement = $('#orderDetail_' + index2);
+                let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered">' +
+                    '<thead>' +
+                    '<tr>' +
+                    '<th>訂單ID</th>' +
+                    '<th>商品ID</th>' +
+                    '<th>商品名稱</th>' +
+                    '<th>商品價格</th>' +
+                    '<th>商品類型</th>' +
+                    '<th>數量</th>' +
+                    '<th>小記</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody id="orderDetailTableBody">';
+
+                $.each(data, function (index, item) { 
+                    detailHtml += '<tr>' +
+                        '<td>' + item.f_id + '</td>' +
+                        '<td>' + item.f_productId + '</td>' +
+                        '<td>' + item.f_productName + '</td>' +
+                        '<td>' + item.f_productPrice + '</td>' +
+                        '<td>' + CategoryCodeToText(item.f_productCategory.toString()) + '</td>' +
+                        '<td>' + item.f_quantity + '</td>' +
+                        '<td>' + item.f_subtotal + '</td>' +
+                        '</tr>';
+                });
+                detailHtml += '</tbody></table>';
+
+                detailElement.html(detailHtml);
+            }
+
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+
+}
+
+
+//把類型代號轉成文字
+function CategoryCodeToText(category) {
+    let dbMajorCategories = category.substring(0, 2);
+    let dbMinorCategories = category.substring(2, 4);
+    let dbBrand = category.substring(4, 6);
+
+    let result = majorCategories[dbMajorCategories] + "-" + minorCategories[dbMajorCategories][dbMinorCategories] + "-" + brand[dbBrand];
+    return result;
 }
