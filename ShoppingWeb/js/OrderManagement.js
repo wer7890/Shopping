@@ -10,21 +10,19 @@ let orderStatus = {
 let paymentStatus = {
     "1": { name: "未付款", color: "bg-warning", text: "text-white" },
     "2": { name: "付款失敗", color: "bg-danger", text: "text-white" },
-    "3": { name: "超過時間", color: "bg-danger", text: "text-white" },
-    "4": { name: "已付款", color: "bg-success", text: "text-white" },
-    "5": { name: "退款中", color: "bg-warning", text: "text-white" },
-    "6": { name: "已退款", color: "bg-danger", text: "text-white" }
+    "3": { name: "已付款", color: "bg-success", text: "text-white" },
+    "4": { name: "退款中", color: "bg-warning", text: "text-white" },
+    "5": { name: "已退款", color: "bg-danger", text: "text-white" }
 };
 
 // 配送狀態
 let deliveryStatus = {
-    "1": { name: "備貨中", color: "bg-warning", text: "text-white" },
-    "2": { name: "發貨中", color: "bg-warning", text: "text-white" },
-    "3": { name: "已發貨", color: "bg-success", text: "text-white" },
-    "4": { name: "已到達", color: "bg-white", text: "text-dark" },
-    "5": { name: "已取貨", color: "bg-white", text: "text-dark" },
-    "6": { name: "已退回", color: "bg-danger", text: "text-white" },
-    "7": { name: "退回中", color: "bg-warning", text: "text-white" }
+    "1": { name: "發貨中", color: "bg-warning", text: "text-white" },
+    "2": { name: "已發貨", color: "bg-success", text: "text-white" },
+    "3": { name: "已到貨", color: "bg-white", text: "text-dark" },
+    "4": { name: "已取貨", color: "bg-white", text: "text-dark" },
+    "5": { name: "已退回", color: "bg-danger", text: "text-white" },
+    "6": { name: "退回中", color: "bg-warning", text: "text-white" }
 };
 
 // 配送方式
@@ -163,8 +161,6 @@ function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, del
                 let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered my-4">' +
                     '<thead>' +
                     '<tr>' +
-                    '<th>訂單ID</th>' +
-                    '<th>商品ID</th>' +
                     '<th>商品名稱</th>' +
                     '<th>商品價格</th>' +
                     '<th>商品類型</th>' +
@@ -176,8 +172,6 @@ function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, del
 
                 $.each(data, function (index, item) { 
                     detailHtml += '<tr>' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_productId + '</td>' +
                         '<td>' + item.f_productName + '</td>' +
                         '<td>' + item.f_productPrice + '</td>' +
                         '<td>' + CategoryCodeToText(item.f_productCategory.toString()) + '</td>' +
