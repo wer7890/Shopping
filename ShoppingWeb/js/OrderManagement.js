@@ -34,36 +34,18 @@ let deliveryMethod = {
     "3": "宅配"
 };
 
-let selectedOrderStatus;
-let selectedPaymentStatus;
-let selectedDeliveryStatus;
-let selectedDeliveryMethod;
+
 let selectedOrderId;
 
 $(document).ready(function () {
     SearchAllOrder();
 
     // 訂單狀態下拉選單
-    $('#tableBody').on('change', '#orderStatusSelect', function () {
-        selectedOrderStatus = $(this).val();
-        EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
-    });
-
-    // 付款狀態下拉選單變動
-    $('#tableBody').on('change', '#paymentStatusSelect', function () {
-        selectedPaymentStatus = $(this).val();
-        EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
-    });
-
-    // 配送狀態下拉選單
-    $('#tableBody').on('change', '#deliveryStatusSelect', function () {
-        selectedDeliveryStatus = $(this).val();
-        EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
-    });
-
-    // 配送方式下拉選單
-    $('#tableBody').on('change', '#deliveryMethodSelect', function () {
-        selectedDeliveryMethod = $(this).val();
+    $('#tableBody').on('click', '#btnEditOrder', function () {
+        let selectedOrderStatus = $("#orderStatusSelect").val();
+        let selectedPaymentStatus = $("#paymentStatusSelect").val();
+        let selectedDeliveryStatus = $("#deliveryStatusSelect").val();
+        let selectedDeliveryMethod = $("#deliveryMethodSelect").val();
         EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
     });
 
@@ -88,9 +70,9 @@ function SearchAllOrder() {
                 let tableBody = $('#tableBody');
 
                 tableBody.empty();
-
+                let row = "";
                 $.each(data, function (index, item) {
-                    let row = '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowOrderDetail(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
+                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowOrderDetail(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_memberId + '</td>' +
                         '<td>' + item.f_createdTime + '</td>' +
@@ -109,9 +91,9 @@ function SearchAllOrder() {
                         '<tr id="collapse_' + index + '" class="collapse">' +
                         '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
                         '</tr>';
-
-                    tableBody.append(row);
                 });
+
+                tableBody.append(row);
             }
 
         },
@@ -137,10 +119,6 @@ function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, del
                 alert("權限不足");
                 parent.location.reload();
             } else {
-                selectedOrderStatus = orderStatusNum;
-                selectedPaymentStatus = paymentStatusNum;
-                selectedDeliveryStatus = deliveryStatusNum;
-                selectedDeliveryMethod = deliveryMethodNum;
                 selectedOrderId = orderId;
 
                 let data = JSON.parse(response.d);
@@ -177,7 +155,7 @@ function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, del
                     selectHtml += (key == deliveryMethodNum) ? '<option value="' + key + '" selected>' + value + '</option>' : '<option value="' + key + '">' + value + '</option>';
                 });
                 selectHtml += '</select></div>';
-                selectHtml += '</div>';
+                selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary">查詢</button></div></select></div>';
 
                 detailElement.append(selectHtml);
 

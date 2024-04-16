@@ -8,7 +8,7 @@ namespace ShoppingWeb.Ajax
 {
     public partial class OrderHandler : BasePage
     {
-        private const int PERMITTED_USER_ROLES = 3;
+        private const int PERMITTED_Order_ROLES = 2;
 
         /// <summary>
         /// 一開始顯示所有訂單資訊
@@ -22,7 +22,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles(PERMITTED_Order_ROLES))
             {
                 return "權限不足";
             }
@@ -58,7 +58,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles(PERMITTED_Order_ROLES))
             {
                 return "權限不足";
             }
@@ -100,7 +100,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles(PERMITTED_Order_ROLES))
             {
                 return "權限不足";
             }
@@ -148,7 +148,7 @@ namespace ShoppingWeb.Ajax
                 return "重複登入";
             }
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles(PERMITTED_Order_ROLES))
             {
                 return "權限不足";
             }
