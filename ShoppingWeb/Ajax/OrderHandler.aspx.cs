@@ -135,5 +135,65 @@ namespace ShoppingWeb.Ajax
                 return "錯誤";
             }
         }
+
+        /// <summary>
+        /// 一開始顯示所有訂單資訊
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public static object GetDeliveryStatusCount()
+        {
+            if (!CheckDuplicateLogin())
+            {
+                return "重複登入";
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return "權限不足";
+            }
+
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getDeliveryStatusCount", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+
+                        using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            sqlData.Fill(dt);
+
+                            // 構建包含數據的匿名對象
+                            var orderObject = new
+                            {
+                                StatusAll = dt.Rows[0]["statusAll"],
+                                Status1 = dt.Rows[0]["status1"],
+                                Status2 = dt.Rows[0]["status2"],
+                                Status3 = dt.Rows[0]["status3"],
+                                Status4 = dt.Rows[0]["status4"],
+                                Status5 = dt.Rows[0]["status5"],
+                                Status6 = dt.Rows[0]["status6"],
+                                Status7 = dt.Rows[0]["status7"],
+                            };
+
+                            return orderObject;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger logger = new Logger();
+                logger.LogException(ex);
+                return ex;
+            }
+
+        }
     }
 }

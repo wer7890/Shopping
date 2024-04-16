@@ -129,3 +129,13 @@ StackTrace:    在 System.Data.SqlClient.SqlConnection.OnError(SqlException exce
    在 System.Data.SqlClient.SqlCommand.ExecuteScalar()
    在 ShoppingWeb.Ajax.MemberHandler.ToggleProductStatus(String memberId) 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\MemberHandler.aspx.cs:行号 87
 --------------------------------------------------
+[2024/4/16 下午 03:00:15] Exception: 列“all”不属于表 。
+StackTrace:    在 System.Data.DataRow.GetDataColumn(String columnName)
+   在 System.Data.DataRow.get_Item(String columnName)
+   在 ShoppingWeb.Ajax.OrderHandler.GetDeliveryStatusCount() 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\OrderHandler.aspx.cs:行号 173
+--------------------------------------------------
+[2024/4/16 下午 03:01:47] Exception: 列“all”不属于表 。
+StackTrace:    在 System.Data.DataRow.GetDataColumn(String columnName)
+   在 System.Data.DataRow.get_Item(String columnName)
+   在 ShoppingWeb.Ajax.OrderHandler.GetDeliveryStatusCount() 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\OrderHandler.aspx.cs:行号 173
+--------------------------------------------------

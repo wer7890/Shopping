@@ -83,6 +83,7 @@ function SearchAllOrder() {
                 alert("權限不足");
                 parent.location.reload();
             } else {
+                GetdeliveryStatusCount();
                 let data = JSON.parse(response.d);
                 let tableBody = $('#tableBody');
 
@@ -239,6 +240,29 @@ function EditOrderData(orderId, orderStatusNum, paymentStatusNum, deliveryStatus
             } else {
                 $("#labSearchOrder").text(response.d);
             }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+//上方按鈕顯示的數字
+function GetdeliveryStatusCount() {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/OrderHandler.aspx/GetDeliveryStatusCount",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $("#btnDeliveryStatus_0 > span").text(data.d.StatusAll);
+            $("#btnDeliveryStatus_1 > span").text(data.d.Status1);
+            $("#btnDeliveryStatus_2 > span").text(data.d.Status2);
+            $("#btnDeliveryStatus_3 > span").text(data.d.Status3);
+            $("#btnDeliveryStatus_4 > span").text(data.d.Status4);
+            $("#btnDeliveryStatus_5 > span").text(data.d.Status5);
+            $("#btnDeliveryStatus_6 > span").text(data.d.Status6);
+            $("#btnDeliveryStatus_7 > span").text(data.d.Status7);
         },
         error: function (error) {
             console.error('Error:', error);

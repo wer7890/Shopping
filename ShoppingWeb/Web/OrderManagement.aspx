@@ -17,14 +17,14 @@
         <br />
         <div class="row">
             <div class="btn-group me-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-outline-secondary">全部(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary">備貨中(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary">發貨中(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary">已發貨(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary">已到達(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary">已取貨(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary">已退回(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary">退回中(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_0">全部(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_1">備貨中(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_2">發貨中(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_3">已發貨(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_4">已到達(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_5">已取貨(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_6">已退回(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_7">退回中(<span>0</span>)</button>
             </div>
         </div>
         <br />
