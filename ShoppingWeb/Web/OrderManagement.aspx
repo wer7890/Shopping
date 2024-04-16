@@ -46,6 +46,7 @@
                     <!-- 內容 -->
                 </tbody>
             </table>
+            <span id="labSearchOrder" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
 
 

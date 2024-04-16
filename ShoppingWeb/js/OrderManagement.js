@@ -34,32 +34,37 @@ let deliveryMethod = {
     "3": "宅配"
 };
 
+let selectedOrderStatus;
+let selectedPaymentStatus;
+let selectedDeliveryStatus;
+let selectedDeliveryMethod;
+let selectedOrderId;
 
 $(document).ready(function () {
     SearchAllOrder();
 
     // 訂單狀態下拉選單
     $('#tableBody').on('change', '#orderStatusSelect', function () {
-        let selectedStatus = $(this).val();
-        console.log("訂單狀態變動為：" + selectedStatus);
+        selectedOrderStatus = $(this).val();
+        EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
     });
 
     // 付款狀態下拉選單變動
     $('#tableBody').on('change', '#paymentStatusSelect', function () {
-        let selectedStatus = $(this).val();
-        console.log("付款狀態變動為：" + selectedStatus);
+        selectedPaymentStatus = $(this).val();
+        EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
     });
 
     // 配送狀態下拉選單
     $('#tableBody').on('change', '#deliveryStatusSelect', function () {
-        let selectedStatus = $(this).val();
-        console.log("配送狀態變動為：" + selectedStatus);
+        selectedDeliveryStatus = $(this).val();
+        EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
     });
 
     // 配送方式下拉選單
     $('#tableBody').on('change', '#deliveryMethodSelect', function () {
-        let selectedMethod = $(this).val();
-        console.log("配送方式變動為：" + selectedMethod);
+        selectedDeliveryMethod = $(this).val();
+        EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
     });
 });
 
@@ -83,24 +88,24 @@ function SearchAllOrder() {
                 tableBody.empty();
 
                 $.each(data, function (index, item) {
-                    let row = '<tr data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowOrderDetail(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
+                    let row = '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowOrderDetail(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_memberId + '</td>' +
                         '<td>' + item.f_createdTime + '</td>' +
                         '<td>' +
-                        '<span class="px-2 rounded ' + orderStatus[item.f_orderStatus].color + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
+                        '<span class="px-2 py-1 rounded ' + orderStatus[item.f_orderStatus].color + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
                         '</td>' +
                         '<td>' +
-                        '<span class="px-2 rounded ' + paymentStatus[item.f_paymentStatus].color + '">' + paymentStatus[item.f_paymentStatus].name + '</span>' +
+                        '<span class="px-2 py-1 rounded ' + paymentStatus[item.f_paymentStatus].color + '">' + paymentStatus[item.f_paymentStatus].name + '</span>' +
                         '</td>' +
                         '<td>' +
-                        '<span class="px-2 rounded ' + deliveryStatus[item.f_deliveryStatus].color + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
+                        '<span class="px-2 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
                         '</td>' +
                         '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
                         '<td>NT$' + item.f_total + '</td>' +
                         '</tr>' +
                         '<tr id="collapse_' + index + '" class="collapse">' +
-                        '<td colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
+                        '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
                         '</tr>';
 
                     tableBody.append(row);
@@ -130,12 +135,19 @@ function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, del
                 alert("權限不足");
                 parent.location.reload();
             } else {
+                selectedOrderStatus = orderStatusNum;
+                selectedPaymentStatus = paymentStatusNum;
+                selectedDeliveryStatus = deliveryStatusNum;
+                selectedDeliveryMethod = deliveryMethodNum;
+                selectedOrderId = orderId;
+
                 let data = JSON.parse(response.d);
                 let trIndex = $(element).index() / 2;
                 let detailElement = $('#orderDetail_' + trIndex);
-                detailElement.empty();
+                
+                $(".collapse > td > div").empty();
 
-                let selectHtml = '<div class="row justify-content-center mt-2">';
+                let selectHtml = '<div class="row justify-content-center mt-3">';
                 // 訂單狀態
                 selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
                 $.each(orderStatus, function (key, value) {
@@ -168,7 +180,7 @@ function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, del
                 detailElement.append(selectHtml);
 
                 //明細
-                let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered mt-4">' +
+                let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered my-4">' +
                     '<thead>' +
                     '<tr>' +
                     '<th>訂單ID</th>' +
@@ -205,3 +217,30 @@ function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, del
     });
 }
 
+//更改訂單
+function EditOrderData(orderId, orderStatusNum, paymentStatusNum, deliveryStatusNum, deliveryMethodNum) {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/OrderHandler.aspx/EditOrder",
+        data: JSON.stringify({ orderId: orderId, orderStatusNum: orderStatusNum, paymentStatusNum: paymentStatusNum, deliveryStatusNum: deliveryStatusNum, deliveryMethodNum: deliveryMethodNum }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d === "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
+            } else if (response.d === "更改成功") {
+                $("#labSearchOrder").text("更改成功");
+                SearchAllOrder();
+            } else {
+                $("#labSearchOrder").text(response.d);
+            }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
