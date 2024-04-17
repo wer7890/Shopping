@@ -74,13 +74,12 @@ function SearchAllOrder() {
                 alert("權限不足");
                 parent.location.reload();
             } else {
-                GetdeliveryStatusCount();
-                let data = JSON.parse(response.d);
+                let orderData = JSON.parse(response.d[0]);
                 let tableBody = $('#tableBody');
 
                 tableBody.empty();
                 let row = "";
-                $.each(data, function (index, item) {
+                $.each(orderData, function (index, item) {
                     row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_account + '</td>' +
@@ -103,6 +102,17 @@ function SearchAllOrder() {
                 });
 
                 tableBody.append(row);
+
+                let deliveryStatusCountData = JSON.parse(response.d[1]);
+                $.each(deliveryStatusCountData, function (index, item) {
+                    $("#btnDeliveryStatus_0 > span").text(item.statusAll);
+                    $("#btnDeliveryStatus_1 > span").text(item.status1);
+                    $("#btnDeliveryStatus_2 > span").text(item.status2);
+                    $("#btnDeliveryStatus_3 > span").text(item.status3);
+                    $("#btnDeliveryStatus_4 > span").text(item.status4);
+                    $("#btnDeliveryStatus_5 > span").text(item.status5);
+                    $("#btnDeliveryStatus_6 > span").text(item.status6);
+                });
             }
 
         },
@@ -156,7 +166,6 @@ function ShowEditOrder(element, orderId, orderStatusNum, paymentStatusNum, deliv
 
     detailElement.append(selectHtml);
 }
-
 
 // 顯示訂單詳細內容
 function ShowOrderDetail(orderId) {
@@ -234,29 +243,6 @@ function EditOrderData(orderId, orderStatusNum, paymentStatusNum, deliveryStatus
             } else {
                 $("#labSearchOrder").text(response.d);
             }
-        },
-        error: function (error) {
-            console.error('Error:', error);
-        }
-    });
-}
-
-//上方按鈕顯示的數字
-function GetdeliveryStatusCount() {
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/OrderHandler.aspx/GetDeliveryStatusCount",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            $("#btnDeliveryStatus_0 > span").text(data.d.StatusAll);
-            $("#btnDeliveryStatus_1 > span").text(data.d.Status1);
-            $("#btnDeliveryStatus_2 > span").text(data.d.Status2);
-            $("#btnDeliveryStatus_3 > span").text(data.d.Status3);
-            $("#btnDeliveryStatus_4 > span").text(data.d.Status4);
-            $("#btnDeliveryStatus_5 > span").text(data.d.Status5);
-            $("#btnDeliveryStatus_6 > span").text(data.d.Status6);
-            $("#btnDeliveryStatus_7 > span").text(data.d.Status7);
         },
         error: function (error) {
             console.error('Error:', error);

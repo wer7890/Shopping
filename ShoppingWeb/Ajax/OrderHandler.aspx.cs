@@ -34,12 +34,20 @@ namespace ShoppingWeb.Ajax
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    DataTable dt = new DataTable();
-                    dt.Load(reader);
 
-                    // 將資料轉換為 JSON 格式返回
-                    return ConvertDataTableToJson(dt);
+                    SqlDataAdapter da = new SqlDataAdapter(); //宣告一個配接器(DataTable與DataSet必須)
+                    DataSet ds = new DataSet(); //宣告DataSet物件
+                    da.SelectCommand = cmd; //執行
+                    da.Fill(ds); //結果存放至DataTable
+
+                    object[] resultArr = new object[2];
+
+                    for (int i = 0; i < ds.Tables.Count; i++)
+                    {
+                        resultArr[i] = ConvertDataTableToJson(ds.Tables[i]);
+                    }
+
+                    return resultArr;
                 }
             }
 
@@ -136,64 +144,5 @@ namespace ShoppingWeb.Ajax
             }
         }
 
-        /// <summary>
-        /// 一開始顯示所有訂單資訊
-        /// </summary>
-        /// <returns></returns>
-        [WebMethod]
-        public static object GetDeliveryStatusCount()
-        {
-            if (!CheckDuplicateLogin())
-            {
-                return "重複登入";
-            }
-
-            if (!CheckRoles(PERMITTED_Order_ROLES))
-            {
-                return "權限不足";
-            }
-
-            try
-            {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getDeliveryStatusCount", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-
-                        using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
-                        {
-                            DataTable dt = new DataTable();
-                            sqlData.Fill(dt);
-
-                            // 構建包含數據的匿名對象
-                            var orderObject = new
-                            {
-                                StatusAll = dt.Rows[0]["statusAll"],
-                                Status1 = dt.Rows[0]["status1"],
-                                Status2 = dt.Rows[0]["status2"],
-                                Status3 = dt.Rows[0]["status3"],
-                                Status4 = dt.Rows[0]["status4"],
-                                Status5 = dt.Rows[0]["status5"],
-                                Status6 = dt.Rows[0]["status6"],
-                                Status7 = dt.Rows[0]["status7"],
-                            };
-
-                            return orderObject;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = new Logger();
-                logger.LogException(ex);
-                return ex;
-            }
-
-        }
     }
 }
