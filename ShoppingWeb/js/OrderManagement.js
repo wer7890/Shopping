@@ -83,7 +83,7 @@ function SearchAllOrder() {
                 $.each(data, function (index, item) {
                     row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
                         '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_memberId + '</td>' +
+                        '<td>' + item.f_account + '</td>' +
                         '<td>' + item.f_createdTime + '</td>' +
                         '<td>' +
                         '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
