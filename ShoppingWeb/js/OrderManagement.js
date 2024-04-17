@@ -1,13 +1,5 @@
 ﻿// 訂單狀態
 let orderStatus = {
-    "1": { name: "處理中", color: "bg-warning", text: "text-white" },
-    "2": { name: "已確認", color: "bg-success", text: "text-white" },
-    "3": { name: "已完成", color: "bg-white", text: "text-dark" },
-    "4": { name: "已取消", color: "bg-danger", text: "text-white" }
-};
-
-// 付款狀態
-let paymentStatus = {
     "1": { name: "未付款", color: "bg-warning", text: "text-white" },
     "2": { name: "付款失敗", color: "bg-danger", text: "text-white" },
     "3": { name: "已付款", color: "bg-success", text: "text-white" },
@@ -42,10 +34,9 @@ $(document).ready(function () {
     // 訂單狀態下拉選單
     $('#tableBody').on('click', '#btnEditOrder', function () {
         let selectedOrderStatus = $("#orderStatusSelect").val();
-        let selectedPaymentStatus = $("#paymentStatusSelect").val();
         let selectedDeliveryStatus = $("#deliveryStatusSelect").val();
         let selectedDeliveryMethod = $("#deliveryMethodSelect").val();
-        EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
+        EditOrderData(selectedOrderId, selectedOrderStatus, selectedDeliveryStatus, selectedDeliveryMethod);
     });
 
     // 詳情按鈕
@@ -87,15 +78,12 @@ function SearchAllOrder() {
                 tableBody.empty();
                 let row = "";
                 $.each(orderData, function (index, item) {
-                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
+                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_account + '</td>' +
                         '<td>' + item.f_createdTime + '</td>' +
                         '<td>' +
                         '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
-                        '</td>' +
-                        '<td>' +
-                        '<span class="px-3 py-1 rounded ' + paymentStatus[item.f_paymentStatus].color + ' ' + paymentStatus[item.f_paymentStatus].text + '">' + paymentStatus[item.f_paymentStatus].name + '</span>' +
                         '</td>' +
                         '<td>' +
                         '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
@@ -130,7 +118,7 @@ function SearchAllOrder() {
 }
 
 // 顯示更改狀態的下拉選單
-function ShowEditOrder(element, orderId, orderStatusNum, paymentStatusNum, deliveryStatusNum, deliveryMethodNum) {
+function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum) {
     selectedOrderId = orderId;
 
     let trIndex = $(element).index() / 2;
@@ -144,13 +132,6 @@ function ShowEditOrder(element, orderId, orderStatusNum, paymentStatusNum, deliv
     selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
     $.each(orderStatus, function (key, value) {
         selectHtml += (key == orderStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
-    });
-    selectHtml += '</select></div>';
-
-    // 付款狀態
-    selectHtml += '<div class="col"><label for="paymentStatusSelect" class="form-label">付款狀態</label><select id="paymentStatusSelect" class="form-select">';
-    $.each(paymentStatus, function (key, value) {
-        selectHtml += (key == paymentStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
     });
     selectHtml += '</select></div>';
 
@@ -230,11 +211,11 @@ function ShowOrderDetail(orderId) {
 }
 
 // 更改訂單
-function EditOrderData(orderId, orderStatusNum, paymentStatusNum, deliveryStatusNum, deliveryMethodNum) {
+function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum) {
     $.ajax({
         type: "POST",
         url: "/Ajax/OrderHandler.aspx/EditOrder",
-        data: JSON.stringify({ orderId: orderId, orderStatusNum: orderStatusNum, paymentStatusNum: paymentStatusNum, deliveryStatusNum: deliveryStatusNum, deliveryMethodNum: deliveryMethodNum }),
+        data: JSON.stringify({ orderId: orderId, orderStatusNum: orderStatusNum, deliveryStatusNum: deliveryStatusNum, deliveryMethodNum: deliveryMethodNum }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -285,15 +266,12 @@ function ShowOrder(deliveryStatusNum) {
                 tableBody.empty();
                 let row = "";
                 $.each(orderData, function (index, item) {
-                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
+                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_account + '</td>' +
                         '<td>' + item.f_createdTime + '</td>' +
                         '<td>' +
                         '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
-                        '</td>' +
-                        '<td>' +
-                        '<span class="px-3 py-1 rounded ' + paymentStatus[item.f_paymentStatus].color + ' ' + paymentStatus[item.f_paymentStatus].text + '">' + paymentStatus[item.f_paymentStatus].name + '</span>' +
                         '</td>' +
                         '<td>' +
                         '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +

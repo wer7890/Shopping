@@ -95,12 +95,11 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         /// <param name="orderId"></param>
         /// <param name="orderStatusNum"></param>
-        /// <param name="paymentStatusNum"></param>
         /// <param name="deliveryStatusNum"></param>
         /// <param name="deliveryMethodNum"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string EditOrder(int orderId, int orderStatusNum, int paymentStatusNum, int deliveryStatusNum, int deliveryMethodNum)
+        public static string EditOrder(int orderId, int orderStatusNum, int deliveryStatusNum, int deliveryMethodNum)
         {
 
             if (!CheckDuplicateLogin())
@@ -125,7 +124,6 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@orderId", orderId));
                         cmd.Parameters.Add(new SqlParameter("@orderStatus", orderStatusNum));
-                        cmd.Parameters.Add(new SqlParameter("@paymentStatus", paymentStatusNum));
                         cmd.Parameters.Add(new SqlParameter("@deliveryStatus", deliveryStatusNum));
                         cmd.Parameters.Add(new SqlParameter("@deliveryMethod", deliveryMethodNum));
 
@@ -144,9 +142,8 @@ namespace ShoppingWeb.Ajax
             }
         }
 
-
         /// <summary>
-        /// 顯示有關訂單資訊
+        /// 顯示相關訂單資訊
         /// </summary>
         /// <param name="deliveryStatusNum"></param>
         /// <returns></returns>
