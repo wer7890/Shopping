@@ -23,8 +23,9 @@
                 <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_2" value="2" onclick="ShowOrder(2)">已發貨(<span>0</span>)</button>
                 <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_3" value="3" onclick="ShowOrder(3)">已到貨(<span>0</span>)</button>
                 <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_4" value="4" onclick="ShowOrder(4)">已取貨(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_5" value="5" onclick="ShowOrder(5)">已退回(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_6" value="6" onclick="ShowOrder(6)">退回中(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_5" value="5" onclick="ShowOrder(5)">退貨中(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_6" value="6" onclick="ShowOrder(6)">已退貨(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnOrderStatus_4" value="6" onclick="">申請退貨(<span>0</span>)</button>
             </div>
         </div>
         <br />

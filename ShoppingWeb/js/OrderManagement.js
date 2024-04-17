@@ -2,9 +2,10 @@
 let orderStatus = {
     "1": { name: "未付款", color: "bg-warning", text: "text-white" },
     "2": { name: "付款失敗", color: "bg-danger", text: "text-white" },
-    "3": { name: "已付款", color: "bg-success", text: "text-white" },
-    "4": { name: "退款中", color: "bg-warning", text: "text-white" },
-    "5": { name: "已退款", color: "bg-danger", text: "text-white" }
+    "3": { name: "已付款", color: "bg-white", text: "text-dark" },
+    "4": { name: "申請退貨", color: "bg-success", text: "text-white" },
+    "5": { name: "退款中", color: "bg-warning", text: "text-white" },
+    "6": { name: "已退款", color: "bg-white", text: "text-dark" }
 };
 
 // 配送狀態
@@ -13,8 +14,8 @@ let deliveryStatus = {
     "2": { name: "已發貨", color: "bg-success", text: "text-white" },
     "3": { name: "已到貨", color: "bg-white", text: "text-dark" },
     "4": { name: "已取貨", color: "bg-white", text: "text-dark" },
-    "5": { name: "已退回", color: "bg-danger", text: "text-white" },
-    "6": { name: "退回中", color: "bg-warning", text: "text-white" }
+    "5": { name: "退貨中", color: "bg-warning", text: "text-white" },
+    "6": { name: "已退貨", color: "bg-white", text: "text-dark" }
 };
 
 // 配送方式
@@ -107,6 +108,7 @@ function SearchAllOrder() {
                     $("#btnDeliveryStatus_4 > span").text(item.status4);
                     $("#btnDeliveryStatus_5 > span").text(item.status5);
                     $("#btnDeliveryStatus_6 > span").text(item.status6);
+                    $("#btnOrderStatus_4 > span").text(item.orderStatus4);
                 });
             }
 
