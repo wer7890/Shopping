@@ -19,12 +19,12 @@
         <div class="row">
             <div class="btn-group me-2" role="group" aria-label="First group">
                 <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_0">全部(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_1" value="1">發貨中(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_2" value="2">已發貨(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_3" value="3">已到貨(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_4" value="4">已取貨(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_5" value="5">已退回(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_6" value="6">退回中(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_1" value="1" onclick="ShowOrder(1)">發貨中(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_2" value="2" onclick="ShowOrder(2)">已發貨(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_3" value="3" onclick="ShowOrder(3)">已到貨(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_4" value="4" onclick="ShowOrder(4)">已取貨(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_5" value="5" onclick="ShowOrder(5)">已退回(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_6" value="6" onclick="ShowOrder(6)">退回中(<span>0</span>)</button>
             </div>
         </div>
         <br />

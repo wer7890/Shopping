@@ -144,5 +144,50 @@ namespace ShoppingWeb.Ajax
             }
         }
 
+
+        /// <summary>
+        /// 顯示有關訂單資訊
+        /// </summary>
+        /// <param name="deliveryStatusNum"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static object GetOrderData(int deliveryStatusNum)
+        {
+            if (!CheckDuplicateLogin())
+            {
+                return "重複登入";
+            }
+
+            if (!CheckRoles(PERMITTED_Order_ROLES))
+            {
+                return "權限不足";
+            }
+
+            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("pro_sw_getOrderData", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@deliveryStatusNum", deliveryStatusNum));
+
+                    SqlDataAdapter da = new SqlDataAdapter(); //宣告一個配接器(DataTable與DataSet必須)
+                    DataSet ds = new DataSet(); //宣告DataSet物件
+                    da.SelectCommand = cmd; //執行
+                    da.Fill(ds); //結果存放至DataTable
+
+                    object[] resultArr = new object[2];
+
+                    for (int i = 0; i < ds.Tables.Count; i++)
+                    {
+                        resultArr[i] = ConvertDataTableToJson(ds.Tables[i]);
+                    }
+
+                    return resultArr;
+                }
+            }
+
+        }
     }
 }

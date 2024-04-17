@@ -34,6 +34,7 @@ let deliveryMethod = {
 
 
 let selectedOrderId;
+let deliveryStatusValue;
 
 $(document).ready(function () {
     SearchAllOrder();
@@ -58,6 +59,11 @@ $(document).ready(function () {
         $("#overlay").fadeOut(300);
     });
 
+    $("#btnDeliveryStatus_0").click(function () {
+        SearchAllOrder();
+    });
+
+
 });
 
 //全部訂單資料
@@ -74,6 +80,7 @@ function SearchAllOrder() {
                 alert("權限不足");
                 parent.location.reload();
             } else {
+                deliveryStatusValue = 0;
                 let orderData = JSON.parse(response.d[0]);
                 let tableBody = $('#tableBody');
 
@@ -122,7 +129,7 @@ function SearchAllOrder() {
     });
 }
 
-//更改訂單
+// 顯示更改狀態的下拉選單
 function ShowEditOrder(element, orderId, orderStatusNum, paymentStatusNum, deliveryStatusNum, deliveryMethodNum) {
     selectedOrderId = orderId;
 
@@ -222,7 +229,7 @@ function ShowOrderDetail(orderId) {
     });
 }
 
-//更改訂單
+// 更改訂單
 function EditOrderData(orderId, orderStatusNum, paymentStatusNum, deliveryStatusNum, deliveryMethodNum) {
     $.ajax({
         type: "POST",
@@ -239,10 +246,80 @@ function EditOrderData(orderId, orderStatusNum, paymentStatusNum, deliveryStatus
                 parent.location.reload();
             } else if (response.d === "更改成功") {
                 $("#labSearchOrder").text("更改成功");
-                SearchAllOrder();
+                if (deliveryStatusValue === 0) {
+                    SearchAllOrder();
+                } else {
+                    ShowOrder(deliveryStatusValue);
+                }
+                
             } else {
                 $("#labSearchOrder").text(response.d);
             }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+// 上方狀態按鈕點擊觸發事件
+function ShowOrder(deliveryStatusNum) {
+    $.ajax({
+        url: '/Ajax/OrderHandler.aspx/GetOrderData',
+        data: JSON.stringify({ deliveryStatusNum: deliveryStatusNum }),
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d == "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
+            } else {
+                deliveryStatusValue = deliveryStatusNum;
+                let orderData = JSON.parse(response.d[0]);
+                let tableBody = $('#tableBody');
+
+                tableBody.empty();
+                let row = "";
+                $.each(orderData, function (index, item) {
+                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
+                        '<td>' + item.f_id + '</td>' +
+                        '<td>' + item.f_account + '</td>' +
+                        '<td>' + item.f_createdTime + '</td>' +
+                        '<td>' +
+                        '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
+                        '</td>' +
+                        '<td>' +
+                        '<span class="px-3 py-1 rounded ' + paymentStatus[item.f_paymentStatus].color + ' ' + paymentStatus[item.f_paymentStatus].text + '">' + paymentStatus[item.f_paymentStatus].name + '</span>' +
+                        '</td>' +
+                        '<td>' +
+                        '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
+                        '</td>' +
+                        '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
+                        '<td>NT$' + item.f_total + '</td>' +
+                        '</tr>' +
+                        '<tr id="collapse_' + index + '" class="collapse">' +
+                        '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
+                        '</tr>';
+                });
+
+                tableBody.append(row);
+
+                let deliveryStatusCountData = JSON.parse(response.d[1]);
+                $.each(deliveryStatusCountData, function (index, item) {
+                    $("#btnDeliveryStatus_0 > span").text(item.statusAll);
+                    $("#btnDeliveryStatus_1 > span").text(item.status1);
+                    $("#btnDeliveryStatus_2 > span").text(item.status2);
+                    $("#btnDeliveryStatus_3 > span").text(item.status3);
+                    $("#btnDeliveryStatus_4 > span").text(item.status4);
+                    $("#btnDeliveryStatus_5 > span").text(item.status5);
+                    $("#btnDeliveryStatus_6 > span").text(item.status6);
+                });
+            }
+
         },
         error: function (error) {
             console.error('Error:', error);
