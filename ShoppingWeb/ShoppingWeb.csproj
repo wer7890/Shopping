@@ -72,6 +72,7 @@
     <Content Include="Ajax\OrderHandler.aspx" />
     <Content Include="Ajax\ProductHandler.aspx" />
     <Content Include="Ajax\UserHandler.aspx" />
+    <Content Include="css\OrderManagement.css" />
     <Content Include="Global.asax" />
     <Content Include="js\AddProduct.js" />
     <Content Include="js\AddUser.js" />
@@ -223,7 +224,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="css\" />
     <Folder Include="Images\" />
     <Folder Include="Logs\" />
     <Folder Include="Models\" />

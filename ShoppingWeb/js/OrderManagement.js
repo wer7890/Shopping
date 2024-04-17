@@ -47,6 +47,17 @@ $(document).ready(function () {
         EditOrderData(selectedOrderId, selectedOrderStatus, selectedPaymentStatus, selectedDeliveryStatus, selectedDeliveryMethod);
     });
 
+    // 詳情按鈕
+    $('#tableBody').on('click', '#btnShowOrderDetail', function () {
+        ShowOrderDetail(selectedOrderId);
+    });
+
+    // 關閉詳情按鈕
+    $(document).on('click', '#btnCloseOrderDetail', function () {
+        $("#box").empty().fadeOut(300);
+        $("#overlay").fadeOut(300);
+    });
+
 });
 
 //全部訂單資料
@@ -70,7 +81,7 @@ function SearchAllOrder() {
                 tableBody.empty();
                 let row = "";
                 $.each(data, function (index, item) {
-                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowOrderDetail(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
+                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_paymentStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_memberId + '</td>' +
                         '<td>' + item.f_createdTime + '</td>' +
@@ -101,8 +112,54 @@ function SearchAllOrder() {
     });
 }
 
+//更改訂單
+function ShowEditOrder(element, orderId, orderStatusNum, paymentStatusNum, deliveryStatusNum, deliveryMethodNum) {
+    selectedOrderId = orderId;
+
+    let trIndex = $(element).index() / 2;
+    let detailElement = $('#orderDetail_' + trIndex);
+    detailElement.empty();
+
+    $(".collapse > td > div").empty();
+
+    let selectHtml = '<div class="row d-flex justify-content-center my-3">';
+    // 訂單狀態
+    selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
+    $.each(orderStatus, function (key, value) {
+        selectHtml += (key == orderStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
+    });
+    selectHtml += '</select></div>';
+
+    // 付款狀態
+    selectHtml += '<div class="col"><label for="paymentStatusSelect" class="form-label">付款狀態</label><select id="paymentStatusSelect" class="form-select">';
+    $.each(paymentStatus, function (key, value) {
+        selectHtml += (key == paymentStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
+    });
+    selectHtml += '</select></div>';
+
+    // 配送狀態
+    selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label">配送狀態</label><select id="deliveryStatusSelect" class="form-select">';
+    $.each(deliveryStatus, function (key, value) {
+        selectHtml += (key == deliveryStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
+    });
+    selectHtml += '</select></div>';
+
+    // 配送方式
+    selectHtml += '<div class="col"><label for="deliveryMethodSelect" class="form-label">配送方式</label><select id="deliveryMethodSelect" class="form-select">';
+    $.each(deliveryMethod, function (key, value) {
+        selectHtml += (key == deliveryMethodNum) ? '<option value="' + key + '" selected>' + value + '</option>' : '<option value="' + key + '">' + value + '</option>';
+    });
+    selectHtml += '</select></div>';
+    selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary">修改</button></div>' +
+        '<div class="col-1 d-flex align-items-end"><button id="btnShowOrderDetail" type="submit" class="btn btn-outline-primary">詳情</button></div>' +
+        '</select></div>';
+
+    detailElement.append(selectHtml);
+}
+
+
 // 顯示訂單詳細內容
-function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, deliveryStatusNum, deliveryMethodNum) {
+function ShowOrderDetail(orderId) {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/GetOrderDetailsData',
         data: JSON.stringify({ orderId: orderId }),
@@ -120,42 +177,7 @@ function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, del
                 selectedOrderId = orderId;
 
                 let data = JSON.parse(response.d);
-                let trIndex = $(element).index() / 2;
-                let detailElement = $('#orderDetail_' + trIndex);
-                
-                $(".collapse > td > div").empty();
-
-                let selectHtml = '<div class="row justify-content-center mt-3">';
-                // 訂單狀態
-                selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
-                $.each(orderStatus, function (key, value) {
-                    selectHtml += (key == orderStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
-                });
-                selectHtml += '</select></div>';
-
-                // 付款狀態
-                selectHtml += '<div class="col"><label for="paymentStatusSelect" class="form-label">付款狀態</label><select id="paymentStatusSelect" class="form-select">';
-                $.each(paymentStatus, function (key, value) {
-                    selectHtml += (key == paymentStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
-                });
-                selectHtml += '</select></div>';
-
-                // 配送狀態
-                selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label">配送狀態</label><select id="deliveryStatusSelect" class="form-select">';
-                $.each(deliveryStatus, function (key, value) {
-                    selectHtml += (key == deliveryStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
-                });
-                selectHtml += '</select></div>';
-
-                // 配送方式
-                selectHtml += '<div class="col"><label for="deliveryMethodSelect" class="form-label">配送方式</label><select id="deliveryMethodSelect" class="form-select">';
-                $.each(deliveryMethod, function (key, value) {
-                    selectHtml += (key == deliveryMethodNum) ? '<option value="' + key + '" selected>' + value + '</option>' : '<option value="' + key + '">' + value + '</option>';
-                });
-                selectHtml += '</select></div>';
-                selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary">查詢</button></div></select></div>';
-
-                detailElement.append(selectHtml);
+                let detailElement = $("#box");
 
                 //明細
                 let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered my-4">' +
@@ -179,9 +201,9 @@ function ShowOrderDetail(element, orderId, orderStatusNum, paymentStatusNum, del
                         '<td>' + item.f_subtotal + '</td>' +
                         '</tr>';
                 });
-                detailHtml += '</tbody></table>';
-
-                detailElement.append(detailHtml);
+                detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">關閉</button></div>';                
+                $("#overlay").fadeIn(300);
+                detailElement.prepend(detailHtml).fadeIn(300);
             }
 
         },
