@@ -237,7 +237,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="orderId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object EditReturnOrder(int orderId)
+        public static object EditReturnOrder(int orderId, bool boolReturn)
         {
             if (!CheckDuplicateLogin())
             {
@@ -257,6 +257,7 @@ namespace ShoppingWeb.Ajax
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@orderId", orderId));
+                    cmd.Parameters.Add(new SqlParameter("@boolReturn", boolReturn));
 
                     int rowsAffected = (int)cmd.ExecuteScalar();
 

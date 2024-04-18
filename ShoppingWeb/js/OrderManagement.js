@@ -30,7 +30,9 @@ let selectedOrderId;
 let deliveryStatusValue;
 
 $(document).ready(function () {
+    //初始化
     SearchAllOrder();
+    $("#labSearchOrder").hide();
 
     // 修改訂單按鈕
     $('#tableBody').on('click', '#btnEditOrder', function () {
@@ -45,17 +47,10 @@ $(document).ready(function () {
         ShowOrderDetail(selectedOrderId);
     });
 
-    // 關閉詳情按鈕
+    // 關閉訂單詳情按鈕
     $(document).on('click', '#btnCloseOrderDetail', function () {
         $("#box").empty().fadeOut(300);
         $("#overlay").fadeOut(300);
-    });
-
-    // 開關改變事件
-    $(document).on("change", ".toggle-switch", function () {
-        $("#labSearchOrder").text("");
-        let OrderId = $(this).data('id');
-        EditReturnOrder(OrderId);
     });
 
     //下拉選單變動
@@ -202,7 +197,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                 alert("權限不足");
                 parent.location.reload();
             } else if (response.d === "更改成功") {
-                $("#labSearchOrder").text("更改成功");
+                $("#labSearchOrder").text(response.d).show().delay(3000).fadeOut();
                 if (deliveryStatusValue === 0) {
                     SearchAllOrder();
                 } else if (deliveryStatusValue === 7) {
@@ -310,7 +305,7 @@ function ShowReturnOrder() {
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
 
                 $("#orderSure").remove();
-                $("#myTable > thead > tr").append("<th id='orderSure'>確認</th>");
+                $("#myTable > thead > tr").append("<th id='orderSure'>是否同意</th>");
 
                 let tableBody = $('#tableBody');
 
@@ -329,7 +324,10 @@ function ShowReturnOrder() {
                         '</td>' +
                         '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
                         '<td>NT$' + item.f_total + '</td>' +
-                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" data-id="' + item.f_id + '"></div></td>' +
+                        '<td><div class="d-flex justify-content-between">' +
+                        '<button type="button" class="btn btn-outline-secondary" onclick="EditReturnOrder(' + item.f_id + ', true)">接受</button>' +
+                        '<button type="button" class="btn btn-outline-secondary" onclick="EditReturnOrder(' + item.f_id + ', false)">拒絕</button>' +
+                        '</div></td>' +
                         '</tr>';
                 });
 
@@ -355,10 +353,10 @@ function ShowReturnOrder() {
 }
 
 //同意退款申請後，更改訂單狀態和配送狀態
-function EditReturnOrder(orderId) {
+function EditReturnOrder(orderId, boolReturn) {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/EditReturnOrder',
-        data: JSON.stringify({ orderId: orderId }),
+        data: JSON.stringify({ orderId: orderId, boolReturn: boolReturn }),
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
@@ -369,7 +367,7 @@ function EditReturnOrder(orderId) {
                 alert("權限不足");
                 parent.location.reload();
             } else {
-                $("#labSearchOrder").text(response.d);
+                $("#labSearchOrder").text(response.d).show().delay(3000).fadeOut();
                 ShowReturnOrder();
             }
 
