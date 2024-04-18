@@ -51,11 +51,6 @@ $(document).ready(function () {
         $("#overlay").fadeOut(300);
     });
 
-    $("#btnDeliveryStatus_0").click(function () {
-        SearchAllOrder();
-    });
-
-
 });
 
 //全部訂單資料
@@ -74,42 +69,8 @@ function SearchAllOrder() {
             } else {
                 deliveryStatusValue = 0;
                 let orderData = JSON.parse(response.d[0]);
-                let tableBody = $('#tableBody');
-
-                tableBody.empty();
-                let row = "";
-                $.each(orderData, function (index, item) {
-                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_account + '</td>' +
-                        '<td>' + item.f_createdTime + '</td>' +
-                        '<td>' +
-                        '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
-                        '</td>' +
-                        '<td>' +
-                        '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
-                        '</td>' +
-                        '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
-                        '<td>NT$' + item.f_total + '</td>' +
-                        '</tr>' +
-                        '<tr id="collapse_' + index + '" class="collapse">' +
-                        '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
-                        '</tr>';
-                });
-
-                tableBody.append(row);
-
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
-                $.each(deliveryStatusCountData, function (index, item) {
-                    $("#btnDeliveryStatus_0 > span").text(item.statusAll);
-                    $("#btnDeliveryStatus_1 > span").text(item.status1);
-                    $("#btnDeliveryStatus_2 > span").text(item.status2);
-                    $("#btnDeliveryStatus_3 > span").text(item.status3);
-                    $("#btnDeliveryStatus_4 > span").text(item.status4);
-                    $("#btnDeliveryStatus_5 > span").text(item.status5);
-                    $("#btnDeliveryStatus_6 > span").text(item.status6);
-                    $("#btnOrderStatus_4 > span").text(item.orderStatus4);
-                });
+                OrderHtml(orderData, deliveryStatusCountData);
             }
 
         },
@@ -263,46 +224,51 @@ function ShowOrder(deliveryStatusNum) {
             } else {
                 deliveryStatusValue = deliveryStatusNum;
                 let orderData = JSON.parse(response.d[0]);
-                let tableBody = $('#tableBody');
-
-                tableBody.empty();
-                let row = "";
-                $.each(orderData, function (index, item) {
-                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_account + '</td>' +
-                        '<td>' + item.f_createdTime + '</td>' +
-                        '<td>' +
-                        '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
-                        '</td>' +
-                        '<td>' +
-                        '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
-                        '</td>' +
-                        '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
-                        '<td>NT$' + item.f_total + '</td>' +
-                        '</tr>' +
-                        '<tr id="collapse_' + index + '" class="collapse">' +
-                        '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
-                        '</tr>';
-                });
-
-                tableBody.append(row);
-
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
-                $.each(deliveryStatusCountData, function (index, item) {
-                    $("#btnDeliveryStatus_0 > span").text(item.statusAll);
-                    $("#btnDeliveryStatus_1 > span").text(item.status1);
-                    $("#btnDeliveryStatus_2 > span").text(item.status2);
-                    $("#btnDeliveryStatus_3 > span").text(item.status3);
-                    $("#btnDeliveryStatus_4 > span").text(item.status4);
-                    $("#btnDeliveryStatus_5 > span").text(item.status5);
-                    $("#btnDeliveryStatus_6 > span").text(item.status6);
-                });
+                OrderHtml(orderData, deliveryStatusCountData);
             }
 
         },
         error: function (error) {
             console.error('Error:', error);
         }
+    });
+}
+
+//訂單表格內容
+function OrderHtml(orderData, deliveryStatusCountData) {
+    let tableBody = $('#tableBody');
+
+    tableBody.empty();
+    let row = "";
+    $.each(orderData, function (index, item) {
+        row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
+            '<td>' + item.f_id + '</td>' +
+            '<td>' + item.f_account + '</td>' +
+            '<td>' + item.f_createdTime + '</td>' +
+            '<td>' +
+            '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
+            '</td>' +
+            '<td>' +
+            '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
+            '</td>' +
+            '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
+            '<td>NT$' + item.f_total + '</td>' +
+            '</tr>' +
+            '<tr id="collapse_' + index + '" class="collapse">' +
+            '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
+            '</tr>';
+    });
+
+    tableBody.append(row);
+
+    $.each(deliveryStatusCountData, function (index, item) {
+        $("#btnDeliveryStatus_0 > span").text(item.statusAll);
+        $("#btnDeliveryStatus_1 > span").text(item.status1);
+        $("#btnDeliveryStatus_2 > span").text(item.status2);
+        $("#btnDeliveryStatus_3 > span").text(item.status3);
+        $("#btnDeliveryStatus_4 > span").text(item.status4);
+        $("#btnDeliveryStatus_5 > span").text(item.status5);
+        $("#btnDeliveryStatus_6 > span").text(item.status6);
     });
 }
