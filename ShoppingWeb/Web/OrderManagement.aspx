@@ -40,6 +40,7 @@
                         <th>配送狀態</th>
                         <th>配送方式</th>
                         <th>總金額</th>
+                        <th id="orderSure">是否同意</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">

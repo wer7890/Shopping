@@ -53,9 +53,28 @@ $(document).ready(function () {
         $("#overlay").fadeOut(300);
     });
 
-    //下拉選單變動
-    $("#tableBody").on("change", "#orderStatusSelect", function () {
-        console.log("b");
+    // 使用事件代理監聽訂單狀態下拉選單值的變化
+    $(document).on('change', '#orderStatusSelect', function () {
+        // 獲取選中的訂單狀態值
+        let selectedOrderStatus = $(this).val();
+        console.log(selectedOrderStatus);
+
+        let deliveryStatusSelect = $("#deliveryStatusSelect");
+        deliveryStatusSelect.empty();
+
+        if (selectedOrderStatus == 5 || selectedOrderStatus == 6) {
+            deliveryStatusSelect.append('<option value="4">退貨中</option>');
+            deliveryStatusSelect.append('<option value="5">已退回</option>');
+        } else if (selectedOrderStatus == 3 || selectedOrderStatus == 4) {
+            deliveryStatusSelect.append('<option value="2">已到貨</option>');
+            deliveryStatusSelect.append('<option value="3">已取貨</option>');
+        } else if (selectedOrderStatus == 1 || selectedOrderStatus == 2) {
+            deliveryStatusSelect.append('<option value="1" selected>發貨中</option>');
+        } else {
+            $.each(deliveryStatus, function (key, value) {
+                deliveryStatusSelect.append('<option value="' + key + '">' + value.name + '</option>');
+            });
+        }
     });
 
 });
@@ -75,7 +94,7 @@ function SearchAllOrder() {
                 parent.location.reload();
             } else {
                 deliveryStatusValue = 0;
-                $("#orderSure").remove();
+                $("#orderSure").css('display', 'none');;
                 let orderData = JSON.parse(response.d[0]);
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
                 OrderHtml(orderData, deliveryStatusCountData);
@@ -108,9 +127,26 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
 
     // 配送狀態
     selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label">配送狀態</label><select id="deliveryStatusSelect" class="form-select">';
-    $.each(deliveryStatus, function (key, value) {
-        selectHtml += (key == deliveryStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
-    });
+
+    // 根據訂單狀態決定配送狀態的選項
+    if (orderStatusNum == 5 || orderStatusNum == 6) {
+        // 訂單狀態為退款中或已退款時，只能選擇退貨中或已退回
+        selectHtml += '<option value="4">退貨中</option>';
+        selectHtml += '<option value="5">已退回</option>';
+    } else if (orderStatusNum == 3 || orderStatusNum == 4) {
+        // 訂單狀態為已付款時，只能選擇已到貨或已取貨
+        selectHtml += '<option value="2">已到貨</option>';
+        selectHtml += '<option value="3">已取貨</option>';
+    } else if (orderStatusNum == 1 || orderStatusNum == 2) {
+        // 訂單狀態為未付款或付款失敗時，只能選擇發貨中
+        selectHtml += '<option value="1" selected>發貨中</option>';
+    } else {
+        // 其他情況下顯示所有配送狀態的選項
+        $.each(deliveryStatus, function (key, value) {
+            selectHtml += (key == deliveryStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
+        });
+    }
+
     selectHtml += '</select></div>';
 
     // 配送方式
@@ -233,7 +269,7 @@ function ShowOrder(deliveryStatusNum) {
                 parent.location.reload();
             } else {
                 deliveryStatusValue = deliveryStatusNum;
-                $("#orderSure").remove();
+                $("#orderSure").css('display', 'none');;
                 let orderData = JSON.parse(response.d[0]);
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
                 OrderHtml(orderData, deliveryStatusCountData);
@@ -304,8 +340,7 @@ function ShowReturnOrder() {
                 let orderData = JSON.parse(response.d[0]);
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
 
-                $("#orderSure").remove();
-                $("#myTable > thead > tr").append("<th id='orderSure'>是否同意</th>");
+                $("#orderSure").css('display', 'block');
 
                 let tableBody = $('#tableBody');
 
