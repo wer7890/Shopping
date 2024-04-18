@@ -186,5 +186,84 @@ namespace ShoppingWeb.Ajax
             }
 
         }
+
+        /// <summary>
+        /// 顯示申請退貨訂單資訊
+        /// </summary>
+        /// <param name="orderStatusNum"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static object GetReturnOrderData()
+        {
+            if (!CheckDuplicateLogin())
+            {
+                return "重複登入";
+            }
+
+            if (!CheckRoles(PERMITTED_Order_ROLES))
+            {
+                return "權限不足";
+            }
+
+            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("pro_sw_getReturnOrderData", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da.SelectCommand = cmd;
+                    da.Fill(ds);
+
+                    object[] resultArr = new object[2];
+
+                    for (int i = 0; i < ds.Tables.Count; i++)
+                    {
+                        resultArr[i] = ConvertDataTableToJson(ds.Tables[i]);
+                    }
+
+                    return resultArr;
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 更改退貨訂單資訊
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static object EditReturnOrder(int orderId)
+        {
+            if (!CheckDuplicateLogin())
+            {
+                return "重複登入";
+            }
+
+            if (!CheckRoles(PERMITTED_Order_ROLES))
+            {
+                return "權限不足";
+            }
+
+            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("pro_sw_editReturnOrder", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@orderId", orderId));
+
+                    int rowsAffected = (int)cmd.ExecuteScalar();
+
+                    return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                }
+            }
+
+        }
     }
 }

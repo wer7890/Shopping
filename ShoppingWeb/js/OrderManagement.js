@@ -32,7 +32,7 @@ let deliveryStatusValue;
 $(document).ready(function () {
     SearchAllOrder();
 
-    // 訂單狀態下拉選單
+    // 修改訂單按鈕
     $('#tableBody').on('click', '#btnEditOrder', function () {
         let selectedOrderStatus = $("#orderStatusSelect").val();
         let selectedDeliveryStatus = $("#deliveryStatusSelect").val();
@@ -49,6 +49,18 @@ $(document).ready(function () {
     $(document).on('click', '#btnCloseOrderDetail', function () {
         $("#box").empty().fadeOut(300);
         $("#overlay").fadeOut(300);
+    });
+
+    // 開關改變事件
+    $(document).on("change", ".toggle-switch", function () {
+        $("#labSearchOrder").text("");
+        let OrderId = $(this).data('id');
+        EditReturnOrder(OrderId);
+    });
+
+    //下拉選單變動
+    $("#tableBody").on("change", "#orderStatusSelect", function () {
+        console.log("b");
     });
 
 });
@@ -68,6 +80,7 @@ function SearchAllOrder() {
                 parent.location.reload();
             } else {
                 deliveryStatusValue = 0;
+                $("#orderSure").remove();
                 let orderData = JSON.parse(response.d[0]);
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
                 OrderHtml(orderData, deliveryStatusCountData);
@@ -192,6 +205,8 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                 $("#labSearchOrder").text("更改成功");
                 if (deliveryStatusValue === 0) {
                     SearchAllOrder();
+                } else if (deliveryStatusValue === 7) {
+                    ShowReturnOrder();
                 } else {
                     ShowOrder(deliveryStatusValue);
                 }
@@ -223,6 +238,7 @@ function ShowOrder(deliveryStatusNum) {
                 parent.location.reload();
             } else {
                 deliveryStatusValue = deliveryStatusNum;
+                $("#orderSure").remove();
                 let orderData = JSON.parse(response.d[0]);
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
                 OrderHtml(orderData, deliveryStatusCountData);
@@ -270,5 +286,96 @@ function OrderHtml(orderData, deliveryStatusCountData) {
         $("#btnDeliveryStatus_4 > span").text(item.status4);
         $("#btnDeliveryStatus_5 > span").text(item.status5);
         $("#btnDeliveryStatus_6 > span").text(item.status6);
+        $("#btnOrderStatus_4 > span").text(item.orderStatus4);
+    });
+}
+
+//退款申請
+function ShowReturnOrder() {
+    $.ajax({
+        url: '/Ajax/OrderHandler.aspx/GetReturnOrderData',
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d == "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
+            } else {
+                deliveryStatusValue = 7;
+                let orderData = JSON.parse(response.d[0]);
+                let deliveryStatusCountData = JSON.parse(response.d[1]);
+
+                $("#orderSure").remove();
+                $("#myTable > thead > tr").append("<th id='orderSure'>確認</th>");
+
+                let tableBody = $('#tableBody');
+
+                tableBody.empty();
+                let row = "";
+                $.each(orderData, function (index, item) {
+                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
+                        '<td>' + item.f_id + '</td>' +
+                        '<td>' + item.f_account + '</td>' +
+                        '<td>' + item.f_createdTime + '</td>' +
+                        '<td>' +
+                        '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
+                        '</td>' +
+                        '<td>' +
+                        '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
+                        '</td>' +
+                        '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
+                        '<td>NT$' + item.f_total + '</td>' +
+                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" data-id="' + item.f_id + '"></div></td>' +
+                        '</tr>';
+                });
+
+                tableBody.append(row);
+
+                $.each(deliveryStatusCountData, function (index, item) {
+                    $("#btnDeliveryStatus_0 > span").text(item.statusAll);
+                    $("#btnDeliveryStatus_1 > span").text(item.status1);
+                    $("#btnDeliveryStatus_2 > span").text(item.status2);
+                    $("#btnDeliveryStatus_3 > span").text(item.status3);
+                    $("#btnDeliveryStatus_4 > span").text(item.status4);
+                    $("#btnDeliveryStatus_5 > span").text(item.status5);
+                    $("#btnDeliveryStatus_6 > span").text(item.status6);
+                    $("#btnOrderStatus_4 > span").text(item.orderStatus4);
+                });
+            }
+
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+//同意退款申請後，更改訂單狀態和配送狀態
+function EditReturnOrder(orderId) {
+    $.ajax({
+        url: '/Ajax/OrderHandler.aspx/EditReturnOrder',
+        data: JSON.stringify({ orderId: orderId }),
+        type: 'POST',
+        contentType: 'application/json',
+        success: function (response) {
+            if (response.d == "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
+            } else {
+                $("#labSearchOrder").text(response.d);
+                ShowReturnOrder();
+            }
+
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
     });
 }
