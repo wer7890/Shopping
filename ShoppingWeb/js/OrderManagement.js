@@ -65,7 +65,9 @@ $(document).ready(function () {
         if (selectedOrderStatus == 5 || selectedOrderStatus == 6) {
             deliveryStatusSelect.append('<option value="5">退貨中</option>');
             deliveryStatusSelect.append('<option value="6">已退貨</option>');
-        } else if (selectedOrderStatus == 3 || selectedOrderStatus == 4) {
+        } else if (selectedOrderStatus == 4) {
+            deliveryStatusSelect.append('<option value="4">已取貨</option>');
+        } else if (selectedOrderStatus == 3) {
             deliveryStatusSelect.append('<option value="2">已發貨</option>');
             deliveryStatusSelect.append('<option value="3">已到貨</option>');
             deliveryStatusSelect.append('<option value="4">已取貨</option>');
@@ -134,7 +136,9 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
         // 訂單狀態為退款中或已退款時，只能選擇退貨中或已退回
         selectHtml += '<option value="5">退貨中</option>';
         selectHtml += '<option value="6">已退貨</option>';
-    } else if (orderStatusNum == 3 || orderStatusNum == 4) {
+    } else if (orderStatusNum == 4) {
+        selectHtml += '<option value="4">已取貨</option>';
+    } else if (orderStatusNum == 3) {
         // 訂單狀態為已付款時，只能選擇已到貨或已取貨
         selectHtml += '<option value="2">已發貨</option>';
         selectHtml += '<option value="3">已到貨</option>';
