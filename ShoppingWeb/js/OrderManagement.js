@@ -324,9 +324,9 @@ function ShowReturnOrder() {
                         '</td>' +
                         '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
                         '<td>NT$' + item.f_total + '</td>' +
-                        '<td><div class="d-flex justify-content-between">' +
-                        '<button type="button" class="btn btn-outline-secondary" onclick="EditReturnOrder(' + item.f_id + ', true)">接受</button>' +
-                        '<button type="button" class="btn btn-outline-secondary" onclick="EditReturnOrder(' + item.f_id + ', false)">拒絕</button>' +
+                        '<td class="p-1"><div class="d-flex justify-content-between">' +
+                        '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.f_id + ', true)">接受</button>' +
+                        '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.f_id + ', false)">拒絕</button>' +
                         '</div></td>' +
                         '</tr>';
                 });
