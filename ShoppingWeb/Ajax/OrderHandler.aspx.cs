@@ -129,7 +129,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                        return (rowsAffected > 0) ? "更改成功" : "商品庫存不足或會員錢包不足";
 
                     }
                 }

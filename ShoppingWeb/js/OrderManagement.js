@@ -53,7 +53,7 @@ $(document).ready(function () {
         $("#overlay").fadeOut(300);
     });
 
-    // 使用事件代理監聽訂單狀態下拉選單值的變化
+    // 訂單狀態改變時顯示的配送狀態
     $(document).on('change', '#orderStatusSelect', function () {
         // 獲取選中的訂單狀態值
         let selectedOrderStatus = $(this).val();
@@ -110,7 +110,7 @@ function SearchAllOrder() {
     });
 }
 
-// 顯示更改狀態的下拉選單
+// 點選訂單表格時，顯示更改狀態的下拉選單
 function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum) {
     selectedOrderId = orderId;
 
@@ -168,96 +168,6 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     detailElement.append(selectHtml);
 }
 
-// 顯示訂單詳細內容
-function ShowOrderDetail(orderId) {
-    $.ajax({
-        url: '/Ajax/OrderHandler.aspx/GetOrderDetailsData',
-        data: JSON.stringify({ orderId: orderId }),
-        type: 'POST',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            if (response.d == "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
-                alert("權限不足");
-                parent.location.reload();
-            } else {
-                selectedOrderId = orderId;
-
-                let data = JSON.parse(response.d);
-                let detailElement = $("#box");
-
-                //明細
-                let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered my-4">' +
-                    '<thead>' +
-                    '<tr>' +
-                    '<th>商品名稱</th>' +
-                    '<th>商品價格</th>' +
-                    '<th>商品類型</th>' +
-                    '<th>數量</th>' +
-                    '<th>小記</th>' +
-                    '</tr>' +
-                    '</thead>' +
-                    '<tbody id="orderDetailTableBody">';
-
-                $.each(data, function (index, item) { 
-                    detailHtml += '<tr>' +
-                        '<td>' + item.f_productName + '</td>' +
-                        '<td>' + item.f_productPrice + '</td>' +
-                        '<td>' + CategoryCodeToText(item.f_productCategory.toString()) + '</td>' +
-                        '<td>' + item.f_quantity + '</td>' +
-                        '<td>' + item.f_subtotal + '</td>' +
-                        '</tr>';
-                });
-                detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">關閉</button></div>';                
-                $("#overlay").fadeIn(300);
-                detailElement.prepend(detailHtml).fadeIn(300);
-            }
-
-        },
-        error: function (error) {
-            console.error('Error:', error);
-        }
-    });
-}
-
-// 更改訂單
-function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum) {
-    $.ajax({
-        type: "POST",
-        url: "/Ajax/OrderHandler.aspx/EditOrder",
-        data: JSON.stringify({ orderId: orderId, orderStatusNum: orderStatusNum, deliveryStatusNum: deliveryStatusNum, deliveryMethodNum: deliveryMethodNum }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            if (response.d === "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
-                alert("權限不足");
-                parent.location.reload();
-            } else if (response.d === "更改成功") {
-                $("#labSearchOrder").text(response.d).show().delay(3000).fadeOut();
-                if (deliveryStatusValue === 0) {
-                    SearchAllOrder();
-                } else if (deliveryStatusValue === 7) {
-                    ShowReturnOrder();
-                } else {
-                    ShowOrder(deliveryStatusValue);
-                }
-                
-            } else {
-                $("#labSearchOrder").text(response.d).show().delay(3000).fadeOut();
-            }
-        },
-        error: function (error) {
-            console.error('Error:', error);
-        }
-    });
-}
-
 // 上方狀態按鈕點擊觸發事件
 function ShowOrder(deliveryStatusNum) {
     $.ajax({
@@ -288,7 +198,7 @@ function ShowOrder(deliveryStatusNum) {
     });
 }
 
-//訂單表格內容
+// 訂單表格內容
 function OrderHtml(orderData, deliveryStatusCountData) {
     let tableBody = $('#tableBody');
 
@@ -327,7 +237,94 @@ function OrderHtml(orderData, deliveryStatusCountData) {
     });
 }
 
-//退款申請
+// 顯示訂單詳細內容
+function ShowOrderDetail(orderId) {
+    $.ajax({
+        url: '/Ajax/OrderHandler.aspx/GetOrderDetailsData',
+        data: JSON.stringify({ orderId: orderId }),
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d == "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
+            } else {
+                selectedOrderId = orderId;
+
+                let data = JSON.parse(response.d);
+                let detailElement = $("#box");
+
+                //明細
+                let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered my-4">' +
+                    '<thead>' +
+                    '<tr>' +
+                    '<th>商品名稱</th>' +
+                    '<th>商品價格</th>' +
+                    '<th>商品類型</th>' +
+                    '<th>數量</th>' +
+                    '<th>小記</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody id="orderDetailTableBody">';
+
+                $.each(data, function (index, item) {
+                    detailHtml += '<tr>' +
+                        '<td>' + item.f_productName + '</td>' +
+                        '<td>' + item.f_productPrice + '</td>' +
+                        '<td>' + CategoryCodeToText(item.f_productCategory.toString()) + '</td>' +
+                        '<td>' + item.f_quantity + '</td>' +
+                        '<td>' + item.f_subtotal + '</td>' +
+                        '</tr>';
+                });
+                detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">關閉</button></div>';
+                $("#overlay").fadeIn(300);
+                detailElement.prepend(detailHtml).fadeIn(300);
+            }
+
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+// 更改訂單
+function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum) {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/OrderHandler.aspx/EditOrder",
+        data: JSON.stringify({ orderId: orderId, orderStatusNum: orderStatusNum, deliveryStatusNum: deliveryStatusNum, deliveryMethodNum: deliveryMethodNum }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.d === "重複登入") {
+                alert("重複登入，已被登出");
+                window.parent.location.href = "Login.aspx";
+            } else if (response.d === "權限不足") {
+                alert("權限不足");
+                parent.location.reload();
+            } else {
+                $("#labSearchOrder").text(response.d).show().delay(3000).fadeOut();
+                if (deliveryStatusValue === 0) {
+                    SearchAllOrder();
+                } else if (deliveryStatusValue === 7) {
+                    ShowReturnOrder();
+                } else {
+                    ShowOrder(deliveryStatusValue);
+                }
+            }
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+// 退款申請
 function ShowReturnOrder() {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/GetReturnOrderData',
@@ -393,7 +390,7 @@ function ShowReturnOrder() {
     });
 }
 
-//同意退款申請後，更改訂單狀態和配送狀態
+// 同意或拒絕退款申請後，更改訂單狀態和配送狀態
 function EditReturnOrder(orderId, boolReturn) {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/EditReturnOrder',
