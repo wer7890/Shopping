@@ -101,7 +101,7 @@ function SearchAllOrder() {
                 parent.location.reload();
             } else {
                 deliveryStatusValue = 0;
-                $("#orderSure").css('display', 'none');;
+                $("#orderSure").remove();
                 let orderData = JSON.parse(response.d[0]);
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
                 OrderHtml(orderData, deliveryStatusCountData);
@@ -189,7 +189,7 @@ function ShowOrder(deliveryStatusNum) {
                 parent.location.reload();
             } else {
                 deliveryStatusValue = deliveryStatusNum;
-                $("#orderSure").css('display', 'none');;
+                $("#orderSure").remove();
                 let orderData = JSON.parse(response.d[0]);
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
                 OrderHtml(orderData, deliveryStatusCountData);
@@ -328,7 +328,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
     });
 }
 
-// 點擊上方退款申請按鈕事件
+// 點擊上方退貨申請按鈕事件
 function ShowReturnOrder() {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/GetReturnOrderData',
@@ -347,7 +347,8 @@ function ShowReturnOrder() {
                 let orderData = JSON.parse(response.d[0]);
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
 
-                $("#orderSure").css('display', 'block');
+                $("#orderSure").remove();
+                $("#myTable > thead > tr").append("<th id='orderSure'>是否同意</th>");
 
                 let tableBody = $('#tableBody');
 
@@ -366,7 +367,7 @@ function ShowReturnOrder() {
                         '</td>' +
                         '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
                         '<td>NT$' + item.f_total + '</td>' +
-                        '<td class="p-1"><div class="d-flex justify-content-between">' +
+                        '<td><div class="d-flex justify-content-between">' +
                         '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.f_id + ', true)">接受</button>' +
                         '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.f_id + ', false)">拒絕</button>' +
                         '</div></td>' +
