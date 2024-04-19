@@ -57,27 +57,31 @@ $(document).ready(function () {
     $(document).on('change', '#orderStatusSelect', function () {
         // 獲取選中的訂單狀態值
         let selectedOrderStatus = $(this).val();
-        console.log(selectedOrderStatus);
 
         let deliveryStatusSelect = $("#deliveryStatusSelect");
         deliveryStatusSelect.empty();
 
+        let selectHtml = "";
+
         if (selectedOrderStatus == 5 || selectedOrderStatus == 6) {
-            deliveryStatusSelect.append('<option value="5">退貨中</option>');
-            deliveryStatusSelect.append('<option value="6">已退貨</option>');
+            selectHtml += '<option value="5">退貨中</option>';
+            selectHtml += '<option value="6">已退貨</option>';
         } else if (selectedOrderStatus == 4) {
-            deliveryStatusSelect.append('<option value="4">已取貨</option>');
+            selectHtml += '<option value="4">已取貨</option>';
         } else if (selectedOrderStatus == 3) {
-            deliveryStatusSelect.append('<option value="2">已發貨</option>');
-            deliveryStatusSelect.append('<option value="3">已到貨</option>');
-            deliveryStatusSelect.append('<option value="4">已取貨</option>');
+            selectHtml += '<option value="2">已發貨</option>';
+            selectHtml += '<option value="3">已到貨</option>';
+            selectHtml += '<option value="4">已取貨</option>';
         } else if (selectedOrderStatus == 1 || selectedOrderStatus == 2) {
-            deliveryStatusSelect.append('<option value="1" selected>發貨中</option>');
+            selectHtml += '<option value="1">發貨中</option>';
         } else {
             $.each(deliveryStatus, function (key, value) {
-                deliveryStatusSelect.append('<option value="' + key + '">' + value.name + '</option>');
+                selectHtml += '<option value="' + key + '">' + value.name + '</option>';
             });
         }
+
+        deliveryStatusSelect.append(selectHtml);
+
     });
 
 });
@@ -324,7 +328,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
     });
 }
 
-// 退款申請
+// 點擊上方退款申請按鈕事件
 function ShowReturnOrder() {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/GetReturnOrderData',
