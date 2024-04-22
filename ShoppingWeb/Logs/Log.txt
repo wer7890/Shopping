@@ -139,3 +139,15 @@ StackTrace:    在 System.Data.DataRow.GetDataColumn(String columnName)
    在 System.Data.DataRow.get_Item(String columnName)
    在 ShoppingWeb.Ajax.OrderHandler.GetDeliveryStatusCount() 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\OrderHandler.aspx.cs:行号 173
 --------------------------------------------------
+[2024/4/22 下午 02:30:25] Exception: 指定的转换无效。
+StackTrace:    在 ShoppingWeb.Ajax.OrderHandler.EditOrder(Int32 orderId, Int32 orderStatusNum, Int32 deliveryStatusNum, Int32 deliveryMethodNum) 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\OrderHandler.aspx.cs:行号 130
+--------------------------------------------------
+[2024/4/22 下午 02:30:58] Exception: 指定的转换无效。
+StackTrace:    在 ShoppingWeb.Ajax.OrderHandler.EditOrder(Int32 orderId, Int32 orderStatusNum, Int32 deliveryStatusNum, Int32 deliveryMethodNum) 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\OrderHandler.aspx.cs:行号 130
+--------------------------------------------------
+[2024/4/22 下午 02:31:04] Exception: 指定的转换无效。
+StackTrace:    在 ShoppingWeb.Ajax.OrderHandler.EditOrder(Int32 orderId, Int32 orderStatusNum, Int32 deliveryStatusNum, Int32 deliveryMethodNum) 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\OrderHandler.aspx.cs:行号 130
+--------------------------------------------------
+[2024/4/22 下午 02:31:48] Exception: 指定的转换无效。
+StackTrace:    在 ShoppingWeb.Ajax.OrderHandler.EditOrder(Int32 orderId, Int32 orderStatusNum, Int32 deliveryStatusNum, Int32 deliveryMethodNum) 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\OrderHandler.aspx.cs:行号 130
+--------------------------------------------------

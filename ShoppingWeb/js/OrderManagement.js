@@ -47,7 +47,7 @@ $(document).ready(function () {
 
     // 關閉訂單詳情按鈕
     $(document).on('click', '#btnCloseOrderDetail', function () {
-        $("#box").empty().fadeOut(300);
+        $("#box").empty();
         $("#overlay").fadeOut(300);
     });
 
@@ -281,8 +281,8 @@ function ShowOrderDetail(orderId) {
                         '</tr>';
                 });
                 detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">關閉</button></div>';
+                detailElement.prepend(detailHtml);
                 $("#overlay").fadeIn(300);
-                detailElement.prepend(detailHtml).fadeIn(300);
             }
 
         },

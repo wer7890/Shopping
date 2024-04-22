@@ -49,8 +49,10 @@
             <span id="labSearchOrder" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
 
-        <div id="overlay"></div>
-        <div id="box"></div>
+        <div id="overlay">
+            <div id="box"></div>
+        </div>
+        
         
     </div>
 
