@@ -25,7 +25,7 @@
                 <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_4" onclick="ShowOrder(4)">已取貨(<span>0</span>)</button>
                 <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_5" onclick="ShowOrder(5)">退貨中(<span>0</span>)</button>
                 <button type="button" class="btn btn-outline-secondary" id="btnDeliveryStatus_6" onclick="ShowOrder(6)">已退貨(<span>0</span>)</button>
-                <button type="button" class="btn btn-outline-secondary" id="btnOrderStatus_4" onclick="ShowReturnOrder()">申請退貨(<span>0</span>)</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnOrderStatus_2" onclick="ShowReturnOrder()">申請退貨(<span>0</span>)</button>
             </div>
         </div>
         <br />

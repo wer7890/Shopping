@@ -129,7 +129,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "更改成功" : "商品庫存不足或會員錢包不足";
+                        return (rowsAffected > 0) ? "更改成功" : "商品庫存不足";
 
                     }
                 }
@@ -169,10 +169,10 @@ namespace ShoppingWeb.Ajax
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@deliveryStatusNum", deliveryStatusNum));
 
-                    SqlDataAdapter da = new SqlDataAdapter(); //宣告一個配接器(DataTable與DataSet必須)
-                    DataSet ds = new DataSet(); //宣告DataSet物件
-                    da.SelectCommand = cmd; //執行
-                    da.Fill(ds); //結果存放至DataTable
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da.SelectCommand = cmd;
+                    da.Fill(ds);
 
                     object[] resultArr = new object[2];
 

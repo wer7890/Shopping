@@ -1,11 +1,9 @@
 ﻿// 訂單狀態
 let orderStatus = {
-    "1": { name: "未付款", color: "bg-warning", text: "text-white" },
-    "2": { name: "付款失敗", color: "bg-danger", text: "text-white" },
-    "3": { name: "已付款", color: "bg-white", text: "text-dark" },
-    "4": { name: "申請退貨", color: "bg-success", text: "text-white" },
-    "5": { name: "退款中", color: "bg-warning", text: "text-white" },
-    "6": { name: "已退款", color: "bg-white", text: "text-dark" }
+    "1": { name: "已付款", color: "bg-white", text: "text-dark" },
+    "2": { name: "申請退貨", color: "bg-success", text: "text-white" },
+    "3": { name: "退款中", color: "bg-warning", text: "text-white" },
+    "4": { name: "已退款", color: "bg-white", text: "text-dark" }
 };
 
 // 配送狀態
@@ -63,17 +61,16 @@ $(document).ready(function () {
 
         let selectHtml = "";
 
-        if (selectedOrderStatus == 5 || selectedOrderStatus == 6) {
+        if (selectedOrderStatus == 3 || selectedOrderStatus == 4) {
             selectHtml += '<option value="5">退貨中</option>';
             selectHtml += '<option value="6">已退貨</option>';
-        } else if (selectedOrderStatus == 4) {
+        } else if (selectedOrderStatus == 2) {
             selectHtml += '<option value="4">已取貨</option>';
-        } else if (selectedOrderStatus == 3) {
+        } else if (selectedOrderStatus == 1) {
+            selectHtml += '<option value="1">發貨中</option>';
             selectHtml += '<option value="2">已發貨</option>';
             selectHtml += '<option value="3">已到貨</option>';
             selectHtml += '<option value="4">已取貨</option>';
-        } else if (selectedOrderStatus == 1 || selectedOrderStatus == 2) {
-            selectHtml += '<option value="1">發貨中</option>';
         } else {
             $.each(deliveryStatus, function (key, value) {
                 selectHtml += '<option value="' + key + '">' + value.name + '</option>';
@@ -136,20 +133,19 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label">配送狀態</label><select id="deliveryStatusSelect" class="form-select">';
 
     // 根據訂單狀態決定配送狀態的選項
-    if (orderStatusNum == 5 || orderStatusNum == 6) {
-        // 訂單狀態為退款中或已退款時，只能選擇退貨中或已退回
+    if (orderStatusNum == 3 || orderStatusNum == 4) {
+        // 訂單狀態為退款中或已退款時
         selectHtml += '<option value="5">退貨中</option>';
         selectHtml += '<option value="6">已退貨</option>';
-    } else if (orderStatusNum == 4) {
+    } else if (orderStatusNum == 2) {
+        // 訂單狀態為申請退貨時
         selectHtml += '<option value="4">已取貨</option>';
-    } else if (orderStatusNum == 3) {
-        // 訂單狀態為已付款時，只能選擇已到貨或已取貨
+    } else if (orderStatusNum == 1) {
+        // 訂單狀態為已付款時
+        selectHtml += '<option value="1">發貨中</option>';
         selectHtml += '<option value="2">已發貨</option>';
         selectHtml += '<option value="3">已到貨</option>';
         selectHtml += '<option value="4">已取貨</option>';
-    } else if (orderStatusNum == 1 || orderStatusNum == 2) {
-        // 訂單狀態為未付款或付款失敗時，只能選擇發貨中
-        selectHtml += '<option value="1" selected>發貨中</option>';
     } else {
         // 其他情況下顯示所有配送狀態的選項
         $.each(deliveryStatus, function (key, value) {
@@ -237,7 +233,7 @@ function OrderHtml(orderData, deliveryStatusCountData) {
         $("#btnDeliveryStatus_4 > span").text(item.status4);
         $("#btnDeliveryStatus_5 > span").text(item.status5);
         $("#btnDeliveryStatus_6 > span").text(item.status6);
-        $("#btnOrderStatus_4 > span").text(item.orderStatus4);
+        $("#btnOrderStatus_2 > span").text(item.orderStatus2);
     });
 }
 
@@ -384,7 +380,7 @@ function ShowReturnOrder() {
                     $("#btnDeliveryStatus_4 > span").text(item.status4);
                     $("#btnDeliveryStatus_5 > span").text(item.status5);
                     $("#btnDeliveryStatus_6 > span").text(item.status6);
-                    $("#btnOrderStatus_4 > span").text(item.orderStatus4);
+                    $("#btnOrderStatus_2 > span").text(item.orderStatus2);
                 });
             }
 
