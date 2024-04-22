@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Web.Services;
 
 namespace ShoppingWeb.Ajax
@@ -112,6 +113,11 @@ namespace ShoppingWeb.Ajax
                 return "權限不足";
             }
 
+            if (!EditOrderSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum))
+            {
+                return "後端輸入值錯誤";
+            }
+
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -140,6 +146,24 @@ namespace ShoppingWeb.Ajax
                 logger.LogException(ex);
                 return "錯誤";
             }
+        }
+
+        /// <summary>
+        /// 判斷輸入值
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="orderStatusNum"></param>
+        /// <param name="deliveryStatusNum"></param>
+        /// <param name="deliveryMethodNum"></param>
+        /// <returns></returns>
+        public static bool EditOrderSpecialChar(int orderId, int orderStatusNum, int deliveryStatusNum, int deliveryMethodNum)
+        {
+            bool cheackOrderId = Regex.IsMatch(orderId.ToString(), @"^[0-9]{1,10}$");
+            bool cheackOrderStatusNum = Regex.IsMatch(orderStatusNum.ToString(), @"^[1-4]{1}$");
+            bool cheackDeliveryStatusNum = Regex.IsMatch(deliveryStatusNum.ToString(), @"^[1-6]{1}$");
+            bool cheackDeliveryMethodNum = Regex.IsMatch(deliveryMethodNum.ToString(), @"^[1-3]{1}$");
+
+            return cheackOrderId && cheackOrderStatusNum && cheackDeliveryStatusNum && cheackDeliveryMethodNum;
         }
 
         /// <summary>
@@ -249,6 +273,11 @@ namespace ShoppingWeb.Ajax
                 return "權限不足";
             }
 
+            if (!EditReturnOrderSpecialChar(orderId))
+            {
+                return "後端輸入值錯誤";
+            }
+
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -265,6 +294,21 @@ namespace ShoppingWeb.Ajax
                 }
             }
 
+        }
+
+        /// <summary>
+        /// 判斷退貨訂單輸入值
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="orderStatusNum"></param>
+        /// <param name="deliveryStatusNum"></param>
+        /// <param name="deliveryMethodNum"></param>
+        /// <returns></returns>
+        public static bool EditReturnOrderSpecialChar(int orderId)
+        {
+            bool cheackOrderId = Regex.IsMatch(orderId.ToString(), @"^[0-9]{1,10}$");
+
+            return cheackOrderId;
         }
     }
 }

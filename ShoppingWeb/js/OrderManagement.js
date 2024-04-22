@@ -61,16 +61,18 @@ $(document).ready(function () {
 
         let selectHtml = "";
 
-        if (selectedOrderStatus == 3 || selectedOrderStatus == 4) {
-            selectHtml += '<option value="5">退貨中</option>';
-            selectHtml += '<option value="6">已退貨</option>';
-        } else if (selectedOrderStatus == 2) {
-            selectHtml += '<option value="4">已取貨</option>';
-        } else if (selectedOrderStatus == 1) {
+        if (selectedOrderStatus == 1) {
             selectHtml += '<option value="1">發貨中</option>';
             selectHtml += '<option value="2">已發貨</option>';
             selectHtml += '<option value="3">已到貨</option>';
             selectHtml += '<option value="4">已取貨</option>';
+        } else if (selectedOrderStatus == 2) {
+            selectHtml += '<option value="4">已取貨</option>';
+        } else if (selectedOrderStatus == 3) {
+            selectHtml += '<option value="5">退貨中</option>';
+            selectHtml += '<option value="6">已退貨</option>';
+        } else if (selectedOrderStatus == 4) {
+            selectHtml += '<option value="6">已退貨</option>';
         } else {
             $.each(deliveryStatus, function (key, value) {
                 selectHtml += '<option value="' + key + '">' + value.name + '</option>';
@@ -124,28 +126,45 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     let selectHtml = '<div class="row d-flex justify-content-center my-3">';
     // 訂單狀態
     selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
-    $.each(orderStatus, function (key, value) {
-        selectHtml += (key == orderStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
-    });
+    
+    if (orderStatusNum == 1) {
+        selectHtml += '<option value="1">已付款</option>';
+        selectHtml += '<option value="2">申請退貨</option>';
+    } else if (orderStatusNum == 2) {
+        selectHtml += '<option value="2">申請退貨</option>';
+    } else if (orderStatusNum == 3) {
+        selectHtml += '<option value="3">退款中</option>';
+        selectHtml += '<option value="4">已退款</option>';
+    } else if (orderStatusNum == 4) {
+        selectHtml += '<option value="4">已退款</option>';
+    } else {
+        // 其他情況下顯示所有配送狀態的選項
+        $.each(orderStatus, function (key, value) {
+            selectHtml += (key == orderStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
+        });
+    }
+
     selectHtml += '</select></div>';
 
     // 配送狀態
     selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label">配送狀態</label><select id="deliveryStatusSelect" class="form-select">';
 
     // 根據訂單狀態決定配送狀態的選項
-    if (orderStatusNum == 3 || orderStatusNum == 4) {
-        // 訂單狀態為退款中或已退款時
-        selectHtml += '<option value="5">退貨中</option>';
-        selectHtml += '<option value="6">已退貨</option>';
-    } else if (orderStatusNum == 2) {
-        // 訂單狀態為申請退貨時
-        selectHtml += '<option value="4">已取貨</option>';
-    } else if (orderStatusNum == 1) {
+    if (orderStatusNum == 1) {
         // 訂單狀態為已付款時
         selectHtml += '<option value="1">發貨中</option>';
         selectHtml += '<option value="2">已發貨</option>';
         selectHtml += '<option value="3">已到貨</option>';
         selectHtml += '<option value="4">已取貨</option>';
+    } else if (orderStatusNum == 2) {
+        // 訂單狀態為申請退貨時
+        selectHtml += '<option value="4">已取貨</option>';
+    } else if (orderStatusNum == 3) {
+        // 訂單狀態為退款中或已退款時
+        selectHtml += '<option value="5">退貨中</option>';
+        selectHtml += '<option value="6">已退貨</option>';
+    } else if (orderStatusNum == 4) {
+        selectHtml += '<option value="6">已退貨</option>';
     } else {
         // 其他情況下顯示所有配送狀態的選項
         $.each(deliveryStatus, function (key, value) {
@@ -294,6 +313,11 @@ function ShowOrderDetail(orderId) {
 
 // 更改訂單
 function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum) {
+
+    if (!IsSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum)) {
+        return;
+    } 
+
     $.ajax({
         type: "POST",
         url: "/Ajax/OrderHandler.aspx/EditOrder",
@@ -415,4 +439,24 @@ function EditReturnOrder(orderId, boolReturn) {
             console.error('Error:', error);
         }
     });
+}
+
+// 判斷輸入值
+function IsSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum) {
+    if (typeof orderId === 'undefined' || typeof orderStatusNum === 'undefined' || typeof deliveryStatusNum === 'undefined' || typeof deliveryMethodNum === 'undefined') {
+        $("#labSearchOrder").text("undefined").show().delay(3000).fadeOut();
+        return false;
+    }
+
+    let orderIdRegex = /^[0-9]{1,10}$/;
+    let orderStatusNumRegex = /^[1-4]{1}$/;
+    let deliveryStatusNumRegex = /^[1-6]{1}$/;
+    let deliveryMethodNumRegex = /^[1-3]{1}$/;
+
+    if (!orderIdRegex.test(orderId) || !orderStatusNumRegex.test(orderStatusNum) || !deliveryStatusNumRegex.test(deliveryStatusNum) || !deliveryMethodNumRegex.test(deliveryMethodNum)) {
+        $("#labSearchOrder").text("輸入值錯誤").show().delay(3000).fadeOut();
+        return false;
+    }
+
+    return true;
 }
