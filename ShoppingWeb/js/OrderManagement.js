@@ -92,10 +92,10 @@ function SearchAllOrder() {
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
-            if (response.d == "重複登入") {
+            if (response.d === 1) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
+            } else if (response.d === 2) {
                 alert("權限不足");
                 parent.location.reload();
             } else {

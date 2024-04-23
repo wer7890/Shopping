@@ -9,6 +9,25 @@ namespace ShoppingWeb.Ajax
 {
     public partial class OrderHandler : BasePage
     {
+
+        public enum Status 
+        {
+            /// <summary>
+            /// 重複登入
+            /// </summary>
+            DuplicateLogin = 1,
+
+            /// <summary>
+            /// 權限不足
+            /// </summary>
+            Roles = 2,
+
+            /// <summary>
+            /// 後端輸入值錯誤
+            /// </summary>
+            SpecialChar = 3
+        }
+
         private const int PERMITTED_Order_ROLES = 2;
 
         /// <summary>
@@ -20,12 +39,12 @@ namespace ShoppingWeb.Ajax
         {
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Status.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_Order_ROLES))
             {
-                return "權限不足";
+                return (int)Status.Roles;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
