@@ -62,15 +62,15 @@ $(document).ready(function () {
         let selectHtml = "";
 
         if (selectedOrderStatus == 1) {
-            selectHtml += '<option value="1">發貨中</option>';
-            selectHtml += '<option value="2">已發貨</option>';
-            selectHtml += '<option value="3">已到貨</option>';
-            selectHtml += '<option value="4">已取貨</option>';
+            selectHtml += '<option value="1">發貨中</option>' +
+                          '<option value="2">已發貨</option>' +
+                          '<option value="3">已到貨</option>' +
+                          '<option value="4">已取貨</option>';
         } else if (selectedOrderStatus == 2) {
             selectHtml += '<option value="4">已取貨</option>';
         } else if (selectedOrderStatus == 3) {
-            selectHtml += '<option value="5">退貨中</option>';
-            selectHtml += '<option value="6">已退貨</option>';
+            selectHtml += '<option value="5">退貨中</option>' +
+                          '<option value="6">已退貨</option>';
         } else if (selectedOrderStatus == 4) {
             selectHtml += '<option value="6">已退貨</option>';
         } else {
@@ -128,17 +128,16 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
     
     if (orderStatusNum == 1) {
-        selectHtml += '<option value="1">已付款</option>';
-        selectHtml += '<option value="2">申請退貨</option>';
+        selectHtml += '<option value="1">已付款</option>' +
+                      '<option value="2">申請退貨</option>';
     } else if (orderStatusNum == 2) {
         selectHtml += '<option value="2">申請退貨</option>';
     } else if (orderStatusNum == 3) {
-        selectHtml += '<option value="3">退款中</option>';
-        selectHtml += '<option value="4">已退款</option>';
+        selectHtml += '<option value="3">退款中</option>' +
+                      '<option value="4">已退款</option>';
     } else if (orderStatusNum == 4) {
         selectHtml += '<option value="4">已退款</option>';
     } else {
-        // 其他情況下顯示所有配送狀態的選項
         $.each(orderStatus, function (key, value) {
             selectHtml += (key == orderStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
         });
@@ -152,17 +151,17 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     // 根據訂單狀態決定配送狀態的選項
     if (orderStatusNum == 1) {
         // 訂單狀態為已付款時
-        selectHtml += '<option value="1">發貨中</option>';
-        selectHtml += '<option value="2">已發貨</option>';
-        selectHtml += '<option value="3">已到貨</option>';
-        selectHtml += '<option value="4">已取貨</option>';
+        selectHtml += '<option value="1">發貨中</option>' +
+                      '<option value="2">已發貨</option>' +
+                      '<option value="3">已到貨</option>' +
+                      '<option value="4">已取貨</option>';
     } else if (orderStatusNum == 2) {
         // 訂單狀態為申請退貨時
         selectHtml += '<option value="4">已取貨</option>';
     } else if (orderStatusNum == 3) {
         // 訂單狀態為退款中或已退款時
-        selectHtml += '<option value="5">退貨中</option>';
-        selectHtml += '<option value="6">已退貨</option>';
+        selectHtml += '<option value="5">退貨中</option>' + 
+                      '<option value="6">已退貨</option>';
     } else if (orderStatusNum == 4) {
         selectHtml += '<option value="6">已退貨</option>';
     } else {
@@ -181,6 +180,7 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     });
     selectHtml += '</select></div>';
 
+    // 按鈕
     if (orderStatusNum != 4) {
         selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary">修改</button></div>';
     }
@@ -239,11 +239,20 @@ function OrderHtml(orderData, deliveryStatusCountData) {
             '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
             '</td>' +
             '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
-            '<td>NT$' + item.f_total + '</td>' +
-            '</tr>' +
-            '<tr id="collapse_' + index + '" class="collapse">' +
-            '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
-            '</tr>';
+            '<td>NT$' + item.f_total + '</td>';
+
+        if (deliveryStatusValue === 7) {
+            row += '<td><div class="d-flex justify-content-between">' +
+                '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.f_id + ', true)">接受</button>' +
+                '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.f_id + ', false)">拒絕</button>' +
+                '</div></td>' +
+                '</tr>';
+        } else {
+            row += '</tr>' +
+                '<tr id="collapse_' + index + '" class="collapse">' +
+                '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
+                '</tr>';
+        }  
     });
 
     tableBody.append(row);
@@ -373,43 +382,7 @@ function ShowReturnOrder() {
 
                 $("#orderSure").remove();
                 $("#myTable > thead > tr").append("<th id='orderSure'>是否同意</th>");
-
-                let tableBody = $('#tableBody');
-
-                tableBody.empty();
-                let row = "";
-                $.each(orderData, function (index, item) {
-                    row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_account + '</td>' +
-                        '<td>' + item.f_createdTime + '</td>' +
-                        '<td>' +
-                        '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
-                        '</td>' +
-                        '<td>' +
-                        '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
-                        '</td>' +
-                        '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
-                        '<td>NT$' + item.f_total + '</td>' +
-                        '<td><div class="d-flex justify-content-between">' +
-                        '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.f_id + ', true)">接受</button>' +
-                        '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.f_id + ', false)">拒絕</button>' +
-                        '</div></td>' +
-                        '</tr>';
-                });
-
-                tableBody.append(row);
-
-                $.each(deliveryStatusCountData, function (index, item) {
-                    $("#btnDeliveryStatus_0 > span").text(item.statusAll);
-                    $("#btnDeliveryStatus_1 > span").text(item.status1);
-                    $("#btnDeliveryStatus_2 > span").text(item.status2);
-                    $("#btnDeliveryStatus_3 > span").text(item.status3);
-                    $("#btnDeliveryStatus_4 > span").text(item.status4);
-                    $("#btnDeliveryStatus_5 > span").text(item.status5);
-                    $("#btnDeliveryStatus_6 > span").text(item.status6);
-                    $("#btnOrderStatus_2 > span").text(item.orderStatus2);
-                });
+                OrderHtml(orderData, deliveryStatusCountData);
             }
 
         },
