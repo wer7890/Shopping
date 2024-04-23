@@ -12,18 +12,6 @@ namespace ShoppingWeb.Ajax
 {
     public class BasePage : System.Web.UI.Page
     {
-        private static UserInfo userInfo;
-
-        /// <summary>
-        /// 取得使用者資訊物件
-        /// </summary>
-        public static UserInfo UserInfo
-        { 
-            set { userInfo = value; } 
-            get { return userInfo; } 
-        }
-        
-
         public BasePage() 
         {
             this.Init += new EventHandler(BasePage_Init);  //EventHandler: 委派事件  Init:頁面初始化階段
@@ -59,7 +47,7 @@ namespace ShoppingWeb.Ajax
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", userInfo.UID));
+                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UID));
 
                         object dbResult = cmd.ExecuteScalar();
 
@@ -121,7 +109,7 @@ namespace ShoppingWeb.Ajax
         /// <returns></returns>
         public static bool CheckRoles(int roles)
         {
-            return (userInfo.Roles == 1 || userInfo.Roles == roles);
+            return (((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 1 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == roles);
         }
 
         /// <summary>

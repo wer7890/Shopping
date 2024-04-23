@@ -64,7 +64,6 @@ namespace ShoppingWeb.Ajax
                                 UID = (int)cmd.Parameters["@userId"].Value,
                                 Roles = (int)cmd.Parameters["@roles"].Value
                             };
-                            UserInfo = user;
                             HttpContext.Current.Session["userInfo"] = user;
                             return "登入成功";
                         }
