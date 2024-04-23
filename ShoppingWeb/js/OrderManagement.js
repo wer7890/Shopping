@@ -180,8 +180,12 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
         selectHtml += (key == deliveryMethodNum) ? '<option value="' + key + '" selected>' + value + '</option>' : '<option value="' + key + '">' + value + '</option>';
     });
     selectHtml += '</select></div>';
-    selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary">修改</button></div>' +
-        '<div class="col-1 d-flex align-items-end"><button id="btnShowOrderDetail" type="submit" class="btn btn-outline-primary">詳情</button></div>' +
+
+    if (orderStatusNum != 4) {
+        selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary">修改</button></div>';
+    }
+
+    selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnShowOrderDetail" type="submit" class="btn btn-outline-primary">詳情</button></div>' +
         '</select></div>';
 
     detailElement.append(selectHtml);
