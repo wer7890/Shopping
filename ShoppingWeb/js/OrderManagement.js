@@ -363,7 +363,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     }
                     break;
                 default:
-                    $("#labSearchOrder").text("錯誤").show().delay(3000).fadeOut();
+                    $("#labSearchOrder").text("發生發生內部錯誤，請看日誌").show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
@@ -430,7 +430,7 @@ function EditReturnOrder(orderId, boolReturn) {
                     ShowReturnOrder();
                     break;
                 default:
-                    $("#labSearchOrder").text("錯誤").show().delay(3000).fadeOut();
+                    $("#labSearchOrder").text("發生發生內部錯誤，請看日誌").show().delay(3000).fadeOut();
 
             }
         },

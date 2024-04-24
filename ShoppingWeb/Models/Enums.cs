@@ -45,7 +45,7 @@ namespace ShoppingWeb.Models
             Failure,
 
             /// <summary>
-            /// 發生錯誤
+            /// 發生發生內部錯誤，請看日誌。
             /// </summary>
             Error
         }
