@@ -92,10 +92,10 @@ function SearchAllOrder() {
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
-            if (response.d === 1) {
+            if (response.d === 0) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d === 2) {
+            } else if (response.d === 1) {
                 alert("權限不足");
                 parent.location.reload();
             } else {
@@ -200,10 +200,10 @@ function ShowOrder(deliveryStatusNum) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d == "重複登入") {
+            if (response.d === 0) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
+            } else if (response.d === 1) {
                 alert("權限不足");
                 parent.location.reload();
             } else {
@@ -278,10 +278,10 @@ function ShowOrderDetail(orderId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d == "重複登入") {
+            if (response.d === 0) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
+            } else if (response.d === 1) {
                 alert("權限不足");
                 parent.location.reload();
             } else {
@@ -338,21 +338,32 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
-                alert("權限不足");
-                parent.location.reload();
-            } else {
-                $("#labSearchOrder").text(response.d).show().delay(3000).fadeOut();
-                if (deliveryStatusValue === 0) {
-                    SearchAllOrder();
-                } else if (deliveryStatusValue === 7) {
-                    ShowReturnOrder();
-                } else {
-                    ShowOrder(deliveryStatusValue);
-                }
+            switch (response.d) {
+                case 0:
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert("權限不足");
+                    parent.location.reload();
+                    break;
+                case 2:
+                    alert("輸入值錯誤");
+                    break;
+                case 100:
+                case 101:
+                    let temp = (response.d === 100) ? "更新成功" : "庫存不足或更新時發生錯誤";
+                    $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
+                    if (deliveryStatusValue === 0) {
+                        SearchAllOrder();
+                    } else if (deliveryStatusValue === 7) {
+                        ShowReturnOrder();
+                    } else {
+                        ShowOrder(deliveryStatusValue);
+                    }
+                    break;
+                default:
+                    $("#labSearchOrder").text("錯誤").show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
@@ -369,10 +380,10 @@ function ShowReturnOrder() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d == "重複登入") {
+            if (response.d === 0) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
+            } else if (response.d === 1) {
                 alert("權限不足");
                 parent.location.reload();
             } else {
@@ -400,17 +411,28 @@ function EditReturnOrder(orderId, boolReturn) {
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
-            if (response.d == "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
-                alert("權限不足");
-                parent.location.reload();
-            } else {
-                $("#labSearchOrder").text(response.d).show().delay(3000).fadeOut();
-                ShowReturnOrder();
-            }
+            switch (response.d) {
+                case 0:
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert("權限不足");
+                    parent.location.reload();
+                    break;
+                case 2:
+                    alert("輸入值錯誤");
+                    break;
+                case 100:
+                case 101:
+                    let temp = (response.d === 100) ? "更改成功" : "更改失敗";
+                    $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
+                    ShowReturnOrder();
+                    break;
+                default:
+                    $("#labSearchOrder").text("錯誤").show().delay(3000).fadeOut();
 
+            }
         },
         error: function (error) {
             console.error('Error:', error);

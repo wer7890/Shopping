@@ -4,30 +4,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Web.Services;
+using ShoppingWeb.Models;
 
 namespace ShoppingWeb.Ajax
 {
     public partial class OrderHandler : BasePage
     {
-
-        public enum Status 
-        {
-            /// <summary>
-            /// 重複登入
-            /// </summary>
-            DuplicateLogin = 1,
-
-            /// <summary>
-            /// 權限不足
-            /// </summary>
-            Roles = 2,
-
-            /// <summary>
-            /// 後端輸入值錯誤
-            /// </summary>
-            SpecialChar = 3
-        }
-
         private const int PERMITTED_Order_ROLES = 2;
 
         /// <summary>
@@ -37,14 +19,15 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static object GetAllOrderData()
         {
+
             if (!CheckDuplicateLogin())
             {
-                return (int)Status.DuplicateLogin;
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_Order_ROLES))
             {
-                return (int)Status.Roles;
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -83,12 +66,12 @@ namespace ShoppingWeb.Ajax
         {
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_Order_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -119,22 +102,22 @@ namespace ShoppingWeb.Ajax
         /// <param name="deliveryMethodNum"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string EditOrder(int orderId, int orderStatusNum, int deliveryStatusNum, int deliveryMethodNum)
+        public static int EditOrder(int orderId, int orderStatusNum, int deliveryStatusNum, int deliveryMethodNum)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_Order_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             if (!EditOrderSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum))
             {
-                return "後端輸入值錯誤";
+                return (int)Enums.UserStatus.InputError;
             }
 
             try
@@ -154,7 +137,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "更改成功" : "庫存不足或更新時發生錯誤";
+                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
 
                     }
                 }
@@ -163,7 +146,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "錯誤";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 
@@ -195,12 +178,12 @@ namespace ShoppingWeb.Ajax
         {
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_Order_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -240,12 +223,12 @@ namespace ShoppingWeb.Ajax
         {
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_Order_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -280,37 +263,46 @@ namespace ShoppingWeb.Ajax
         /// <param name="orderId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object EditReturnOrder(int orderId, bool boolReturn)
+        public static int EditReturnOrder(int orderId, bool boolReturn)
         {
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_Order_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             if (!EditReturnOrderSpecialChar(orderId))
             {
-                return "後端輸入值錯誤";
+                return (int)Enums.UserStatus.InputError;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("pro_sw_editReturnOrder", con))
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    cmd.Parameters.Add(new SqlParameter("@orderId", orderId));
-                    cmd.Parameters.Add(new SqlParameter("@boolReturn", boolReturn));
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_editReturnOrder", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@orderId", orderId));
+                        cmd.Parameters.Add(new SqlParameter("@boolReturn", boolReturn));
 
-                    int rowsAffected = (int)cmd.ExecuteScalar();
+                        int rowsAffected = (int)cmd.ExecuteScalar();
 
-                    return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger logger = new Logger();
+                logger.LogException(ex);
+                return (int)Enums.DatabaseOperationResult.Error;
             }
 
         }
