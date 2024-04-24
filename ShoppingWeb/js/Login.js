@@ -16,10 +16,19 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d == "登入成功") {
-                    window.location.href = "Frame.aspx";
-                } else {
-                    $("#labLogin").text(response.d);
+                switch (response.d) {
+                    case 2:
+                        $("#labLogin").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間");
+                        break;
+                    case 100:
+                        window.location.href = "Frame.aspx";
+                        break;
+                    case 101:
+                        $("#labLogin").text("帳號密碼錯誤");
+                        break;
+                    default:
+                        $("#labLogin").text("發生發生內部錯誤，請看日誌");
+
                 }
             },
             error: function (error) {

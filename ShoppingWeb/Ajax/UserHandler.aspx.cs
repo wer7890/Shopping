@@ -5,8 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Web.Services;
-using System.Text;
-using System.Security.Cryptography;
+using ShoppingWeb.Models;
 
 namespace ShoppingWeb.Ajax
 {
@@ -29,12 +28,12 @@ namespace ShoppingWeb.Ajax
         /// <param name="pwd"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string LoginUser(string account, string pwd)
+        public static int LoginUser(string account, string pwd)
         {
 
             if (!LoginSpecialChar(account, pwd))
             {
-                return "帳號和密碼不能含有非英文和數字且長度應在6到16之間";
+                return (int)Enums.UserStatus.InputError;
             }
 
             try
@@ -65,10 +64,10 @@ namespace ShoppingWeb.Ajax
                                 Roles = (int)cmd.Parameters["@roles"].Value
                             };
                             HttpContext.Current.Session["userInfo"] = user;
-                            return "登入成功";
+                            return (int)Enums.DatabaseOperationResult.Success;
                         }
 
-                        return "帳號密碼錯誤";
+                        return (int)Enums.DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -76,7 +75,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "登入失敗";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 

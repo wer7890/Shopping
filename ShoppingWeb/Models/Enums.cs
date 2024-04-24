@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ShoppingWeb.Models
+﻿namespace ShoppingWeb.Models
 {
     public class Enums
     {
@@ -45,7 +40,7 @@ namespace ShoppingWeb.Models
             Failure,
 
             /// <summary>
-            /// 發生發生內部錯誤，請看日誌。
+            /// 發生發生內部錯誤，請看日誌
             /// </summary>
             Error
         }
