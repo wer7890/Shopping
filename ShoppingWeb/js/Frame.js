@@ -41,9 +41,8 @@ function getUserPermission() {
         dataType: "json",
         success: function (response) {
 
-            if (response.d === "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
+            if (response.d === 102) {
+                $("#labUserRoles").text("發生發生內部錯誤，請看日誌");
             } else {
                 $("#labUserRoles").text("帳號 : " + response.d.Account);
                 switch (response.d.Roles) {

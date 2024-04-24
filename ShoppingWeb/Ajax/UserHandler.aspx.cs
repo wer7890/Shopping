@@ -132,7 +132,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "發生內部錯誤: " + ex.Message;
+                return (int)Enums.DatabaseOperationResult.Error;
             }
 
         }
