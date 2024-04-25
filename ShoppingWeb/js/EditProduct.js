@@ -8,17 +8,21 @@
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            // 直接設定 input 元素的值
-            $("#labProductId").text(data.d.ProductId);
-            $("#labProductCreatedOn").text(data.d.ProductCreatedOn);
-            $("#labProductOwner").text(data.d.ProductOwner);
-            $("#labProductName").text(data.d.ProductName);
-            $("#labProductCategory").text(data.d.ProductCategory);
-            $("#labProductStock").text(data.d.ProductStock);
-            $("#imgProduct").attr("src", "/ProductImg/" + data.d.ProductImg);
-            $("#txbProductPrice").val(data.d.ProductPrice);
-            $("#txbProductIntroduce").val(data.d.ProductIntroduce);
-            dbStock = data.d.ProductStock;
+            if (data.d === 102) {
+                $("#labRenewProduct").text("發生發生內部錯誤，請看日誌");
+            } else {
+                // 直接設定 input 元素的值
+                $("#labProductId").text(data.d.ProductId);
+                $("#labProductCreatedOn").text(data.d.ProductCreatedOn);
+                $("#labProductOwner").text(data.d.ProductOwner);
+                $("#labProductName").text(data.d.ProductName);
+                $("#labProductCategory").text(data.d.ProductCategory);
+                $("#labProductStock").text(data.d.ProductStock);
+                $("#imgProduct").attr("src", "/ProductImg/" + data.d.ProductImg);
+                $("#txbProductPrice").val(data.d.ProductPrice);
+                $("#txbProductIntroduce").val(data.d.ProductIntroduce);
+                dbStock = data.d.ProductStock;
+            }
         },
         error: function (error) {
             console.error('Error:', error);
@@ -49,17 +53,27 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === "重複登入") {
-                    alert("重複登入，已被登出");
-                    window.parent.location.href = "Login.aspx";
-                } else if (response.d === "權限不足") {
-                    alert("權限不足");
-                    parent.location.reload();
-                } else if (response.d === "修改成功") {
-                    alert("修改成功");
-                    window.location.href = "ProductManagement.aspx";
-                } else {
-                    $("#labRenewProduct").text(response.d);
+                switch (response.d) {
+                    case 0:
+                        alert("重複登入，已被登出");
+                        window.parent.location.href = "Login.aspx";
+                        break;
+                    case 1:
+                        alert("權限不足");
+                        parent.location.reload();
+                        break;
+                    case 2:
+                        $("#labRenewProduct").text("輸入值不符合格式");
+                        break;
+                    case 100:
+                        alert("修改成功");
+                        window.location.href = "ProductManagement.aspx";
+                        break;
+                    case 101:
+                        $("#labRenewProduct").text("修改失敗，庫存量不能小於0");
+                        break;
+                    default:
+                        $("#labRenewProduct").text("發生發生內部錯誤，請看日誌");
                 }
             },
             error: function (error) {

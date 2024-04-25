@@ -16,12 +16,12 @@
             /// <summary>
             /// 權限不足
             /// </summary>
-            AccessDenied,
+            AccessDenied = 1,
 
             /// <summary>
             /// 輸入值錯誤
             /// </summary>
-            InputError
+            InputError = 2
         }
 
         /// <summary>
@@ -37,12 +37,12 @@
             /// <summary>
             /// 更改失敗
             /// </summary>
-            Failure,
+            Failure = 101,
 
             /// <summary>
             /// 發生發生內部錯誤，請看日誌
             /// </summary>
-            Error
+            Error = 102
         }
         
     }

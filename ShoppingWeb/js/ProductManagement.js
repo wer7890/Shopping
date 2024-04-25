@@ -101,10 +101,10 @@ function SearchAllProduct(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
-            if (response.d === "重複登入") {
+            if (response.d === 0) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
+            } else if (response.d === 1) {
                 alert("權限不足");
                 parent.location.reload();
             } else {
@@ -162,10 +162,10 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "重複登入") {
+            if (response.d === 0) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
+            } else if (response.d === 1) {
                 alert("權限不足");
                 parent.location.reload();
             } else if (response.d === "null") {
@@ -229,16 +229,23 @@ function ToggleProductStatus(productId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
-                alert("權限不足");
-                parent.location.reload();
-            } else if (response.d === "更改成功") {
-                $("#labSearchProduct").text("更改成功");
-            } else {
-                $("#labSearchProduct").text(response.d);
+            switch (response.d) {
+                case 0:
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert("權限不足");
+                    parent.location.reload();
+                    break;
+                case 100:
+                    $("#labSearchProduct").text("更改成功");
+                    break;
+                case 101:
+                    $("#labSearchProduct").text("更改失敗");
+                    break;
+                default:
+                    $("#labSearchProduct").text("發生發生內部錯誤，請看日誌");
             }
         },
         error: function (error) {
@@ -258,16 +265,23 @@ function DeleteProduct(productId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === "重複登入") {
-                    alert("重複登入，已被登出");
-                    window.parent.location.href = "Login.aspx";
-                } else if (response.d === "權限不足") {
-                    alert("權限不足");
-                    parent.location.reload();
-                } else if (response.d === "刪除成功") {
-                    window.location.reload();
-                } else {
-                    $("#labSearchProduct").text(response.d);
+                switch (response.d) {
+                    case 0:
+                        alert("重複登入，已被登出");
+                        window.parent.location.href = "Login.aspx";
+                        break;
+                    case 1:
+                        alert("權限不足");
+                        parent.location.reload();
+                        break;
+                    case 100:
+                        window.location.reload();
+                        break;
+                    case 101:
+                        $("#labSearchProduct").text("刪除失敗");
+                        break;
+                    default:
+                        $("#labSearchProduct").text("發生發生內部錯誤，請看日誌");
                 }
             },
             error: function (error) {

@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Web.Services;
 using System.IO;
+using ShoppingWeb.Models;
 
 namespace ShoppingWeb.Ajax
 {
@@ -99,12 +100,12 @@ namespace ShoppingWeb.Ajax
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -150,12 +151,12 @@ namespace ShoppingWeb.Ajax
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -205,17 +206,17 @@ namespace ShoppingWeb.Ajax
         /// <param name="userId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string RemoveProduct(string productId)
+        public static int RemoveProduct(string productId)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             try
@@ -243,11 +244,11 @@ namespace ShoppingWeb.Ajax
                         {
                             string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
                             File.Delete(imagePath);
-                            return "刪除成功";
+                            return (int)Enums.DatabaseOperationResult.Success;
                         }
                         else
                         {
-                            return "刪除失敗";
+                            return (int)Enums.DatabaseOperationResult.Failure;
                         }
 
                     }
@@ -257,7 +258,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "錯誤";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 
@@ -267,17 +268,17 @@ namespace ShoppingWeb.Ajax
         /// <param name="productId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string ToggleProductStatus(string productId)
+        public static int ToggleProductStatus(string productId)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             try
@@ -294,7 +295,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
 
                     }
                 }
@@ -303,7 +304,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "錯誤";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 
@@ -459,8 +460,9 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
-                return ex;
+                Logger logger = new Logger();
+                logger.LogException(ex);
+                return (int)Enums.DatabaseOperationResult.Error;
             }
 
         }
@@ -473,22 +475,22 @@ namespace ShoppingWeb.Ajax
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string EditProduct(int productPrice, int productStock, string productIntroduce, string productCheckStock)
+        public static int EditProduct(int productPrice, int productStock, string productIntroduce, string productCheckStock)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             if (!RenewProductSpecialChar(productPrice, productStock, productIntroduce))
             {
-                return "輸入值不符合格式";
+                return (int)Enums.UserStatus.InputError;
             }
 
             try
@@ -510,7 +512,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "修改成功" : "修改失敗，庫存量不能小於0";
+                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -518,7 +520,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "錯誤";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 
