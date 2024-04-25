@@ -315,22 +315,22 @@ namespace ShoppingWeb.Ajax
         /// <param name="roles"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string RegisterNewUser(string account, string pwd, string roles)
+        public static int RegisterNewUser(string account, string pwd, string roles)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             if (!AddUserSpecialChar(account, pwd, roles))
             {
-                return "帳號和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                return (int)Enums.UserStatus.InputError;
             }
 
             try
@@ -346,9 +346,9 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(pwd)));
                         cmd.Parameters.Add(new SqlParameter("@roles", roles));
 
-                        string result = cmd.ExecuteScalar().ToString();
+                        int result = (int)cmd.ExecuteScalar();
 
-                        return result;
+                        return (result == 1) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -356,7 +356,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "發生內部錯誤: " + ex.Message;
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 
@@ -431,22 +431,22 @@ namespace ShoppingWeb.Ajax
         /// <param name="pwd"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string EditUser(string pwd)
+        public static int EditUser(string pwd)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             if (!EditUserSpecialChar(pwd))
             {
-                return "名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空";
+                return (int)Enums.UserStatus.InputError;
             }
 
             try
@@ -465,7 +465,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "修改成功" : "修改失敗";
+                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -473,7 +473,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "錯誤";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 

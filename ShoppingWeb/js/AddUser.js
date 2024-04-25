@@ -18,19 +18,28 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === "重複登入") {
-                    alert("重複登入，已被登出");
-                    window.parent.location.href = "Login.aspx";
-                } else if (response.d === "權限不足") {
-                    alert("權限不足");
-                    parent.location.reload();
-                } else if (response.d === "1") {
-                    alert("新增成功");
-                    window.location.href = "UserManagement.aspx"
-                } else if (response.d === "0") {
-                    $("#labAddUser").text("帳號重複");
-                } else {
-                    $("#labAddUser").text(response.d);
+                switch (response.d) {
+                    case 0:
+                        alert("重複登入，已被登出");
+                        window.parent.location.href = "Login.aspx";
+                        break;
+                    case 1:
+                        alert("權限不足");
+                        parent.location.reload();
+                        break;
+                    case 2:
+                        $("#labAddUser").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空");
+                        break;
+                    case 100:
+                        alert("新增成功");
+                        window.location.href = "UserManagement.aspx";
+                        break;
+                    case 101:
+                        $("#labAddUser").text("帳號重複");
+                        break;
+                    default:
+                        $("#labAddUser").text("發生發生內部錯誤，請看日誌");
+
                 }
             },
             error: function (error) {
