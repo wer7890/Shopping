@@ -3,7 +3,6 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Services;
 using ShoppingWeb.Models;
 

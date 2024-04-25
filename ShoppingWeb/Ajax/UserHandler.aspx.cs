@@ -420,7 +420,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return ex;
+                return (int)Enums.DatabaseOperationResult.Error;
             }
 
         }

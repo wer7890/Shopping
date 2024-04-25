@@ -7,24 +7,27 @@
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            // 直接設定 input 元素的值
-            $("#labUserId").text(data.d.UserId);
-            $("#labAccount").text(data.d.Account);
-            switch (data.d.Roles) {
-                case 1:
-                    $("#labUserRoles").text("超級管理員");
-                    break;
-                case 2:
-                    $("#labUserRoles").text("會員管理員");
-                    break;
-                case 3:
-                    $("#labUserRoles").text("商品管理員");
-                    break;
-                default:
-                    $("#labUserRoles").text("錯誤");
-                    break;
+            if (data.d === 102) {
+                $("#labRenewUser").text("發生發生內部錯誤，請看日誌");
+            } else {
+                // 直接設定 input 元素的值
+                $("#labUserId").text(data.d.UserId);
+                $("#labAccount").text(data.d.Account);
+                switch (data.d.Roles) {
+                    case 1:
+                        $("#labUserRoles").text("超級管理員");
+                        break;
+                    case 2:
+                        $("#labUserRoles").text("會員管理員");
+                        break;
+                    case 3:
+                        $("#labUserRoles").text("商品管理員");
+                        break;
+                    default:
+                        $("#labUserRoles").text("錯誤");
+                        break;
+                }
             }
-            
         },
         error: function (error) {
             console.error('Error:', error);
