@@ -156,17 +156,17 @@ namespace ShoppingWeb.Ajax
         /// <param name="userId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string RemoveUserInfo(string userId)
+        public static int RemoveUserInfo(string userId)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             try
@@ -183,7 +183,7 @@ namespace ShoppingWeb.Ajax
 
                         int r = (int)cmd.ExecuteScalar();
 
-                        return (r > 0) ? "刪除成功" : "刪除失敗";
+                        return (r > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -191,7 +191,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "錯誤";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 
@@ -219,12 +219,12 @@ namespace ShoppingWeb.Ajax
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -264,17 +264,17 @@ namespace ShoppingWeb.Ajax
         /// <param name="roles"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string ToggleUserRoles(string userId, string roles)
+        public static int ToggleUserRoles(string userId, string roles)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             try
@@ -292,7 +292,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
 
                     }
                 }
@@ -301,7 +301,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "錯誤";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 

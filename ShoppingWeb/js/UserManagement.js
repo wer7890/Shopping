@@ -65,10 +65,10 @@ function SearchAllUserInfo(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
-            if (response.d === "重複登入") {
+            if (response.d === 0) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
+            } else if (response.d === 1) {
                 alert("權限不足");
                 parent.location.reload();
             }else {
@@ -130,20 +130,25 @@ function DeleteUser(userId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-
-                if (response.d === "重複登入") {
-                    alert("重複登入，已被登出");
-                    window.parent.location.href = "Login.aspx";
-                } else if (response.d === "權限不足") {
-                    alert("權限不足");
-                    parent.location.reload();
-                }else if (response.d === "刪除成功") {
-                    // 刪除成功後，刷新當前頁面並刷新表格
-                    window.location.reload();
-                } else {
-                    $("#labSearch").text(response.d);
+                switch (response.d) {
+                    case 0:
+                        alert("重複登入，已被登出");
+                        window.parent.location.href = "Login.aspx";
+                        break;
+                    case 1:
+                        alert("權限不足");
+                        parent.location.reload();
+                        break;
+                    case 100:
+                        // 刪除成功後，刷新當前頁面並刷新表格
+                        window.location.reload();
+                        break;
+                    case 101:
+                        alert("刪除失敗");
+                        break;
+                    default:
+                        $("#labSearchUser").text("發生發生內部錯誤，請看日誌");
                 }
-
             },
             error: function (error) {
                 console.error('Error:', error);
@@ -182,16 +187,23 @@ function ToggleUserRoles(userId, roles) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
-                alert("權限不足");
-                parent.location.reload();
-            } else if (response.d === "更改成功") {
-                $("#labSearchUser").text("身分更改成功");
-            } else {
-                $("#labSearchUser").text(response.d);
+            switch (response.d) {
+                case 0:
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert("權限不足");
+                    parent.location.reload();
+                    break;
+                case 100:
+                    $("#labSearchUser").text("身分更改成功");
+                    break;
+                case 101:
+                    $("#labSearchUser").text("身分更改失敗");
+                    break;
+                default:
+                    $("#labSearchUser").text("發生發生內部錯誤，請看日誌");
             }
         },
         error: function (error) {
