@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Services;
+using ShoppingWeb.Models;
 
 namespace ShoppingWeb.Ajax
 {
@@ -27,12 +28,12 @@ namespace ShoppingWeb.Ajax
         {
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -59,17 +60,17 @@ namespace ShoppingWeb.Ajax
         /// <param name="memberId"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string ToggleProductStatus(string memberId)
+        public static int ToggleProductStatus(string memberId)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             try
@@ -86,7 +87,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
 
                     }
                 }
@@ -95,7 +96,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "錯誤";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 
@@ -106,17 +107,17 @@ namespace ShoppingWeb.Ajax
         /// <param name="level"></param>
         /// <returns></returns>
         [WebMethod]
-        public static string ToggleMemberLevel(string memberId, string level)
+        public static int ToggleMemberLevel(string memberId, string level)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             try
@@ -134,7 +135,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? "更改成功" : "更改失敗";
+                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
 
                     }
                 }
@@ -143,7 +144,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "錯誤";
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 
@@ -152,22 +153,22 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public static string AddMember(string account, string pwd, string name, string birthday, string phone, string email, string address)
+        public static int AddMember(string account, string pwd, string name, string birthday, string phone, string email, string address)
         {
 
             if (!CheckDuplicateLogin())
             {
-                return "重複登入";
+                return (int)Enums.UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return "權限不足";
+                return (int)Enums.UserStatus.AccessDenied;
             }
 
             if (!AddMemberSpecialChar(account, pwd, name, birthday, phone, email, address))
             {
-                return "輸入值錯誤";
+                return (int)Enums.UserStatus.InputError;
             }
 
             try
@@ -187,9 +188,9 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@email", email));
                         cmd.Parameters.Add(new SqlParameter("@address", address));
 
-                        string result = cmd.ExecuteScalar().ToString();
+                        int result = (int)cmd.ExecuteScalar();
 
-                        return result;
+                        return (result == 1) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -197,7 +198,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return "發生內部錯誤: " + ex.Message;
+                return (int)Enums.DatabaseOperationResult.Error;
             }
         }
 

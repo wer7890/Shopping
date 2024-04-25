@@ -10,18 +10,27 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (response.d === "重複登入") {
-                    alert("重複登入，已被登出");
-                    window.parent.location.href = "Login.aspx";
-                } else if (response.d === "權限不足") {
-                    alert("權限不足");
-                    parent.location.reload();
-                } else if (response.d === "1") {
-                    window.location.reload();
-                } else if (response.d === "0") {
-                    $("#labSearchMember").text("新增失敗");
-                } else {
-                    $("#labSearchMember").text(response.d);
+                switch (response.d) {
+                    case 0:
+                        alert("重複登入，已被登出");
+                        window.parent.location.href = "Login.aspx";
+                        break;
+                    case 1:
+                        alert("權限不足");
+                        parent.location.reload();
+                        break;
+                    case 2:
+                        $("#labSearchMember").text("輸入值格式錯誤");
+                        break;
+                    case 100:
+                        window.location.reload();
+                        break;
+                    case 101:
+                        $("#labSearchMember").text("新增失敗");
+                        break;
+                    default:
+                        $("#labSearchMember").text("發生發生內部錯誤，請看日誌");
+
                 }
             },
             error: function (error) {
@@ -124,10 +133,10 @@ function SearchAllMember() {
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
-            if (response.d == "重複登入") {
+            if (response.d === 0) {
                 alert("重複登入，已被登出");
                 window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
+            } else if (response.d === 1) {
                 alert("權限不足");
                 parent.location.reload();
             } else {
@@ -177,16 +186,23 @@ function ToggleMemberStatus(memberId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
-                alert("權限不足");
-                parent.location.reload();
-            } else if (response.d === "更改成功") {
-                $("#labSearchMember").text("帳號狀態更改成功");
-            } else {
-                $("#labSearchMember").text(response.d);
+            switch (response.d) {
+                case 0:
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert("權限不足");
+                    parent.location.reload();
+                    break;
+                case 100:
+                    $("#labSearchMember").text("帳號狀態更改成功");
+                    break;
+                case 101:
+                    $("#labSearchMember").text("帳號狀態更改失敗");
+                    break;
+                default:
+                    $("#labSearchMember").text("發生發生內部錯誤，請看日誌");
             }
         },
         error: function (error) {
@@ -204,16 +220,23 @@ function ToggleMemberLevel(memberId, level) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === "重複登入") {
-                alert("重複登入，已被登出");
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === "權限不足") {
-                alert("權限不足");
-                parent.location.reload();
-            }else if (response.d === "更改成功") {
-                $("#labSearchMember").text("等級更改成功");
-            } else {
-                $("#labSearchMember").text(response.d);
+            switch (response.d) {
+                case 0:
+                    alert("重複登入，已被登出");
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert("權限不足");
+                    parent.location.reload();
+                    break;
+                case 100:
+                    $("#labSearchMember").text("等級更改成功");
+                    break;
+                case 101:
+                    $("#labSearchMember").text("等級更改失敗");
+                    break;
+                default:
+                    $("#labSearchMember").text("發生發生內部錯誤，請看日誌");
             }
         },
         error: function (error) {
