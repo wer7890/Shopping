@@ -7,9 +7,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>後臺登入</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
-    <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
+
+    <%
+        string jsonFilePath = Server.MapPath("~/Version.json");
+        string jsonText = System.IO.File.ReadAllText(jsonFilePath);
+        dynamic versionData = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonText);
+
+        string cssVersion = versionData["cssVersion"];
+        string jsVersion = versionData["jsVersion"];
+        btCssLink.Attributes["href"] = $"/css/{cssVersion}/bootstrap.min.css";
+        %>
+
+    <link id="btCssLink" rel="stylesheet" type="text/css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="/js/v1000/Login.js"></script>
+    <script src="/js/<%= jsVersion %>/Login.js"></script>
+    <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -44,6 +57,5 @@
         </div>
     </div>
 
-    <script src="/js/v1000/bootstrap.bundle.min.js"></script>
 </body>
 </html>
