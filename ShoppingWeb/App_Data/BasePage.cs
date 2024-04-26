@@ -34,7 +34,11 @@ namespace ShoppingWeb.Ajax
             }
         }
 
-
+        /// <summary>
+        /// 取得Version.json檔中所記錄js和css的版本號
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void BasePage_Load(object sender, EventArgs e) 
         {
             if (!IsPostBack)
