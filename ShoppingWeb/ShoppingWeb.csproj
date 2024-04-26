@@ -72,19 +72,21 @@
     <Content Include="Ajax\OrderHandler.aspx" />
     <Content Include="Ajax\ProductHandler.aspx" />
     <Content Include="Ajax\UserHandler.aspx" />
-    <Content Include="css\OrderManagement.css" />
+    <Content Include="css\v1000\bootstrap.min.css" />
+    <Content Include="css\v1000\OrderManagement.css" />
     <Content Include="Global.asax" />
-    <Content Include="js\AddProduct.js" />
-    <Content Include="js\AddUser.js" />
-    <Content Include="js\Frame.js" />
-    <Content Include="js\Login.js" />
-    <Content Include="js\EditProduct.js" />
-    <Content Include="js\EditUser.js" />
-    <Content Include="js\MemberManagement.js" />
-    <Content Include="js\OrderManagement.js" />
-    <Content Include="js\ProductCategories.js" />
-    <Content Include="js\ProductManagement.js" />
-    <Content Include="js\UserManagement.js" />
+    <Content Include="js\v1000\AddProduct.js" />
+    <Content Include="js\v1000\AddUser.js" />
+    <Content Include="js\v1000\bootstrap.bundle.min.js" />
+    <Content Include="js\v1000\Frame.js" />
+    <Content Include="js\v1000\Login.js" />
+    <Content Include="js\v1000\EditProduct.js" />
+    <Content Include="js\v1000\EditUser.js" />
+    <Content Include="js\v1000\MemberManagement.js" />
+    <Content Include="js\v1000\OrderManagement.js" />
+    <Content Include="js\v1000\ProductCategories.js" />
+    <Content Include="js\v1000\ProductManagement.js" />
+    <Content Include="js\v1000\UserManagement.js" />
     <Content Include="Web.config" />
     <Content Include="Web\AddProduct.aspx" />
     <Content Include="Web\AddUser.aspx" />
@@ -217,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Version.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

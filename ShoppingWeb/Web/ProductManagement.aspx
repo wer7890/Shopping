@@ -6,10 +6,10 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>查詢商品</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="../js/ProductCategories.js"></script>
-    <script src="../js/ProductManagement.js"></script>
+    <script src="/js/v1000/ProductCategories.js"></script>
+    <script src="/js/v1000/ProductManagement.js"></script>
 </head>
 <body>
     <div class="w-auto mx-3">
@@ -80,6 +80,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="/js/v1000/bootstrap.bundle.min.js"></script>
 </body>
 </html>

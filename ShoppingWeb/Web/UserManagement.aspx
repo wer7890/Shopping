@@ -7,9 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>查詢帳號</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="../js/UserManagement.js"></script>
+    <script src="/js/v1000/UserManagement.js"></script>
 </head>
 <body>
     <div class="container">
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="/js/v1000/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
