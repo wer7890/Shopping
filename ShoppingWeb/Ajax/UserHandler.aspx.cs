@@ -5,7 +5,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Web.Services;
-using ShoppingWeb.Models;
 
 namespace ShoppingWeb.Ajax
 {
@@ -33,7 +32,7 @@ namespace ShoppingWeb.Ajax
 
             if (!LoginSpecialChar(account, pwd))
             {
-                return (int)Enums.UserStatus.InputError;
+                return (int)UserStatus.InputError;
             }
 
             try
@@ -64,10 +63,10 @@ namespace ShoppingWeb.Ajax
                                 Roles = (int)cmd.Parameters["@roles"].Value
                             };
                             HttpContext.Current.Session["userInfo"] = user;
-                            return (int)Enums.DatabaseOperationResult.Success;
+                            return (int)DatabaseOperationResult.Success;
                         }
 
-                        return (int)Enums.DatabaseOperationResult.Failure;
+                        return (int)DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -75,7 +74,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return (int)Enums.DatabaseOperationResult.Error;
+                return (int)DatabaseOperationResult.Error;
             }
         }
 
@@ -132,7 +131,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return (int)Enums.DatabaseOperationResult.Error;
+                return (int)DatabaseOperationResult.Error;
             }
 
         }
@@ -161,12 +160,12 @@ namespace ShoppingWeb.Ajax
 
             if (!CheckDuplicateLogin())
             {
-                return (int)Enums.UserStatus.DuplicateLogin;
+                return (int)UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return (int)Enums.UserStatus.AccessDenied;
+                return (int)UserStatus.AccessDenied;
             }
 
             try
@@ -183,7 +182,7 @@ namespace ShoppingWeb.Ajax
 
                         int r = (int)cmd.ExecuteScalar();
 
-                        return (r > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
+                        return (r > 0) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -191,7 +190,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return (int)Enums.DatabaseOperationResult.Error;
+                return (int)DatabaseOperationResult.Error;
             }
         }
 
@@ -219,12 +218,12 @@ namespace ShoppingWeb.Ajax
 
             if (!CheckDuplicateLogin())
             {
-                return (int)Enums.UserStatus.DuplicateLogin;
+                return (int)UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return (int)Enums.UserStatus.AccessDenied;
+                return (int)UserStatus.AccessDenied;
             }
 
             string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -269,12 +268,12 @@ namespace ShoppingWeb.Ajax
 
             if (!CheckDuplicateLogin())
             {
-                return (int)Enums.UserStatus.DuplicateLogin;
+                return (int)UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return (int)Enums.UserStatus.AccessDenied;
+                return (int)UserStatus.AccessDenied;
             }
 
             try
@@ -292,7 +291,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
+                        return (rowsAffected > 0) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
 
                     }
                 }
@@ -301,7 +300,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return (int)Enums.DatabaseOperationResult.Error;
+                return (int)DatabaseOperationResult.Error;
             }
         }
 
@@ -320,17 +319,17 @@ namespace ShoppingWeb.Ajax
 
             if (!CheckDuplicateLogin())
             {
-                return (int)Enums.UserStatus.DuplicateLogin;
+                return (int)UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return (int)Enums.UserStatus.AccessDenied;
+                return (int)UserStatus.AccessDenied;
             }
 
             if (!AddUserSpecialChar(account, pwd, roles))
             {
-                return (int)Enums.UserStatus.InputError;
+                return (int)UserStatus.InputError;
             }
 
             try
@@ -348,7 +347,7 @@ namespace ShoppingWeb.Ajax
 
                         int result = (int)cmd.ExecuteScalar();
 
-                        return (result == 1) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
+                        return (result == 1) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -356,7 +355,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return (int)Enums.DatabaseOperationResult.Error;
+                return (int)DatabaseOperationResult.Error;
             }
         }
 
@@ -420,7 +419,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return (int)Enums.DatabaseOperationResult.Error;
+                return (int)DatabaseOperationResult.Error;
             }
 
         }
@@ -436,17 +435,17 @@ namespace ShoppingWeb.Ajax
 
             if (!CheckDuplicateLogin())
             {
-                return (int)Enums.UserStatus.DuplicateLogin;
+                return (int)UserStatus.DuplicateLogin;
             }
 
             if (!CheckRoles(PERMITTED_USER_ROLES))
             {
-                return (int)Enums.UserStatus.AccessDenied;
+                return (int)UserStatus.AccessDenied;
             }
 
             if (!EditUserSpecialChar(pwd))
             {
-                return (int)Enums.UserStatus.InputError;
+                return (int)UserStatus.InputError;
             }
 
             try
@@ -465,7 +464,7 @@ namespace ShoppingWeb.Ajax
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? (int)Enums.DatabaseOperationResult.Success : (int)Enums.DatabaseOperationResult.Failure;
+                        return (rowsAffected > 0) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
                     }
                 }
             }
@@ -473,7 +472,7 @@ namespace ShoppingWeb.Ajax
             {
                 Logger logger = new Logger();
                 logger.LogException(ex);
-                return (int)Enums.DatabaseOperationResult.Error;
+                return (int)DatabaseOperationResult.Error;
             }
         }
 
