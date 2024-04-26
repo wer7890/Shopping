@@ -192,7 +192,7 @@ namespace ShoppingWeb.Ajax
                     }
                     else
                     {
-                        return "null";
+                        return (int)DatabaseOperationResult.Failure;
                     }
 
                 }

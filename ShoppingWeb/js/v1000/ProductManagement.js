@@ -168,7 +168,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
             } else if (response.d === 1) {
                 alert("權限不足");
                 parent.location.reload();
-            } else if (response.d === "null") {
+            } else if (response.d === 101) {
                 $("#productTableDiv").css('display', 'none');
                 $("#labSearchProduct").text("沒有資料");
                 $('#ulPagination').empty();
