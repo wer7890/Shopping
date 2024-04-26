@@ -12,9 +12,13 @@ namespace ShoppingWeb.Ajax
 {
     public class BasePage : System.Web.UI.Page
     {
+        public string cssVersion;
+        public string jsVersion;
+
         public BasePage() 
         {
             this.Init += new EventHandler(BasePage_Init);  //EventHandler: 委派事件  Init:頁面初始化階段
+            this.Load += new EventHandler(BasePage_Load);
         }
 
         /// <summary>
@@ -27,6 +31,20 @@ namespace ShoppingWeb.Ajax
             if (Session["userInfo"] == null)
             {
                 Response.Write("<script>window.parent.location.href = 'Login.aspx';</script>");
+            }
+        }
+
+
+        public void BasePage_Load(object sender, EventArgs e) 
+        {
+            if (!IsPostBack)
+            {
+                string jsonFilePath = Server.MapPath("~/Version.json");
+                string jsonText = System.IO.File.ReadAllText(jsonFilePath);
+                dynamic versionData = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonText);
+
+                cssVersion = versionData["cssVersion"];
+                jsVersion = versionData["jsVersion"];
             }
         }
 
