@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>修改商品</title>
-    <link id="btCssLink" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/EditProduct.js"></script>

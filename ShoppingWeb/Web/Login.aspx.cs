@@ -17,7 +17,6 @@ namespace ShoppingWeb.Web
 
                 cssVersion = versionData["cssVersion"];
                 jsVersion = versionData["jsVersion"];
-                btCssLink.Attributes["href"] = $"/css/{cssVersion}/bootstrap.min.css";
             }
         }
 

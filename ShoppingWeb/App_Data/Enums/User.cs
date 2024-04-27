@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ShoppingWeb.Ajax
+﻿namespace ShoppingWeb.Ajax
 {
     /// <summary>
     /// 判斷使用者狀態
