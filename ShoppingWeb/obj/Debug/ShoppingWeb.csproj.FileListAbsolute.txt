@@ -58,3 +58,4 @@ D:\Code3\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.dll
 D:\Code3\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.pdb
 D:\Code3\ShoppingWeb\ShoppingWeb\bin\Newtonsoft.Json.dll
 D:\Code3\ShoppingWeb\ShoppingWeb\bin\Newtonsoft.Json.xml
+D:\Code3\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.csprojAssemblyReference.cache
