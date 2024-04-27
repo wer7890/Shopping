@@ -9,17 +9,6 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-    <%
-        string jsonFilePath = Server.MapPath("~/Version.json");
-        string jsonText = System.IO.File.ReadAllText(jsonFilePath);
-        dynamic versionData = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonText);
-
-        string cssVersion = versionData["cssVersion"];
-        string jsVersion = versionData["jsVersion"];
-        btCssLink.Attributes["href"] = $"/css/{cssVersion}/bootstrap.min.css";
-        %>
-
-    <!--<link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />-->
     <link id="btCssLink" rel="stylesheet" type="text/css" />
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/Login.js"></script>

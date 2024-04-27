@@ -6,7 +6,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>查詢商品</title>
-    <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
+    <link id="btCssLink" rel="stylesheet" type="text/css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>

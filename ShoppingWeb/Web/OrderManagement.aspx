@@ -6,8 +6,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>查詢訂單</title>
-    <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/OrderManagement.css" />
+    <link id="btCssLink" rel="stylesheet" type="text/css" />
+    <link id="cssLink" rel="stylesheet" type="text/css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
