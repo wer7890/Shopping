@@ -9,12 +9,12 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <div class="container mt-2">
         <h2 class="text-center">歡迎登入後台系統</h2>
     </div>
 
-    <script src="/js/v1000/bootstrap.bundle.min.js"></script>
 </body>
 </html>

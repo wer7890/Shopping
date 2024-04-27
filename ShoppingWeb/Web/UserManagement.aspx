@@ -9,7 +9,9 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="/js/v1000/UserManagement.js"></script>
+
+    <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    <script src="/js/<%= jsVersion %>/UserManagement.js"></script>
 </head>
 <body>
     <div class="container">
@@ -53,8 +55,6 @@
             <span id="labSearchUser" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
     </div>
-
-    <script src="/js/v1000/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

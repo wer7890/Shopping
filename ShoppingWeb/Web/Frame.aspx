@@ -10,8 +10,8 @@
     <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-    <script src="/js/<%= jsVersion %>/Frame.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    <script src="/js/<%= jsVersion %>/Frame.js"></script>
 
 </head>
 <body>

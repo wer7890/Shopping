@@ -9,8 +9,9 @@
     <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/OrderManagement.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="/js/v1000/ProductCategories.js"></script>
-    <script src="/js/v1000/OrderManagement.js"></script>
+    <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
+    <script src="/js/<%= jsVersion %>/OrderManagement.js"></script>
 </head>
 <body>
     <div class="container">
@@ -53,6 +54,5 @@
             <div id="box"></div>
         </div>
     </div>
-    <script src="/js/v1000/bootstrap.bundle.min.js"></script>
 </body>
 </html>

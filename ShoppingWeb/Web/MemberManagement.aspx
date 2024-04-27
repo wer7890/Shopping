@@ -8,7 +8,8 @@
     <title>查詢會員</title>
     <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="/js/v1000/MemberManagement.js"></script>
+    <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    <script src="/js/<%= jsVersion %>/MemberManagement.js"></script>
 </head>
 <body>
     <div class="w-auto mx-3">
@@ -47,8 +48,5 @@
         </div>
     </div>
 
-
-
-    <script src="/js/v1000/bootstrap.bundle.min.js"></script>
 </body>
 </html>

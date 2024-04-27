@@ -8,7 +8,8 @@
     <title>修改商品</title>
     <link rel="stylesheet" type="text/css" href="/css/v1000/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="/js/v1000/EditProduct.js"></script>
+    <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    <script src="/js/<%= jsVersion %>/EditProduct.js"></script>
 </head>
 <body>
     <div class="container">
@@ -78,8 +79,6 @@
             <label id="labRenewProduct" class="col-12 col-sm-12 text-center text-success"></label>
         </div>
     </div>
-
-    <script src="/js/v1000/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
