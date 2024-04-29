@@ -97,7 +97,7 @@ function ChangeLanguage(language) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            translateElements(language);
+            TranslateLanguage();
         },
         error: function (error) {
             console.error('AJAX Error:', error);

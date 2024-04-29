@@ -1,8 +1,37 @@
-﻿$(document).ready(function () {
+﻿let translations = {
+    'adminPanel': {
+        'zh': '管理員系統',
+        'en': 'Administrator system'
+    },
+    'memberPanel': {
+        'zh': '會員系統:',
+        'en': 'Member system:'
+    },
+    'productPanel': {
+        'zh': '商品系統:',
+        'en': 'Product system:'
+    },
+    'orderPanel': {
+        'zh': '訂單系統',
+        'en': 'Order system'
+    },
+    'btnSignOut': {
+        'zh': '登出',
+        'en': 'Sign out'
+    },
+    'labUserAccount': {
+        'zh': '帳號: ',
+        'en': 'Account: '
+    }
+};
+
+$(document).ready(function () {
+    TranslateLanguage();
+
     //一開始登入時顯示在左邊的身分，要做權限可使用功能的顯示與隱藏
     getUserPermission();
-
-    //按登出按鈕，清空Session["userId"]
+    
+    //按登出按鈕，清空Session["userInfo"]
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
@@ -33,6 +62,7 @@
     
 });
 
+//取得身分和帳號
 function getUserPermission() {
     $.ajax({
         type: "POST",
@@ -42,9 +72,9 @@ function getUserPermission() {
         success: function (response) {
 
             if (response.d === 102) {
-                $("#labUserRoles").text("發生發生內部錯誤，請看日誌");
+                $("#labUserRoles").text("Error，NLog");
             } else {
-                $("#labUserRoles").text("帳號 : " + response.d.Account);
+                $('#labUserAccount').text($('#labUserAccount').text() + response.d.Account);
                 switch (response.d.Roles) {
                     case "1":
                         break;
@@ -58,7 +88,7 @@ function getUserPermission() {
                         $("#orderPanel").remove();
                         break;
                     default:
-                        $("#labUserRoles").text("身分 : 讀取錯誤");
+                        $("#labUserRoles").text("Error");
                         break;
                 }
             }
