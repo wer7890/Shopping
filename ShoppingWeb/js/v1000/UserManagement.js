@@ -1,4 +1,48 @@
-﻿$(document).ready(function () {
+﻿let translations = {
+    'titleUser': {
+        'zh': '管理員帳號',
+        'en': 'Administrator Account'
+    },
+    'btnAddUser': {
+        'zh': '新增管理員',
+        'en': 'Add Administrator'
+    },
+    'btnId': {
+        'zh': '管理者ID',
+        'en': 'Administrator ID'
+    },
+    'btnAccount': {
+        'zh': '帳號',
+        'en': 'Account'
+    },
+    'btnRoles': {
+        'zh': '角色',
+        'en': 'Roles'
+    },
+    'btnEdit': {
+        'zh': '編輯',
+        'en': 'Edit'
+    },
+    'btnDel': {
+        'zh': '刪除',
+        'en': 'Delete'
+    },
+    'superAdmin': {
+        'zh': '超級管理員',
+        'en': 'Super Administrator'
+    },
+    'memberAdmin': {
+        'zh': '會員管理員',
+        'en': 'Member Administrator'
+    },
+    'productAdmin': {
+        'zh': '商品管理員',
+        'en': 'Product Administrator'
+    }
+};
+
+
+$(document).ready(function () {
     let currentPage = 1; // 初始頁碼為 1
     let pageSize = 5; // 每頁顯示的資料筆數
 
@@ -86,13 +130,13 @@ function SearchAllUserInfo(pageNumber, pageSize) {
                         '<td>' + item.f_account + '</td>' +
                         '<td>' +
                         '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
-                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>超級管理員</option>' +
-                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>會員管理員</option>' +
-                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>商品管理員</option>' +
+                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + ' class = "i18n" data-key="superAdmin">超級管理員</option>' +
+                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + ' class = "i18n" data-key="memberAdmin">會員管理員</option>' +
+                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + ' class = "i18n" data-key="productAdmin">商品管理員</option>' +
                         '</select>' +
                         '</td>' +
-                        '<td><button class="btn btn-primary" onclick="EditUser(' + item.f_id + ')">編輯</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="DeleteUser(' + item.f_id + ')">刪除</button></td>' +
+                        '<td><button class="btn btn-primary i18n" onclick="EditUser(' + item.f_id + ')" data-key="btnEdit">編輯</button></td>' +
+                        '<td><button class="btn btn-danger i18n" onclick="DeleteUser(' + item.f_id + ')" data-key="btnDel">刪除</button></td>' +
                         '</tr>';
 
                     tableBody.append(row);
@@ -109,6 +153,8 @@ function SearchAllUserInfo(pageNumber, pageSize) {
                     ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
 
                 }
+
+                TranslateLanguage();
             }
             UpdatePaginationControls(pageNumber);
         },

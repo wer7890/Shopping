@@ -17,11 +17,11 @@
     },
     'txbAccount': {
         'zh': '請輸入帳號',
-        'en': 'Login'
+        'en': 'Please enter account'
     },
     'txbPassword': {
         'zh': '請輸入密碼',
-        'en': 'Login'
+        'en': 'Please enter password'
     }
 };
 
