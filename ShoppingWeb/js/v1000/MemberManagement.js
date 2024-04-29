@@ -1,4 +1,64 @@
-﻿$(document).ready(function () {
+﻿let translations = {
+    'titleMember': {
+        'zh': '會員帳號',
+        'en': 'Member Account'
+    },
+    'btnAddMember': {
+        'zh': '新增會員:',
+        'en': 'Add Member:'
+    },
+    'thAccount': {
+        'zh': '帳號:',
+        'en': 'Account:'
+    },
+    'thPwd': {
+        'zh': '密碼',
+        'en': 'Password'
+    },
+    'thName': {
+        'zh': '名稱',
+        'en': 'Name'
+    },
+    'thLevel': {
+        'zh': '等級',
+        'en': 'Level'
+    },
+    'thPhoneNumber': {
+        'zh': '電話',
+        'en': 'Phone Number'
+    },
+    'thAccountStatus': {
+        'zh': '狀態',
+        'en': 'Status'
+    },
+    'thWallet': {
+        'zh': '錢包',
+        'en': 'Wallet'
+    },
+    'thTotalSpent': {
+        'zh': '總花費',
+        'en': 'Total Spent'
+    },
+    'level0': {
+        'zh': '等級0',
+        'en': 'level_0'
+    },
+    'level1': {
+        'zh': '等級1',
+        'en': 'level_1'
+    },
+    'level2': {
+        'zh': '等級2',
+        'en': 'level_2'
+    },
+    'level3': {
+        'zh': '等級3',
+        'en': 'level_3'
+    }
+};
+
+
+$(document).ready(function () {
     SearchAllMember();
 
     //按下新增會員按鈕
@@ -153,14 +213,13 @@ function SearchAllMember() {
                         '<td>' + item.f_name + '</td>' +
                         '<td>' +
                         '<select class="form-select form-select-sm f_level" data-id="' + item.f_id + '">' +
-                        '<option value="0"' + (item.f_level == '0' ? ' selected' : '') + '>等級0</option>' +
-                        '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + '>等級1</option>' +
-                        '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + '>等級2</option>' +
-                        '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + '>等級3</option>' +
+                        '<option value="0"' + (item.f_level == '0' ? ' selected' : '') + ' class = "i18n" data-key="level0">等級0</option>' +
+                        '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + ' class = "i18n" data-key="level1">等級1</option>' +
+                        '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + ' class = "i18n" data-key="level2">等級2</option>' +
+                        '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + ' class = "i18n" data-key="level3">等級3</option>' +
                         '</select>' +
                         '</td>' +
                         '<td>' + item.f_phoneNumber + '</td>' +
-                        '<td>' + item.f_email + '</td>' +
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_accountStatus ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '<td>' + item.f_amount + '</td>' +
                         '<td>' + item.f_totalSpent + '</td>' +
@@ -168,6 +227,8 @@ function SearchAllMember() {
 
                     tableBody.append(row);
                 });
+
+                TranslateLanguage();
             }
 
         },
