@@ -1,5 +1,5 @@
 ﻿let translations = {
-    'h1Login': {
+    'titleLogin': {
         'zh': '登入頁面',
         'en': 'Login page'
     },
@@ -92,25 +92,12 @@ function IsSpecialChar(account, pwd) {
 function ChangeLanguage(language) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/UserHandler.aspx/ChangeLanguage",
+        url: "/Ajax/UserHandler.aspx/SetLanguage",
         data: JSON.stringify({ language: language }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            $('.i18n').each(function () {
-                var key = $(this).data('key');
-                var placeholderKey = $(this).data('placeholder-key');
-
-                if (key) {
-                    let translation = translations[key][language];
-                    $(this).text(translation);
-                }
-
-                if (placeholderKey) {
-                    let placeholderTranslation = translations[placeholderKey][language];
-                    $(this).attr('placeholder', placeholderTranslation);
-                }
-            });
+            translateElements(language);
         },
         error: function (error) {
             console.error('AJAX Error:', error);

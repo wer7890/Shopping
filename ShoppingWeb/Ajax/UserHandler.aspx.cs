@@ -104,11 +104,12 @@ namespace ShoppingWeb.Ajax
         /// <param name="language"></param>
         /// <returns></returns>
         [WebMethod]
-        public static bool ChangeLanguage(string language) 
+        public static bool SetLanguage(string language) 
         {
             HttpContext.Current.Session["language"] = language;
             return true;
         }
+
 
 
         /// <summary>

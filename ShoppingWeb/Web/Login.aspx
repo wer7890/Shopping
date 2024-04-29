@@ -11,13 +11,14 @@
 
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/Login.js"></script>
 
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <h1 class="text-center mt-3 i18n" data-key="h1Login">登入頁面</h1>
+            <h1 class="text-center mt-3 i18n" data-key="titleLogin">登入頁面</h1>
         </div>
         <hr />
         <div class="row mx-auto col-12 col-md-5">

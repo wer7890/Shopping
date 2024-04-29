@@ -151,5 +151,15 @@ namespace ShoppingWeb.Ajax
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 取的Session["language"]
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public static string GetLanguage()
+        {
+            return HttpContext.Current.Session["language"].ToString();
+        }
+
     }
 }
