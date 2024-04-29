@@ -1,4 +1,43 @@
-﻿$(document).ready(function () {
+﻿let translations = {
+    'titleEditUser': {
+        'zh': '修改帳號',
+        'en': 'Edit User'
+    },
+    'spanUserId': {
+        'zh': '管理員ID : ',
+        'en': 'Admin ID : '
+    },
+    'spanAccount': {
+        'zh': '帳號 : ',
+        'en': 'Account : '
+    },
+    'labPwd': {
+        'zh': '密碼',
+        'en': 'Password'
+    },
+    'spanRoles': {
+        'zh': '角色 : ',
+        'en': 'Roles : '
+    },
+    'btnEdit': {
+        'zh': '更改',
+        'en': 'Edit'
+    },
+    'superAdmin': {
+        'zh': '超級管理員',
+        'en': 'Super Administrator'
+    },
+    'memberAdmin': {
+        'zh': '會員管理員',
+        'en': 'Member Administrator'
+    },
+    'productAdmin': {
+        'zh': '商品管理員',
+        'en': 'Product Administrator'
+    }
+};
+
+$(document).ready(function () {
 
     //一開始input預設值
     $.ajax({
@@ -15,18 +54,20 @@
                 $("#labAccount").text(data.d.Account);
                 switch (data.d.Roles) {
                     case 1:
-                        $("#labUserRoles").text("超級管理員");
+                        $("#labUserRoles").attr({ "class": "i18n", "data-key": "superAdmin"}).text("超級管理員");
                         break;
                     case 2:
-                        $("#labUserRoles").text("會員管理員");
+                        $("#labUserRoles").attr({ "class": "i18n", "data-key": "memberAdmin" }).text("會員管理員");
                         break;
                     case 3:
-                        $("#labUserRoles").text("商品管理員");
+                        $("#labUserRoles").attr({ "class": "i18n", "data-key": "productAdmin" }).text("商品管理員");
                         break;
                     default:
                         $("#labUserRoles").text("錯誤");
                         break;
                 }
+
+                TranslateLanguage();
             }
         },
         error: function (error) {

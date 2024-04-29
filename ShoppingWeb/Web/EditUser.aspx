@@ -10,31 +10,32 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/EditUser.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">修改帳號</h2>
+        <h2 class="text-center i18n" data-key="titleEditUser">修改帳號</h2>
         <br />
         <div class="row">
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <span class="text-dark fs-6">管理員ID : </span>
+                <span class="text-dark fs-6 i18n" data-key="spanUserId">管理員ID : </span>
                 <span id="labUserId" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">
-                <span class="text-dark fs-6">帳號 : </span>
+                <span class="text-dark fs-6 i18n" data-key="spanAccount">帳號 : </span>
                 <span id="labAccount" class="fs-6"></span>
             </div>
             <div class="mx-auto mt-3 col-12 col-md-7 mt-3">
-                <span class="text-dark fs-6">角色 : </span>
+                <span class="text-dark fs-6 i18n" data-key="spanRoles">角色 : </span>
                 <span id="labUserRoles" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">
-                <label for="txbPwd" class="form-label">密碼</label>
+                <label for="txbPwd" class="form-label i18n" data-key="labPwd">密碼</label>
                 <input type="password" id="txbPwd" class="form-control" />
             </div>
 
-            <button id="btnUpData" class="btn btn-outline-primary mx-auto mt-3 col-12 col-md-6">更改</button>
+            <button id="btnUpData" class="btn btn-outline-primary mx-auto mt-3 col-12 col-md-6 i18n" data-key="btnEdit">更改</button>
         </div>
         <br />
         <div class="row">

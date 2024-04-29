@@ -1,15 +1,15 @@
 ﻿let translations = {
     'titleAddUser': {
         'zh': '新增帳號',
-        'en': 'Login page'
+        'en': 'Add User'
     },
     'labAccount': {
         'zh': '帳號:',
-        'en': 'Account:'
+        'en': 'Account'
     },
     'labPwd': {
         'zh': '密碼:',
-        'en': 'Password:'
+        'en': 'Password'
     },
     'labRoles': {
         'zh': '角色',
