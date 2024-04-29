@@ -42,7 +42,7 @@
                 <button id="btnLogin" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6 i18n" data-key="btnLogin">登入</button>
             </div>
 
-            <div class="row justify-content-center align-self-center mt-3 mt-5">
+            <div class="row justify-content-center align-self-center mt-5">
                 <button id="btnChinese" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm" onclick="ChangeLanguage('zh')">中文</button>
                 <button id="btnEnglish" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm" onclick="ChangeLanguage('en')">English</button>
             </div>

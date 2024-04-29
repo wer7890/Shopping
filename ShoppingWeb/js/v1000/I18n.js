@@ -2,6 +2,7 @@
     $.ajax({
         type: "POST",
         url: "/Ajax/UserHandler.aspx/GetLanguage",
+        async: false,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {

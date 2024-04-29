@@ -32,6 +32,11 @@
                     <button id="btnSignOut" class="btn btn-outline-dark mt-3 i18n" data-key="btnSignOut">登出</button>
                 </div>
 
+                <div class="row justify-content-center align-self-center mt-5">
+                    <button id="btnChinese" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm" onclick="ChangeLanguage('zh')">中文</button>
+                    <button id="btnEnglish" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm" onclick="ChangeLanguage('en')">English</button>
+                </div>
+
             </div>
 
             <!--右欄-->
