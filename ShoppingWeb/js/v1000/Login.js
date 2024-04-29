@@ -8,8 +8,8 @@
         'en': 'Account:'
     },
     'labPassword': {
-        'zh': '帳號:',
-        'en': 'Account:'
+        'zh': '密碼:',
+        'en': 'Password:'
     },
     'btnLogin': {
         'zh': '登入',

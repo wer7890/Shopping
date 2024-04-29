@@ -10,32 +10,33 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/AddUser.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">新增帳號</h2>
+        <h2 class="text-center i18n" data-key="titleAddUser">新增帳號</h2>
         <br />
         <div class="row">
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <label for="txbAccount" class="form-label">帳號</label>
+                <label for="txbAccount" class="form-label i18n" data-key="labAccount">帳號</label>
                 <input type="text" id="txbAccount" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <label for="txbPwd" class="form-label">密碼</label>
+                <label for="txbPwd" class="form-label i18n" data-key="labPwd">密碼</label>
                 <input type="password" id="txbPwd" class="form-control" />
             </div>
             <div class="mx-auto mt-3 col-12 col-md-7 mt-2">
-                <label for="ddlRoles" class="form-label">角色</label>
+                <label for="ddlRoles" class="form-label i18n" data-key="labRoles">角色</label>
 
                 <select id="ddlRoles" class="form-select">
-                    <option value="1">超級管理員</option>
-                    <option value="2">會員管理員</option>
-                    <option value="3">商品管理員</option>
+                    <option value="1" class="i18n" data-key="superAdmin">超級管理員</option>
+                    <option value="2" class="i18n" data-key="memberAdmin">會員管理員</option>
+                    <option value="3" class="i18n" data-key="productAdmin">商品管理員</option>
                 </select>
             </div>
             
-            <button id="btnAddUser" class="btn btn-outline-primary mx-auto mt-4 col-12 col-md-6">新增</button>
+            <button id="btnAddUser" class="btn btn-outline-primary mx-auto mt-4 col-12 col-md-6 i18n" data-key="btnAddUser">新增</button>
         </div>
         <br />
         <div class="row">
