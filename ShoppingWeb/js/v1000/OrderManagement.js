@@ -1,4 +1,79 @@
-﻿// 訂單狀態
+﻿let translations = {
+    'titleOrder': {
+        'zh': '訂單',
+        'en': 'Order'
+    },
+    'thAll': {
+        'zh': '全部',
+        'en': 'All'
+    },
+    'thShipping': {
+        'zh': '發貨中',
+        'en': 'Shipping'
+    },
+    'thShipped': {
+        'zh': '已發貨',
+        'en': 'Shipped'
+    },
+    'thArrived': {
+        'zh': '已到貨',
+        'en': 'Arrived'
+    },
+    'thReceived': {
+        'zh': '已取貨',
+        'en': 'Received'
+    },
+    'thReturning': {
+        'zh': '退貨中',
+        'en': 'Returning'
+    },
+    'thReturned': {
+        'zh': '已退貨',
+        'en': 'Returned'
+    },
+    'thReturnRequested': {
+        'zh': '申請退貨',
+        'en': 'Return Requested'
+    },
+    'thId': {
+        'zh': '訂單編號',
+        'en': 'ID'
+    },
+    'thSerialNumber': {
+        'zh': '訂購者',
+        'en': 'Orderer'
+    },
+    'thCreatedTime': {
+        'zh': '下單時間',
+        'en': 'Order Time'
+    },
+    'thOrderStatus': {
+        'zh': '訂單狀態',
+        'en': 'Order Status'
+    },
+    'thDeliveryStatus': {
+        'zh': '配送狀態',
+        'en': 'Delivery Status'
+    },
+    'thDeliveryMethod': {
+        'zh': '配送方式',
+        'en': 'Delivery Method'
+    },
+    'thTotal': {
+        'zh': '總金額',
+        'en': 'Total'
+    },
+    'btnEdit': {
+        'zh': '修改',
+        'en': 'Edit'
+    },
+    'btnDetails': {
+        'zh': '詳情',
+        'en': 'Details'
+    }
+};
+
+// 訂單狀態
 let orderStatus = {
     "1": { name: "已付款", color: "bg-white", text: "text-dark" },
     "2": { name: "申請退貨", color: "bg-success", text: "text-white" },
@@ -106,6 +181,8 @@ function SearchAllOrder() {
                 OrderHtml(orderData, deliveryStatusCountData);
             }
 
+            TranslateLanguage();
+
         },
         error: function (error) {
             console.error('Error:', error);
@@ -125,7 +202,7 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
 
     let selectHtml = '<div class="row d-flex justify-content-center my-3">';
     // 訂單狀態
-    selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
+    selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label i18n" data-key="thOrderStatus">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
     
     if (orderStatusNum == 1) {
         selectHtml += '<option value="1">已付款</option>' +
@@ -146,7 +223,7 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     selectHtml += '</select></div>';
 
     // 配送狀態
-    selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label">配送狀態</label><select id="deliveryStatusSelect" class="form-select">';
+    selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label i18n" data-key="thDeliveryStatus">配送狀態</label><select id="deliveryStatusSelect" class="form-select">';
 
     // 根據訂單狀態決定配送狀態的選項
     if (orderStatusNum == 1) {
@@ -174,7 +251,7 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     selectHtml += '</select></div>';
 
     // 配送方式
-    selectHtml += '<div class="col"><label for="deliveryMethodSelect" class="form-label">配送方式</label><select id="deliveryMethodSelect" class="form-select">';
+    selectHtml += '<div class="col"><label for="deliveryMethodSelect" class="form-label i18n" data-key="thDeliveryMethod">配送方式</label><select id="deliveryMethodSelect" class="form-select">';
     $.each(deliveryMethod, function (key, value) {
         selectHtml += (key == deliveryMethodNum) ? '<option value="' + key + '" selected>' + value + '</option>' : '<option value="' + key + '">' + value + '</option>';
     });
@@ -182,13 +259,14 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
 
     // 按鈕
     if (orderStatusNum != 4) {
-        selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary">修改</button></div>';
+        selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary i18n" data-key="btnEdit">修改</button></div>';
     }
 
-    selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnShowOrderDetail" type="submit" class="btn btn-outline-primary">詳情</button></div>' +
+    selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnShowOrderDetail" type="submit" class="btn btn-outline-primary i18n" data-key="btnDetails">詳情</button></div>' +
         '</select></div>';
 
     detailElement.append(selectHtml);
+    TranslateLanguage();
 }
 
 // 上方狀態按鈕點擊觸發事件
