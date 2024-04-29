@@ -17,28 +17,33 @@
 <body>
     <div class="container">
         <div class="row">
-            <h1 class="text-center mt-3">登入頁面</h1>
+            <h1 class="text-center mt-3 i18n" data-key="h1Login">登入頁面</h1>
         </div>
         <hr />
         <div class="row mx-auto col-12 col-md-5">
             <div class="form-group">
-                <label for="txbAccount" class="control-label">帳號:</label>
+                <label for="txbAccount" class="control-label i18n" data-key="labAccount">帳號:</label>
                 <div>
-                    <input type="text" id="txbAccount" class="form-control mt-2" placeholder="請輸入帳號" />
+                    <input type="text" id="txbAccount" class="form-control mt-2 i18n" placeholder="請輸入帳號" data-placeholder-key="txbAccount" />
                 </div>
             </div>
 
             <br />
             <div class="form-group mt-3">
-                <label for="txbPassword" class="control-label">密碼:</label>
+                <label for="txbPassword" class="control-label i18n" data-key="labPassword">密碼:</label>
                 <div>
-                    <input type="password" id="txbPassword" class="form-control mt-2" placeholder="請輸入密碼" />
+                    <input type="password" id="txbPassword" class="form-control mt-2 i18n" placeholder="請輸入密碼" data-placeholder-key="txbPassword" />
                 </div>
             </div>
 
             <br />
             <div class="row justify-content-center align-self-center mt-3">
-                <button id="btnLogin" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-6">登入</button>
+                <button id="btnLogin" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6 i18n" data-key="btnLogin">登入</button>
+            </div>
+
+            <div class="row justify-content-center align-self-center mt-3 mt-5">
+                <button id="btnChinese" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm" onclick="ChangeLanguage('zh')">中文</button>
+                <button id="btnEnglish" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm" onclick="ChangeLanguage('en')">English</button>
             </div>
         </div>
         <br />

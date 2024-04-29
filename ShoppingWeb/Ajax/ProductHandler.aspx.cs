@@ -355,7 +355,7 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@stock", productStock));
                         cmd.Parameters.Add(new SqlParameter("@isOpen", productIsOpen));
                         cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
-                        cmd.Parameters.Add(new SqlParameter("@owner", ((UserInfo)HttpContext.Current.Session["userInfo"]).UID));
+                        cmd.Parameters.Add(new SqlParameter("@owner", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
                         string result = cmd.ExecuteScalar().ToString();
 
                         if (result != "1")

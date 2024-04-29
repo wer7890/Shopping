@@ -1,4 +1,31 @@
-﻿$(document).ready(function () {
+﻿let translations = {
+    'h1Login': {
+        'zh': '登入頁面',
+        'en': 'Login page'
+    },
+    'labAccount': {
+        'zh': '帳號:',
+        'en': 'Account:'
+    },
+    'labPassword': {
+        'zh': '帳號:',
+        'en': 'Account:'
+    },
+    'btnLogin': {
+        'zh': '登入',
+        'en': 'Login'
+    },
+    'txbAccount': {
+        'zh': '請輸入帳號',
+        'en': 'Login'
+    },
+    'txbPassword': {
+        'zh': '請輸入密碼',
+        'en': 'Login'
+    }
+};
+
+$(document).ready(function () {
     //按下登入按鈕
     $("#btnLogin").click(function () {
         let account = $("#txbAccount").val();
@@ -59,4 +86,35 @@ function IsSpecialChar(account, pwd) {
     }
 
     return accountValid && pwdValid;
+}
+
+//切換語言
+function ChangeLanguage(language) {
+    $.ajax({
+        type: "POST",
+        url: "/Ajax/UserHandler.aspx/ChangeLanguage",
+        data: JSON.stringify({ language: language }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $('.i18n').each(function () {
+                var key = $(this).data('key');
+                var placeholderKey = $(this).data('placeholder-key');
+
+                if (key) {
+                    let translation = translations[key][language];
+                    $(this).text(translation);
+                }
+
+                if (placeholderKey) {
+                    let placeholderTranslation = translations[placeholderKey][language];
+                    $(this).attr('placeholder', placeholderTranslation);
+                }
+            });
+        },
+        error: function (error) {
+            console.error('AJAX Error:', error);
+            $("#labLogin").text("發生錯誤，請查看控制台");
+        }
+    });
 }

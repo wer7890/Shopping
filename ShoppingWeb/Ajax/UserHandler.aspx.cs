@@ -59,10 +59,16 @@ namespace ShoppingWeb.Ajax
                         {
                             UserInfo user = new UserInfo
                             {
-                                UID = (int)cmd.Parameters["@userId"].Value,
+                                UserId = (int)cmd.Parameters["@userId"].Value,
                                 Roles = (int)cmd.Parameters["@roles"].Value
                             };
                             HttpContext.Current.Session["userInfo"] = user;
+                            
+                            if (HttpContext.Current.Session["language"] == null)
+                            {
+                                HttpContext.Current.Session["language"] = "zh";
+                            }
+                            
                             return (int)DatabaseOperationResult.Success;
                         }
 
@@ -92,6 +98,17 @@ namespace ShoppingWeb.Ajax
             return (cheackAccount && cheackPwd);
         }
 
+        /// <summary>
+        /// 按下中英文按鈕時，Session["language"]紀錄該語言
+        /// </summary>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public static bool ChangeLanguage(string language) 
+        {
+            HttpContext.Current.Session["language"] = language;
+            return true;
+        }
 
 
         /// <summary>
@@ -110,7 +127,7 @@ namespace ShoppingWeb.Ajax
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UID));
+                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
                         SqlDataAdapter da = new SqlDataAdapter();
                         DataTable dt = new DataTable();
                         da.SelectCommand = cmd;
