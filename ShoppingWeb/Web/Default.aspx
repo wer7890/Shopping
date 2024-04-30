@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/I18n.js"></script>
-    <script src="/js/<%= jsVersion %>/Default.js"></script>
+    <script src="/js/<%= jsVersion %>/Default_<%= basePageLanguage %>.js"></script>
 </head>
 <body>
     <div class="container mt-2">

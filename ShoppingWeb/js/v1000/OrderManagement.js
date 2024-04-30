@@ -70,6 +70,30 @@
     'btnDetails': {
         'zh': '詳情',
         'en': 'Details'
+    },
+    'thPaid': {
+        'zh': '已付款',
+        'en': 'Paid'
+    },
+    'thRefunding': {
+        'zh': '退款中',
+        'en': 'Refunding'
+    },
+    'thRefunded': {
+        'zh': '已退款',
+        'en': 'Refunded'
+    },
+    'thStorePickup': {
+        'zh': '超商取貨',
+        'en': 'Store Pickup'
+    },
+    'thStoreToStore': {
+        'zh': '店到店',
+        'en': 'Store to Store'
+    },
+    'thHomeDelivery': {
+        'zh': '宅配',
+        'en': 'Home Delivery'
     }
 };
 
@@ -259,10 +283,10 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
 
     // 按鈕
     if (orderStatusNum != 4) {
-        selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary i18n" data-key="btnEdit">修改</button></div>';
+        selectHtml += '<div class="col-1 d-flex align-items-end px-0"><button id="btnEditOrder" type="submit" class="btn btn-outline-primary i18n" data-key="btnEdit">修改</button></div>';
     }
 
-    selectHtml += '<div class="col-1 d-flex align-items-end"><button id="btnShowOrderDetail" type="submit" class="btn btn-outline-primary i18n" data-key="btnDetails">詳情</button></div>' +
+    selectHtml += '<div class="col-1 d-flex align-items-end px-0"><button id="btnShowOrderDetail" type="submit" class="btn btn-outline-primary i18n" data-key="btnDetails">詳情</button></div>' +
         '</select></div>';
 
     detailElement.append(selectHtml);

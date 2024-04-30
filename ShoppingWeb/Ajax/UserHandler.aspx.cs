@@ -63,10 +63,10 @@ namespace ShoppingWeb.Ajax
                                 Roles = (int)cmd.Parameters["@roles"].Value
                             };
                             HttpContext.Current.Session["userInfo"] = user;
-                            
                             if (HttpContext.Current.Session["language"] == null)
                             {
                                 HttpContext.Current.Session["language"] = "zh";
+                                basePageLanguage = "zh";
                             }
                             
                             return (int)DatabaseOperationResult.Success;
@@ -107,10 +107,11 @@ namespace ShoppingWeb.Ajax
         public static bool SetLanguage(string language) 
         {
             HttpContext.Current.Session["language"] = language;
+            basePageLanguage = language;
             return true;
         }
 
-
+        
 
         /// <summary>
         /// 取得管理員身分

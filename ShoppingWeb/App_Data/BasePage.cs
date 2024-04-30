@@ -14,6 +14,7 @@ namespace ShoppingWeb.Ajax
     {
         public string cssVersion;
         public string jsVersion;
+        public static string basePageLanguage;
 
         public BasePage() 
         {
