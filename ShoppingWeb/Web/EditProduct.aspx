@@ -68,8 +68,12 @@
                 </div>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-4">
-                <label for="txbProductIntroduce" class="form-label">商品細項描述</label>
+                <label for="txbProductIntroduce" class="form-label">商品中文描述</label>
                 <textarea rows="3" class="form-control" id="txbProductIntroduce"></textarea>
+            </div>
+            <div class="mx-auto col-12 col-md-7 mt-4">
+                <label for="txbProductIntroduceEN" class="form-label">商品英文描述</label>
+                <textarea rows="3" class="form-control" id="txbProductIntroduceEN"></textarea>
             </div>
 
             <button id="btnRenewProduct" class="btn btn-outline-primary mx-auto mt-4 col-12 col-md-6">修改</button>

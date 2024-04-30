@@ -16,11 +16,13 @@
                 $("#labProductCreatedOn").text(data.d.ProductCreatedOn);
                 $("#labProductOwner").text(data.d.ProductOwner);
                 $("#labProductName").text(data.d.ProductName);
+                $("#labProductNameEN").text(data.d.ProductNameEN);
                 $("#labProductCategory").text(data.d.ProductCategory);
                 $("#labProductStock").text(data.d.ProductStock);
                 $("#imgProduct").attr("src", "/ProductImg/" + data.d.ProductImg);
                 $("#txbProductPrice").val(data.d.ProductPrice);
                 $("#txbProductIntroduce").val(data.d.ProductIntroduce);
+                $("#txbProductIntroduceEN").val(data.d.ProductIntroduceEN);
                 dbStock = data.d.ProductStock;
             }
         },
@@ -34,10 +36,11 @@
         let productPrice = $("#txbProductPrice").val();
         let productStock = $("#txbProductStock").val(); 
         let productIntroduce = $("#txbProductIntroduce").val();
+        let productIntroduceEN = $("#txbProductIntroduceEN").val();
         let productCheckStock = $("input[name='flexRadioDefault']:checked").val();
         $("#labRenewUser").text("");
 
-        if (!IsSpecialChar(productIntroduce, productPrice, productStock)) {
+        if (!IsSpecialChar(productIntroduce, productIntroduceEN, productPrice, productStock)) {
             return;
         }
 
@@ -49,7 +52,7 @@
         $.ajax({
             type: "POST",
             url: "/Ajax/ProductHandler.aspx/EditProduct",
-            data: JSON.stringify({ productPrice: productPrice, productStock: productStock, productIntroduce: productIntroduce, productCheckStock: productCheckStock }),
+            data: JSON.stringify({ productPrice: productPrice, productStock: productStock, productIntroduce: productIntroduce, productIntroduceEN: productIntroduceEN, productCheckStock: productCheckStock }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -84,15 +87,20 @@
 });
 
 //判斷文字長度 
-function IsSpecialChar(productIntroduce, productPrice, productStock) {
+function IsSpecialChar(productIntroduce, productIntroduceEN, productPrice, productStock) {
 
-    if (typeof productIntroduce === 'undefined' || typeof productPrice === 'undefined' || typeof productStock === 'undefined') {
+    if (typeof productIntroduce === 'undefined' || typeof productIntroduceEN === 'undefined' || typeof productPrice === 'undefined' || typeof productStock === 'undefined') {
         $("#labRenewProduct").text("undefined");
         return false;
     }
 
     if (!/^.{1,500}$/.test(productIntroduce)) {
-        $("#labRenewProduct").text("商品描述長度需在1到500之間");
+        $("#labRenewProduct").text("商品中文描述長度需在1到500之間");
+        return false;
+    }
+
+    if (!/^[^\u4e00-\u9fa5]{1,1000}$/.test(productIntroduceEN)) {
+        $("#labAddProduct").text("商品英文描述長度需在1到500之間且不能包含中文");
         return false;
     }
 

@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
+    <script src="/js/<%= jsVersion %>/<%= basePageLanguage %>/ProductCategories.js"></script>
     <script src="/js/<%= jsVersion %>/AddProduct.js"></script>
 </head>
 <body>
@@ -19,8 +19,12 @@
         <br />
         <div class="row">
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <label for="txbProductName" class="form-label">商品名稱</label>
+                <label for="txbProductName" class="form-label">商品中文名稱</label>
                 <input type="text" id="txbProductName" class="form-control" />
+            </div>
+            <div class="mx-auto col-12 col-md-7 mt-2">
+                <label for="txbProductNameEN" class="form-label">商品英文名稱</label>
+                <input type="text" id="txbProductNameEN" class="form-control" />
             </div>
             <div class="row mx-auto col-12 col-md-7 mt-3">
 
@@ -57,8 +61,12 @@
             </div>
 
             <div class="mx-auto col-12 col-md-7 mt-3">
-                <label for="txbProductIntroduce" class="form-label">商品細項描述</label>
+                <label for="txbProductIntroduce" class="form-label">商品中文描述</label>
                 <textarea rows="3" class="form-control" id="txbProductIntroduce"></textarea>
+            </div>
+            <div class="mx-auto col-12 col-md-7 mt-3">
+                <label for="txbProductIntroduceEN" class="form-label">商品英文描述</label>
+                <textarea rows="3" class="form-control" id="txbProductIntroduceEN"></textarea>
             </div>
 
             <button id="btnAddProduct" class="btn btn-outline-primary mx-auto mt-4 col-12 col-md-6">新增</button>

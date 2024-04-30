@@ -52,6 +52,7 @@ $(document).ready(function () {
     //按下新增按鈕
     $("#btnAddProduct").click(function () {
         let productName = $("#txbProductName").val();
+        let productNameEN = $("#txbProductNameEN").val();
         let productCategory = $("#productCategory").val();  // 獲取大分類值
         let productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
         let productBrand = $("#brandCategory").val(); // 獲取品牌值
@@ -60,10 +61,11 @@ $(document).ready(function () {
         let productStock = $("#txbProductStock").val();
         let productIsOpen = $("#productIsOpen").val();
         let productIntroduce = $("#txbProductIntroduce").val();
+        let productIntroduceEN = $("#txbProductIntroduceEN").val();
         $("#labAddProduct").text("");
         let newCategory = productCategory + productMinorCategory + productBrand;
 
-        if (!IsSpecialChar(productName, productCategory, productMinorCategory, productBrand, productImg, productIsOpen, productIntroduce, productPrice, productStock)) {
+        if (!IsSpecialChar(productName, productNameEN, productCategory, productMinorCategory, productBrand, productImg, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock)) {
             return;
         }
 
@@ -82,11 +84,13 @@ $(document).ready(function () {
             // 將檔案加入到 FormData 物件中
             formData.append("file", file);
             formData.append("productName", productName);
+            formData.append("productNameEN", productNameEN);
             formData.append("productCategory", newCategory);
             formData.append("productPrice", productPrice);
             formData.append("productStock", productStock);
             formData.append("productIsOpen", productIsOpen);
             formData.append("productIntroduce", productIntroduce);
+            formData.append("productIntroduceEN", productIntroduceEN);
 
             // 圖片上傳
             $.ajax({
@@ -121,15 +125,20 @@ $(document).ready(function () {
 
 
 //判斷文字長度 
-function IsSpecialChar(productName, productCategory, productMinorCategory, productBrand, productImg, productIsOpen, productIntroduce, productPrice, productStock) {
+function IsSpecialChar(productName, productNameEN, productCategory, productMinorCategory, productBrand, productImg, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock) {
 
-    if (typeof productName === 'undefined' || typeof productCategory === 'undefined' || typeof productImg === 'undefined' || typeof productIsOpen === 'undefined' || typeof productIntroduce === 'undefined' || typeof productPrice === 'undefined' || typeof productStock === 'undefined') {
+    if (typeof productName === 'undefined' || typeof productNameEN === 'undefined' || typeof productCategory === 'undefined' || typeof productImg === 'undefined' || typeof productIsOpen === 'undefined' || typeof productIntroduce === 'undefined' || typeof productIntroduceEN === 'undefined' || typeof productPrice === 'undefined' || typeof productStock === 'undefined') {
         $("#labAddProduct").text("undefined");
         return false;
     }
 
     if (!/^.{1,40}$/.test(productName)) {
         $("#labAddProduct").text("商品名稱長度需在1到40之間");
+        return false;
+    }
+
+    if (!/^[^\u4e00-\u9fa5]{1,100}$/.test(productNameEN)) {
+        $("#labAddProduct").text("商品英文名稱長度需在1到100之間且不能包含中文");
         return false;
     }
 
@@ -145,6 +154,11 @@ function IsSpecialChar(productName, productCategory, productMinorCategory, produ
 
     if (!/^.{1,500}$/.test(productIntroduce)) {
         $("#labAddProduct").text("商品描述長度需在1到500之間");
+        return false;
+    }
+
+    if (!/^[^\u4e00-\u9fa5]{1,1000}$/.test(productIntroduceEN)) {
+        $("#labAddProduct").text("商品英文描述長度需在1到500之間且不能包含中文");
         return false;
     }
 

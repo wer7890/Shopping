@@ -68,12 +68,14 @@ namespace ShoppingWeb.Ajax
                         {
                             uploadedFile.SaveAs(targetFolderPath);
                             string productName = Request.Form["productName"];
+                            string productNameEN = Request.Form["productNameEN"];
                             string productCategory = Request.Form["productCategory"];
                             string productPrice = Request.Form["productPrice"];
                             string productStock = Request.Form["productStock"];
                             string productIsOpen = Request.Form["productIsOpen"];
                             string productIntroduce = Request.Form["productIntroduce"];
-                            Response.Write(AddProduct(productName, productCategory, productPrice, productStock, productIsOpen, productIntroduce));
+                            string productIntroduceEN = Request.Form["productIntroduceEN"];
+                            Response.Write(AddProduct(productName, productNameEN, productCategory, productPrice, productStock, productIsOpen, productIntroduce, productIntroduceEN));
 
                         }
                     }
@@ -331,10 +333,10 @@ namespace ShoppingWeb.Ajax
         /// <param name="productIsOpen"></param>
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
-        public static string AddProduct(string productName, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce)
+        public static string AddProduct(string productName, string productNameEN, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce, string productIntroduceEN)
         {
 
-            if (!AddProductSpecialChar(productName, productCategory, productIsOpen, productIntroduce, productPrice, productStock))
+            if (!AddProductSpecialChar(productName, productNameEN, productCategory, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock))
             {
                 return "輸入值不符合格式";
             }
@@ -349,12 +351,14 @@ namespace ShoppingWeb.Ajax
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@name", productName));
+                        cmd.Parameters.Add(new SqlParameter("@nameEN", productNameEN));
                         cmd.Parameters.Add(new SqlParameter("@category", productCategory));
                         cmd.Parameters.Add(new SqlParameter("@img", pubguid));
                         cmd.Parameters.Add(new SqlParameter("@price", productPrice));
                         cmd.Parameters.Add(new SqlParameter("@stock", productStock));
                         cmd.Parameters.Add(new SqlParameter("@isOpen", productIsOpen));
                         cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
+                        cmd.Parameters.Add(new SqlParameter("@introduceEN", productIntroduceEN));
                         cmd.Parameters.Add(new SqlParameter("@owner", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
                         string result = cmd.ExecuteScalar().ToString();
 
@@ -399,16 +403,18 @@ namespace ShoppingWeb.Ajax
         /// <param name="productPrice"></param>
         /// <param name="productStock"></param>
         /// <returns></returns>
-        public static bool AddProductSpecialChar(string productName, string productCategory, string productIsOpen, string productIntroduce, string productPrice, string productStock)
+        public static bool AddProductSpecialChar(string productName, string productNameEN, string productCategory, string productIsOpen, string productIntroduce, string productIntroduceEN, string productPrice, string productStock)
         {
             bool cheackName = Regex.IsMatch(productName, @"^.{1,40}$");
+            bool cheackNameEN = Regex.IsMatch(productNameEN, @"^[^\u4e00-\u9fa5]{1,100}$");
             bool cheackCategory = Regex.IsMatch(productCategory, @"^.{6,}$");
             bool cheackIsOpen = Regex.IsMatch(productIsOpen, @"^.{1,}$");
             bool cheackIntroduce = Regex.IsMatch(productIntroduce, @"^.{1,500}$");
+            bool cheackIntroduceEN = Regex.IsMatch(productIntroduceEN, @"^[^\u4e00-\u9fa5]{1,1000}$");
             bool cheackPrice = Regex.IsMatch(productPrice, @"^[0-9]{1,7}$");
             bool cheackStock = Regex.IsMatch(productStock, @"^[0-9]{1,7}$");
 
-            return cheackName && cheackCategory && cheackIsOpen && cheackIntroduce && cheackPrice && cheackStock;
+            return cheackName && cheackNameEN && cheackCategory && cheackIsOpen && cheackIntroduce && cheackIntroduceEN && cheackPrice && cheackStock;
         }
 
 
@@ -443,12 +449,14 @@ namespace ShoppingWeb.Ajax
                             {
                                 ProductId = dt.Rows[0]["f_id"],
                                 ProductName = dt.Rows[0]["f_name"],
+                                ProductNameEN = dt.Rows[0]["f_nameEN"],
                                 ProductCategory = dt.Rows[0]["f_category"],
                                 ProductPrice = dt.Rows[0]["f_price"],
                                 ProductStock = dt.Rows[0]["f_stock"],
                                 ProductOwner = dt.Rows[0]["f_createdUser"],
                                 ProductCreatedOn = dt.Rows[0]["f_createdTime"].ToString(),
                                 ProductIntroduce = dt.Rows[0]["f_introduce"],
+                                ProductIntroduceEN = dt.Rows[0]["f_introduceEN"],
                                 ProductImg = dt.Rows[0]["f_img"]
                             };
 
@@ -474,7 +482,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
         [WebMethod]
-        public static int EditProduct(int productPrice, int productStock, string productIntroduce, string productCheckStock)
+        public static int EditProduct(int productPrice, int productStock, string productIntroduce, string productIntroduceEN, string productCheckStock)
         {
 
             if (!CheckDuplicateLogin())
@@ -507,6 +515,7 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@price", productPrice));
                         cmd.Parameters.Add(new SqlParameter("@stock", productStock));
                         cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
+                        cmd.Parameters.Add(new SqlParameter("@introduceEN", productIntroduceEN));
                         cmd.Parameters.Add(new SqlParameter("@checkStoct", productCheckStock));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();

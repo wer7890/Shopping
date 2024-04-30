@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
+    <script src="/js/<%= jsVersion %>/<%= basePageLanguage %>/ProductCategories.js"></script>
     <script src="/js/<%= jsVersion %>/ProductManagement.js"></script>
 </head>
 <body>
