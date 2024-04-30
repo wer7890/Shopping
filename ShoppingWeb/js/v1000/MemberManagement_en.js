@@ -97,7 +97,7 @@ $(document).ready(function () {
                 console.error('AJAX Error:', error);
                 $("#labSearchMember").text("發生錯誤，請查看控制台");
             }
-        });      
+        });
     })
 
     //是否停權
@@ -167,7 +167,7 @@ function GetRandomName() {
 }
 
 //隨機生成日期
-function GetRandomDate() { 
+function GetRandomDate() {
     min = new Date(0);  //1970-01-01
     max = new Date()
     let res = new Date(Math.random() * (max.getTime() - min.getTime()));
@@ -200,7 +200,7 @@ function SearchAllMember() {
                 alert("權限不足");
                 parent.location.reload();
             } else {
-                let data = JSON.parse(response.d); 
+                let data = JSON.parse(response.d);
                 let tableBody = $('#tableBody');
 
                 tableBody.empty();
@@ -228,7 +228,7 @@ function SearchAllMember() {
                     tableBody.append(row);
                 });
 
-                TranslateLanguage();
+                TranslateLanguage("en");
             }
 
         },

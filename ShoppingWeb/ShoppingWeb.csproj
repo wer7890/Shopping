@@ -89,11 +89,11 @@
     <Content Include="js\v1000\Frame_en.js" />
     <Content Include="js\v1000\Frame_zh.js" />
     <Content Include="js\v1000\I18n.js" />
-    <Content Include="js\v1000\I18n2.js" />
     <Content Include="js\v1000\Login.js" />
     <Content Include="js\v1000\EditProduct.js" />
     <Content Include="js\v1000\EditUser.js" />
-    <Content Include="js\v1000\MemberManagement.js" />
+    <Content Include="js\v1000\MemberManagement_en.js" />
+    <Content Include="js\v1000\MemberManagement_zh.js" />
     <Content Include="js\v1000\OrderManagement.js" />
     <Content Include="js\v1000\OrderManagement_en.js" />
     <Content Include="js\v1000\OrderManagement_zh.js" />
