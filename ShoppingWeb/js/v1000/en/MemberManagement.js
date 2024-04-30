@@ -1,58 +1,44 @@
 ﻿let translations = {
     'titleMember': {
-        'zh': '會員帳號',
         'en': 'Member Account'
     },
-    'btnAddMember': {
-        'zh': '新增會員',
+    'btnAddMember': {,
         'en': 'Add Member'
     },
     'thAccount': {
-        'zh': '帳號:',
         'en': 'Account:'
     },
     'thPwd': {
-        'zh': '密碼',
         'en': 'Password'
     },
     'thName': {
-        'zh': '名稱',
         'en': 'Name'
     },
     'thLevel': {
-        'zh': '等級',
         'en': 'Level'
     },
     'thPhoneNumber': {
-        'zh': '電話',
         'en': 'Phone Number'
     },
     'thAccountStatus': {
-        'zh': '狀態',
         'en': 'Status'
     },
     'thWallet': {
-        'zh': '錢包',
         'en': 'Wallet'
     },
     'thTotalSpent': {
-        'zh': '總花費',
         'en': 'Total Spent'
     },
     'level0': {
-        'zh': '等級0',
         'en': 'level_0'
     },
     'level1': {
-        'zh': '等級1',
         'en': 'level_1'
     },
     'level2': {
-        'zh': '等級2',
         'en': 'level_2'
     },
     'level3': {
-        'zh': '等級3',
         'en': 'level_3'
     }
 };

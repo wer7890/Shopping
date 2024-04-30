@@ -1,38 +1,29 @@
 ﻿let translations = {
     'titleEditUser': {
-        'zh': '修改帳號',
         'en': 'Edit User'
     },
     'spanUserId': {
-        'zh': '管理員ID : ',
         'en': 'Admin ID : '
     },
     'spanAccount': {
-        'zh': '帳號 : ',
         'en': 'Account : '
     },
     'labPwd': {
-        'zh': '密碼',
         'en': 'Password'
     },
     'spanRoles': {
-        'zh': '角色 : ',
         'en': 'Roles : '
     },
     'btnEdit': {
-        'zh': '更改',
         'en': 'Edit'
     },
     'superAdmin': {
-        'zh': '超級管理員',
         'en': 'Super Administrator'
     },
     'memberAdmin': {
-        'zh': '會員管理員',
         'en': 'Member Administrator'
     },
     'productAdmin': {
-        'zh': '商品管理員',
         'en': 'Product Administrator'
     }
 };
@@ -47,23 +38,23 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
             if (data.d === 102) {
-                $("#labRenewUser").text("發生發生內部錯誤，請看日誌");
+                $("#labRenewUser").text("Internal error occurred, please check the logs");
             } else {
                 // 直接設定 input 元素的值
                 $("#labUserId").text(data.d.UserId);
                 $("#labAccount").text(data.d.Account);
                 switch (data.d.Roles) {
                     case 1:
-                        $("#labUserRoles").attr({ "class": "i18n", "data-key": "superAdmin" }).text("超級管理員");
+                        $("#labUserRoles").text("Super Administrator");
                         break;
                     case 2:
-                        $("#labUserRoles").attr({ "class": "i18n", "data-key": "memberAdmin" }).text("會員管理員");
+                        $("#labUserRoles").text("Super Administrator");
                         break;
                     case 3:
-                        $("#labUserRoles").attr({ "class": "i18n", "data-key": "productAdmin" }).text("商品管理員");
+                        $("#labUserRoles").text("Product Administrator");
                         break;
                     default:
-                        $("#labUserRoles").text("錯誤");
+                        $("#labUserRoles").text("Error");
                         break;
                 }
 
@@ -93,25 +84,25 @@ $(document).ready(function () {
             success: function (response) {
                 switch (response.d) {
                     case 0:
-                        alert("重複登入，已被登出");
+                        alert("Duplicate login detected, logged out");
                         window.parent.location.href = "Login.aspx";
                         break;
                     case 1:
-                        alert("權限不足");
+                        alert("Insufficient permissions");
                         parent.location.reload();
                         break;
                     case 2:
-                        $("#labRenewUser").text("名稱和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空");
+                        $("#labRenewUser").text("Format error");
                         break;
                     case 100:
                         alert("修改成功");
                         window.location.href = "UserManagement.aspx";
                         break;
                     case 101:
-                        $("#labRenewUser").text("修改失敗");
+                        $("#labRenewUser").text("change identity");
                         break;
                     default:
-                        $("#labRenewUser").text("發生發生內部錯誤，請看日誌");
+                        $("#labRenewUser").text("Internal error occurred, please check the logs");
 
                 }
             },
@@ -135,7 +126,7 @@ function IsSpecialChar(pwd) {
     let pwdValid = regex.test(pwd);
 
     if (!pwdValid) {
-        $("#labRenewUser").text("密碼不能含有非英文和數字且長度應在6到16之間");
+        $("#labRenewUser").text("Format error");
     }
 
     return pwdValid;

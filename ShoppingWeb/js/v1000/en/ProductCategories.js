@@ -57,7 +57,7 @@ function ProductDataReady() {
 
     // 創建 select 元素並初始化大分類選項
     let categorySelect = $("<select>").attr("id", "productCategory").addClass("form-select");
-    categorySelect.prepend($("<option>").attr("value", "0").text("請選擇商品類型"));
+    categorySelect.prepend($("<option>").attr("value", "0").text("Please select a product type"));
     for (let key in majorCategories) {
 
         if (Object.prototype.hasOwnProperty.call(majorCategories, key)) {
@@ -65,7 +65,7 @@ function ProductDataReady() {
         }
 
     }
-    $("#divCategories").append('<label for="productCategory" class="form-label">商品類型</label>').append(categorySelect);
+    $("#divCategories").append('<label for="productCategory" class="form-label">Product type</label>').append(categorySelect);
 
     // 根據所選的大分類更新小分類選項
     $("#productCategory").change(function () {
@@ -82,7 +82,7 @@ function ProductDataReady() {
         }
 
         // 替換原有的小分類 select 元素
-        $("#divMinorCategory").empty().append('<label for="minorCategory" class="form-label">子類型</label>').append(minorCategorySelect);
+        $("#divMinorCategory").empty().append('<label for="minorCategory" class="form-label">MinorCategories</label>').append(minorCategorySelect);
     });
 
     // 創建品牌 select 元素
@@ -94,7 +94,7 @@ function ProductDataReady() {
         }
 
     }
-    $("#divBrand").append('<label for="brandCategory" class="form-label">品牌</label>').append(brandSelect);
+    $("#divBrand").append('<label for="brandCategory" class="form-label">Brand</label>').append(brandSelect);
 }
 
 //把類型代號轉成文字

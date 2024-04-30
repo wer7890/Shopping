@@ -1,42 +1,32 @@
 ﻿let translations = {
     'titleUser': {
-        'zh': '管理員帳號',
         'en': 'Administrator Account'
     },
     'btnAddUser': {
-        'zh': '新增管理員',
         'en': 'Add Administrator'
     },
     'btnId': {
-        'zh': '管理者ID',
         'en': 'Administrator ID'
     },
     'btnAccount': {
-        'zh': '帳號',
         'en': 'Account'
     },
     'btnRoles': {
-        'zh': '角色',
         'en': 'Roles'
     },
     'btnEdit': {
-        'zh': '編輯',
         'en': 'Edit'
     },
     'btnDel': {
-        'zh': '刪除',
         'en': 'Delete'
     },
     'superAdmin': {
-        'zh': '超級管理員',
         'en': 'Super Administrator'
     },
     'memberAdmin': {
-        'zh': '會員管理員',
         'en': 'Member Administrator'
     },
     'productAdmin': {
-        'zh': '商品管理員',
         'en': 'Product Administrator'
     }
 };
@@ -130,13 +120,13 @@ function SearchAllUserInfo(pageNumber, pageSize) {
                         '<td>' + item.f_account + '</td>' +
                         '<td>' +
                         '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
-                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + ' class = "i18n" data-key="superAdmin">超級管理員</option>' +
-                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + ' class = "i18n" data-key="memberAdmin">會員管理員</option>' +
-                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + ' class = "i18n" data-key="productAdmin">商品管理員</option>' +
+                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>Super Administrator</option>' +
+                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>Member Administrator</option>' +
+                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>Product Administrator</option>' +
                         '</select>' +
                         '</td>' +
-                        '<td><button class="btn btn-primary i18n" onclick="EditUser(' + item.f_id + ')" data-key="btnEdit">編輯</button></td>' +
-                        '<td><button class="btn btn-danger i18n" onclick="DeleteUser(' + item.f_id + ')" data-key="btnDel">刪除</button></td>' +
+                        '<td><button class="btn btn-primary" onclick="EditUser(' + item.f_id + ')">Edit</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="DeleteUser(' + item.f_id + ')">Delete</button></td>' +
                         '</tr>';
 
                     tableBody.append(row);
@@ -167,7 +157,7 @@ function SearchAllUserInfo(pageNumber, pageSize) {
 
 //刪除
 function DeleteUser(userId) {
-    let yes = confirm('確定要刪除該用戶嗎');
+    let yes = confirm("Are you sure you want to delete this user?");
     if (yes == true) {
         $.ajax({
             type: "POST",
@@ -178,11 +168,11 @@ function DeleteUser(userId) {
             success: function (response) {
                 switch (response.d) {
                     case 0:
-                        alert("重複登入，已被登出");
+                        alert("Duplicate login detected, logged out");
                         window.parent.location.href = "Login.aspx";
                         break;
                     case 1:
-                        alert("權限不足");
+                        alert("Insufficient permissions");
                         parent.location.reload();
                         break;
                     case 100:
@@ -190,10 +180,10 @@ function DeleteUser(userId) {
                         window.location.reload();
                         break;
                     case 101:
-                        alert("刪除失敗");
+                        alert("Deletion failed");
                         break;
                     default:
-                        $("#labSearchUser").text("發生發生內部錯誤，請看日誌");
+                        $("#labSearchUser").text("Internal error occurred, please check the logs");
                 }
             },
             error: function (error) {
@@ -215,7 +205,7 @@ function EditUser(userId) {
             if (response.d === true) {
                 window.location.href = "EditUser.aspx";
             } else {
-                alert("失敗");
+                alert("Fail");
             }
         },
         error: function (error) {
@@ -235,21 +225,21 @@ function ToggleUserRoles(userId, roles) {
         success: function (response) {
             switch (response.d) {
                 case 0:
-                    alert("重複登入，已被登出");
+                    alert("Duplicate login detected, logged out");
                     window.parent.location.href = "Login.aspx";
                     break;
                 case 1:
-                    alert("權限不足");
+                    alert("Insufficient permissions");
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchUser").text("身分更改成功");
+                    $("#labSearchUser").text("Identity changed successfully");
                     break;
                 case 101:
-                    $("#labSearchUser").text("身分更改失敗");
+                    $("#labSearchUser").text("Failed to change identity");
                     break;
                 default:
-                    $("#labSearchUser").text("發生發生內部錯誤，請看日誌");
+                    $("#labSearchUser").text("Internal error occurred, please check the logs");
             }
         },
         error: function (error) {

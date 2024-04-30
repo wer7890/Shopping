@@ -1,34 +1,26 @@
 ﻿let translations = {
     'titleAddUser': {
-        'zh': '新增帳號',
         'en': 'Add User'
     },
     'labAccount': {
-        'zh': '帳號:',
         'en': 'Account'
     },
     'labPwd': {
-        'zh': '密碼:',
         'en': 'Password'
     },
     'labRoles': {
-        'zh': '角色',
         'en': 'Roles'
     },
     'superAdmin': {
-        'zh': '超級管理員',
         'en': 'Super Administrator'
     },
     'memberAdmin': {
-        'zh': '會員管理員',
         'en': 'Member Administrator'
     },
     'productAdmin': {
-        'zh': '商品管理員',
         'en': 'Product Administrator'
     },
     'btnAddUser': {
-        'zh': '新增',
         'en': 'Add'
     }
 };
@@ -57,31 +49,31 @@ $(document).ready(function () {
             success: function (response) {
                 switch (response.d) {
                     case 0:
-                        alert("重複登入，已被登出");
+                        alert("Duplicate login detected, logged out");
                         window.parent.location.href = "Login.aspx";
                         break;
                     case 1:
-                        alert("權限不足");
+                        alert("Insufficient permissions");
                         parent.location.reload();
                         break;
                     case 2:
-                        $("#labAddUser").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空");
+                        $("#labAddUser").text("Format error");
                         break;
                     case 100:
-                        alert("新增成功");
+                        alert("Addition successful");
                         window.location.href = "UserManagement.aspx";
                         break;
                     case 101:
-                        $("#labAddUser").text("帳號重複");
+                        $("#labAddUser").text("Duplicate account");
                         break;
                     default:
-                        $("#labAddUser").text("發生發生內部錯誤，請看日誌");
+                        $("#labAddUser").text("Internal error occurred, please check the logs");
 
                 }
             },
             error: function (error) {
                 console.error('AJAX Error:', error);
-                $("#labAddUser").text("發生錯誤，請查看控制台");
+                $("#labAddUser").text("AJAX Error");
             }
         });
     });
@@ -102,7 +94,7 @@ function IsSpecialChar(account, pwd) {
     let pwdValid = regex.test(pwd);
 
     if (!accountValid || !pwdValid) {
-        $("#labAddUser").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間");
+        $("#labAddUser").text("Format error");
     }
 
     return accountValid && pwdValid;

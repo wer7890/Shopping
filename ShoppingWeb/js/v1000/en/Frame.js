@@ -118,7 +118,7 @@ function ChangeLanguage(language) {
         },
         error: function (error) {
             console.error('AJAX Error:', error);
-            $("#labLogin").text("發生錯誤，請查看控制台");
+            $("#labLogin").text("AJAX Error");
         }
     });
 }
