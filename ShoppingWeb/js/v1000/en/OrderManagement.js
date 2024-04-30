@@ -1,98 +1,74 @@
 ﻿let translations = {
     'titleOrder': {
-        'zh': '訂單',
         'en': 'Order'
     },
     'thAll': {
-        'zh': '全部',
         'en': 'All'
     },
     'thShipping': {
-        'zh': '發貨中',
         'en': 'Shipping'
     },
     'thShipped': {
-        'zh': '已發貨',
         'en': 'Shipped'
     },
     'thArrived': {
-        'zh': '已到貨',
         'en': 'Arrived'
     },
     'thReceived': {
-        'zh': '已取貨',
         'en': 'Received'
     },
     'thReturning': {
-        'zh': '退貨中',
         'en': 'Returning'
     },
     'thReturned': {
-        'zh': '已退貨',
         'en': 'Returned'
     },
     'thReturnRequested': {
-        'zh': '申請退貨',
         'en': 'Return'
     },
     'thId': {
-        'zh': '訂單編號',
         'en': 'ID'
     },
     'thSerialNumber': {
-        'zh': '訂購者',
         'en': 'Orderer'
     },
     'thCreatedTime': {
-        'zh': '下單時間',
         'en': 'Order Time'
     },
     'thOrderStatus': {
-        'zh': '訂單狀態',
         'en': 'Order Status'
     },
     'thDeliveryStatus': {
-        'zh': '配送狀態',
         'en': 'Delivery Status'
     },
     'thDeliveryMethod': {
-        'zh': '配送方式',
         'en': 'Delivery Method'
     },
     'thTotal': {
-        'zh': '總金額',
         'en': 'Total'
     },
     'btnEdit': {
-        'zh': '修改',
         'en': 'Edit'
     },
     'btnDetails': {
-        'zh': '詳情',
         'en': 'Details'
     },
     'thPaid': {
-        'zh': '已付款',
         'en': 'Paid'
     },
     'thRefunding': {
-        'zh': '退款中',
         'en': 'Refunding'
     },
     'thRefunded': {
-        'zh': '已退款',
         'en': 'Refunded'
     },
     'thStorePickup': {
-        'zh': '超商取貨',
         'en': 'Store Pickup'
     },
     'thStoreToStore': {
-        'zh': '店到店',
         'en': 'Store to Store'
     },
     'thHomeDelivery': {
-        'zh': '宅配',
         'en': 'Home Delivery'
     }
 };
@@ -192,10 +168,10 @@ function SearchAllOrder() {
         contentType: 'application/json',
         success: function (response) {
             if (response.d === 0) {
-                alert("重複登入，已被登出");
+                alert("Duplicate login detected, logged out");
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert("權限不足");
+                alert("Insufficient permissions");
                 parent.location.reload();
             } else {
                 deliveryStatusValue = 0;
@@ -303,10 +279,10 @@ function ShowOrder(deliveryStatusNum) {
         dataType: "json",
         success: function (response) {
             if (response.d === 0) {
-                alert("重複登入，已被登出");
+                alert("Duplicate login detected, logged out");
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert("權限不足");
+                alert("Insufficient permissions");
                 parent.location.reload();
             } else {
                 deliveryStatusValue = deliveryStatusNum;
@@ -381,10 +357,10 @@ function ShowOrderDetail(orderId) {
         dataType: "json",
         success: function (response) {
             if (response.d === 0) {
-                alert("重複登入，已被登出");
+                alert("Duplicate login detected, logged out");
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert("權限不足");
+                alert("Insufficient permissions");
                 parent.location.reload();
             } else {
                 selectedOrderId = orderId;
@@ -442,19 +418,19 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
         success: function (response) {
             switch (response.d) {
                 case 0:
-                    alert("重複登入，已被登出");
+                    alert("Duplicate login detected, logged out");
                     window.parent.location.href = "Login.aspx";
                     break;
                 case 1:
-                    alert("權限不足");
+                    alert("Insufficient permissions");
                     parent.location.reload();
                     break;
                 case 2:
-                    alert("輸入值錯誤");
+                    alert("Format error");
                     break;
                 case 100:
                 case 101:
-                    let temp = (response.d === 100) ? "更新成功" : "庫存不足或更新時發生錯誤";
+                    let temp = (response.d === 100) ? "Update successful" : "Insufficient stock or error occurred during update";
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     if (deliveryStatusValue === 0) {
                         SearchAllOrder();
@@ -465,7 +441,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     }
                     break;
                 default:
-                    $("#labSearchOrder").text("發生發生內部錯誤，請看日誌").show().delay(3000).fadeOut();
+                    $("#labSearchOrder").text("Internal error occurred, please check the logs").show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
@@ -483,10 +459,10 @@ function ShowReturnOrder() {
         dataType: "json",
         success: function (response) {
             if (response.d === 0) {
-                alert("重複登入，已被登出");
+                alert("Duplicate login detected, logged out");
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert("權限不足");
+                alert("Insufficient permissions");
                 parent.location.reload();
             } else {
                 deliveryStatusValue = 7;
@@ -515,24 +491,24 @@ function EditReturnOrder(orderId, boolReturn) {
         success: function (response) {
             switch (response.d) {
                 case 0:
-                    alert("重複登入，已被登出");
+                    alert("Duplicate login detected, logged out");
                     window.parent.location.href = "Login.aspx";
                     break;
                 case 1:
-                    alert("權限不足");
+                    alert("Insufficient permissions");
                     parent.location.reload();
                     break;
                 case 2:
-                    alert("輸入值錯誤");
+                    alert("Format error");
                     break;
                 case 100:
                 case 101:
-                    let temp = (response.d === 100) ? "更改成功" : "更改失敗";
+                    let temp = (response.d === 100) ? "Update successful" : "Update failed";
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     ShowReturnOrder();
                     break;
                 default:
-                    $("#labSearchOrder").text("發生發生內部錯誤，請看日誌").show().delay(3000).fadeOut();
+                    $("#labSearchOrder").text("Internal error occurred, please check the logs").show().delay(3000).fadeOut();
 
             }
         },
@@ -555,7 +531,7 @@ function IsSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
     let deliveryMethodNumRegex = /^[1-3]{1}$/;
 
     if (!orderIdRegex.test(orderId) || !orderStatusNumRegex.test(orderStatusNum) || !deliveryStatusNumRegex.test(deliveryStatusNum) || !deliveryMethodNumRegex.test(deliveryMethodNum)) {
-        $("#labSearchOrder").text("輸入值錯誤").show().delay(3000).fadeOut();
+        $("#labSearchOrder").text("Format error").show().delay(3000).fadeOut();
         return false;
     }
 
