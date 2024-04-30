@@ -2,7 +2,7 @@
     'titleMember': {
         'en': 'Member Account'
     },
-    'btnAddMember': {,
+    'btnAddMember': {
         'en': 'Add Member'
     },
     'thAccount': {
@@ -58,30 +58,30 @@ $(document).ready(function () {
             success: function (response) {
                 switch (response.d) {
                     case 0:
-                        alert("重複登入，已被登出");
+                        alert("Duplicate login detected, logged out");
                         window.parent.location.href = "Login.aspx";
                         break;
                     case 1:
-                        alert("權限不足");
+                        alert("Insufficient permissions");
                         parent.location.reload();
                         break;
                     case 2:
-                        $("#labSearchMember").text("輸入值格式錯誤");
+                        $("#labSearchMember").text("Format error");
                         break;
                     case 100:
                         window.location.reload();
                         break;
                     case 101:
-                        $("#labSearchMember").text("新增失敗");
+                        $("#labSearchMember").text("Add failed");
                         break;
                     default:
-                        $("#labSearchMember").text("發生發生內部錯誤，請看日誌");
+                        $("#labSearchMember").text("Internal error occurred, please check the logs");
 
                 }
             },
             error: function (error) {
                 console.error('AJAX Error:', error);
-                $("#labSearchMember").text("發生錯誤，請查看控制台");
+                $("#labSearchMember").text("AJAX Error");
             }
         });
     })
@@ -180,10 +180,10 @@ function SearchAllMember() {
         contentType: 'application/json',
         success: function (response) {
             if (response.d === 0) {
-                alert("重複登入，已被登出");
+                alert("Duplicate login detected, logged out");
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert("權限不足");
+                alert("Insufficient permissions");
                 parent.location.reload();
             } else {
                 let data = JSON.parse(response.d);
@@ -199,10 +199,10 @@ function SearchAllMember() {
                         '<td>' + item.f_name + '</td>' +
                         '<td>' +
                         '<select class="form-select form-select-sm f_level" data-id="' + item.f_id + '">' +
-                        '<option value="0"' + (item.f_level == '0' ? ' selected' : '') + ' class = "i18n" data-key="level0">等級0</option>' +
-                        '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + ' class = "i18n" data-key="level1">等級1</option>' +
-                        '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + ' class = "i18n" data-key="level2">等級2</option>' +
-                        '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + ' class = "i18n" data-key="level3">等級3</option>' +
+                        '<option value="0"' + (item.f_level == '0' ? ' selected' : '') + '>level_0</option>' +
+                        '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + '>level_1</option>' +
+                        '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + '>level_2</option>' +
+                        '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + '>level_3</option>' +
                         '</select>' +
                         '</td>' +
                         '<td>' + item.f_phoneNumber + '</td>' +
@@ -235,21 +235,21 @@ function ToggleMemberStatus(memberId) {
         success: function (response) {
             switch (response.d) {
                 case 0:
-                    alert("重複登入，已被登出");
+                    alert("Duplicate login detected, logged out");
                     window.parent.location.href = "Login.aspx";
                     break;
                 case 1:
-                    alert("權限不足");
+                    alert("Insufficient permissions");
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchMember").text("帳號狀態更改成功");
+                    $("#labSearchMember").text("Account status changed successfully");
                     break;
                 case 101:
-                    $("#labSearchMember").text("帳號狀態更改失敗");
+                    $("#labSearchMember").text("Failed to change account status");
                     break;
                 default:
-                    $("#labSearchMember").text("發生發生內部錯誤，請看日誌");
+                    $("#labSearchMember").text("Internal error occurred, please check the logs");
             }
         },
         error: function (error) {
@@ -269,21 +269,21 @@ function ToggleMemberLevel(memberId, level) {
         success: function (response) {
             switch (response.d) {
                 case 0:
-                    alert("重複登入，已被登出");
+                    alert("Duplicate login detected, logged out");
                     window.parent.location.href = "Login.aspx";
                     break;
                 case 1:
-                    alert("權限不足");
+                    alert("Insufficient permissions");
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchMember").text("等級更改成功");
+                    $("#labSearchMember").text("Failed to change account status");
                     break;
                 case 101:
-                    $("#labSearchMember").text("等級更改失敗");
+                    $("#labSearchMember").text("Failed to change level");
                     break;
                 default:
-                    $("#labSearchMember").text("發生發生內部錯誤，請看日誌");
+                    $("#labSearchMember").text("Internal error occurred, please check the logs");
             }
         },
         error: function (error) {
