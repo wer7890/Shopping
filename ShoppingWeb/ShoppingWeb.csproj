@@ -149,6 +149,16 @@
     <Compile Include="Ajax\UserHandler.aspx.designer.cs">
       <DependentUpon>UserHandler.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\ResourceEN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceEN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ResourceTW.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceTW.resx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,6 +256,18 @@
     <Folder Include="Logs\" />
     <Folder Include="Models\" />
     <Folder Include="ProductImg\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ResourceTW.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ResourceTW.designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ResourceEN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ResourceEN.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

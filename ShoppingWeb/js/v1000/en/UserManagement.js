@@ -100,10 +100,10 @@ function SearchAllUserInfo(pageNumber, pageSize) {
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
             if (response.d === 0) {
-                alert("重複登入，已被登出");
+                alert("Duplicate login detected, logged out");
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert("權限不足");
+                alert("Insufficient permissions");
                 parent.location.reload();
             } else {
                 // 處理成功取得資料的情況

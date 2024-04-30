@@ -28,7 +28,6 @@
 //    });
 //}
 
-
 function TranslateLanguage(language) {
     $('.i18n').each(function () {
         let key = $(this).data('key');
