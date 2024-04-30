@@ -80,6 +80,7 @@
     <Content Include="Global.asax" />
     <Content Include="js\v1000\AddProduct.js" />
     <Content Include="js\v1000\en\AddUser.js" />
+    <Content Include="js\v1000\en\ProductCategories.js" />
     <Content Include="js\v1000\zh\AddUser.js" />
     <Content Include="js\v1000\bootstrap.bundle.min.js" />
     <Content Include="js\v1000\en\Default.js" />
@@ -93,12 +94,11 @@
     <Content Include="js\v1000\EditProduct.js" />
     <Content Include="js\v1000\en\MemberManagement.js" />
     <Content Include="js\v1000\zh\MemberManagement.js" />
-    <Content Include="js\v1000\OrderManagement.js" />
-    <Content Include="js\v1000\OrderManagement_en.js" />
-    <Content Include="js\v1000\OrderManagement_zh.js" />
-    <Content Include="js\v1000\ProductCategories.js" />
+    <Content Include="js\v1000\en\OrderManagement.js" />
+    <Content Include="js\v1000\zh\OrderManagement.js" />
     <Content Include="js\v1000\ProductManagement.js" />
     <Content Include="js\v1000\en\UserManagement.js" />
+    <Content Include="js\v1000\zh\ProductCategories.js" />
     <Content Include="js\v1000\zh\UserManagement.js" />
     <Content Include="Web.config" />
     <Content Include="Web\AddProduct.aspx" />

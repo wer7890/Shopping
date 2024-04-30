@@ -33,7 +33,7 @@
     },
     'thReturnRequested': {
         'zh': '申請退貨',
-        'en': 'Return Requested'
+        'en': 'Return'
     },
     'thId': {
         'zh': '訂單編號',
@@ -99,27 +99,27 @@
 
 // 訂單狀態
 let orderStatus = {
-    "1": { name: "已付款", color: "bg-white", text: "text-dark" },
-    "2": { name: "申請退貨", color: "bg-success", text: "text-white" },
-    "3": { name: "退款中", color: "bg-warning", text: "text-white" },
-    "4": { name: "已退款", color: "bg-white", text: "text-dark" }
+    "1": { name: "Paid", color: "bg-white", text: "text-dark" },
+    "2": { name: "Return", color: "bg-success", text: "text-white" },
+    "3": { name: "Refunding", color: "bg-warning", text: "text-white" },
+    "4": { name: "Refunded", color: "bg-white", text: "text-dark" }
 };
 
 // 配送狀態
 let deliveryStatus = {
-    "1": { name: "發貨中", color: "bg-warning", text: "text-white" },
-    "2": { name: "已發貨", color: "bg-success", text: "text-white" },
-    "3": { name: "已到貨", color: "bg-white", text: "text-dark" },
-    "4": { name: "已取貨", color: "bg-white", text: "text-dark" },
-    "5": { name: "退貨中", color: "bg-warning", text: "text-white" },
-    "6": { name: "已退貨", color: "bg-white", text: "text-dark" }
+    "1": { name: "Shipping", color: "bg-warning", text: "text-white" },
+    "2": { name: "Shipped", color: "bg-success", text: "text-white" },
+    "3": { name: "Arrived", color: "bg-white", text: "text-dark" },
+    "4": { name: "Received", color: "bg-white", text: "text-dark" },
+    "5": { name: "Returning", color: "bg-warning", text: "text-white" },
+    "6": { name: "Returned", color: "bg-white", text: "text-dark" }
 };
 
 // 配送方式
 let deliveryMethod = {
-    "1": "超商取貨",
-    "2": "店到店",
-    "3": "宅配"
+    "1": "Store Pickup",
+    "2": "Store to Store",
+    "3": "Home Delivery"
 };
 
 
@@ -161,17 +161,17 @@ $(document).ready(function () {
         let selectHtml = "";
 
         if (selectedOrderStatus == 1) {
-            selectHtml += '<option value="1">發貨中</option>' +
-                          '<option value="2">已發貨</option>' +
-                          '<option value="3">已到貨</option>' +
-                          '<option value="4">已取貨</option>';
+            selectHtml += '<option value="1">Shipping</option>' +
+                '<option value="2">Shipped</option>' +
+                '<option value="3">Arrived</option>' +
+                '<option value="4">Received</option>';
         } else if (selectedOrderStatus == 2) {
-            selectHtml += '<option value="4">已取貨</option>';
+            selectHtml += '<option value="4">Received</option>';
         } else if (selectedOrderStatus == 3) {
-            selectHtml += '<option value="5">退貨中</option>' +
-                          '<option value="6">已退貨</option>';
+            selectHtml += '<option value="5">Returning</option>' +
+                '<option value="6">已退貨</option>';
         } else if (selectedOrderStatus == 4) {
-            selectHtml += '<option value="6">已退貨</option>';
+            selectHtml += '<option value="6">Returned</option>';
         } else {
             $.each(deliveryStatus, function (key, value) {
                 selectHtml += '<option value="' + key + '">' + value.name + '</option>';
@@ -205,7 +205,7 @@ function SearchAllOrder() {
                 OrderHtml(orderData, deliveryStatusCountData);
             }
 
-            TranslateLanguage();
+            TranslateLanguage("en");
 
         },
         error: function (error) {
@@ -226,18 +226,18 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
 
     let selectHtml = '<div class="row d-flex justify-content-center my-3">';
     // 訂單狀態
-    selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label i18n" data-key="thOrderStatus">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
-    
+    selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label">Order Status</label><select id="orderStatusSelect" class="form-select">';
+
     if (orderStatusNum == 1) {
-        selectHtml += '<option value="1" class="i18n" data-key="thPaid">已付款</option>' +
-                      '<option value="2" class="i18n" data-key="thReturnRequested">申請退貨</option>';
+        selectHtml += '<option value="1">Paid</option>' +
+            '<option value="2">Return</option>';
     } else if (orderStatusNum == 2) {
-        selectHtml += '<option value="2" class="i18n" data-key="thReturnRequested">申請退貨</option>';
+        selectHtml += '<option value="2">Return</option>';
     } else if (orderStatusNum == 3) {
-        selectHtml += '<option value="3" class="i18n" data-key="thRefunding">退款中</option>' +
-                      '<option value="4" class="i18n" data-key="thRefunded">已退款</option>';
+        selectHtml += '<option value="3">Refunding</option>' +
+            '<option value="4">Refunded</option>';
     } else if (orderStatusNum == 4) {
-        selectHtml += '<option value="4" class="i18n" data-key="thRefunded">已退款</option>';
+        selectHtml += '<option value="4">Refunded</option>';
     } else {
         $.each(orderStatus, function (key, value) {
             selectHtml += (key == orderStatusNum) ? '<option value="' + key + '" selected >' + value.name + '</option>' : '<option value="' + key + '">' + value.name + '</option>';
@@ -247,24 +247,24 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     selectHtml += '</select></div>';
 
     // 配送狀態
-    selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label i18n" data-key="thDeliveryStatus">配送狀態</label><select id="deliveryStatusSelect" class="form-select">';
+    selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label">Delivery Status</label><select id="deliveryStatusSelect" class="form-select">';
 
     // 根據訂單狀態決定配送狀態的選項
     if (orderStatusNum == 1) {
         // 訂單狀態為已付款時
-        selectHtml += '<option value="1" class="i18n" data-key="thShipping">發貨中</option>' +
-                      '<option value="2" class="i18n" data-key="thShipped">已發貨</option>' +
-                      '<option value="3" class="i18n" data-key="thArrived">已到貨</option>' +
-                      '<option value="4" class="i18n" data-key="thReceived">已取貨</option>';
+        selectHtml += '<option value="1">Shipping</option>' +
+            '<option value="2">Shipped</option>' +
+            '<option value="3">Arrived</option>' +
+            '<option value="4">Received</option>';
     } else if (orderStatusNum == 2) {
         // 訂單狀態為申請退貨時
-        selectHtml += '<option value="4" class="i18n" data-key="thReceived">已取貨</option>';
+        selectHtml += '<option value="4">Received</option>';
     } else if (orderStatusNum == 3) {
         // 訂單狀態為退款中或已退款時
-        selectHtml += '<option value="5" class="i18n" data-key="thReturning">退貨中</option>' + 
-                      '<option value="6" class="i18n" data-key="thReturned">已退貨</option>';
+        selectHtml += '<option value="5">Returning</option>' +
+            '<option value="6">Returned</option>';
     } else if (orderStatusNum == 4) {
-        selectHtml += '<option value="6" class="i18n" data-key="thReturned">已退貨</option>';
+        selectHtml += '<option value="6">Returned</option>';
     } else {
         // 其他情況下顯示所有配送狀態的選項
         $.each(deliveryStatus, function (key, value) {
@@ -275,7 +275,7 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     selectHtml += '</select></div>';
 
     // 配送方式
-    selectHtml += '<div class="col"><label for="deliveryMethodSelect" class="form-label i18n" data-key="thDeliveryMethod">配送方式</label><select id="deliveryMethodSelect" class="form-select">';
+    selectHtml += '<div class="col"><label for="deliveryMethodSelect" class="form-label">Delivery Method</label><select id="deliveryMethodSelect" class="form-select">';
     $.each(deliveryMethod, function (key, value) {
         selectHtml += (key == deliveryMethodNum) ? '<option value="' + key + '" selected>' + value + '</option>' : '<option value="' + key + '">' + value + '</option>';
     });
@@ -290,7 +290,7 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
         '</select></div>';
 
     detailElement.append(selectHtml);
-    TranslateLanguage();
+    TranslateLanguage("en");
 }
 
 // 上方狀態按鈕點擊觸發事件
@@ -345,8 +345,8 @@ function OrderHtml(orderData, deliveryStatusCountData) {
 
         if (deliveryStatusValue === 7) {
             row += '<td><div class="d-flex justify-content-between">' +
-                '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.f_id + ', true)">接受</button>' +
-                '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.f_id + ', false)">拒絕</button>' +
+                '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.f_id + ', true)">accept</button>' +
+                '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.f_id + ', false)">reject</button>' +
                 '</div></td>' +
                 '</tr>';
         } else {
@@ -354,7 +354,7 @@ function OrderHtml(orderData, deliveryStatusCountData) {
                 '<tr id="collapse_' + index + '" class="collapse">' +
                 '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
                 '</tr>';
-        }  
+        }
     });
 
     tableBody.append(row);
@@ -396,11 +396,11 @@ function ShowOrderDetail(orderId) {
                 let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered my-4">' +
                     '<thead>' +
                     '<tr>' +
-                    '<th>商品名稱</th>' +
-                    '<th>商品價格</th>' +
-                    '<th>商品類型</th>' +
-                    '<th>數量</th>' +
-                    '<th>小記</th>' +
+                    '<th>Product name</th>' +
+                    '<th>Price</th>' +
+                    '<th>Category</th>' +
+                    '<th>Quantity</th>' +
+                    '<th>Subtotal</th>' +
                     '</tr>' +
                     '</thead>' +
                     '<tbody id="orderDetailTableBody">';
@@ -414,7 +414,7 @@ function ShowOrderDetail(orderId) {
                         '<td>' + item.f_subtotal + '</td>' +
                         '</tr>';
                 });
-                detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">關閉</button></div>';
+                detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">closure</button></div>';
                 detailElement.prepend(detailHtml);
                 $("#overlay").fadeIn(300);
             }
@@ -431,7 +431,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
 
     if (!IsSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum)) {
         return;
-    } 
+    }
 
     $.ajax({
         type: "POST",
@@ -494,7 +494,7 @@ function ShowReturnOrder() {
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
 
                 $("#orderSure").remove();
-                $("#myTable > thead > tr").append("<th id='orderSure'>是否同意</th>");
+                $("#myTable > thead > tr").append("<th id='orderSure'>Return</th>");
                 OrderHtml(orderData, deliveryStatusCountData);
             }
 
