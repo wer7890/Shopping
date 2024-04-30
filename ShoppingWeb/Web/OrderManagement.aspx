@@ -12,7 +12,7 @@
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
-    <script src="/js/<%= jsVersion %>/OrderManagement.js"></script>
+    <script src="/js/<%= jsVersion %>/OrderManagement_<%= basePageLanguage %>.js"></script>
 </head>
 <body>
     <div class="container">

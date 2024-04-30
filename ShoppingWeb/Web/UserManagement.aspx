@@ -12,7 +12,7 @@
 
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/I18n.js"></script>
-    <script src="/js/<%= jsVersion %>/UserManagement.js"></script>
+    <script src="/js/<%= jsVersion %>/UserManagement_<%= basePageLanguage %>.js"></script>
 </head>
 <body>
     <div class="container">

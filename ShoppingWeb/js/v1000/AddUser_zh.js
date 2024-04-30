@@ -1,42 +1,4 @@
-﻿let translations = {
-    'titleAddUser': {
-        'zh': '新增帳號',
-        'en': 'Add User'
-    },
-    'labAccount': {
-        'zh': '帳號:',
-        'en': 'Account'
-    },
-    'labPwd': {
-        'zh': '密碼:',
-        'en': 'Password'
-    },
-    'labRoles': {
-        'zh': '角色',
-        'en': 'Roles'
-    },
-    'superAdmin': {
-        'zh': '超級管理員',
-        'en': 'Super Administrator'
-    },
-    'memberAdmin': {
-        'zh': '會員管理員',
-        'en': 'Member Administrator'
-    },
-    'productAdmin': {
-        'zh': '商品管理員',
-        'en': 'Product Administrator'
-    },
-    'btnAddUser': {
-        'zh': '新增',
-        'en': 'Add'
-    }
-};
-
-
-$(document).ready(function () {
-    TranslateLanguage();
-
+﻿$(document).ready(function () {
     //按下新增按鈕
     $("#btnAddUser").click(function () {
         let account = $("#txbAccount").val();
@@ -46,7 +8,7 @@ $(document).ready(function () {
 
         if (!IsSpecialChar(account, pwd)) {
             return;
-        }    
+        }
 
         $.ajax({
             type: "POST",

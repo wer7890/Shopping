@@ -162,14 +162,14 @@ $(document).ready(function () {
 
         if (selectedOrderStatus == 1) {
             selectHtml += '<option value="1">發貨中</option>' +
-                          '<option value="2">已發貨</option>' +
-                          '<option value="3">已到貨</option>' +
-                          '<option value="4">已取貨</option>';
+                '<option value="2">已發貨</option>' +
+                '<option value="3">已到貨</option>' +
+                '<option value="4">已取貨</option>';
         } else if (selectedOrderStatus == 2) {
             selectHtml += '<option value="4">已取貨</option>';
         } else if (selectedOrderStatus == 3) {
             selectHtml += '<option value="5">退貨中</option>' +
-                          '<option value="6">已退貨</option>';
+                '<option value="6">已退貨</option>';
         } else if (selectedOrderStatus == 4) {
             selectHtml += '<option value="6">已退貨</option>';
         } else {
@@ -205,7 +205,7 @@ function SearchAllOrder() {
                 OrderHtml(orderData, deliveryStatusCountData);
             }
 
-            TranslateLanguage();
+            TranslateLanguage("en");
 
         },
         error: function (error) {
@@ -227,15 +227,15 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     let selectHtml = '<div class="row d-flex justify-content-center my-3">';
     // 訂單狀態
     selectHtml += '<div class="col"><label for="orderStatusSelect" class="form-label i18n" data-key="thOrderStatus">訂單狀態</label><select id="orderStatusSelect" class="form-select">';
-    
+
     if (orderStatusNum == 1) {
         selectHtml += '<option value="1" class="i18n" data-key="thPaid">已付款</option>' +
-                      '<option value="2" class="i18n" data-key="thReturnRequested">申請退貨</option>';
+            '<option value="2" class="i18n" data-key="thReturnRequested">申請退貨</option>';
     } else if (orderStatusNum == 2) {
         selectHtml += '<option value="2" class="i18n" data-key="thReturnRequested">申請退貨</option>';
     } else if (orderStatusNum == 3) {
         selectHtml += '<option value="3" class="i18n" data-key="thRefunding">退款中</option>' +
-                      '<option value="4" class="i18n" data-key="thRefunded">已退款</option>';
+            '<option value="4" class="i18n" data-key="thRefunded">已退款</option>';
     } else if (orderStatusNum == 4) {
         selectHtml += '<option value="4" class="i18n" data-key="thRefunded">已退款</option>';
     } else {
@@ -253,16 +253,16 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     if (orderStatusNum == 1) {
         // 訂單狀態為已付款時
         selectHtml += '<option value="1" class="i18n" data-key="thShipping">發貨中</option>' +
-                      '<option value="2" class="i18n" data-key="thShipped">已發貨</option>' +
-                      '<option value="3" class="i18n" data-key="thArrived">已到貨</option>' +
-                      '<option value="4" class="i18n" data-key="thReceived">已取貨</option>';
+            '<option value="2" class="i18n" data-key="thShipped">已發貨</option>' +
+            '<option value="3" class="i18n" data-key="thArrived">已到貨</option>' +
+            '<option value="4" class="i18n" data-key="thReceived">已取貨</option>';
     } else if (orderStatusNum == 2) {
         // 訂單狀態為申請退貨時
         selectHtml += '<option value="4" class="i18n" data-key="thReceived">已取貨</option>';
     } else if (orderStatusNum == 3) {
         // 訂單狀態為退款中或已退款時
-        selectHtml += '<option value="5" class="i18n" data-key="thReturning">退貨中</option>' + 
-                      '<option value="6" class="i18n" data-key="thReturned">已退貨</option>';
+        selectHtml += '<option value="5" class="i18n" data-key="thReturning">退貨中</option>' +
+            '<option value="6" class="i18n" data-key="thReturned">已退貨</option>';
     } else if (orderStatusNum == 4) {
         selectHtml += '<option value="6" class="i18n" data-key="thReturned">已退貨</option>';
     } else {
@@ -290,7 +290,7 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
         '</select></div>';
 
     detailElement.append(selectHtml);
-    TranslateLanguage();
+    TranslateLanguage("en");
 }
 
 // 上方狀態按鈕點擊觸發事件
@@ -354,7 +354,7 @@ function OrderHtml(orderData, deliveryStatusCountData) {
                 '<tr id="collapse_' + index + '" class="collapse">' +
                 '<td class="p-0" colspan="8"><div id="orderDetail_' + index + '"></div></td>' +
                 '</tr>';
-        }  
+        }
     });
 
     tableBody.append(row);
@@ -431,7 +431,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
 
     if (!IsSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum)) {
         return;
-    } 
+    }
 
     $.ajax({
         type: "POST",

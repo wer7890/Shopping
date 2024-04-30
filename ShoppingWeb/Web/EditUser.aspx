@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/I18n.js"></script>
-    <script src="/js/<%= jsVersion %>/EditUser.js"></script>
+    <script src="/js/<%= jsVersion %>/EditUser_<%= basePageLanguage %>.js"></script>
 </head>
 <body>
     <div class="container">
