@@ -44,3 +44,20 @@ function TranslateLanguage(language) {
         }
     });
 }
+
+function GetLanguage() {
+    $('.i18n').each(function () {
+        let key = $(this).data('key');
+        let placeholderKey = $(this).data('placeholder-key');
+
+        if (key) {
+            let translation = translations[key];
+            $(this).text(translation);
+        }
+
+        if (placeholderKey) {
+            let placeholderTranslation = translations[placeholderKey];
+            $(this).attr('placeholder', placeholderTranslation);
+        }
+    });
+}

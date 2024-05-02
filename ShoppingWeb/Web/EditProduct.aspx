@@ -29,8 +29,12 @@
                 <span id="labProductOwner" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <span class="text-dark fs-6">商品名稱 : </span>
+                <span class="text-dark fs-6">商品中文名稱 : </span>
                 <span id="labProductName" class="fs-6"></span>
+            </div>
+            <div class="mx-auto col-12 col-md-7 mt-2">
+                <span class="text-dark fs-6">商品英文名稱 : </span>
+                <span id="labProductNameEN" class="fs-6"></span>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
                 <span class="text-dark fs-6">商品類型 : </span>

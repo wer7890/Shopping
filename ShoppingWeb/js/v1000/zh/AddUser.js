@@ -1,71 +1,90 @@
-﻿$(document).ready(function () {
-    //按下新增按鈕
-    $("#btnAddUser").click(function () {
-        let account = $("#txbAccount").val();
-        let pwd = $("#txbPwd").val();
-        let roles = $("#ddlRoles").val();
-        $("#labAddUser").text("");
+﻿let translations = {
+    'titleAddUser': '新增帳號',
+    'labAccount': '帳號',
+    'labPwd': '密碼',
+    'labRoles': '角色',
+    'superAdmin': '超級管理員',
+    'memberAdmin': '會員管理員',
+    'productAdmin': '商品管理員',
+    'btnAddUser': '新增',
+    'duplicateLogin': '重複登入，已被登出',
+    'accessDenied': '權限不足',
+    'addFormat': '帳號和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空',
+    'addSuccessful': '新增成功',
+    'duplicateAccount': '帳號重複',
+    'errorLog': '發生發生內部錯誤，請看日誌',
+    'ajaxError': 'AJAX發生錯誤',
+    'addSpecialChar': '帳號和密碼不能含有非英文和數字且長度應在6到16之間'
+};
 
-        if (!IsSpecialChar(account, pwd)) {
-            return;
-        }
+//$(document).ready(function () {
+//    //按下新增按鈕
+//    $("#btnAddUser").click(function () {
+//        let account = $("#txbAccount").val();
+//        let pwd = $("#txbPwd").val();
+//        let roles = $("#ddlRoles").val();
+//        $("#labAddUser").text("");
 
-        $.ajax({
-            type: "POST",
-            url: "/Ajax/UserHandler.aspx/RegisterNewUser",  // 這裡指定後端方法的位置
-            data: JSON.stringify({ account: account, pwd: pwd, roles: roles }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                switch (response.d) {
-                    case 0:
-                        alert("重複登入，已被登出");
-                        window.parent.location.href = "Login.aspx";
-                        break;
-                    case 1:
-                        alert("權限不足");
-                        parent.location.reload();
-                        break;
-                    case 2:
-                        $("#labAddUser").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空");
-                        break;
-                    case 100:
-                        alert("新增成功");
-                        window.location.href = "UserManagement.aspx";
-                        break;
-                    case 101:
-                        $("#labAddUser").text("帳號重複");
-                        break;
-                    default:
-                        $("#labAddUser").text("發生發生內部錯誤，請看日誌");
+//        if (!IsSpecialChar(account, pwd)) {
+//            return;
+//        }
 
-                }
-            },
-            error: function (error) {
-                console.error('AJAX Error:', error);
-                $("#labAddUser").text("發生錯誤，請查看控制台");
-            }
-        });
-    });
-});
+//        $.ajax({
+//            type: "POST",
+//            url: "/Ajax/UserHandler.aspx/RegisterNewUser",  // 這裡指定後端方法的位置
+//            data: JSON.stringify({ account: account, pwd: pwd, roles: roles }),
+//            contentType: "application/json; charset=utf-8",
+//            dataType: "json",
+//            success: function (response) {
+//                switch (response.d) {
+//                    case 0:
+//                        alert("重複登入，已被登出");
+//                        window.parent.location.href = "Login.aspx";
+//                        break;
+//                    case 1:
+//                        alert("權限不足");
+//                        parent.location.reload();
+//                        break;
+//                    case 2:
+//                        $("#labAddUser").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間且腳色不能為空");
+//                        break;
+//                    case 100:
+//                        alert("新增成功");
+//                        window.location.href = "UserManagement.aspx";
+//                        break;
+//                    case 101:
+//                        $("#labAddUser").text("帳號重複");
+//                        break;
+//                    default:
+//                        $("#labAddUser").text("發生發生內部錯誤，請看日誌");
+
+//                }
+//            },
+//            error: function (error) {
+//                console.error('AJAX Error:', error);
+//                $("#labAddUser").text("發生錯誤，請查看控制台");
+//            }
+//        });
+//    });
+//});
 
 
-//判斷特殊字元和長度
-function IsSpecialChar(account, pwd) {
+////判斷特殊字元和長度
+//function IsSpecialChar(account, pwd) {
 
-    if (typeof account === 'undefined' || typeof pwd === 'undefined') {
-        $("#labAddUser").text("undefined");
-        return false;
-    }
+//    if (typeof account === 'undefined' || typeof pwd === 'undefined') {
+//        $("#labAddUser").text("undefined");
+//        return false;
+//    }
 
-    let regex = /^[A-Za-z0-9]{6,16}$/;
+//    let regex = /^[A-Za-z0-9]{6,16}$/;
 
-    let accountValid = regex.test(account);
-    let pwdValid = regex.test(pwd);
+//    let accountValid = regex.test(account);
+//    let pwdValid = regex.test(pwd);
 
-    if (!accountValid || !pwdValid) {
-        $("#labAddUser").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間");
-    }
+//    if (!accountValid || !pwdValid) {
+//        $("#labAddUser").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間");
+//    }
 
-    return accountValid && pwdValid;
-}
+//    return accountValid && pwdValid;
+//}

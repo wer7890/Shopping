@@ -78,7 +78,9 @@
     <Content Include="css\v1000\bootstrap.min.css" />
     <Content Include="css\v1000\OrderManagement.css" />
     <Content Include="Global.asax" />
+    <Content Include="js\UserManagement.js" />
     <Content Include="js\v1000\AddProduct.js" />
+    <Content Include="js\v1000\AddUser.js" />
     <Content Include="js\v1000\en\AddUser.js" />
     <Content Include="js\v1000\en\ProductCategories.js" />
     <Content Include="js\v1000\zh\AddUser.js" />
