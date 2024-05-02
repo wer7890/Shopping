@@ -1,50 +1,4 @@
-﻿let translations = {
-    'titleMember': {
-        'en': 'Member Account'
-    },
-    'btnAddMember': {
-        'en': 'Add Member'
-    },
-    'thAccount': {
-        'en': 'Account:'
-    },
-    'thPwd': {
-        'en': 'Password'
-    },
-    'thName': {
-        'en': 'Name'
-    },
-    'thLevel': {
-        'en': 'Level'
-    },
-    'thPhoneNumber': {
-        'en': 'Phone Number'
-    },
-    'thAccountStatus': {
-        'en': 'Status'
-    },
-    'thWallet': {
-        'en': 'Wallet'
-    },
-    'thTotalSpent': {
-        'en': 'Total Spent'
-    },
-    'level0': {
-        'en': 'level_0'
-    },
-    'level1': {
-        'en': 'level_1'
-    },
-    'level2': {
-        'en': 'level_2'
-    },
-    'level3': {
-        'en': 'level_3'
-    }
-};
-
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     SearchAllMember();
 
     //按下新增會員按鈕
@@ -58,30 +12,30 @@ $(document).ready(function () {
             success: function (response) {
                 switch (response.d) {
                     case 0:
-                        alert("Duplicate login detected, logged out");
+                        alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
                         break;
                     case 1:
-                        alert("Insufficient permissions");
+                        alert(langFont["accessDenied"]);
                         parent.location.reload();
                         break;
                     case 2:
-                        $("#labSearchMember").text("Format error");
+                        $("#labSearchMember").text(langFont["inputError"]);
                         break;
                     case 100:
                         window.location.reload();
                         break;
                     case 101:
-                        $("#labSearchMember").text("Add failed");
+                        $("#labSearchMember").text(langFont["addFailed"]);
                         break;
                     default:
-                        $("#labSearchMember").text("Internal error occurred, please check the logs");
+                        $("#labSearchMember").text(langFont["errorLog"]);
 
                 }
             },
             error: function (error) {
                 console.error('AJAX Error:', error);
-                $("#labSearchMember").text("AJAX Error");
+                $("#labSearchMember").text(langFont["ajaxError"]);
             }
         });
     })
@@ -180,10 +134,10 @@ function SearchAllMember() {
         contentType: 'application/json',
         success: function (response) {
             if (response.d === 0) {
-                alert("Duplicate login detected, logged out");
+                alert(langFont["duplicateLogin"]);
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert("Insufficient permissions");
+                alert(langFont["accessDenied"]);
                 parent.location.reload();
             } else {
                 let data = JSON.parse(response.d);
@@ -199,10 +153,10 @@ function SearchAllMember() {
                         '<td>' + item.f_name + '</td>' +
                         '<td>' +
                         '<select class="form-select form-select-sm f_level" data-id="' + item.f_id + '">' +
-                        '<option value="0"' + (item.f_level == '0' ? ' selected' : '') + '>level_0</option>' +
-                        '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + '>level_1</option>' +
-                        '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + '>level_2</option>' +
-                        '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + '>level_3</option>' +
+                        '<option value="0"' + (item.f_level == '0' ? ' selected' : '') + '>' + langFont["level0"] + '</option>' +
+                        '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + '>' + langFont["level1"] + '</option>' +
+                        '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + '>' + langFont["level2"] + '</option>' +
+                        '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + '>' + langFont["level3"] + '</option>' +
                         '</select>' +
                         '</td>' +
                         '<td>' + item.f_phoneNumber + '</td>' +
@@ -214,12 +168,13 @@ function SearchAllMember() {
                     tableBody.append(row);
                 });
 
-                TranslateLanguage("en");
+                GetLanguageText();
             }
 
         },
         error: function (error) {
             console.error('Error:', error);
+            $("#labSearchMember").text(langFont["ajaxError"]);
         }
     });
 }
@@ -235,25 +190,26 @@ function ToggleMemberStatus(memberId) {
         success: function (response) {
             switch (response.d) {
                 case 0:
-                    alert("Duplicate login detected, logged out");
+                    alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
                     break;
                 case 1:
-                    alert("Insufficient permissions");
+                    alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchMember").text("Account status changed successfully");
+                    $("#labSearchMember").text(langFont["editStateSuccessful"]);
                     break;
                 case 101:
-                    $("#labSearchMember").text("Failed to change account status");
+                    $("#labSearchMember").text(langFont["editStateFailed"]);
                     break;
                 default:
-                    $("#labSearchMember").text("Internal error occurred, please check the logs");
+                    $("#labSearchMember").text(langFont["errorLog"]);
             }
         },
         error: function (error) {
             console.error('Error:', error);
+            $("#labSearchMember").text(langFont["ajaxError"]);
         }
     });
 }
@@ -269,25 +225,26 @@ function ToggleMemberLevel(memberId, level) {
         success: function (response) {
             switch (response.d) {
                 case 0:
-                    alert("Duplicate login detected, logged out");
+                    alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
                     break;
                 case 1:
-                    alert("Insufficient permissions");
+                    alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchMember").text("Failed to change account status");
+                    $("#labSearchMember").text(langFont["editLevelSuccessful"]);
                     break;
                 case 101:
-                    $("#labSearchMember").text("Failed to change level");
+                    $("#labSearchMember").text(langFont["editLevelFailed"]);
                     break;
                 default:
-                    $("#labSearchMember").text("Internal error occurred, please check the logs");
+                    $("#labSearchMember").text(langFont["errorLog"]);
             }
         },
         error: function (error) {
             console.error('Error:', error);
+            $("#labSearchMember").text(langFont["ajaxError"]);
         }
     });
 }

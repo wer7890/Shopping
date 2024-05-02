@@ -39,5 +39,24 @@
     'mistake': 'Mistake',
     'editFormat': 'The password cannot contain non-English and numbers and should be between 6 and 16 in length.',
     'editSuccessful': 'Successfully modified',
-    'editFail': 'fail to edit'
+    'editFail': 'fail to edit',
+
+    'titleMember': 'Member Account',
+    'addMember': 'Add Member',
+    'name': 'Name',
+    'level': 'Level',
+    'phoneNumber': 'Phone Number',
+    'accountStatus': 'Status',
+    'wallet': 'Wallet',
+    'totalSpent': 'Total Spent',
+    'inputError': 'Input value format incorrect',
+    'addFailed': 'Addition failed',
+    'level0': 'Level 0',
+    'level1': 'Level 1',
+    'level2': 'Level 2',
+    'level3': 'Level 3',
+    'editStateSuccessful': 'Account status changed successfully',
+    'editStateFailed': 'Failed to change account status',
+    'editLevelSuccessful': 'Level changed successfully',
+    'editLevelFailed': 'Failed to change level'
 };

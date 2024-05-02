@@ -86,13 +86,12 @@
     <Content Include="js\v1000\Frame.js" />
     <Content Include="js\v1000\language\Language_en.js" />
     <Content Include="js\v1000\language\Language_zh.js" />
+    <Content Include="js\v1000\MemberManagement.js" />
     <Content Include="js\v1000\UserManagement.js" />
     <Content Include="js\v1000\bootstrap.bundle.min.js" />
     <Content Include="js\v1000\I18n.js" />
     <Content Include="js\v1000\Login.js" />
     <Content Include="js\v1000\EditProduct.js" />
-    <Content Include="js\v1000\en\MemberManagement.js" />
-    <Content Include="js\v1000\zh\MemberManagement.js" />
     <Content Include="js\v1000\en\OrderManagement.js" />
     <Content Include="js\v1000\zh\OrderManagement.js" />
     <Content Include="js\v1000\ProductManagement.js" />
