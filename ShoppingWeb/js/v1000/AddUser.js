@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    GetLanguage();
+    GetLanguageText();
     
     //按下新增按鈕
     $("#btnAddUser").click(function () {

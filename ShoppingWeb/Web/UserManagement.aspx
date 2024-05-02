@@ -13,6 +13,7 @@
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/<%= basePageLanguage %>/UserManagement.js"></script>
+    <script src="/js/<%= jsVersion %>/UserManagement.js"></script>
 </head>
 <body>
     <div class="container">
@@ -21,7 +22,7 @@
                 <h2 class="text-center i18n" data-key="titleUser">管理員帳號</h2>
             </div>
             <div class="col-2 d-flex justify-content-center">
-                <button id="btnAddUser" type="submit" class="btn btn-outline-primary btn-sm i18n" data-key="btnAddUser">新增管理員</button>
+                <button id="btnAddUser" type="submit" class="btn btn-outline-primary btn-sm i18n" data-key="addUser">新增管理員</button>
             </div>
         </div>
         <br />
@@ -30,15 +31,15 @@
                 <thead>
                     <tr>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="btnId">管理者ID</button></th>
+                            <button type="button" class="btn btn-light btn-sm i18n" data-key="userId">管理員ID</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="btnAccount">帳號</button></th>
+                            <button type="button" class="btn btn-light btn-sm i18n" data-key="account">帳號</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="btnRoles">角色</button></th>
+                            <button type="button" class="btn btn-light btn-sm i18n" data-key="roles">角色</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="btnEdit" disabled>編輯</button></th>
+                            <button type="button" class="btn btn-light btn-sm i18n" data-key="edit" disabled>編輯</button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="btnDel" disabled>刪除</button></th>
+                            <button type="button" class="btn btn-light btn-sm i18n" data-key="del" disabled>刪除</button></th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">

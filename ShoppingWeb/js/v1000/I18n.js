@@ -45,7 +45,7 @@ function TranslateLanguage(language) {
     });
 }
 
-function GetLanguage() {
+function GetLanguageText() {
     $('.i18n').each(function () {
         let key = $(this).data('key');
         let placeholderKey = $(this).data('placeholder-key');
