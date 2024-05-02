@@ -66,10 +66,10 @@ function SearchAllUserInfo(pageNumber, pageSize) {
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
             if (response.d === 0) {
-                alert(translations["duplicateLogin"]);
+                alert(langFont["duplicateLogin"]);
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert(translations["accessDenied"]);
+                alert(langFont["accessDenied"]);
                 parent.location.reload();
             } else {
                 // 處理成功取得資料的情況
@@ -86,13 +86,13 @@ function SearchAllUserInfo(pageNumber, pageSize) {
                         '<td>' + item.f_account + '</td>' +
                         '<td>' +
                         '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
-                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>' + translations["superAdmin"] + '</option>' +
-                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>' + translations["memberAdmin"] + '</option>' +
-                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>' + translations["productAdmin"] + '</option>' +
+                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>' + langFont["superAdmin"] + '</option>' +
+                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>' + langFont["memberAdmin"] + '</option>' +
+                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>' + langFont["productAdmin"] + '</option>' +
                         '</select>' +
                         '</td>' +
-                        '<td><button class="btn btn-primary" onclick="EditUser(' + item.f_id + ')">' + translations["edit"] + '</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="DeleteUser(' + item.f_id + ')">' + translations["del"] + '</button></td>' +
+                        '<td><button class="btn btn-primary" onclick="EditUser(' + item.f_id + ')">' + langFont["edit"] + '</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="DeleteUser(' + item.f_id + ')">' + langFont["del"] + '</button></td>' +
                         '</tr>';
 
                     tableBody.append(row);
@@ -117,14 +117,14 @@ function SearchAllUserInfo(pageNumber, pageSize) {
         error: function (xhr, status, error) {
             // 處理發生錯誤的情況
             console.error('Error:', error);
-            $("#labSearchUser").text(translations["ajaxError"]);
+            $("#labSearchUser").text(langFont["ajaxError"]);
         }
     });
 }
 
 //刪除
 function DeleteUser(userId) {
-    let yes = confirm(translations["delConfirmation"]);
+    let yes = confirm(langFont["delConfirmation"]);
     if (yes == true) {
         $.ajax({
             type: "POST",
@@ -135,11 +135,11 @@ function DeleteUser(userId) {
             success: function (response) {
                 switch (response.d) {
                     case 0:
-                        alert(translations["duplicateLogin"]);
+                        alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
                         break;
                     case 1:
-                        alert(translations["accessDenied"]);
+                        alert(langFont["accessDenied"]);
                         parent.location.reload();
                         break;
                     case 100:
@@ -147,15 +147,15 @@ function DeleteUser(userId) {
                         window.location.reload();
                         break;
                     case 101:
-                        alert(translations["delFailed"]);
+                        alert(langFont["delFailed"]);
                         break;
                     default:
-                        $("#labSearchUser").text(translations["errorLog"]);
+                        $("#labSearchUser").text(langFont["errorLog"]);
                 }
             },
             error: function (error) {
                 console.error('Error:', error);
-                $("#labSearchUser").text(translations["ajaxError"]);
+                $("#labSearchUser").text(langFont["ajaxError"]);
             }
         });
     }
@@ -173,12 +173,12 @@ function EditUser(userId) {
             if (response.d === true) {
                 window.location.href = "EditUser.aspx";
             } else {
-                alert(translations["editFailed"]);
+                alert(langFont["editFailed"]);
             }
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchUser").text(translations["ajaxError"]);
+            $("#labSearchUser").text(langFont["ajaxError"]);
         }
     });
 }
@@ -194,26 +194,26 @@ function ToggleUserRoles(userId, roles) {
         success: function (response) {
             switch (response.d) {
                 case 0:
-                    alert(translations["duplicateLogin"]);
+                    alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
                     break;
                 case 1:
-                    alert(translations["accessDenied"]);
+                    alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchUser").text(translations["changeSuccessful"]);
+                    $("#labSearchUser").text(langFont["changeSuccessful"]);
                     break;
                 case 101:
-                    $("#labSearchUser").text(translations["changeFailed"]);
+                    $("#labSearchUser").text(langFont["changeFailed"]);
                     break;
                 default:
-                    $("#labSearchUser").text(translations["errorLog"]);
+                    $("#labSearchUser").text(langFont["errorLog"]);
             }
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchUser").text(translations["ajaxError"]);
+            $("#labSearchUser").text(langFont["ajaxError"]);
         }
     });
 }

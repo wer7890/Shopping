@@ -51,12 +51,12 @@ function GetLanguageText() {
         let placeholderKey = $(this).data('placeholder-key');
 
         if (key) {
-            let translation = translations[key];
+            let translation = langFont[key];
             $(this).text(translation);
         }
 
         if (placeholderKey) {
-            let placeholderTranslation = translations[placeholderKey];
+            let placeholderTranslation = langFont[placeholderKey];
             $(this).attr('placeholder', placeholderTranslation);
         }
     });

@@ -1,34 +1,7 @@
-﻿let translations = {
-    'adminPanel': {
-        'zh': '管理員系統',
-        'en': 'Administrator system'
-    },
-    'memberPanel': {
-        'zh': '會員系統',
-        'en': 'Member system'
-    },
-    'productPanel': {
-        'zh': '商品系統',
-        'en': 'Product system'
-    },
-    'orderPanel': {
-        'zh': '訂單系統',
-        'en': 'Order system'
-    },
-    'btnSignOut': {
-        'zh': '登出',
-        'en': 'Sign out'
-    },
-    'labUserAccount': {
-        'zh': '帳號: ',
-        'en': 'Account: '
-    }
-};
-
-let userAccount = null;
+﻿let userAccount = null;
 
 $(document).ready(function () {
-    TranslateLanguage("en");
+    GetLanguageText();
 
     //一開始登入時顯示在左邊的身分，要做權限可使用功能的顯示與隱藏
     GetUserPermission();
@@ -74,7 +47,7 @@ function GetUserPermission() {
         success: function (response) {
 
             if (response.d === 102) {
-                $("#labUserRoles").text("Error，NLog");
+                $("#labUserRoles").text(langFont["errorLog"]);
             } else {
                 userAccount = response.d.Account
                 $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
@@ -91,7 +64,7 @@ function GetUserPermission() {
                         $("#orderPanel").remove();
                         break;
                     default:
-                        $("#labUserRoles").text("Error");
+                        $("#labUserAccount").text(langFont["mistake"]);
                         break;
                 }
             }
@@ -99,6 +72,7 @@ function GetUserPermission() {
         },
         error: function (error) {
             console.error('Error:', error);
+            $("#labUserAccount").text(langFont["ajaxError"]);
         }
     });
 }
@@ -112,13 +86,12 @@ function ChangeLanguage(language) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            TranslateLanguage(language);
             parent.location.reload();
             $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
         },
         error: function (error) {
             console.error('AJAX Error:', error);
-            $("#labLogin").text("AJAX Error");
+            $("#labUserAccount").text(langFont["ajaxError"]);
         }
     });
 }

@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/I18n.js"></script>
-    <script src="/js/<%= jsVersion %>/<%= basePageLanguage %>/AddUser.js"></script>
+    <script src="/js/<%= jsVersion %>/language/Language_<%= basePageLanguage %>.js"></script>
     <script src="/js/<%= jsVersion %>/AddUser.js"></script>
 </head>
 <body>

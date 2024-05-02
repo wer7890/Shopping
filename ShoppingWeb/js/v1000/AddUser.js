@@ -22,31 +22,31 @@
             success: function (response) {
                 switch (response.d) {
                     case 0:
-                        alert(translations["duplicateLogin"]);
+                        alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
                         break;
                     case 1:
-                        alert(translations["accessDenied"]);
+                        alert(langFont["accessDenied"]);
                         parent.location.reload();
                         break;
                     case 2:
-                        $("#labAddUser").text(translations["addFormat"]);
+                        $("#labAddUser").text(langFont["addFormat"]);
                         break;
                     case 100:
-                        alert(translations["addSuccessful"]);
+                        alert(langFont["addSuccessful"]);
                         window.location.href = "UserManagement.aspx";
                         break;
                     case 101:
-                        $("#labAddUser").text(translations["duplicateAccount"]);
+                        $("#labAddUser").text(langFont["duplicateAccount"]);
                         break;
                     default:
-                        $("#labAddUser").text(translations["errorLog"]);
+                        $("#labAddUser").text(langFont["errorLog"]);
 
                 }
             },
             error: function (error) {
                 console.error('AJAX Error:', error);
-                $("#labAddUser").text(translations["ajaxError"]);
+                $("#labAddUser").text(langFont["ajaxError"]);
             }
         });
     });
@@ -67,7 +67,7 @@ function IsSpecialChar(account, pwd) {
     let pwdValid = regex.test(pwd);
 
     if (!accountValid || !pwdValid) {
-        $("#labAddUser").text(translations["addSpecialChar"]);
+        $("#labAddUser").text(langFont["addSpecialChar"]);
     }
 
     return accountValid && pwdValid;

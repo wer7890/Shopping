@@ -1,0 +1,43 @@
+﻿let langFont = {
+    'adminSystem': 'Administrator system',
+    'memberSystem': 'Member system',
+    'productSystem': 'Product systemc',
+    'orderSystem': 'Order system',
+    'defaultAccount': 'Account: ',
+    'signOut': 'Sign out',
+
+    'title1Default': 'Welcome to the backend system',
+
+    'titleUser': 'Administrator Account',
+    'addUser': 'Add Administrator',
+    'userId': 'Administrator ID',
+    'account': 'Account',
+    'roles': 'Roles',
+    'edit': 'Edit',
+    'del': 'Delete',
+    'superAdmin': 'Super Administrator',
+    'memberAdmin': 'Member Administrator',
+    'productAdmin': 'Product Administrator',
+    'duplicateLogin': 'Duplicate login detected, logged out',
+    'accessDenied': 'Insufficient permissions',
+    'delConfirmation': 'Are you sure you want to delete this user?',
+    'delFailed': 'Deletion failed',
+    'editFailed': 'Edit failed',
+    'errorLog': 'An internal error occurred, please see the log',
+    'changeSuccessful': 'Identity changed successfully',
+    'changeFailed': 'Identity change failed',
+    'ajaxError': 'AJAX Error',
+
+    'titleAddUser': 'Add User',
+    'pwd': 'Password',
+    'addFormat': 'The account number and password cannot contain non-English and numbers and the length should be between 6 and 16 and the role cannot be empty.',
+    'addSuccessful': 'Addition successful',
+    'duplicateAccount': 'Duplicate account',
+    'addSpecialChar': 'The account number and password cannot contain non-English and numbers and should be between 6 and 16 in length.',
+
+    'titleEditUser': 'Edit User',
+    'mistake': 'Mistake',
+    'editFormat': 'The password cannot contain non-English and numbers and should be between 6 and 16 in length.',
+    'editSuccessful': 'Successfully modified',
+    'editFail': 'fail to edit'
+};
