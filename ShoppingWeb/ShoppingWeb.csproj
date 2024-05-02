@@ -82,7 +82,6 @@
     <Content Include="js\v1000\AddProduct.js" />
     <Content Include="js\v1000\AddUser.js" />
     <Content Include="js\v1000\EditUser.js" />
-    <Content Include="js\v1000\en\ProductCategories.js" />
     <Content Include="js\v1000\Frame.js" />
     <Content Include="js\v1000\language\Language_en.js" />
     <Content Include="js\v1000\language\Language_zh.js" />
@@ -94,10 +93,7 @@
     <Content Include="js\v1000\I18n.js" />
     <Content Include="js\v1000\Login.js" />
     <Content Include="js\v1000\EditProduct.js" />
-    <Content Include="js\v1000\en\OrderManagement.js" />
-    <Content Include="js\v1000\zh\OrderManagement.js" />
     <Content Include="js\v1000\ProductManagement.js" />
-    <Content Include="js\v1000\zh\ProductCategories.js" />
     <Content Include="Web.config" />
     <Content Include="Web\AddProduct.aspx" />
     <Content Include="Web\AddUser.aspx" />
