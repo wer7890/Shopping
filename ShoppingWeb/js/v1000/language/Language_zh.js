@@ -59,4 +59,109 @@
     'editStateFailed': '帳號狀態更改失敗',
     'editLevelSuccessful': '等級更改成功',
     'editLevelFailed': '等級更改失敗',
+
+    'shipping': '發貨中',
+    'Shipped': '已發貨',
+    'Arrived': '已到貨',
+    'Received': '已取貨',
+    'Returning': '退貨中',
+    'Returned': '已退貨',
+    'orderStatus': '訂單狀態',
+    'paid': '已付款',
+    'return': '申請退貨',
+    'refunding': '退款中',
+    'refunded': '已退款',
+    'deliveryStatus': '配送狀態',
+    'deliveryMethod': '配送方式',
+    'details': '詳情',
+    'accept': '接受',
+    'reject': '拒絕',
+    'productName': '商品名稱',
+    'productPrice': '商品價格',
+    'productType': '商品類型',
+    'quantity': '數量',
+    'subtotal': '小記',
+    'closure': '關閉',
+    'editOrderFailed': '庫存不足或更新時發生錯誤',
+    'orderSure': '是否同意',
+
+};
+
+// 商品大分類
+let majorCategories = {
+    "10": "帽子",
+    "11": "上衣",
+    "12": "外套",
+    "13": "褲子"
+};
+
+// 商品小分類
+let minorCategories = {
+    "0": {
+        "0": "請先選擇類型"
+    },
+    "10": {
+        "00": "全部",
+        "01": "其他",
+        "02": "棒球帽",
+        "03": "漁夫帽",
+        "04": "遮陽帽"
+    },
+    "11": {
+        "00": "全部",
+        "01": "其他",
+        "02": "襯衫",
+        "03": "毛衣",
+        "04": "帽T"
+    },
+    "12": {
+        "00": "全部",
+        "01": "其他",
+        "02": "皮外套",
+        "03": "風衣",
+        "04": "牛仔外套"
+    },
+    "13": {
+        "00": "全部",
+        "01": "其他",
+        "02": "運動褲",
+        "03": "休閒褲",
+        "04": "西褲"
+    }
+};
+
+// 商品品牌分類
+let brand = {
+    "00": "全部",
+    "01": "其他",
+    "02": "NIKE",
+    "03": "FILA",
+    "04": "ADIDAS",
+    "05": "PUMA"
+}
+
+
+// 訂單狀態
+let orderStatus = {
+    "1": { name: "已付款", color: "bg-white", text: "text-dark" },
+    "2": { name: "申請退貨", color: "bg-success", text: "text-white" },
+    "3": { name: "退款中", color: "bg-warning", text: "text-white" },
+    "4": { name: "已退款", color: "bg-white", text: "text-dark" }
+};
+
+// 配送狀態
+let deliveryStatus = {
+    "1": { name: "發貨中", color: "bg-warning", text: "text-white" },
+    "2": { name: "已發貨", color: "bg-success", text: "text-white" },
+    "3": { name: "已到貨", color: "bg-white", text: "text-dark" },
+    "4": { name: "已取貨", color: "bg-white", text: "text-dark" },
+    "5": { name: "退貨中", color: "bg-warning", text: "text-white" },
+    "6": { name: "已退貨", color: "bg-white", text: "text-dark" }
+};
+
+// 配送方式
+let deliveryMethod = {
+    "1": "超商取貨",
+    "2": "店到店",
+    "3": "宅配"
 };

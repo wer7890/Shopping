@@ -58,5 +58,109 @@
     'editStateSuccessful': 'Account status changed successfully',
     'editStateFailed': 'Failed to change account status',
     'editLevelSuccessful': 'Level changed successfully',
-    'editLevelFailed': 'Failed to change level'
+    'editLevelFailed': 'Failed to change level',
+
+    'shipping': 'Shipping',
+    'Shipped': 'Shipped',
+    'Arrived': 'Arrived',
+    'Received': 'Received',
+    'Returning': 'Returning',
+    'Returned': 'Returned',
+    'orderStatus': 'Order Status',
+    'paid': 'Paid',
+    'return': 'Return Requested',
+    'refunding': 'Refunding',
+    'refunded': 'Refunded',
+    'deliveryStatus': 'Delivery Status',
+    'deliveryMethod': 'Delivery Method',
+    'details': 'Details',
+    'accept': 'Accept',
+    'reject': 'Reject',
+    'productName': 'Product Name',
+    'productPrice': 'Product Price',
+    'productType': 'Product Type',
+    'quantity': 'Quantity',
+    'subtotal': 'Subtotal',
+    'closure': 'Close',
+    'editOrderFailed': 'Insufficient stock or error occurred during update',
+    'orderSure': 'Are you sure'
+};
+
+// 商品大分類
+let majorCategories = {
+    "10": "Hats",
+    "11": "Tops",
+    "12": "Outerwear",
+    "13": "Bottoms"
+};
+
+// 商品小分類
+let minorCategories = {
+    "0": {
+        "0": "Please select a type first"
+    },
+    "10": {
+        "00": "All",
+        "01": "Others",
+        "02": "Baseball Caps",
+        "03": "Fisherman Hats",
+        "04": "Sun Hats"
+    },
+    "11": {
+        "00": "All",
+        "01": "Others",
+        "02": "Shirts",
+        "03": "Sweaters",
+        "04": "T-Shirts"
+    },
+    "12": {
+        "00": "All",
+        "01": "Others",
+        "02": "Leather Jackets",
+        "03": "Windbreakers",
+        "04": "Denim Jackets"
+    },
+    "13": {
+        "00": "All",
+        "01": "Others",
+        "02": "Athletic Pants",
+        "03": "Casual Pants",
+        "04": "Dress Pants"
+    }
+};
+
+
+// 商品品牌分類
+let brand = {
+    "00": "All",
+    "01": "Other",
+    "02": "NIKE",
+    "03": "FILA",
+    "04": "ADIDAS",
+    "05": "PUMA"
+}
+
+// 訂單狀態
+let orderStatus = {
+    "1": { name: "Paid", color: "bg-white", text: "text-dark" },
+    "2": { name: "Return", color: "bg-success", text: "text-white" },
+    "3": { name: "Refunding", color: "bg-warning", text: "text-white" },
+    "4": { name: "Refunded", color: "bg-white", text: "text-dark" }
+};
+
+// 配送狀態
+let deliveryStatus = {
+    "1": { name: "Shipping", color: "bg-warning", text: "text-white" },
+    "2": { name: "Shipped", color: "bg-success", text: "text-white" },
+    "3": { name: "Arrived", color: "bg-white", text: "text-dark" },
+    "4": { name: "Received", color: "bg-white", text: "text-dark" },
+    "5": { name: "Returning", color: "bg-warning", text: "text-white" },
+    "6": { name: "Returned", color: "bg-white", text: "text-dark" }
+};
+
+// 配送方式
+let deliveryMethod = {
+    "1": "Store Pickup",
+    "2": "Store to Store",
+    "3": "Home Delivery"
 };

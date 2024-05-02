@@ -81,6 +81,7 @@ namespace ShoppingWeb.Ajax
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@orderId", orderId));
+                    cmd.Parameters.Add(new SqlParameter("@basePageLanguage", basePageLanguage));
                     SqlDataReader reader = cmd.ExecuteReader();
                     DataTable dt = new DataTable();
                     dt.Load(reader);
