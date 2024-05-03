@@ -31,7 +31,7 @@
             </div>
             <div class="col px-0">
                 <label for="txbProductSearch" class="form-label i18n" data-key="productNameSelect">商品名稱搜尋</label>
-                <input type="text" class="form-control i18n" id="txbProductSearch" data-key="productNameSelect" placeholder="商品名稱搜尋" />
+                <input type="text" class="form-control i18n" id="txbProductSearch" data-placeholder-key="productNameSelect" placeholder="商品名稱搜尋" />
             </div>
             <div class="col-1 px-0 d-flex justify-content-center align-items-end">
                 <button id="btnSearchProduct" type="submit" class="btn btn-outline-primary i18n" data-key="select">查詢</button>

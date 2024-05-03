@@ -122,7 +122,7 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     selectHtml += '</select></div>';
 
     // 配送狀態
-    selectHtml += '<div class="col"><label for="deliveryStatusSelect">' + langFont["deliveryStatus"] + '</label><select id="deliveryStatusSelect" class="form-select">';
+    selectHtml += '<div class="col"><label for="deliveryStatusSelect" class="form-label">' + langFont["deliveryStatus"] + '</label><select id="deliveryStatusSelect" class="form-select">';
 
     // 根據訂單狀態決定配送狀態的選項
     if (orderStatusNum == 1) {

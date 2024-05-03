@@ -94,7 +94,7 @@
     'productName': 'Product Chinese Name',
     'productNameEN': 'Product English Name',
     'minorCategories': 'Subtype',
-    'chooseType': 'Please select a type first',
+    'chooseType': 'Select a type first',
     'productImg': 'Product Image',
     'productStock': 'Stock',
     'isOpen': 'Is Open',
@@ -113,7 +113,7 @@
     'productPriceIimit': 'Price and stock must be numeric and both must be filled',
     'imgSize': 'Image size exceeds limit (maximum 500KB)',
     'brand': 'Brand',
-    'selectMajorCategories': 'Please select a product type',
+    'selectMajorCategories': 'Select a product type',
 
     'editProduct': 'Edit Product',
     'productId': 'Product ID',

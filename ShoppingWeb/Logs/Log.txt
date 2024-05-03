@@ -488,4 +488,4 @@ StackTrace:    在 System.Data.SqlClient.SqlConnection.OnError(SqlException exce
    在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
    在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
    在 ShoppingWeb.Ajax.ProductHandler.GetProductDataForEdit() 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\ProductHandler.aspx.cs:行号 445
---------------------------------------------------
+---------------------------------------------------
