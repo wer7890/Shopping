@@ -79,8 +79,6 @@ function SearchAllOrder() {
                 let deliveryStatusCountData = JSON.parse(response.d[1]);
                 OrderHtml(orderData, deliveryStatusCountData);
             }
-
-            GetLanguageText();
         },
         error: function (error) {
             console.error('Error:', error);
@@ -165,7 +163,6 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
         '</select></div>';
 
     detailElement.append(selectHtml);
-    GetLanguageText();
 }
 
 // 上方狀態按鈕點擊觸發事件
@@ -234,16 +231,17 @@ function OrderHtml(orderData, deliveryStatusCountData) {
     });
 
     tableBody.append(row);
+    GetLanguageText();
 
     $.each(deliveryStatusCountData, function (index, item) {
-        $("#btnDeliveryStatus_0 > span").text(item.statusAll);
-        $("#btnDeliveryStatus_1 > span").text(item.status1);
-        $("#btnDeliveryStatus_2 > span").text(item.status2);
-        $("#btnDeliveryStatus_3 > span").text(item.status3);
-        $("#btnDeliveryStatus_4 > span").text(item.status4);
-        $("#btnDeliveryStatus_5 > span").text(item.status5);
-        $("#btnDeliveryStatus_6 > span").text(item.status6);
-        $("#btnOrderStatus_2 > span").text(item.orderStatus2);
+        $("#btnDeliveryStatus_0").append('<span>(' + item.statusAll + ')</span>');
+        $("#btnDeliveryStatus_1").append('<span>(' + item.status1 + ')</span>');
+        $("#btnDeliveryStatus_2").append('<span>(' + item.status2 + ')</span>');
+        $("#btnDeliveryStatus_3").append('<span>(' + item.status3 + ')</span>');
+        $("#btnDeliveryStatus_4").append('<span>(' + item.status4 + ')</span>');
+        $("#btnDeliveryStatus_5").append('<span>(' + item.status5 + ')</span>');
+        $("#btnDeliveryStatus_6 ").append('<span>(' + item.status6 + ')</span>');
+        $("#btnOrderStatus_2").append('<span>(' + item.orderStatus2 + ')</span>');
     });
 }
 
