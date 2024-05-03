@@ -6,9 +6,8 @@ $(document).ready(function () {
     SearchAllOrder();
     $("#labSearchOrder").hide();
 
-    //點選上方按鈕時變色
+    //點選上方按鈕時，該按鈕變色
     $(".btnHand").click(function () {
-
         $(".btnHand").each(function (index) {
             $(this).removeClass("btn-secondary").addClass("btn-outline-secondary");
         });

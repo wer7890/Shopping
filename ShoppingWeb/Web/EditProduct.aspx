@@ -11,6 +11,7 @@
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= basePageLanguage %>.js"></script>
+    <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
     <script src="/js/<%= jsVersion %>/EditProduct.js"></script>
 </head>
 <body>
