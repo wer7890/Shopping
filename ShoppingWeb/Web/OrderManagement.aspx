@@ -21,14 +21,14 @@
         <br />
         <div class="row">
             <div class="btn-group me-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-outline-secondary i18n" id="btnDeliveryStatus_0" onclick="SearchAllOrder()" data-key="all">全部</button>
-                <button type="button" class="btn btn-outline-secondary i18n" id="btnDeliveryStatus_1" onclick="ShowOrder(1)" data-key="shipping">發貨中</button>
-                <button type="button" class="btn btn-outline-secondary i18n" id="btnDeliveryStatus_2" onclick="ShowOrder(2)" data-key="shipped">已發貨</button>
-                <button type="button" class="btn btn-outline-secondary i18n" id="btnDeliveryStatus_3" onclick="ShowOrder(3)" data-key="arrived">已到貨</button>
-                <button type="button" class="btn btn-outline-secondary i18n" id="btnDeliveryStatus_4" onclick="ShowOrder(4)" data-key="received">已取貨</button>
-                <button type="button" class="btn btn-outline-secondary i18n" id="btnDeliveryStatus_5" onclick="ShowOrder(5)" data-key="returning">退貨中</button>
-                <button type="button" class="btn btn-outline-secondary i18n" id="btnDeliveryStatus_6" onclick="ShowOrder(6)" data-key="returned">已退貨</button>
-                <button type="button" class="btn btn-outline-secondary i18n" id="btnOrderStatus_2" onclick="ShowReturnOrder()" data-key="return">申請退貨</button>
+                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_0" onclick="SearchAllOrder()" data-key="all">全部</button>
+                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_1" onclick="ShowOrder(1)" data-key="shipping">發貨中</button>
+                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_2" onclick="ShowOrder(2)" data-key="shipped">已發貨</button>
+                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_3" onclick="ShowOrder(3)" data-key="arrived">已到貨</button>
+                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_4" onclick="ShowOrder(4)" data-key="received">已取貨</button>
+                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_5" onclick="ShowOrder(5)" data-key="returning">退貨中</button>
+                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_6" onclick="ShowOrder(6)" data-key="returned">已退貨</button>
+                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnOrderStatus_2" onclick="ShowReturnOrder()" data-key="return">申請退貨</button>
             </div>
         </div>
         <br />

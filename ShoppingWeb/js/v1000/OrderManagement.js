@@ -6,6 +6,16 @@ $(document).ready(function () {
     SearchAllOrder();
     $("#labSearchOrder").hide();
 
+    //點選上方按鈕時變色
+    $(".btnHand").click(function () {
+
+        $(".btnHand").each(function (index) {
+            $(this).removeClass("btn-secondary").addClass("btn-outline-secondary");
+        });
+
+        $(this).removeClass("btn-outline-secondary").addClass("btn-secondary");
+    });
+
     // 修改訂單按鈕
     $('#tableBody').on('click', '#btnEditOrder', function () {
         let selectedOrderStatus = $("#orderStatusSelect").val();
