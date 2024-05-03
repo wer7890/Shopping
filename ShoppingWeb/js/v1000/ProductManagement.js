@@ -102,10 +102,10 @@ function SearchAllProduct(pageNumber, pageSize) {
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
             if (response.d === 0) {
-                alert("重複登入，已被登出");
+                alert(langFont["duplicateLogin"]);
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert("權限不足");
+                alert(langFont["accessDenied"]);
                 parent.location.reload();
             } else {
                 // 處理成功取得資料的情況
@@ -126,8 +126,8 @@ function SearchAllProduct(pageNumber, pageSize) {
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '<td>' + item.f_introduce + '</td>' +
                         '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">改</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">刪</button></td>' +
+                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">' + langFont["delOne"] + '</button></td>' +
                         '</tr>';
 
                     tableBody.append(row);
@@ -146,9 +146,11 @@ function SearchAllProduct(pageNumber, pageSize) {
                 }
             }
             UpdatePaginationControls(pageNumber);
+            GetLanguageText();
         },
         error: function (error) {
             console.error('Error:', error);
+            $("#labSearchProduct").text(langFont["ajaxError"]);
         }
     });
 }
@@ -163,14 +165,14 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
         dataType: "json",
         success: function (response) {
             if (response.d === 0) {
-                alert("重複登入，已被登出");
+                alert(langFont["duplicateLogin"]);
                 window.parent.location.href = "Login.aspx";
             } else if (response.d === 1) {
-                alert("權限不足");
+                alert(langFont["accessDenied"]);
                 parent.location.reload();
             } else if (response.d === 101) {
                 $("#productTableDiv").css('display', 'none');
-                $("#labSearchProduct").text("沒有資料");
+                $("#labSearchProduct").text(langFont["noData"]);
                 $('#ulPagination').empty();
             } else {
                 $("#productTableDiv").css('display', 'block');
@@ -189,8 +191,8 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '<td>' + item.f_introduce + '</td>' +
                         '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">改</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">刪</button></td>' +
+                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">' + langFont["delOne"] + '</button></td>' +
                         '</tr>';
                     tableBody.append(row);
                 });
@@ -210,6 +212,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
         },
         error: function (error) {
             console.error('Error:', error);
+            $("#labSearchProduct").text(langFont["ajaxError"]);
         }
     });
 }
@@ -231,32 +234,33 @@ function ToggleProductStatus(productId) {
         success: function (response) {
             switch (response.d) {
                 case 0:
-                    alert("重複登入，已被登出");
+                    alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
                     break;
                 case 1:
-                    alert("權限不足");
+                    alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchProduct").text("更改成功");
+                    $("#labSearchProduct").text(langFont["editSuccessful"]);
                     break;
                 case 101:
-                    $("#labSearchProduct").text("更改失敗");
+                    $("#labSearchProduct").text(langFont["editFail"]);
                     break;
                 default:
-                    $("#labSearchProduct").text("發生發生內部錯誤，請看日誌");
+                    $("#labSearchProduct").text(langFont["errorLog"]);
             }
         },
         error: function (error) {
             console.error('Error:', error);
+            $("#labSearchProduct").text(langFont["ajaxError"]);
         }
     });
 }
 
 //刪除
 function DeleteProduct(productId) {
-    let yes = confirm('確定要刪除該商品嗎');
+    let yes = confirm(langFont["confirmEditProduct"]);
     if (yes == true) {
         $.ajax({
             type: "POST",
@@ -267,25 +271,26 @@ function DeleteProduct(productId) {
             success: function (response) {
                 switch (response.d) {
                     case 0:
-                        alert("重複登入，已被登出");
+                        alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
                         break;
                     case 1:
-                        alert("權限不足");
+                        alert(langFont["accessDenied"]);
                         parent.location.reload();
                         break;
                     case 100:
                         window.location.reload();
                         break;
                     case 101:
-                        $("#labSearchProduct").text("刪除失敗");
+                        $("#labSearchProduct").text(langFont["delFailed"]);
                         break;
                     default:
-                        $("#labSearchProduct").text("發生發生內部錯誤，請看日誌");
+                        $("#labSearchProduct").text(langFont["errorLog"]);
                 }
             },
             error: function (error) {
                 console.error('Error:', error);
+                $("#labSearchProduct").text(langFont["ajaxError"]);
             }
         });
     }
@@ -306,6 +311,7 @@ function EditProduct(productId) {
         },
         error: function (error) {
             console.error('Error:', error);
+            $("#labSearchProduct").text(langFont["ajaxError"]);
         }
     });
 

@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    GetLanguageText();
 
     let dbStock = null;
     //一開始input預設值
@@ -9,7 +10,7 @@
         dataType: "json",
         success: function (data) {
             if (data.d === 102) {
-                $("#labRenewProduct").text("發生發生內部錯誤，請看日誌");
+                $("#labRenewProduct").text(langFont["errorLog"]);
             } else {
                 // 直接設定 input 元素的值
                 $("#labProductId").text(data.d.ProductId);
@@ -28,6 +29,7 @@
         },
         error: function (error) {
             console.error('Error:', error);
+            $("#labRenewProduct").text(langFont["ajaxError"]);
         }
     });
 
@@ -45,7 +47,7 @@
         }
 
         if (productCheckStock == 0 && productStock > dbStock) {
-            $("#labRenewProduct").text("庫存量不能小於0");
+            $("#labRenewProduct").text(langFont["stockIimit"]);
             return;
         }
 
@@ -58,29 +60,30 @@
             success: function (response) {
                 switch (response.d) {
                     case 0:
-                        alert("重複登入，已被登出");
+                        alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
                         break;
                     case 1:
-                        alert("權限不足");
+                        alert(langFont["accessDenied"]);
                         parent.location.reload();
                         break;
                     case 2:
-                        $("#labRenewProduct").text("輸入值不符合格式");
+                        $("#labRenewProduct").text(langFont["inputError"]);
                         break;
                     case 100:
-                        alert("修改成功");
+                        alert(langFont["editSuccessful"]);
                         window.location.href = "ProductManagement.aspx";
                         break;
                     case 101:
-                        $("#labRenewProduct").text("修改失敗，庫存量不能小於0");
+                        $("#labRenewProduct").text(langFont["editFail"] + langFont["stockIimit"]);
                         break;
                     default:
-                        $("#labRenewProduct").text("發生發生內部錯誤，請看日誌");
+                        $("#labRenewProduct").text(langFont["errorLog"]);
                 }
             },
             error: function (error) {
                 console.error('Error:', error);
+                $("#labRenewProduct").text(langFont["ajaxError"]);
             }
         });
     })
@@ -95,17 +98,17 @@ function IsSpecialChar(productIntroduce, productIntroduceEN, productPrice, produ
     }
 
     if (!/^.{1,500}$/.test(productIntroduce)) {
-        $("#labRenewProduct").text("商品中文描述長度需在1到500之間");
+        $("#labRenewProduct").text(langFont["productIntroduceIimit"]);
         return false;
     }
 
     if (!/^[^\u4e00-\u9fa5]{1,1000}$/.test(productIntroduceEN)) {
-        $("#labAddProduct").text("商品英文描述長度需在1到500之間且不能包含中文");
+        $("#labAddProduct").text(langFont["productIntroduceENIimit"]);
         return false;
     }
 
     if (!/^[0-9]{1,7}$/.test(productPrice) || !/^[0-9]{1,7}$/.test(productStock)) {
-        $("#labRenewProduct").text("價格和庫存量只能是數字且都要填寫");
+        $("#labRenewProduct").text(langFont["productPriceIimit"]);
         return false;
     }
 

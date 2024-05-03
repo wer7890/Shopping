@@ -37,16 +37,16 @@ $(document).ready(function () {
 
         if (selectedOrderStatus == 1) {
             selectHtml += '<option value="1">' + langFont["shipping"] + '</option>' +
-                '<option value="2">' + langFont["Shipped"] + '</option>' +
-                '<option value="3">' + langFont["Arrived"] + '</option>' +
-                '<option value="4">' + langFont["Received"] + '</option>';
+                '<option value="2">' + langFont["shipped"] + '</option>' +
+                '<option value="3">' + langFont["arrived"] + '</option>' +
+                '<option value="4">' + langFont["received"] + '</option>';
         } else if (selectedOrderStatus == 2) {
-            selectHtml += '<option value="4">' + langFont["Received"] + '</option>';
+            selectHtml += '<option value="4">' + langFont["received"] + '</option>';
         } else if (selectedOrderStatus == 3) {
-            selectHtml += '<option value="5">' + langFont["Returning"] + '</option>' +
-                '<option value="6">已退貨</option>';
+            selectHtml += '<option value="5">' + langFont["returning"] + '</option>' +
+                '<option value="6">' + langFont["returned"] + '</option>';
         } else if (selectedOrderStatus == 4) {
-            selectHtml += '<option value="6">' + langFont["Returned"] + '</option>';
+            selectHtml += '<option value="6">' + langFont["returned"] + '</option>';
         } else {
             $.each(deliveryStatus, function (key, value) {
                 selectHtml += '<option value="' + key + '">' + value.name + '</option>';
@@ -128,18 +128,18 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
     if (orderStatusNum == 1) {
         // 訂單狀態為已付款時
         selectHtml += '<option value="1">' + langFont["shipping"] + '</option>' +
-            '<option value="2">' + langFont["Shipped"] + '</option>' +
-            '<option value="3">' + langFont["Arrived"] + '</option>' +
-            '<option value="4">' + langFont["Received"] + '</option>';
+            '<option value="2">' + langFont["shipped"] + '</option>' +
+            '<option value="3">' + langFont["arrived"] + '</option>' +
+            '<option value="4">' + langFont["received"] + '</option>';
     } else if (orderStatusNum == 2) {
         // 訂單狀態為申請退貨時
-        selectHtml += '<option value="4">' + langFont["Received"] + '</option>';
+        selectHtml += '<option value="4">' + langFont["received"] + '</option>';
     } else if (orderStatusNum == 3) {
         // 訂單狀態為退款中或已退款時
-        selectHtml += '<option value="5">' + langFont["Returning"] + '</option>' +
-            '<option value="6">' + langFont["Returned"] + '</option>';
+        selectHtml += '<option value="5">' + langFont["returning"] + '</option>' +
+            '<option value="6">' + langFont["returned"] + '</option>';
     } else if (orderStatusNum == 4) {
-        selectHtml += '<option value="6">' + langFont["Returned"] + '</option>';
+        selectHtml += '<option value="6">' + langFont["returned"] + '</option>';
     } else {
         // 其他情況下顯示所有配送狀態的選項
         $.each(deliveryStatus, function (key, value) {
@@ -221,8 +221,8 @@ function OrderHtml(orderData, deliveryStatusCountData) {
 
         if (deliveryStatusValue === 7) {
             row += '<td><div class="d-flex justify-content-between">' +
-                '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.f_id + ', true)">' + langFont["accept"] + '</button>' +
-                '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.f_id + ', false)">' + langFont["reject"] + '</button>' +
+                '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.f_id + ', true)">' + langFont["yes"] + '</button>' +
+                '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.f_id + ', false)">' + langFont["no"] + '</button>' +
                 '</div></td>' +
                 '</tr>';
         } else {

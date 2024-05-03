@@ -118,6 +118,7 @@ namespace ShoppingWeb.Ajax
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
                     cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+                    cmd.Parameters.Add(new SqlParameter("@basePageLanguage", basePageLanguage));
                     cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                     cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 

@@ -1,6 +1,9 @@
 # 忽略ProductImg資料夾裡面的檔案
 ShoppingWeb/ProductImg/*
 
+# 忽略Logs資料夾裡面的檔案
+ShoppingWeb/Logs/*
+
 # 忽略css資料夾下的檔案，但不要忽略css資料夾本身和該資料夾下的v1000檔案
 ShoppingWeb/css/*
 !ShoppingWeb/css/v1000/
