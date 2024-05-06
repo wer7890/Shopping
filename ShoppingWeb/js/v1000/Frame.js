@@ -1,7 +1,6 @@
 ﻿let userAccount = null;
 
 $(document).ready(function () {
-    GetLanguageText();
 
     //一開始登入時顯示在左邊的身分，要做權限可使用功能的顯示與隱藏
     GetUserPermission();

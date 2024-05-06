@@ -11,7 +11,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= Request.Cookies["language"].Value.ToString() %>.js"></script>
     <script src="/js/<%= jsVersion %>/Frame.js"></script>
 </head>
@@ -21,15 +20,15 @@
             <!--左欄-->
             <div class="col-12 col-md-2">
                 <div class="list-group">
-                    <a href="javascript:void(0);" class="list-group-item list-group-item-action i18n" id="adminPanel" data-key="adminSystem">管理員系統</a>
-                    <a href="javascript:void(0);" class="list-group-item list-group-item-action i18n" id="memberPanel" data-key="memberSystem">會員系統</a>
-                    <a href="javascript:void(0);" class="list-group-item list-group-item-action i18n" id="productPanel" data-key="productSystem">商品系統</a>
-                    <a href="javascript:void(0);" class="list-group-item list-group-item-action i18n" id="orderPanel" data-key="orderSystem">訂單系統</a>
+                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="adminPanel"><%= Resources.Resource.adminSystem %></a>
+                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="memberPanel"><%= Resources.Resource.memberSystem %></a>
+                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="productPanel"><%= Resources.Resource.productSystem %></a>
+                    <a href="javascript:void(0);" class="list-group-item list-group-item-action" id="orderPanel"><%= Resources.Resource.orderSystem %></a>
                 </div>
                 <div class="row mt-2">
-                    <label id="labUserAccount" class="fs-5 text-center align-middle mt-2 i18n" data-key="defaultAccount">帳號: </label>
+                    <label id="labUserAccount" class="fs-5 text-center align-middle mt-2"><%= Resources.Resource.account %> : </label>
                     <br />
-                    <button id="btnSignOut" class="btn btn-outline-dark mt-3 i18n" data-key="signOut">登出</button>
+                    <button id="btnSignOut" class="btn btn-outline-dark mt-3"><%= Resources.Resource.signOut %></button>
                 </div>
 
                 <div class="row justify-content-center align-self-center mt-5">

@@ -11,13 +11,10 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/I18n.js"></script>
-    <script src="/js/<%= jsVersion %>/language/Language_<%= Request.Cookies["language"].Value.ToString() %>.js"></script>
-    <script src="/js/<%= jsVersion %>/Default.js"></script>
 </head>
 <body>
     <div class="container mt-2">
-        <h2 class="text-center i18n" data-key="title1Default">歡迎登入後台系統</h2>
+        <h2 class="text-center"><%= Resources.Resource.title1Default %></h2>
     </div>
 
 </body>
