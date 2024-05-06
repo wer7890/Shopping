@@ -63,16 +63,6 @@ namespace ShoppingWeb.Ajax
                                 Roles = (int)cmd.Parameters["@roles"].Value
                             };
                             HttpContext.Current.Session["userInfo"] = user;
-
-                            if (HttpContext.Current.Request.Cookies["language"].Value == "null")
-                            {
-                                HttpCookie cookie = new HttpCookie("language")
-                                {
-                                    Value = "TW",
-                                    Expires = DateTime.Now.AddDays(1)
-                                };
-                                HttpContext.Current.Response.Cookies.Add(cookie);
-                            }
                             
                             return (int)DatabaseOperationResult.Success;
                         }
