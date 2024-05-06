@@ -26,6 +26,8 @@
 };
 
 $(document).ready(function () {
+    GetLanguageText();
+
     //按下登入按鈕
     $("#btnLogin").click(function () {
         let account = $("#txbAccount").val();
@@ -97,7 +99,7 @@ function ChangeLanguage(language) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            TranslateLanguage(language);
+            parent.location.reload();
         },
         error: function (error) {
             console.error('AJAX Error:', error);

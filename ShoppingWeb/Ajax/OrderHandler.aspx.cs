@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Services;
 
 namespace ShoppingWeb.Ajax
@@ -81,7 +82,8 @@ namespace ShoppingWeb.Ajax
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@orderId", orderId));
-                    cmd.Parameters.Add(new SqlParameter("@basePageLanguage", basePageLanguage));
+                    int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "zh") ? 1 : 2;
+                    cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
                     SqlDataReader reader = cmd.ExecuteReader();
                     DataTable dt = new DataTable();
                     dt.Load(reader);

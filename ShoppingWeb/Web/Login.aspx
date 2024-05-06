@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/I18n.js"></script>
+    <script src="/js/<%= jsVersion %>/language/Language_<%= Request.Cookies["language"].Value.ToString() %>.js"></script>
     <script src="/js/<%= jsVersion %>/Login.js"></script>
 
 </head>
@@ -23,7 +24,7 @@
         <hr />
         <div class="row mx-auto col-12 col-md-5">
             <div class="form-group">
-                <label for="txbAccount" class="control-label i18n" data-key="labAccount">帳號:</label>
+                <label for="txbAccount" class="control-label i18n" data-key="account">帳號:</label>
                 <div>
                     <input type="text" id="txbAccount" class="form-control mt-2 i18n" placeholder="請輸入帳號" data-placeholder-key="txbAccount" />
                 </div>
@@ -31,7 +32,7 @@
 
             <br />
             <div class="form-group mt-3">
-                <label for="txbPassword" class="control-label i18n" data-key="labPassword">密碼:</label>
+                <label for="txbPassword" class="control-label i18n" data-key="pwd">密碼:</label>
                 <div>
                     <input type="password" id="txbPassword" class="form-control mt-2 i18n" placeholder="請輸入密碼" data-placeholder-key="txbPassword" />
                 </div>

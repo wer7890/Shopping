@@ -63,10 +63,15 @@ namespace ShoppingWeb.Ajax
                                 Roles = (int)cmd.Parameters["@roles"].Value
                             };
                             HttpContext.Current.Session["userInfo"] = user;
-                            if (HttpContext.Current.Session["language"] == null)
+
+                            if (HttpContext.Current.Request.Cookies["language"].Value == "null")
                             {
-                                HttpContext.Current.Session["language"] = "zh";
-                                basePageLanguage = "zh";
+                                HttpCookie cookie = new HttpCookie("language")
+                                {
+                                    Value = "zh",
+                                    Expires = DateTime.Now.AddDays(1)
+                                };
+                                HttpContext.Current.Response.Cookies.Add(cookie);
                             }
                             
                             return (int)DatabaseOperationResult.Success;
@@ -99,15 +104,20 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 按下中英文按鈕時，Session["language"]紀錄該語言
+        /// 按下中英文按鈕時，Cookies["language"]紀錄該語言
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
         [WebMethod]
         public static bool SetLanguage(string language) 
         {
-            HttpContext.Current.Session["language"] = language;
-            basePageLanguage = language;
+            HttpCookie cookie = new HttpCookie("language")
+            {
+                Value = language,
+                Expires = DateTime.Now.AddDays(1)
+            };
+            HttpContext.Current.Response.Cookies.Add(cookie);
+
             return true;
         }
 

@@ -1,4 +1,9 @@
 ﻿let langFont = {
+    'titleLogin': '登入頁面',
+    'btnLogin': '登入',
+    'txbAccount': '請輸入帳號',
+    'txbPassword': '請輸入密碼',
+
     'adminSystem': '管理員系統',
     'memberSystem': '會員系統',
     'productSystem': '商品系統',

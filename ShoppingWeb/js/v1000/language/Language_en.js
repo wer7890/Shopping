@@ -1,4 +1,9 @@
 ﻿let langFont = {
+    'titleLogin': 'Login page',
+    'btnLogin': 'Login',
+    'txbAccount': 'Please enter account',
+    'txbPassword': 'Please enter password',
+
     'adminSystem': 'Administrator system',
     'memberSystem': 'Member system',
     'productSystem': 'Product systemc',
