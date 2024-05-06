@@ -118,7 +118,7 @@ namespace ShoppingWeb.Ajax
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
                     cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
-                    int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "zh") ? 1 : 2;
+                    int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
                     cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
                     cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                     cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
@@ -175,7 +175,7 @@ namespace ShoppingWeb.Ajax
                     cmd.Parameters.Add(new SqlParameter("@allBrand", checkAllBrand));
                     cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
                     cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
-                    int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "zh") ? 1 : 2;
+                    int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
                     cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
                     cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                     cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;

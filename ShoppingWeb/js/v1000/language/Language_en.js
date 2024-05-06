@@ -96,7 +96,7 @@
     'orderSure': 'Are you sure',
 
     'titleAddProduct': 'Add Product',
-    'productName': 'Product Chinese Name',
+    'productNameTW': 'Product Chinese Name',
     'productNameEN': 'Product English Name',
     'minorCategories': 'Subtype',
     'chooseType': 'Select a type first',
@@ -105,7 +105,7 @@
     'isOpen': 'Is Open',
     'no': 'No',
     'yes': 'Yes',
-    'productIntroduce': 'Product Chinese Description',
+    'productIntroduceTW': 'Product Chinese Description',
     'productIntroduceEN': 'Product English Description',
     'addProduct': 'Add Product',
     'confirmAdd': 'Are you sure you want to add this product?',

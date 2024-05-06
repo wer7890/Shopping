@@ -68,7 +68,7 @@ namespace ShoppingWeb.Ajax
                             {
                                 HttpCookie cookie = new HttpCookie("language")
                                 {
-                                    Value = "zh",
+                                    Value = "TW",
                                     Expires = DateTime.Now.AddDays(1)
                                 };
                                 HttpContext.Current.Response.Cookies.Add(cookie);

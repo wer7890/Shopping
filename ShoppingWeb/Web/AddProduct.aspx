@@ -17,11 +17,11 @@
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center i18n" data-key="titleAddProduct">新增商品</h2>
+        <h2 class="text-center i18n" data-key="addProduct">新增商品</h2>
         <br />
         <div class="row">
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <label for="txbProductName" class="form-label i18n" data-key="productName">商品中文名稱</label>
+                <label for="txbProductName" class="form-label i18n" data-key="productNameTW">商品中文名稱</label>
                 <input type="text" id="txbProductName" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
@@ -47,11 +47,11 @@
                 <input type="file" id="txbProductImg" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">
-                <label for="txbProductPrice" class="form-label i18n" data-key="productPrice">價格</label>
+                <label for="txbProductPrice" class="form-label i18n" data-key="price">價格</label>
                 <input type="number" id="txbProductPrice" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">
-                <label for="txbProductStock" class="form-label i18n" data-key="productStock">庫存量</label>
+                <label for="txbProductStock" class="form-label i18n" data-key="stock">庫存量</label>
                 <input type="number" id="txbProductStock" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">
@@ -63,7 +63,7 @@
             </div>
 
             <div class="mx-auto col-12 col-md-7 mt-3">
-                <label for="txbProductIntroduce" class="form-label i18n" data-key="productIntroduce">商品中文描述</label>
+                <label for="txbProductIntroduce" class="form-label i18n" data-key="productIntroduceTW">商品中文描述</label>
                 <textarea rows="3" class="form-control" id="txbProductIntroduce"></textarea>
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">

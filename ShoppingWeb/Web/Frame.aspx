@@ -33,8 +33,8 @@
                 </div>
 
                 <div class="row justify-content-center align-self-center mt-5">
-                    <button id="btnChinese" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm" onclick="ChangeLanguage('zh')">中文</button>
-                    <button id="btnEnglish" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm" onclick="ChangeLanguage('en')">English</button>
+                    <button id="btnChinese" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm" onclick="ChangeLanguage('TW')">中文</button>
+                    <button id="btnEnglish" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm" onclick="ChangeLanguage('EN')">English</button>
                 </div>
 
             </div>

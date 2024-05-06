@@ -117,7 +117,235 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title" xml:space="preserve">
-    <value>My Shop</value>
+  <data name="account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="accountStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="addMember" xml:space="preserve">
+    <value>Add Member</value>
+  </data>
+  <data name="addProduct" xml:space="preserve">
+    <value>Add Product</value>
+  </data>
+  <data name="addStock" xml:space="preserve">
+    <value>Increase Stock</value>
+  </data>
+  <data name="addUser" xml:space="preserve">
+    <value>Add Administrator</value>
+  </data>
+  <data name="adminSystem" xml:space="preserve">
+    <value>Administrator system</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="arrived" xml:space="preserve">
+    <value>Arrived</value>
+  </data>
+  <data name="btnLogin" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="chooseType" xml:space="preserve">
+    <value>Select a type first</value>
+  </data>
+  <data name="createdTime" xml:space="preserve">
+    <value>Creation Time</value>
+  </data>
+  <data name="createdUser" xml:space="preserve">
+    <value>Creator ID</value>
+  </data>
+  <data name="defaultAccount" xml:space="preserve">
+    <value>Account: </value>
+  </data>
+  <data name="del" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="deliveryMethod" xml:space="preserve">
+    <value>Delivery Method</value>
+  </data>
+  <data name="deliveryStatus" xml:space="preserve">
+    <value>Delivery Status</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="editProduct" xml:space="preserve">
+    <value>Edit Product</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="img" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="introduce" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="isOpen" xml:space="preserve">
+    <value>Is Open</value>
+  </data>
+  <data name="level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="memberAdmin" xml:space="preserve">
+    <value>Member Administrator</value>
+  </data>
+  <data name="memberSystem" xml:space="preserve">
+    <value>Member system</value>
+  </data>
+  <data name="minorCategories" xml:space="preserve">
+    <value>Subtype</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="orderId" xml:space="preserve">
+    <value>Order ID</value>
+  </data>
+  <data name="orderStatus" xml:space="preserve">
+    <value>Order Status</value>
+  </data>
+  <data name="orderSystem" xml:space="preserve">
+    <value>Order system</value>
+  </data>
+  <data name="phoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="productAdmin" xml:space="preserve">
+    <value>Product Administrator</value>
+  </data>
+  <data name="productId" xml:space="preserve">
+    <value>Product ID</value>
+  </data>
+  <data name="productImg" xml:space="preserve">
+    <value>Product Image</value>
+  </data>
+  <data name="productIntroduceEN" xml:space="preserve">
+    <value>Product English Description</value>
+  </data>
+  <data name="productIntroduceTW" xml:space="preserve">
+    <value>Product Chinese Description</value>
+  </data>
+  <data name="productNameEN" xml:space="preserve">
+    <value>Product English Name</value>
+  </data>
+  <data name="productNameSelect" xml:space="preserve">
+    <value>Product Name Search</value>
+  </data>
+  <data name="productNameTW" xml:space="preserve">
+    <value>Product Chinese Name</value>
+  </data>
+  <data name="productPrice" xml:space="preserve">
+    <value>Product Price</value>
+  </data>
+  <data name="productStock" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="productSystem" xml:space="preserve">
+    <value>Product systemc</value>
+  </data>
+  <data name="productType" xml:space="preserve">
+    <value>Product Type</value>
+  </data>
+  <data name="pwd" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="received" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="reduceStock" xml:space="preserve">
+    <value>Decrease Stock</value>
+  </data>
+  <data name="return" xml:space="preserve">
+    <value>Return Requested</value>
+  </data>
+  <data name="returned" xml:space="preserve">
+    <value>Returned</value>
+  </data>
+  <data name="returning" xml:space="preserve">
+    <value>Returning</value>
+  </data>
+  <data name="roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="serialNumber" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="shipped" xml:space="preserve">
+    <value>Shipped</value>
+  </data>
+  <data name="shipping" xml:space="preserve">
+    <value>Shipping</value>
+  </data>
+  <data name="signOut" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
+  <data name="stock" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="superAdmin" xml:space="preserve">
+    <value>Super Administrator</value>
+  </data>
+  <data name="title1Default" xml:space="preserve">
+    <value>Welcome to the backend system</value>
+  </data>
+  <data name="titleAddUser" xml:space="preserve">
+    <value>Add User</value>
+  </data>
+  <data name="titleEditUser" xml:space="preserve">
+    <value>Edit User</value>
+  </data>
+  <data name="titleLogin" xml:space="preserve">
+    <value>Login page</value>
+  </data>
+  <data name="titleMember" xml:space="preserve">
+    <value>Member Account</value>
+  </data>
+  <data name="titleOrder" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="titleUser" xml:space="preserve">
+    <value>Administrator Account</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="totalSpent" xml:space="preserve">
+    <value>Total Spent</value>
+  </data>
+  <data name="txbAccount" xml:space="preserve">
+    <value>Please enter account</value>
+  </data>
+  <data name="txbPassword" xml:space="preserve">
+    <value>Please enter password</value>
+  </data>
+  <data name="userId" xml:space="preserve">
+    <value>Administrator ID</value>
+  </data>
+  <data name="wallet" xml:space="preserve">
+    <value>Wallet</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

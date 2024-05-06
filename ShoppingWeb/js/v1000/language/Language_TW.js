@@ -96,7 +96,7 @@
     'orderSure': '是否同意',
 
     'titleAddProduct': '新增商品',
-    'productName': '商品中文名稱',
+    'productNameTW': '商品中文名稱',
     'productNameEN': '商品英文名稱',
     'minorCategories': '子類型',
     'chooseType': '請先選擇類型',
@@ -105,7 +105,7 @@
     'isOpen': '是否開放',
     'no': '否',
     'yes': '是',
-    'productIntroduce': '商品中文描述',
+    'productIntroduceTW': '商品中文描述',
     'productIntroduceEN': '商品英文描述',
     'addProduct': '新增商品',
     'confirmAdd': '確定要新增商品嗎',

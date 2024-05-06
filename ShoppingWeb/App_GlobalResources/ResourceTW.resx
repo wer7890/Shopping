@@ -117,7 +117,235 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title" xml:space="preserve">
-    <value>我的商場</value>
+  <data name="account" xml:space="preserve">
+    <value>帳號</value>
+  </data>
+  <data name="accountStatus" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="addMember" xml:space="preserve">
+    <value>新增會員</value>
+  </data>
+  <data name="addProduct" xml:space="preserve">
+    <value>新增商品</value>
+  </data>
+  <data name="addStock" xml:space="preserve">
+    <value>增加庫存量</value>
+  </data>
+  <data name="addUser" xml:space="preserve">
+    <value>新增管理員</value>
+  </data>
+  <data name="adminSystem" xml:space="preserve">
+    <value>管理員系統</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="arrived" xml:space="preserve">
+    <value>已到貨</value>
+  </data>
+  <data name="btnLogin" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="categories" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="chooseType" xml:space="preserve">
+    <value>請先選擇類型</value>
+  </data>
+  <data name="createdTime" xml:space="preserve">
+    <value>建立時間</value>
+  </data>
+  <data name="createdUser" xml:space="preserve">
+    <value>建立者ID</value>
+  </data>
+  <data name="defaultAccount" xml:space="preserve">
+    <value>帳號: </value>
+  </data>
+  <data name="del" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="deliveryMethod" xml:space="preserve">
+    <value>配送方式</value>
+  </data>
+  <data name="deliveryStatus" xml:space="preserve">
+    <value>配送狀態</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>更改</value>
+  </data>
+  <data name="editProduct" xml:space="preserve">
+    <value>編輯商品</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="img" xml:space="preserve">
+    <value>圖片</value>
+  </data>
+  <data name="introduce" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="isOpen" xml:space="preserve">
+    <value>是否開放</value>
+  </data>
+  <data name="level" xml:space="preserve">
+    <value>等級</value>
+  </data>
+  <data name="memberAdmin" xml:space="preserve">
+    <value>會員管理員</value>
+  </data>
+  <data name="memberSystem" xml:space="preserve">
+    <value>會員系統</value>
+  </data>
+  <data name="minorCategories" xml:space="preserve">
+    <value>子類型</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="open" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="orderId" xml:space="preserve">
+    <value>訂單編號</value>
+  </data>
+  <data name="orderStatus" xml:space="preserve">
+    <value>訂單狀態</value>
+  </data>
+  <data name="orderSystem" xml:space="preserve">
+    <value>訂單系統</value>
+  </data>
+  <data name="phoneNumber" xml:space="preserve">
+    <value>電話</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>價格</value>
+  </data>
+  <data name="product" xml:space="preserve">
+    <value>商品</value>
+  </data>
+  <data name="productAdmin" xml:space="preserve">
+    <value>商品管理員</value>
+  </data>
+  <data name="productId" xml:space="preserve">
+    <value>商品ID</value>
+  </data>
+  <data name="productImg" xml:space="preserve">
+    <value>商品圖示</value>
+  </data>
+  <data name="productIntroduceEN" xml:space="preserve">
+    <value>商品英文描述</value>
+  </data>
+  <data name="productIntroduceTW" xml:space="preserve">
+    <value>商品中文描述</value>
+  </data>
+  <data name="productNameEN" xml:space="preserve">
+    <value>商品英文名稱: </value>
+  </data>
+  <data name="productNameSelect" xml:space="preserve">
+    <value>商品名稱搜尋</value>
+  </data>
+  <data name="productNameTW" xml:space="preserve">
+    <value>商品中文名稱: </value>
+  </data>
+  <data name="productPrice" xml:space="preserve">
+    <value>商品價格</value>
+  </data>
+  <data name="productStock" xml:space="preserve">
+    <value>庫存量</value>
+  </data>
+  <data name="productSystem" xml:space="preserve">
+    <value>商品系統</value>
+  </data>
+  <data name="productType" xml:space="preserve">
+    <value>商品類型</value>
+  </data>
+  <data name="pwd" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="received" xml:space="preserve">
+    <value>已取貨</value>
+  </data>
+  <data name="reduceStock" xml:space="preserve">
+    <value>減少庫存量</value>
+  </data>
+  <data name="return" xml:space="preserve">
+    <value>申請退貨</value>
+  </data>
+  <data name="returned" xml:space="preserve">
+    <value>已退貨</value>
+  </data>
+  <data name="returning" xml:space="preserve">
+    <value>退貨中</value>
+  </data>
+  <data name="roles" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>查詢</value>
+  </data>
+  <data name="serialNumber" xml:space="preserve">
+    <value>訂購者</value>
+  </data>
+  <data name="shipped" xml:space="preserve">
+    <value>已發貨</value>
+  </data>
+  <data name="shipping" xml:space="preserve">
+    <value>發貨中</value>
+  </data>
+  <data name="signOut" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="stock" xml:space="preserve">
+    <value>庫存</value>
+  </data>
+  <data name="superAdmin" xml:space="preserve">
+    <value>超級管理員</value>
+  </data>
+  <data name="title1Default" xml:space="preserve">
+    <value>歡迎登入後台系統</value>
+  </data>
+  <data name="titleAddUser" xml:space="preserve">
+    <value>新增帳號</value>
+  </data>
+  <data name="titleEditUser" xml:space="preserve">
+    <value>修改帳號</value>
+  </data>
+  <data name="titleLogin" xml:space="preserve">
+    <value>登入頁面</value>
+  </data>
+  <data name="titleMember" xml:space="preserve">
+    <value>會員帳號</value>
+  </data>
+  <data name="titleOrder" xml:space="preserve">
+    <value>訂單</value>
+  </data>
+  <data name="titleUser" xml:space="preserve">
+    <value>管理員帳號</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>總金額</value>
+  </data>
+  <data name="totalSpent" xml:space="preserve">
+    <value>總花費</value>
+  </data>
+  <data name="txbAccount" xml:space="preserve">
+    <value>請輸入帳號</value>
+  </data>
+  <data name="txbPassword" xml:space="preserve">
+    <value>請輸入密碼</value>
+  </data>
+  <data name="userId" xml:space="preserve">
+    <value>管理員ID</value>
+  </data>
+  <data name="wallet" xml:space="preserve">
+    <value>錢包</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>是</value>
   </data>
 </root>

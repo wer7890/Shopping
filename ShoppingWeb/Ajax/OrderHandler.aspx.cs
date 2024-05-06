@@ -82,7 +82,7 @@ namespace ShoppingWeb.Ajax
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@orderId", orderId));
-                    int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "zh") ? 1 : 2;
+                    int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
                     cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
                     SqlDataReader reader = cmd.ExecuteReader();
                     DataTable dt = new DataTable();

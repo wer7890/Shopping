@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ShoppingWeb.Web.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ShoppingWeb.Web.Login" Culture="auto"  UICulture="auto" %>
 
 <!DOCTYPE html>
 
@@ -44,14 +44,19 @@
             </div>
 
             <div class="row justify-content-center align-self-center mt-5">
-                <button id="btnChinese" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm" onclick="ChangeLanguage('zh')">中文</button>
-                <button id="btnEnglish" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm" onclick="ChangeLanguage('en')">English</button>
+                <button id="btnChinese" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm" onclick="ChangeLanguage('TW')">中文</button>
+                <button id="btnEnglish" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm" onclick="ChangeLanguage('EN')">English</button>
             </div>
         </div>
         <br />
         <div class="row">
             <label id="labLogin" class="col-12 col-sm-12 text-center text-success"></label>
         </div>
+        <p><%= Resources.ResourceTW.titleLogin %></p>
+        <p><%= Resources.ResourceEN.titleLogin %></p>
+        <p><%= Resources.ResourceTW.btnLogin %></p>
+        <p><%= Resources.ResourceEN.btnLogin %></p>
+        <%--<p><%= Resources.ResourceManager.GetString("Title", System.Globalization.CultureInfo.GetCultureInfo(resourceFile)) %></p>--%>
     </div>
 
 </body>
