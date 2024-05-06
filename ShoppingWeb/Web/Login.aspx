@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ShoppingWeb.Web.Login" Culture="auto"  UICulture="auto" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ShoppingWeb.Web.Login"%>
 
 <!DOCTYPE html>
 
@@ -11,7 +11,6 @@
 
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= Request.Cookies["language"].Value.ToString() %>.js"></script>
     <script src="/js/<%= jsVersion %>/Login.js"></script>
 
@@ -19,28 +18,28 @@
 <body>
     <div class="container">
         <div class="row">
-            <h1 class="text-center mt-3 i18n" data-key="titleLogin">登入頁面</h1>
+            <h1 class="text-center mt-3"><%= Resources.Resource.titleLogin %></h1>
         </div>
         <hr />
         <div class="row mx-auto col-12 col-md-5">
             <div class="form-group">
-                <label for="txbAccount" class="control-label i18n" data-key="account">帳號:</label>
+                <label for="txbAccount" class="control-label"><%= Resources.Resource.account %>:</label>
                 <div>
-                    <input type="text" id="txbAccount" class="form-control mt-2 i18n" placeholder="請輸入帳號" data-placeholder-key="txbAccount" />
+                    <input type="text" id="txbAccount" class="form-control mt-2" placeholder="<%= Resources.Resource.txbAccount %>" />
                 </div>
             </div>
 
             <br />
             <div class="form-group mt-3">
-                <label for="txbPassword" class="control-label i18n" data-key="pwd">密碼:</label>
+                <label for="txbPassword" class="control-label"><%= Resources.Resource.pwd %>:</label>
                 <div>
-                    <input type="password" id="txbPassword" class="form-control mt-2 i18n" placeholder="請輸入密碼" data-placeholder-key="txbPassword" />
+                    <input type="password" id="txbPassword" class="form-control mt-2" placeholder="<%= Resources.Resource.txbPassword %>" />
                 </div>
             </div>
 
             <br />
             <div class="row justify-content-center align-self-center mt-3">
-                <button id="btnLogin" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6 i18n" data-key="btnLogin">登入</button>
+                <button id="btnLogin" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6"><%= Resources.Resource.btnLogin %></button>
             </div>
 
             <div class="row justify-content-center align-self-center mt-5">
@@ -52,11 +51,7 @@
         <div class="row">
             <label id="labLogin" class="col-12 col-sm-12 text-center text-success"></label>
         </div>
-        <p><%= Resources.ResourceTW.titleLogin %></p>
-        <p><%= Resources.ResourceEN.titleLogin %></p>
-        <p><%= Resources.ResourceTW.btnLogin %></p>
-        <p><%= Resources.ResourceEN.btnLogin %></p>
-        <%--<p><%= Resources.ResourceManager.GetString("Title", System.Globalization.CultureInfo.GetCultureInfo(resourceFile)) %></p>--%>
+
     </div>
 
 </body>

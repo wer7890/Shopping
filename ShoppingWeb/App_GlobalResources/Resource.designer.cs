@@ -22,14 +22,14 @@ namespace Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ResourceEN {
+    internal class Resource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ResourceEN() {
+        internal Resource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.ResourceEN", global::System.Reflection.Assembly.Load("App_GlobalResources"));
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Resource", global::System.Reflection.Assembly.Load("App_GlobalResources"));
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Account 的本地化字符串。
+        ///  查找类似 帳號 的本地化字符串。
         /// </summary>
         internal static string account {
             get {
@@ -70,7 +70,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Status 的本地化字符串。
+        ///  查找类似 狀態 的本地化字符串。
         /// </summary>
         internal static string accountStatus {
             get {
@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Add Member 的本地化字符串。
+        ///  查找类似 新增會員 的本地化字符串。
         /// </summary>
         internal static string addMember {
             get {
@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Add Product 的本地化字符串。
+        ///  查找类似 新增商品 的本地化字符串。
         /// </summary>
         internal static string addProduct {
             get {
@@ -97,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Increase Stock 的本地化字符串。
+        ///  查找类似 增加庫存量 的本地化字符串。
         /// </summary>
         internal static string addStock {
             get {
@@ -106,7 +106,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Add Administrator 的本地化字符串。
+        ///  查找类似 新增管理員 的本地化字符串。
         /// </summary>
         internal static string addUser {
             get {
@@ -115,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Administrator system 的本地化字符串。
+        ///  查找类似 管理員系統 的本地化字符串。
         /// </summary>
         internal static string adminSystem {
             get {
@@ -124,7 +124,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 All 的本地化字符串。
+        ///  查找类似 全部 的本地化字符串。
         /// </summary>
         internal static string all {
             get {
@@ -133,7 +133,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Arrived 的本地化字符串。
+        ///  查找类似 已到貨 的本地化字符串。
         /// </summary>
         internal static string arrived {
             get {
@@ -142,7 +142,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Login 的本地化字符串。
+        ///  查找类似 登入 的本地化字符串。
         /// </summary>
         internal static string btnLogin {
             get {
@@ -151,7 +151,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Categories 的本地化字符串。
+        ///  查找类似 類型 的本地化字符串。
         /// </summary>
         internal static string categories {
             get {
@@ -160,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Select a type first 的本地化字符串。
+        ///  查找类似 請先選擇類型 的本地化字符串。
         /// </summary>
         internal static string chooseType {
             get {
@@ -169,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Creation Time 的本地化字符串。
+        ///  查找类似 建立時間 的本地化字符串。
         /// </summary>
         internal static string createdTime {
             get {
@@ -178,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Creator ID 的本地化字符串。
+        ///  查找类似 建立者ID 的本地化字符串。
         /// </summary>
         internal static string createdUser {
             get {
@@ -187,7 +187,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Account:  的本地化字符串。
+        ///  查找类似 帳號:  的本地化字符串。
         /// </summary>
         internal static string defaultAccount {
             get {
@@ -196,7 +196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Delete 的本地化字符串。
+        ///  查找类似 刪除 的本地化字符串。
         /// </summary>
         internal static string del {
             get {
@@ -205,7 +205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Delivery Method 的本地化字符串。
+        ///  查找类似 配送方式 的本地化字符串。
         /// </summary>
         internal static string deliveryMethod {
             get {
@@ -214,7 +214,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Delivery Status 的本地化字符串。
+        ///  查找类似 配送狀態 的本地化字符串。
         /// </summary>
         internal static string deliveryStatus {
             get {
@@ -223,7 +223,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Edit 的本地化字符串。
+        ///  查找类似 更改 的本地化字符串。
         /// </summary>
         internal static string edit {
             get {
@@ -232,7 +232,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Edit Product 的本地化字符串。
+        ///  查找类似 編輯商品 的本地化字符串。
         /// </summary>
         internal static string editProduct {
             get {
@@ -250,7 +250,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Image 的本地化字符串。
+        ///  查找类似 圖片 的本地化字符串。
         /// </summary>
         internal static string img {
             get {
@@ -259,7 +259,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Description 的本地化字符串。
+        ///  查找类似 描述 的本地化字符串。
         /// </summary>
         internal static string introduce {
             get {
@@ -268,7 +268,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Is Open 的本地化字符串。
+        ///  查找类似 是否開放 的本地化字符串。
         /// </summary>
         internal static string isOpen {
             get {
@@ -277,7 +277,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Level 的本地化字符串。
+        ///  查找类似 等級 的本地化字符串。
         /// </summary>
         internal static string level {
             get {
@@ -286,7 +286,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Member Administrator 的本地化字符串。
+        ///  查找类似 會員管理員 的本地化字符串。
         /// </summary>
         internal static string memberAdmin {
             get {
@@ -295,7 +295,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Member system 的本地化字符串。
+        ///  查找类似 會員系統 的本地化字符串。
         /// </summary>
         internal static string memberSystem {
             get {
@@ -304,7 +304,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Subtype 的本地化字符串。
+        ///  查找类似 子類型 的本地化字符串。
         /// </summary>
         internal static string minorCategories {
             get {
@@ -313,7 +313,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Name 的本地化字符串。
+        ///  查找类似 名稱 的本地化字符串。
         /// </summary>
         internal static string name {
             get {
@@ -322,7 +322,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 No 的本地化字符串。
+        ///  查找类似 否 的本地化字符串。
         /// </summary>
         internal static string no {
             get {
@@ -331,7 +331,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Open 的本地化字符串。
+        ///  查找类似 開啟 的本地化字符串。
         /// </summary>
         internal static string open {
             get {
@@ -340,7 +340,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Order ID 的本地化字符串。
+        ///  查找类似 訂單編號 的本地化字符串。
         /// </summary>
         internal static string orderId {
             get {
@@ -349,7 +349,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Order Status 的本地化字符串。
+        ///  查找类似 訂單狀態 的本地化字符串。
         /// </summary>
         internal static string orderStatus {
             get {
@@ -358,7 +358,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Order system 的本地化字符串。
+        ///  查找类似 訂單系統 的本地化字符串。
         /// </summary>
         internal static string orderSystem {
             get {
@@ -367,7 +367,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Phone Number 的本地化字符串。
+        ///  查找类似 電話 的本地化字符串。
         /// </summary>
         internal static string phoneNumber {
             get {
@@ -376,7 +376,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Price 的本地化字符串。
+        ///  查找类似 價格 的本地化字符串。
         /// </summary>
         internal static string price {
             get {
@@ -385,7 +385,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product 的本地化字符串。
+        ///  查找类似 商品 的本地化字符串。
         /// </summary>
         internal static string product {
             get {
@@ -394,7 +394,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product Administrator 的本地化字符串。
+        ///  查找类似 商品管理員 的本地化字符串。
         /// </summary>
         internal static string productAdmin {
             get {
@@ -403,7 +403,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product ID 的本地化字符串。
+        ///  查找类似 商品ID 的本地化字符串。
         /// </summary>
         internal static string productId {
             get {
@@ -412,7 +412,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product Image 的本地化字符串。
+        ///  查找类似 商品圖示 的本地化字符串。
         /// </summary>
         internal static string productImg {
             get {
@@ -421,7 +421,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product English Description 的本地化字符串。
+        ///  查找类似 商品英文描述 的本地化字符串。
         /// </summary>
         internal static string productIntroduceEN {
             get {
@@ -430,7 +430,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product Chinese Description 的本地化字符串。
+        ///  查找类似 商品中文描述 的本地化字符串。
         /// </summary>
         internal static string productIntroduceTW {
             get {
@@ -439,7 +439,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product English Name 的本地化字符串。
+        ///  查找类似 商品英文名稱:  的本地化字符串。
         /// </summary>
         internal static string productNameEN {
             get {
@@ -448,7 +448,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product Name Search 的本地化字符串。
+        ///  查找类似 商品名稱搜尋 的本地化字符串。
         /// </summary>
         internal static string productNameSelect {
             get {
@@ -457,7 +457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product Chinese Name 的本地化字符串。
+        ///  查找类似 商品中文名稱:  的本地化字符串。
         /// </summary>
         internal static string productNameTW {
             get {
@@ -466,7 +466,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product Price 的本地化字符串。
+        ///  查找类似 商品價格 的本地化字符串。
         /// </summary>
         internal static string productPrice {
             get {
@@ -475,7 +475,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Stock 的本地化字符串。
+        ///  查找类似 庫存量 的本地化字符串。
         /// </summary>
         internal static string productStock {
             get {
@@ -484,7 +484,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product systemc 的本地化字符串。
+        ///  查找类似 商品系統 的本地化字符串。
         /// </summary>
         internal static string productSystem {
             get {
@@ -493,7 +493,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Product Type 的本地化字符串。
+        ///  查找类似 商品類型 的本地化字符串。
         /// </summary>
         internal static string productType {
             get {
@@ -502,7 +502,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Password 的本地化字符串。
+        ///  查找类似 密碼 的本地化字符串。
         /// </summary>
         internal static string pwd {
             get {
@@ -511,7 +511,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Received 的本地化字符串。
+        ///  查找类似 已取貨 的本地化字符串。
         /// </summary>
         internal static string received {
             get {
@@ -520,7 +520,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Decrease Stock 的本地化字符串。
+        ///  查找类似 減少庫存量 的本地化字符串。
         /// </summary>
         internal static string reduceStock {
             get {
@@ -529,7 +529,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Returned 的本地化字符串。
+        ///  查找类似 已退貨 的本地化字符串。
         /// </summary>
         internal static string returned {
             get {
@@ -538,7 +538,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Returning 的本地化字符串。
+        ///  查找类似 退貨中 的本地化字符串。
         /// </summary>
         internal static string returning {
             get {
@@ -547,7 +547,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Roles 的本地化字符串。
+        ///  查找类似 角色 的本地化字符串。
         /// </summary>
         internal static string roles {
             get {
@@ -556,7 +556,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Search 的本地化字符串。
+        ///  查找类似 查詢 的本地化字符串。
         /// </summary>
         internal static string select {
             get {
@@ -565,7 +565,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Serial Number 的本地化字符串。
+        ///  查找类似 訂購者 的本地化字符串。
         /// </summary>
         internal static string serialNumber {
             get {
@@ -574,7 +574,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Shipped 的本地化字符串。
+        ///  查找类似 已發貨 的本地化字符串。
         /// </summary>
         internal static string shipped {
             get {
@@ -583,7 +583,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Shipping 的本地化字符串。
+        ///  查找类似 發貨中 的本地化字符串。
         /// </summary>
         internal static string shipping {
             get {
@@ -592,7 +592,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Sign out 的本地化字符串。
+        ///  查找类似 登出 的本地化字符串。
         /// </summary>
         internal static string signOut {
             get {
@@ -601,7 +601,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Stock 的本地化字符串。
+        ///  查找类似 庫存 的本地化字符串。
         /// </summary>
         internal static string stock {
             get {
@@ -610,7 +610,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Super Administrator 的本地化字符串。
+        ///  查找类似 超級管理員 的本地化字符串。
         /// </summary>
         internal static string superAdmin {
             get {
@@ -619,7 +619,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Welcome to the backend system 的本地化字符串。
+        ///  查找类似 歡迎登入後台系統 的本地化字符串。
         /// </summary>
         internal static string title1Default {
             get {
@@ -628,7 +628,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Add User 的本地化字符串。
+        ///  查找类似 新增帳號 的本地化字符串。
         /// </summary>
         internal static string titleAddUser {
             get {
@@ -637,7 +637,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Edit User 的本地化字符串。
+        ///  查找类似 修改帳號 的本地化字符串。
         /// </summary>
         internal static string titleEditUser {
             get {
@@ -646,7 +646,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Login page 的本地化字符串。
+        ///  查找类似 登入頁面 的本地化字符串。
         /// </summary>
         internal static string titleLogin {
             get {
@@ -655,7 +655,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Member Account 的本地化字符串。
+        ///  查找类似 會員帳號 的本地化字符串。
         /// </summary>
         internal static string titleMember {
             get {
@@ -664,7 +664,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Orders 的本地化字符串。
+        ///  查找类似 訂單 的本地化字符串。
         /// </summary>
         internal static string titleOrder {
             get {
@@ -673,7 +673,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Administrator Account 的本地化字符串。
+        ///  查找类似 管理員帳號 的本地化字符串。
         /// </summary>
         internal static string titleUser {
             get {
@@ -682,7 +682,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Total Amount 的本地化字符串。
+        ///  查找类似 總金額 的本地化字符串。
         /// </summary>
         internal static string total {
             get {
@@ -691,7 +691,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Total Spent 的本地化字符串。
+        ///  查找类似 總花費 的本地化字符串。
         /// </summary>
         internal static string totalSpent {
             get {
@@ -700,7 +700,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Please enter account 的本地化字符串。
+        ///  查找类似 請輸入帳號 的本地化字符串。
         /// </summary>
         internal static string txbAccount {
             get {
@@ -709,7 +709,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Please enter password 的本地化字符串。
+        ///  查找类似 請輸入密碼 的本地化字符串。
         /// </summary>
         internal static string txbPassword {
             get {
@@ -718,7 +718,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Administrator ID 的本地化字符串。
+        ///  查找类似 管理員ID 的本地化字符串。
         /// </summary>
         internal static string userId {
             get {
@@ -727,7 +727,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Wallet 的本地化字符串。
+        ///  查找类似 錢包 的本地化字符串。
         /// </summary>
         internal static string wallet {
             get {
@@ -736,7 +736,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Yes 的本地化字符串。
+        ///  查找类似 是 的本地化字符串。
         /// </summary>
         internal static string yes {
             get {
@@ -745,7 +745,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 Return Requested 的本地化字符串。
+        ///  查找类似 申請退貨 的本地化字符串。
         /// </summary>
         internal static string _return {
             get {

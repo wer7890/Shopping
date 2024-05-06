@@ -26,7 +26,6 @@
 };
 
 $(document).ready(function () {
-    GetLanguageText();
 
     //按下登入按鈕
     $("#btnLogin").click(function () {

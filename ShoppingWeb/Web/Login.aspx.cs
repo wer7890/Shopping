@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Reflection;
 using System.Resources;
 using System.Threading;
 using System.Web;
@@ -11,8 +12,6 @@ namespace ShoppingWeb.Web
         public string cssVersion;
         public string jsVersion;
 
-        public string aaa;
-        public string resourceFile;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -24,12 +23,18 @@ namespace ShoppingWeb.Web
                 cssVersion = versionData["cssVersion"];
                 jsVersion = versionData["jsVersion"];
 
+                HttpCookie cookie = new HttpCookie("language")
+                {
+                    Value = "TW",
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                HttpContext.Current.Response.Cookies.Add(cookie);
 
-                resourceFile = "Resource" + (Request.Cookies["Language"] != null && Request.Cookies["Language"].Value == "TW" ? "TW" : "EN");
-                string a = resourceFile;
-                aaa = Resources.ResourceEN.titleLogin;
-                
+                string selectedLanguage = Request.Cookies["language"].Value;
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(selectedLanguage);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);
             }
+            
 
         }
 

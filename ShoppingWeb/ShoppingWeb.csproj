@@ -144,15 +144,15 @@
     <Compile Include="Ajax\UserHandler.aspx.designer.cs">
       <DependentUpon>UserHandler.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\ResourceEN.Designer.cs">
+    <Compile Include="App_GlobalResources\Resource.EN.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ResourceEN.resx</DependentUpon>
+      <DependentUpon>Resource.EN.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\ResourceTW.designer.cs">
+    <Compile Include="App_GlobalResources\Resource.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ResourceTW.resx</DependentUpon>
+      <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -253,15 +253,15 @@
     <Folder Include="ProductImg\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\ResourceTW.resx">
+    <Content Include="App_GlobalResources\Resource.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>ResourceTW.designer.cs</LastGenOutput>
+      <LastGenOutput>Resource.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\ResourceEN.resx">
+    <Content Include="App_GlobalResources\Resource.EN.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>ResourceEN.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resource.EN.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <PropertyGroup>

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Services;
 
@@ -49,6 +51,11 @@ namespace ShoppingWeb.Ajax
 
                 cssVersion = versionData["cssVersion"];
                 jsVersion = versionData["jsVersion"];
+
+
+                string selectedLanguage = Request.Cookies["Language"].Value;
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(selectedLanguage);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);
             }
         }
 
