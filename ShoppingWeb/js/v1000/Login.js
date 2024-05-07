@@ -1,32 +1,10 @@
-﻿let translations = {
-    'titleLogin': {
-        'zh': '登入頁面',
-        'en': 'Login page'
-    },
-    'labAccount': {
-        'zh': '帳號:',
-        'en': 'Account:'
-    },
-    'labPassword': {
-        'zh': '密碼:',
-        'en': 'Password:'
-    },
-    'btnLogin': {
-        'zh': '登入',
-        'en': 'Login'
-    },
-    'txbAccount': {
-        'zh': '請輸入帳號',
-        'en': 'Please enter account'
-    },
-    'txbPassword': {
-        'zh': '請輸入密碼',
-        'en': 'Please enter password'
+﻿$(document).ready(function () {
+    let accountValue = GetAccountCookie("account");
+
+    if (accountValue) {
+        $("#txbAccount").val(accountValue);
     }
-};
-
-$(document).ready(function () {
-
+    
     //按下登入按鈕
     $("#btnLogin").click(function () {
         let account = $("#txbAccount").val();
@@ -49,6 +27,11 @@ $(document).ready(function () {
                         $("#labLogin").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間");
                         break;
                     case 100:
+
+                        if ($("#flexCheckDefault").is(":checked")) {
+                            document.cookie = 'account=' + account + '; max-age=86400; path=/';  //1天到期，path=/該cookie整個網站都是可看見的
+                        }
+
                         window.location.href = "Frame.aspx";
                         break;
                     case 101:
@@ -106,3 +89,17 @@ function ChangeLanguage(language) {
         }
     });
 }
+
+//查看cookie中有無帳號的cookie，如果有就拿出來
+function GetAccountCookie(name) {
+    var cookies = document.cookie.split(';');
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    return null;
+}
+

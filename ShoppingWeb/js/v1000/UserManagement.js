@@ -1,33 +1,6 @@
 ﻿$(document).ready(function () {
-    let currentPage = 1; // 初始頁碼為 1
-    let pageSize = 5; // 每頁顯示的資料筆數
 
     SearchAllUserInfo(currentPage, pageSize);
-
-    //上一頁
-    $("#ulPagination").on("click", "#previousPage", function () {
-        if (currentPage > 1) {
-            currentPage--;
-            SearchAllUserInfo(currentPage, pageSize);
-        }
-        $("#labSearchUser").text("");
-    });
-
-    //下一頁
-    $("#ulPagination").on("click", "#nextPage", function () {
-        if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
-            currentPage++;
-            SearchAllUserInfo(currentPage, pageSize);
-        }
-        $("#labSearchUser").text("");
-    });
-
-    //數字頁數
-    $("#pagination").on('click', 'a.pageNumber', function () {
-        currentPage = parseInt($(this).text());
-        SearchAllUserInfo(currentPage, pageSize);
-        $("#labSearchUser").text("");
-    });
 
     //新增管理員
     $("#btnAddUser").click(function () {
@@ -55,7 +28,7 @@
         ToggleUserRoles(userId, roles);
     });
 
-})
+});
 
 //全部管理員資料
 function SearchAllUserInfo(pageNumber, pageSize) {
@@ -98,17 +71,7 @@ function SearchAllUserInfo(pageNumber, pageSize) {
                     tableBody.append(row);
                 });
 
-                //依資料筆數來開分頁頁數
-                if (response.d.TotalPages > 0) {
-                    let ulPagination = $('#ulPagination');
-                    ulPagination.empty();
-                    ulPagination.append('<li class="page-item" id="previousPage"><a class="page-link" href="#"> << </a></li>');
-                    for (let i = 1; i <= response.d.TotalPages; i++) {
-                        ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link pageNumber" href="#">' + i + '</a></li>');
-                    }
-                    ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
-
-                }
+                AddPages(response.d.TotalPages)
             }
             UpdatePaginationControls(pageNumber);
         },
@@ -214,12 +177,6 @@ function ToggleUserRoles(userId, roles) {
             $("#labSearchUser").text(langFont["ajaxError"]);
         }
     });
-}
-
-// 當切換到哪個頁面時，就把該頁面的按鈕變色
-function UpdatePaginationControls(currentPage) {
-    $('#pagination .page-item').removeClass('active');
-    $('#page' + currentPage).addClass('active');
 }
 
 // 比較函數，根據列的索引進行比較，根據給定索引值比較兩個行的值。如果值是數字，則使用數字比較，否則使用字典順序比較。

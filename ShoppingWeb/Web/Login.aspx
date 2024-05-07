@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>後臺登入</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
-    
+
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
@@ -39,6 +39,12 @@
 
             <br />
             <div class="row justify-content-center align-self-center mt-3">
+                <div class="form-check ms-4">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                        記住帳號
+                    </label>
+                </div>
                 <button id="btnLogin" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6"><%= Resources.Resource.btnLogin %></button>
             </div>
 
