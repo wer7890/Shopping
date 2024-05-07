@@ -439,7 +439,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 商品英文名稱:  的本地化字符串。
+        ///  查找类似 商品英文名稱 的本地化字符串。
         /// </summary>
         internal static string productNameEN {
             get {
@@ -457,7 +457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///  查找类似 商品中文名稱:  的本地化字符串。
+        ///  查找类似 商品中文名稱 的本地化字符串。
         /// </summary>
         internal static string productNameTW {
             get {

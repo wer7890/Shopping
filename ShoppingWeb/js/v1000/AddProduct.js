@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     ProductDataReady();
-    GetLanguageText();
     
     //按下新增按鈕
     $("#btnAddProduct").click(function () {

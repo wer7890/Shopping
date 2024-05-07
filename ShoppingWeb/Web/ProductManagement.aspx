@@ -9,35 +9,34 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= Request.Cookies["language"].Value.ToString() %>.js"></script>
     <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
     <script src="/js/<%= jsVersion %>/ProductManagement.js"></script>
 </head>
 <body>
     <div class="w-auto mx-3">
-        <h2 class="text-center i18n" data-key="product">商品</h2>
+        <h2 class="text-center"><%= Resources.Resource.product %></h2>
         <br />
         <div class="row mx-auto col-12 mb-3">
             <div class="col px-0" id="divCategories">
             </div>
             <div class="col" id="divMinorCategory">
-                <label for="minorCategory" class="form-label i18n" data-key="minorCategories">子類型</label>
+                <label for="minorCategory" class="form-label"><%= Resources.Resource.minorCategories %></label>
                 <select id="minorCategory" class="form-select">
-                    <option value="" class="i18n" data-key="chooseType">請先選擇類型</option>
+                    <option value=""><%= Resources.Resource.chooseType %></option>
                 </select>
             </div>
             <div class="col ps-0" id="divBrand">
             </div>
             <div class="col px-0">
-                <label for="txbProductSearch" class="form-label i18n" data-key="productNameSelect">商品名稱搜尋</label>
-                <input type="text" class="form-control i18n" id="txbProductSearch" data-placeholder-key="productNameSelect" placeholder="商品名稱搜尋" />
+                <label for="txbProductSearch" class="form-label"><%= Resources.Resource.productNameSelect %></label>
+                <input type="text" class="form-control" id="txbProductSearch" placeholder="<%= Resources.Resource.productNameSelect %>" />
             </div>
             <div class="col-1 px-0 d-flex justify-content-center align-items-end">
-                <button id="btnSearchProduct" type="submit" class="btn btn-outline-primary i18n" data-key="select">查詢</button>
+                <button id="btnSearchProduct" type="submit" class="btn btn-outline-primary"><%= Resources.Resource.select %></button>
             </div>
             <div class="col-2 px-0 d-flex justify-content-center align-items-end">
-                <button id="btnAddProduct" type="submit" class="btn btn-outline-primary i18n" data-key="addProduct">新增商品</button>
+                <button id="btnAddProduct" type="submit" class="btn btn-outline-primary"><%= Resources.Resource.addProduct %></button>
             </div>
         </div>
 
@@ -46,25 +45,25 @@
                 <thead>
                     <tr>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="id">ID</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.id %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="name">名稱</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.name %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="categories">類型</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.categories %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="price">價格</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.price %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="stock">庫存</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.stock %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="open">開放</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.open %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="introduce">描述</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.introduce %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="img">圖片</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.img %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="edit">更改</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.edit %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="del">刪除</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.del %></button></th>
 
                     </tr>
                 </thead>

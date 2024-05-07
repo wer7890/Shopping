@@ -244,13 +244,13 @@
     <value>商品中文描述</value>
   </data>
   <data name="productNameEN" xml:space="preserve">
-    <value>商品英文名稱: </value>
+    <value>商品英文名稱</value>
   </data>
   <data name="productNameSelect" xml:space="preserve">
     <value>商品名稱搜尋</value>
   </data>
   <data name="productNameTW" xml:space="preserve">
-    <value>商品中文名稱: </value>
+    <value>商品中文名稱</value>
   </data>
   <data name="productPrice" xml:space="preserve">
     <value>商品價格</value>

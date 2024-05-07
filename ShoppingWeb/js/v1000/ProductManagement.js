@@ -146,7 +146,6 @@ function SearchAllProduct(pageNumber, pageSize) {
                 }
             }
             UpdatePaginationControls(pageNumber);
-            GetLanguageText();
         },
         error: function (error) {
             console.error('Error:', error);

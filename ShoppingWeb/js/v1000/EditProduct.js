@@ -1,6 +1,4 @@
 ﻿$(document).ready(function () {
-    GetLanguageText();
-
     let dbStock = null;
     //一開始input預設值
     $.ajax({
@@ -13,13 +11,13 @@
                 $("#labRenewProduct").text(langFont["errorLog"]);
             } else {
                 // 直接設定 input 元素的值
-                $("#labProductId").text(": " + data.d.ProductId);
-                $("#labProductCreatedOn").text(": " + data.d.ProductCreatedOn);
-                $("#labProductOwner").text(": " + data.d.ProductOwner);
-                $("#labProductName").text(": " + data.d.ProductName);
-                $("#labProductNameEN").text(": " + data.d.ProductNameEN);
-                $("#labProductCategory").text(": " + CategoryCodeToText(data.d.ProductCategory.toString()));
-                $("#labProductStock").text(": " + data.d.ProductStock);
+                $("#labProductId").text(data.d.ProductId);
+                $("#labProductCreatedOn").text(data.d.ProductCreatedOn);
+                $("#labProductOwner").text(data.d.ProductOwner);
+                $("#labProductName").text(data.d.ProductName);
+                $("#labProductNameEN").text(data.d.ProductNameEN);
+                $("#labProductCategory").text(CategoryCodeToText(data.d.ProductCategory.toString()));
+                $("#labProductStock").text(data.d.ProductStock);
                 $("#imgProduct").attr("src", "/ProductImg/" + data.d.ProductImg);
                 $("#txbProductPrice").val(data.d.ProductPrice);
                 $("#txbProductIntroduce").val(data.d.ProductIntroduce);
