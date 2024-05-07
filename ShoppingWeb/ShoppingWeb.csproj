@@ -89,7 +89,6 @@
     <Content Include="js\v1000\ProductCategories.js" />
     <Content Include="js\v1000\UserManagement.js" />
     <Content Include="js\v1000\bootstrap.bundle.min.js" />
-    <Content Include="js\v1000\I18n.js" />
     <Content Include="js\v1000\Login.js" />
     <Content Include="js\v1000\EditProduct.js" />
     <Content Include="js\v1000\ProductManagement.js" />
