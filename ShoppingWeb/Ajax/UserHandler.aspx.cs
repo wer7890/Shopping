@@ -101,12 +101,12 @@ namespace ShoppingWeb.Ajax
         [WebMethod]
         public static bool SetLanguage(string language) 
         {
-            HttpCookie cookie = new HttpCookie("language")
+
+            if (HttpContext.Current.Request.Cookies["language"] != null)
             {
-                Value = language,
-                Expires = DateTime.Now.AddDays(1)
-            };
-            HttpContext.Current.Response.Cookies.Add(cookie);
+                HttpContext.Current.Response.Cookies["language"].Value = language;
+                HttpContext.Current.Response.Cookies["language"].Expires = DateTime.Now.AddDays(1);
+            }
 
             return true;
         }
