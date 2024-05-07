@@ -167,8 +167,6 @@ function SearchAllMember() {
 
                     tableBody.append(row);
                 });
-
-                GetLanguageText();
             }
 
         },
