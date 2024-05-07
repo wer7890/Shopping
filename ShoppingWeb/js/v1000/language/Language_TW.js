@@ -1,8 +1,6 @@
 ﻿let langFont = {
-    'titleLogin': '登入頁面',
-    'btnLogin': '登入',
-    'txbAccount': '請輸入帳號',
-    'txbPassword': '請輸入密碼',
+    'loginFormat': '帳號和密碼不能含有非英文和數字且長度應在6到16之間',
+    'loginFailed': '帳號密碼錯誤',
 
     'adminSystem': '管理員系統',
     'memberSystem': '會員系統',

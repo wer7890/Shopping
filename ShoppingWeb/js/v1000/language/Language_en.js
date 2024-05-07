@@ -1,8 +1,6 @@
 ﻿let langFont = {
-    'titleLogin': 'Login page',
-    'btnLogin': 'Login',
-    'txbAccount': 'Please enter account',
-    'txbPassword': 'Please enter password',
+    'loginFormat': 'The account number and password cannot contain non-English and numbers and should be between 6 and 16 in length',
+    'loginFailed': 'Account password is wrong',
 
     'adminSystem': 'Administrator system',
     'memberSystem': 'Member system',

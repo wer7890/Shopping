@@ -10,11 +10,11 @@ namespace ShoppingWeb.Ajax
         /// <summary>
         /// 中文
         /// </summary>
-        TW = 200,
+        TW = 0,
 
         /// <summary>
         /// 英文
         /// </summary>
-        EN = 201,
+        EN = 1,
     }
 }

@@ -23,7 +23,7 @@ namespace ShoppingWeb.Web
                 cssVersion = versionData["cssVersion"];
                 jsVersion = versionData["jsVersion"];
 
-                if (HttpContext.Current.Request.Cookies["language"] == null)
+                if (HttpContext.Current.Request.Cookies["language"] == null)//還要判斷Cookies["language"].Value是不是符合enum
                 {
                     HttpCookie cookie = new HttpCookie("language")
                     {
@@ -32,7 +32,7 @@ namespace ShoppingWeb.Web
                     };
                     HttpContext.Current.Response.Cookies.Add(cookie);
                 }
-                
+
                 string selectedLanguage = Request.Cookies["language"].Value;
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(selectedLanguage);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);

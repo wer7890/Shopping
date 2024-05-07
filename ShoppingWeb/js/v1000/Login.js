@@ -24,7 +24,7 @@
             success: function (response) {
                 switch (response.d) {
                     case 2:
-                        $("#labLogin").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間");
+                        $("#labLogin").text(langFont["loginFormat"]);
                         break;
                     case 100:
 
@@ -35,16 +35,16 @@
                         window.location.href = "Frame.aspx";
                         break;
                     case 101:
-                        $("#labLogin").text("帳號密碼錯誤");
+                        $("#labLogin").text(langFont["loginFailed"]);
                         break;
                     default:
-                        $("#labLogin").text("發生發生內部錯誤，請看日誌");
+                        $("#labLogin").text(langFont["errorLog"]);
 
                 }
             },
             error: function (error) {
                 console.error('AJAX Error:', error);
-                $("#labLogin").text("發生錯誤，請查看控制台");
+                $("#labLogin").text(langFont["ajaxError"]);
             }
         });
     });
@@ -66,7 +66,7 @@ function IsSpecialChar(account, pwd) {
 
 
     if (!accountValid || !pwdValid) {
-        $("#labLogin").text("帳號和密碼不能含有非英文和數字且長度應在6到16之間");
+        $("#labLogin").text(langFont["loginFormat"]);
     }
 
     return accountValid && pwdValid;
@@ -85,7 +85,7 @@ function ChangeLanguage(language) {
         },
         error: function (error) {
             console.error('AJAX Error:', error);
-            $("#labLogin").text("發生錯誤，請查看控制台");
+            $("#labLogin").text(langFont["ajaxError"]);
         }
     });
 }
