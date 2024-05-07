@@ -240,17 +240,16 @@ function OrderHtml(orderData, deliveryStatusCountData) {
     });
 
     tableBody.append(row);
-    GetLanguageText();
-
+    $(".btnSpan").remove();
     $.each(deliveryStatusCountData, function (index, item) {
-        $("#btnDeliveryStatus_0").append('<span>(' + item.statusAll + ')</span>');
-        $("#btnDeliveryStatus_1").append('<span>(' + item.status1 + ')</span>');
-        $("#btnDeliveryStatus_2").append('<span>(' + item.status2 + ')</span>');
-        $("#btnDeliveryStatus_3").append('<span>(' + item.status3 + ')</span>');
-        $("#btnDeliveryStatus_4").append('<span>(' + item.status4 + ')</span>');
-        $("#btnDeliveryStatus_5").append('<span>(' + item.status5 + ')</span>');
-        $("#btnDeliveryStatus_6 ").append('<span>(' + item.status6 + ')</span>');
-        $("#btnOrderStatus_2").append('<span>(' + item.orderStatus2 + ')</span>');
+        $("#btnDeliveryStatus_0").append('<span class="btnSpan">(' + item.statusAll + ')</span>');
+        $("#btnDeliveryStatus_1").append('<span class="btnSpan">(' + item.status1 + ')</span>');
+        $("#btnDeliveryStatus_2").append('<span class="btnSpan">(' + item.status2 + ')</span>');
+        $("#btnDeliveryStatus_3").append('<span class="btnSpan">(' + item.status3 + ')</span>');
+        $("#btnDeliveryStatus_4").append('<span class="btnSpan">(' + item.status4 + ')</span>');
+        $("#btnDeliveryStatus_5").append('<span class="btnSpan">(' + item.status5 + ')</span>');
+        $("#btnDeliveryStatus_6 ").append('<span class="btnSpan">(' + item.status6 + ')</span>');
+        $("#btnOrderStatus_2").append('<span class="btnSpan">(' + item.orderStatus2 + ')</span>');
     });
 }
 

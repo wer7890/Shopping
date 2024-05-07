@@ -273,14 +273,14 @@
   <data name="reduceStock" xml:space="preserve">
     <value>減少庫存量</value>
   </data>
-  <data name="return" xml:space="preserve">
-    <value>申請退貨</value>
-  </data>
   <data name="returned" xml:space="preserve">
     <value>已退貨</value>
   </data>
   <data name="returning" xml:space="preserve">
     <value>退貨中</value>
+  </data>
+  <data name="returnn" xml:space="preserve">
+    <value>申請退貨</value>
   </data>
   <data name="roles" xml:space="preserve">
     <value>角色</value>

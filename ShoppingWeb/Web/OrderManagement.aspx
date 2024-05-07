@@ -10,25 +10,24 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/OrderManagement.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= Request.Cookies["language"].Value.ToString() %>.js"></script>
     <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
     <script src="/js/<%= jsVersion %>/OrderManagement.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center i18n" data-key="titleOrder">訂單</h2>
+        <h2 class="text-center"><%= Resources.Resource.titleOrder %></h2>
         <br />
         <div class="row">
             <div class="btn-group me-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_0" onclick="SearchAllOrder()" data-key="all">全部</button>
-                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_1" onclick="ShowOrder(1)" data-key="shipping">發貨中</button>
-                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_2" onclick="ShowOrder(2)" data-key="shipped">已發貨</button>
-                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_3" onclick="ShowOrder(3)" data-key="arrived">已到貨</button>
-                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_4" onclick="ShowOrder(4)" data-key="received">已取貨</button>
-                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_5" onclick="ShowOrder(5)" data-key="returning">退貨中</button>
-                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnDeliveryStatus_6" onclick="ShowOrder(6)" data-key="returned">已退貨</button>
-                <button type="button" class="btn btn-outline-secondary i18n btnHand" id="btnOrderStatus_2" onclick="ShowReturnOrder()" data-key="return">申請退貨</button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_0" onclick="SearchAllOrder()"><%= Resources.Resource.all %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_1" onclick="ShowOrder(1)"><%= Resources.Resource.shipping %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_2" onclick="ShowOrder(2)"><%= Resources.Resource.shipped %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_3" onclick="ShowOrder(3)"><%= Resources.Resource.arrived %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_4" onclick="ShowOrder(4)"><%= Resources.Resource.received %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_5" onclick="ShowOrder(5)"><%= Resources.Resource.returning %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_6" onclick="ShowOrder(6)"><%= Resources.Resource.returned %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnOrderStatus_2" onclick="ShowReturnOrder()"><%= Resources.Resource.returnn %></button>
             </div>
         </div>
         <br />
@@ -36,13 +35,13 @@
             <table id="myTable" class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="i18n" data-key="orderId">訂單編號</th>
-                        <th class="i18n" data-key="serialNumber">訂購者</th>
-                        <th class="i18n" data-key="createdTime">建立時間</th>
-                        <th class="i18n" data-key="orderStatus">訂單狀態</th>
-                        <th class="i18n" data-key="deliveryStatus">配送狀態</th>
-                        <th class="i18n" data-key="deliveryMethod">配送方式</th>
-                        <th class="i18n" data-key="total">總金額</th>
+                        <th><%= Resources.Resource.orderId %></th>
+                        <th><%= Resources.Resource.serialNumber %></th>
+                        <th><%= Resources.Resource.createdTime %></th>
+                        <th><%= Resources.Resource.orderStatus %></th>
+                        <th><%= Resources.Resource.deliveryStatus %></th>
+                        <th><%= Resources.Resource.deliveryMethod %></th>
+                        <th><%= Resources.Resource.total %></th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">

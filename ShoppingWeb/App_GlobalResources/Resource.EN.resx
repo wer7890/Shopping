@@ -273,14 +273,14 @@
   <data name="reduceStock" xml:space="preserve">
     <value>Decrease Stock</value>
   </data>
-  <data name="return" xml:space="preserve">
-    <value>Return Requested</value>
-  </data>
   <data name="returned" xml:space="preserve">
     <value>Returned</value>
   </data>
   <data name="returning" xml:space="preserve">
     <value>Returning</value>
+  </data>
+  <data name="returnn" xml:space="preserve">
+    <value>Return Requested</value>
   </data>
   <data name="roles" xml:space="preserve">
     <value>Roles</value>

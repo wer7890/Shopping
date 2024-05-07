@@ -547,6 +547,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///  查找类似 申請退貨 的本地化字符串。
+        /// </summary>
+        internal static string returnn {
+            get {
+                return ResourceManager.GetString("returnn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///  查找类似 角色 的本地化字符串。
         /// </summary>
         internal static string roles {
@@ -741,15 +750,6 @@ namespace Resources {
         internal static string yes {
             get {
                 return ResourceManager.GetString("yes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///  查找类似 申請退貨 的本地化字符串。
-        /// </summary>
-        internal static string _return {
-            get {
-                return ResourceManager.GetString("return", resourceCulture);
             }
         }
     }
