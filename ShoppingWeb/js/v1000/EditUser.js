@@ -11,24 +11,22 @@
                 $("#labRenewUser").text(langFont["errorLog"]);
             } else {
                 // 直接設定 input 元素的值
-                $("#labUserId").text(": " + data.d.UserId);
-                $("#labAccount").text(": " + data.d.Account);
+                $("#labUserId").text(data.d.UserId);
+                $("#labAccount").text(data.d.Account);
                 switch (data.d.Roles) {
                     case 1:
-                        $("#labUserRoles").text(": " + langFont["superAdmin"]);
+                        $("#labUserRoles").text(langFont["superAdmin"]);
                         break;
                     case 2:
-                        $("#labUserRoles").text(": " + langFont["memberAdmin"]);
+                        $("#labUserRoles").text(langFont["memberAdmin"]);
                         break;
                     case 3:
-                        $("#labUserRoles").text(": " + langFont["productAdmin"]);
+                        $("#labUserRoles").text(langFont["productAdmin"]);
                         break;
                     default:
                         $("#labUserRoles").text(langFont["mistake"]);
                         break;
                 }
-
-                GetLanguageText();
             }
         },
         error: function (error) {

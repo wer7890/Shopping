@@ -9,9 +9,7 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= Request.Cookies["language"].Value.ToString() %>.js"></script>
     <script src="/js/<%= jsVersion %>/UserManagement.js"></script>
 </head>
@@ -19,10 +17,10 @@
     <div class="container">
         <div class="row">
             <div class="col-10 d-flex justify-content-center">
-                <h2 class="text-center i18n" data-key="titleUser">管理員帳號</h2>
+                <h2 class="text-center"><%= Resources.Resource.titleUser %></h2>
             </div>
             <div class="col-2 d-flex justify-content-center">
-                <button id="btnAddUser" type="submit" class="btn btn-outline-primary btn-sm i18n" data-key="addUser">新增管理員</button>
+                <button id="btnAddUser" type="submit" class="btn btn-outline-primary btn-sm"><%= Resources.Resource.addUser %></button>
             </div>
         </div>
         <br />
@@ -31,15 +29,15 @@
                 <thead>
                     <tr>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="userId">管理員ID</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.userId %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="account">帳號</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.account %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="roles">角色</button></th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.roles %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="edit" disabled>編輯</button></th>
+                            <button type="button" class="btn btn-light btn-sm" disabled><%= Resources.Resource.edit %></button></th>
                         <th>
-                            <button type="button" class="btn btn-light btn-sm i18n" data-key="del" disabled>刪除</button></th>
+                            <button type="button" class="btn btn-light btn-sm" disabled><%= Resources.Resource.del %></button></th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">

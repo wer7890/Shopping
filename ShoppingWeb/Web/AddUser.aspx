@@ -10,34 +10,33 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/I18n.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= Request.Cookies["language"].Value.ToString() %>.js"></script>
     <script src="/js/<%= jsVersion %>/AddUser.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center i18n" data-key="titleAddUser">新增帳號</h2>
+        <h2 class="text-center"><%= Resources.Resource.titleAddUser %></h2>
         <br />
         <div class="row">
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <label for="txbAccount" class="form-label i18n" data-key="account">帳號</label>
+                <label for="txbAccount" class="form-label"><%= Resources.Resource.account %></label>
                 <input type="text" id="txbAccount" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-7 mt-2">
-                <label for="txbPwd" class="form-label i18n" data-key="pwd">密碼</label>
+                <label for="txbPwd" class="form-label"><%= Resources.Resource.pwd %></label>
                 <input type="password" id="txbPwd" class="form-control" />
             </div>
             <div class="mx-auto mt-3 col-12 col-md-7 mt-2">
-                <label for="ddlRoles" class="form-label i18n" data-key="roles">角色</label>
+                <label for="ddlRoles" class="form-label"><%= Resources.Resource.roles %></label>
 
                 <select id="ddlRoles" class="form-select">
-                    <option value="1" class="i18n" data-key="superAdmin">超級管理員</option>
-                    <option value="2" class="i18n" data-key="memberAdmin">會員管理員</option>
-                    <option value="3" class="i18n" data-key="productAdmin">商品管理員</option>
+                    <option value="1"><%= Resources.Resource.superAdmin %></option>
+                    <option value="2"><%= Resources.Resource.memberAdmin %></option>
+                    <option value="3"><%= Resources.Resource.productAdmin %></option>
                 </select>
             </div>
             
-            <button id="btnAddUser" class="btn btn-outline-primary mx-auto mt-4 col-12 col-md-6 i18n" data-key="addUser">新增</button>
+            <button id="btnAddUser" class="btn btn-outline-primary mx-auto mt-4 col-12 col-md-6"><%= Resources.Resource.addUser %></button>
         </div>
         <br />
         <div class="row">

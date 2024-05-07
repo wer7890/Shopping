@@ -109,8 +109,6 @@ function SearchAllUserInfo(pageNumber, pageSize) {
                     ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
 
                 }
-
-                GetLanguageText();
             }
             UpdatePaginationControls(pageNumber);
         },

@@ -1,7 +1,4 @@
-﻿$(document).ready(function () {
-
-    GetLanguageText();
-    
+﻿$(document).ready(function () {   
     //按下新增按鈕
     $("#btnAddUser").click(function () {
         let account = $("#txbAccount").val();
