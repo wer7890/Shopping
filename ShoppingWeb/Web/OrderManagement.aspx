@@ -8,7 +8,7 @@
     <title>查詢訂單</title>
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/OrderManagement.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= Request.Cookies["language"].Value.ToString() %>.js"></script>
     <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
