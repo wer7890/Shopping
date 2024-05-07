@@ -1,6 +1,12 @@
 ﻿$(document).ready(function () {
     ProductDataReady();
-    
+
+    //刪除下拉選單中"全部"的選項
+    $("#productCategory").change(function () {
+        $("#minorCategory option[value='00']").remove();
+    });
+    $("#brandCategory option[value='00']").remove();
+
     //按下新增按鈕
     $("#btnAddProduct").click(function () {
         let productName = $("#txbProductName").val();

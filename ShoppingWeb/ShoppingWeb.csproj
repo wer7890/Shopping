@@ -87,6 +87,7 @@
     <Content Include="js\v1000\language\Language_TW.js" />
     <Content Include="js\v1000\MemberManagement.js" />
     <Content Include="js\v1000\OrderManagement.js" />
+    <Content Include="js\v1000\Pagination.js" />
     <Content Include="js\v1000\ProductCategories.js" />
     <Content Include="js\v1000\UserManagement.js" />
     <Content Include="js\v1000\bootstrap.bundle.min.js" />
