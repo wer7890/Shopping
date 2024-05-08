@@ -140,7 +140,10 @@
     'editOne': '改',
     'delOne': '刪',
     'noData': '沒有資料',
-    'confirmEditProduct': '確定要刪除該商品嗎'
+    'confirmEditProduct': '確定要刪除該商品嗎',
+
+    'firstPage': '首頁',
+    'lastPage': '末頁',
 };
 
 // 商品大分類

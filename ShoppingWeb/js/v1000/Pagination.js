@@ -1,8 +1,9 @@
-﻿let currentPage = 1; // 初始頁碼為 1
+﻿let currentPage = 1; // 當前頁數，初始頁數為 1
 let pageSize = 5; // 每頁顯示的資料筆數
+let pagesTotal = null; //總頁數
 
 $(document).ready(function () {
-    
+
     //上一頁
     $("#ulPagination").on("click", "#previousPage", function () {
         if (currentPage > 1) {
@@ -14,7 +15,7 @@ $(document).ready(function () {
 
     //下一頁
     $("#ulPagination").on("click", "#nextPage", function () {
-        if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
+        if (currentPage < pagesTotal) {
             currentPage++;
             SearchAllUserInfo(currentPage, pageSize);
         }
@@ -28,19 +29,35 @@ $(document).ready(function () {
         $("#labSearchUser").text("");
     });
 
+    //首頁
+    $("#ulPagination").on("click", "#firstPage", function () {
+        currentPage = 1;
+        SearchAllUserInfo(currentPage, pageSize);
+        $("#labSearchUser").text("");
+    });
+
+    //末頁
+    $("#ulPagination").on("click", "#lastPage", function () {
+        currentPage = pagesTotal;
+        SearchAllUserInfo(currentPage, pageSize);
+        $("#labSearchUser").text("");
+    });
+
 })
 
 //依資料筆數來開分頁頁數
-function AddPages(totalPages) { 
+function AddPages(totalPages) {
     if (totalPages > 0) {
         let ulPagination = $('#ulPagination');
         ulPagination.empty();
-        ulPagination.append('<li class="page-item" id="previousPage"><a class="page-link" href="#"> << </a></li>');
+        paginationBtnHtml = '<li class="page-item" id="firstPage"><a class="page-link" href="#">' + langFont["firstPage"] + '</a></li>' +
+            '<li class="page-item" id="previousPage"><a class="page-link" href="#"> << </a></li>';
         for (let i = 1; i <= totalPages; i++) {
-            ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link pageNumber" href="#">' + i + '</a></li>');
+            paginationBtnHtml += '<li class="page-item" id="page' + i + '"><a class="page-link pageNumber" href="#">' + i + '</a></li>';
         }
-        ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
-
+        paginationBtnHtml += '<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>' +
+            '<li class="page-item" id="lastPage"><a class="page-link" href="#"> ' + langFont["lastPage"] + ' </a></li>';
+        ulPagination.append(paginationBtnHtml);
     }
 }
 

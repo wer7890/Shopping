@@ -140,7 +140,10 @@
     'editOne': 'Edit',
     'delOne': 'Delete',
     'noData': 'No data',
-    'confirmEditProduct': 'Are you sure you want to delete this product?'
+    'confirmEditProduct': 'Are you sure you want to delete this product?',
+
+    'firstPage': 'first',
+    'lastPage': 'last',
 };
 
 // 商品大分類
