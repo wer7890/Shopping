@@ -41,10 +41,10 @@ namespace ShoppingWeb.Web
                     cookieLanguage = Request.Cookies["language"].Value.ToString();
                 }
 
+                //設定resx檔
                 string selectedLanguage = Request.Cookies["language"].Value;
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(selectedLanguage);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);
-
             }           
 
         }

@@ -38,7 +38,7 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 取得Version.json檔中所記錄js和css的版本號
+        /// 取得Version.json檔中所記錄js和css的版本號和cookie中的語言
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -70,6 +70,7 @@ namespace ShoppingWeb.Ajax
                     cookieLanguage = Request.Cookies["language"].Value.ToString();
                 }
 
+                //設定resx檔
                 string selectedLanguage = Request.Cookies["Language"].Value;
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(selectedLanguage);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);
