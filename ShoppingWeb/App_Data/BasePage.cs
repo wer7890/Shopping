@@ -16,6 +16,7 @@ namespace ShoppingWeb.Ajax
     {
         public string cssVersion;
         public string jsVersion;
+        public string cookieLanguage;
 
         public BasePage() 
         {
@@ -52,6 +53,22 @@ namespace ShoppingWeb.Ajax
                 cssVersion = versionData["cssVersion"];
                 jsVersion = versionData["jsVersion"];
 
+                //判斷Cookies["language"]是否存在以及Value是不是符合enum
+                if (HttpContext.Current.Request.Cookies["language"] == null || !Enum.TryParse(Request.Cookies["language"].Value.ToString(), out Language language))
+                {
+                    HttpCookie cookie = new HttpCookie("language")
+                    {
+                        Value = "TW",
+                        Expires = DateTime.Now.AddDays(30)
+                    };
+                    HttpContext.Current.Response.Cookies.Add(cookie);
+                    cookieLanguage = "TW";
+                    Response.Write("<script>parent.location.reload();</script>");
+                }
+                else
+                {
+                    cookieLanguage = Request.Cookies["language"].Value.ToString();
+                }
 
                 string selectedLanguage = Request.Cookies["Language"].Value;
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(selectedLanguage);
