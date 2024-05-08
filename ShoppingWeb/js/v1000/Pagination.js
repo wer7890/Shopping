@@ -1,5 +1,5 @@
 ﻿let currentPage = 1; // 當前頁數，初始頁數為 1
-let pageSize = 1; // 每頁顯示的資料筆數
+let pageSize = 3; // 每頁顯示的資料筆數
 let pagesTotal = null; //總頁數
 
 $(document).ready(function () {
