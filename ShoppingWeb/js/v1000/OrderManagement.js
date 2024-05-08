@@ -91,7 +91,7 @@ function SearchAllOrder() {
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchOrder").text(langFont["ajaxError"]);
+            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -200,7 +200,7 @@ function ShowOrder(deliveryStatusNum) {
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchOrder").text(langFont["ajaxError"]);
+            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -304,7 +304,7 @@ function ShowOrderDetail(orderId) {
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchOrder").text(langFont["ajaxError"]);
+            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -353,7 +353,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchOrder").text(langFont["ajaxError"]);
+            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -385,7 +385,7 @@ function ShowReturnOrder() {
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchOrder").text(langFont["ajaxError"]);
+            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -423,7 +423,7 @@ function EditReturnOrder(orderId, boolReturn) {
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchOrder").text(langFont["ajaxError"]);
+            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }

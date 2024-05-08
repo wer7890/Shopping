@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
 
     SearchAllUserInfo(currentPage, pageSize);
+    $("#labSearchUser").hide();
 
     //上一頁
     $("#ulPagination").on("click", "#previousPage", function () {
@@ -8,7 +9,6 @@
             currentPage--;
             SearchAllUserInfo(currentPage, pageSize);
         }
-        $("#labSearchUser").text("");
     });
 
     //下一頁
@@ -17,28 +17,24 @@
             currentPage++;
             SearchAllUserInfo(currentPage, pageSize);
         }
-        $("#labSearchUser").text("");
     });
 
     //數字頁數
     $("#pagination").on('click', 'a.pageNumber', function () {
         currentPage = parseInt($(this).text());
         SearchAllUserInfo(currentPage, pageSize);
-        $("#labSearchUser").text("");
     });
 
     //首頁
     $("#ulPagination").on("click", "#firstPage", function () {
         currentPage = 1;
         SearchAllUserInfo(currentPage, pageSize);
-        $("#labSearchUser").text("");
     });
 
     //末頁
     $("#ulPagination").on("click", "#lastPage", function () {
         currentPage = pagesTotal;
         SearchAllUserInfo(currentPage, pageSize);
-        $("#labSearchUser").text("");
     });
 
     //新增管理員
@@ -61,7 +57,6 @@
 
     //身分下拉選單
     $(document).on("change", ".f_roles", function () {
-        $("#labSearchMember").text("");
         let userId = $(this).data('id');
         let roles = $(this).val();
         ToggleUserRoles(userId, roles);
@@ -119,7 +114,7 @@ function SearchAllUserInfo(pageNumber, pageSize) {
         error: function (xhr, status, error) {
             // 處理發生錯誤的情況
             console.error('Error:', error);
-            $("#labSearchUser").text(langFont["ajaxError"]);
+            $("#labSearchUser").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -152,12 +147,12 @@ function DeleteUser(userId) {
                         alert(langFont["delFailed"]);
                         break;
                     default:
-                        $("#labSearchUser").text(langFont["errorLog"]);
+                        $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                 }
             },
             error: function (error) {
                 console.error('Error:', error);
-                $("#labSearchUser").text(langFont["ajaxError"]);
+                $("#labSearchUser").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
             }
         });
     }
@@ -180,7 +175,7 @@ function EditUser(userId) {
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchUser").text(langFont["ajaxError"]);
+            $("#labSearchUser").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -204,18 +199,18 @@ function ToggleUserRoles(userId, roles) {
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchUser").text(langFont["changeSuccessful"]);
+                    $("#labSearchUser").text(langFont["changeSuccessful"]).show().delay(3000).fadeOut();
                     break;
                 case 101:
-                    $("#labSearchUser").text(langFont["changeFailed"]);
+                    $("#labSearchUser").text(langFont["changeFailed"]).show().delay(3000).fadeOut();
                     break;
                 default:
-                    $("#labSearchUser").text(langFont["errorLog"]);
+                    $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchUser").text(langFont["ajaxError"]);
+            $("#labSearchUser").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }

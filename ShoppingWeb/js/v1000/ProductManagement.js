@@ -13,6 +13,7 @@ $(document).ready(function () {
     // 初始化
     ProductDataReady();
     SearchAllProduct(currentPage, pageSize);
+    $("#labSearchProduct").hide();
 
     // 上一頁按鈕點擊事件
     $("#ulPagination").on("click", "#previousPage", function () {
@@ -20,7 +21,6 @@ $(document).ready(function () {
             currentPage--;
             SearchAllProduct(currentPage, pageSize);
         }
-        $("#labSearchProduct").text("");
     });
 
     // 下一頁按鈕點擊事件
@@ -29,21 +29,18 @@ $(document).ready(function () {
             currentPage++;
             SearchAllProduct(currentPage, pageSize);
         }
-        $("#labSearchProduct").text("");
     });
 
     // 數字頁數點擊事件
     $("#pagination").on('click', 'a.pageNumber', function () {
         currentPage = parseInt($(this).text());
         SearchAllProduct(currentPage, pageSize);
-        $("#labSearchProduct").text("");
     });
 
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
         currentPage = 1;
         pageSize = 5;
-        $("#labSearchProduct").text("");
         productName = $("#txbProductSearch").val();
         productCategory = $("#productCategory").val();  // 獲取大分類值
         productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
@@ -61,7 +58,6 @@ $(document).ready(function () {
             currentPage--;
             SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
         }
-        $("#labSearchProduct").text("");
     });
 
     // 搜尋後下一頁按鈕點擊事件
@@ -70,19 +66,16 @@ $(document).ready(function () {
             currentPage++;
             SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
         }
-        $("#labSearchProduct").text("");
     });
 
     // 搜尋後數字頁數點擊事件
     $("#pagination").on('click', 'a.searchPageNumber', function () {
         currentPage = parseInt($(this).text());
         SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
-        $("#labSearchProduct").text("");
     });
 
     // 開關改變事件
     $(document).on("change", ".toggle-switch", function () {
-        $("#labSearchProduct").text("");
         let productId = $(this).data('id');
         ToggleProductStatus(productId);
     });
@@ -149,7 +142,7 @@ function SearchAllProduct(pageNumber, pageSize) {
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchProduct").text(langFont["ajaxError"]);
+            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -171,7 +164,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                 parent.location.reload();
             } else if (response.d === 101) {
                 $("#productTableDiv").css('display', 'none');
-                $("#labSearchProduct").text(langFont["noData"]);
+                $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
                 $('#ulPagination').empty();
             } else {
                 $("#productTableDiv").css('display', 'block');
@@ -211,7 +204,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchProduct").text(langFont["ajaxError"]);
+            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -241,18 +234,18 @@ function ToggleProductStatus(productId) {
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchProduct").text(langFont["editSuccessful"]);
+                    $("#labSearchProduct").text(langFont["editSuccessful"]).show().delay(3000).fadeOut();
                     break;
                 case 101:
-                    $("#labSearchProduct").text(langFont["editFail"]);
+                    $("#labSearchProduct").text(langFont["editFail"]).show().delay(3000).fadeOut();
                     break;
                 default:
-                    $("#labSearchProduct").text(langFont["errorLog"]);
+                    $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchProduct").text(langFont["ajaxError"]);
+            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -281,15 +274,15 @@ function DeleteProduct(productId) {
                         window.location.reload();
                         break;
                     case 101:
-                        $("#labSearchProduct").text(langFont["delFailed"]);
+                        $("#labSearchProduct").text(langFont["delFailed"]).show().delay(3000).fadeOut();
                         break;
                     default:
-                        $("#labSearchProduct").text(langFont["errorLog"]);
+                        $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                 }
             },
             error: function (error) {
                 console.error('Error:', error);
-                $("#labSearchProduct").text(langFont["ajaxError"]);
+                $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
             }
         });
     }
@@ -310,7 +303,7 @@ function EditProduct(productId) {
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchProduct").text(langFont["ajaxError"]);
+            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 
