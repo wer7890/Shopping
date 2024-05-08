@@ -50,7 +50,7 @@ $(document).ready(function () {
         productBrand = $("#brandCategory").val(); // 獲取品牌值
         checkAllMinorCategories = (productMinorCategory == "00");  //是否為全部小分類
         checkAllBrand = (productBrand == "00");  //是否為全部品牌
-        
+
         newCategory = productCategory + productMinorCategory + productBrand;  //類別編號組合
         SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
     });
@@ -316,4 +316,3 @@ function EditProduct(productId) {
 
 
 }
-
