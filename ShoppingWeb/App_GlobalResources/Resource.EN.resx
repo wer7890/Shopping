@@ -273,6 +273,9 @@
   <data name="reduceStock" xml:space="preserve">
     <value>Decrease Stock</value>
   </data>
+  <data name="rememberAccount" xml:space="preserve">
+    <value>Remember account</value>
+  </data>
   <data name="returned" xml:space="preserve">
     <value>Returned</value>
   </data>

@@ -529,6 +529,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///  查找类似 記住帳號 的本地化字符串。
+        /// </summary>
+        internal static string rememberAccount {
+            get {
+                return ResourceManager.GetString("rememberAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///  查找类似 已退貨 的本地化字符串。
         /// </summary>
         internal static string returned {

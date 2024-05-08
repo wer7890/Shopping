@@ -28,7 +28,7 @@ namespace ShoppingWeb.Web
                     HttpCookie cookie = new HttpCookie("language")
                     {
                         Value = "TW",
-                        Expires = DateTime.Now.AddDays(1)
+                        Expires = DateTime.Now.AddDays(30)
                     };
                     HttpContext.Current.Response.Cookies.Add(cookie);
                 }

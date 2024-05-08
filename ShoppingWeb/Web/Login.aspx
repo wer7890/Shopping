@@ -39,10 +39,10 @@
 
             <br />
             <div class="row justify-content-center align-self-center mt-3">
-                <div class="form-check ms-4">
+                <div class="form-check ms-4 mb-2">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                     <label class="form-check-label" for="flexCheckDefault">
-                        記住帳號
+                        <%= Resources.Resource.rememberAccount %>
                     </label>
                 </div>
                 <button id="btnLogin" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6"><%= Resources.Resource.btnLogin %></button>

@@ -273,6 +273,9 @@
   <data name="reduceStock" xml:space="preserve">
     <value>減少庫存量</value>
   </data>
+  <data name="rememberAccount" xml:space="preserve">
+    <value>記住帳號</value>
+  </data>
   <data name="returned" xml:space="preserve">
     <value>已退貨</value>
   </data>

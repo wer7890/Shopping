@@ -105,7 +105,7 @@ namespace ShoppingWeb.Ajax
             if (HttpContext.Current.Request.Cookies["language"] != null)
             {
                 HttpContext.Current.Response.Cookies["language"].Value = language;
-                HttpContext.Current.Response.Cookies["language"].Expires = DateTime.Now.AddDays(1);
+                HttpContext.Current.Response.Cookies["language"].Expires = DateTime.Now.AddDays(30);
             }
 
             return true;

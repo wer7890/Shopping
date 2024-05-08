@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
     let accountValue = GetAccountCookie("account");
-
+    //如果cookie["account"]存在，就顯示在帳號輸入框，且勾選記住帳號
     if (accountValue) {
         $("#txbAccount").val(accountValue);
+        $("#flexCheckDefault").prop("checked", "true");
     }
     
     //按下登入按鈕
@@ -27,9 +28,11 @@
                         $("#labLogin").text(langFont["loginFormat"]);
                         break;
                     case 100:
-
+                        //如果有勾選記住帳號，就紀錄cookie["account"]，反之則清除
                         if ($("#flexCheckDefault").is(":checked")) {
-                            document.cookie = 'account=' + account + '; max-age=86400; path=/';  //1天到期，path=/該cookie整個網站都是可看見的
+                            document.cookie = 'account=' + account + '; max-age=2592000; path=/';  //30天到期，path=/該cookie整個網站都是可看見的
+                        } else {
+                            document.cookie = 'account=0; max-age=0; path=/';  //馬上過期   
                         }
 
                         window.location.href = "Frame.aspx";
