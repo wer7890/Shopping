@@ -71,9 +71,8 @@ namespace ShoppingWeb.Ajax
                 }
 
                 //設定resx檔
-                string selectedLanguage = Request.Cookies["Language"].Value;
-                Thread.CurrentThread.CurrentCulture = new CultureInfo(selectedLanguage);
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(cookieLanguage);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookieLanguage);
             }
         }
 
