@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    SearchAllMember();
+    SearchAllData(currentPage, pageSize);
 
     //按下新增會員按鈕
     $("#btnAddMember").click(function () {
@@ -127,11 +127,12 @@ function GetRandomEmail() {
 
 
 //全部會員資料
-function SearchAllMember() {
+function SearchAllData(pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/MemberHandler.aspx/GetAllMemberData',
         type: 'POST',
         contentType: 'application/json',
+        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
             if (response.d === 0) {
                 alert(langFont["duplicateLogin"]);
@@ -140,8 +141,10 @@ function SearchAllMember() {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
             } else {
-                let data = JSON.parse(response.d);
+                let data = JSON.parse(response.d.Data);
                 let tableBody = $('#tableBody');
+
+                pagesTotal = response.d.TotalPages;
 
                 tableBody.empty();
 
@@ -167,8 +170,10 @@ function SearchAllMember() {
 
                     tableBody.append(row);
                 });
-            }
 
+                AddPages(pagesTotal);
+            }
+            UpdatePaginationControls(pageNumber);
         },
         error: function (error) {
             console.error('Error:', error);

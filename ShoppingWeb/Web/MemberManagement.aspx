@@ -10,6 +10,7 @@
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
+    <script src="/js/<%= jsVersion %>/Pagination.js"></script>
     <script src="/js/<%= jsVersion %>/MemberManagement.js"></script>
 </head>
 <body>
@@ -43,7 +44,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="row mx-auto">
+
+        <div class="row">
+            <div id="pagination" class="text-center d-flex justify-content-center">
+                <ul class="pagination" id="ulPagination">
+                    <!-- 分頁按鈕 -->
+                </ul>
+            </div>
             <span id="labSearchMember" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
     </div>

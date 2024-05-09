@@ -3,7 +3,39 @@ let pageSize = 3; // 每頁顯示的資料筆數
 let pagesTotal = null; //總頁數
 
 $(document).ready(function () {
+    //上一頁
+    $("#ulPagination").on("click", "#previousPage", function () {
+        if (currentPage > 1) {
+            currentPage--;
+            SearchAllData(currentPage, pageSize);
+        }
+    });
 
+    //下一頁
+    $("#ulPagination").on("click", "#nextPage", function () {
+        if (currentPage < pagesTotal) {
+            currentPage++;
+            SearchAllData(currentPage, pageSize);
+        }
+    });
+
+    //數字頁數
+    $("#pagination").on('click', 'a.pageNumber', function () {
+        currentPage = parseInt($(this).text());
+        SearchAllData(currentPage, pageSize);
+    });
+
+    //首頁
+    $("#ulPagination").on("click", "#firstPage", function () {
+        currentPage = 1;
+        SearchAllData(currentPage, pageSize);
+    });
+
+    //末頁
+    $("#ulPagination").on("click", "#lastPage", function () {
+        currentPage = pagesTotal;
+        SearchAllData(currentPage, pageSize);
+    });
 })
 
 //依資料筆數來開分頁頁數
@@ -13,7 +45,7 @@ function AddPages(pagesTotal) {
         let ulPagination = $('#ulPagination');
         ulPagination.empty();
 
-        paginationBtnHtml = '<li class="page-item" id="firstPage"><a class="page-link" href="#"> << </a></li>' +
+        paginationBtnHtml = '<li class="page-item" id="firstPage"><a class="page-link" href="#">' + langFont["firstPage"] + '</a></li>' +
             '<li class="page-item" id="previousPage"><a class="page-link" href="#"> < </a></li>';
 
         if (currentPage <= 2) {
@@ -34,7 +66,7 @@ function AddPages(pagesTotal) {
         }
 
         paginationBtnHtml += '<li class="page-item" id="nextPage"><a class="page-link" href="#"> > </a></li>' +
-            '<li class="page-item" id="lastPage"><a class="page-link" href="#"> >> </a></li>';
+            '<li class="page-item" id="lastPage"><a class="page-link" href="#">' + langFont["lastPage"] + '</a></li>';
 
         ulPagination.append(paginationBtnHtml);
     }

@@ -22,7 +22,7 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public static object GetAllMemberData()
+        public static object GetAllMemberData(int pageNumber, int pageSize)
         {
             if (!CheckDuplicateLogin())
             {
@@ -41,12 +41,24 @@ namespace ShoppingWeb.Ajax
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
+                    cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
                     SqlDataReader reader = cmd.ExecuteReader();
                     DataTable dt = new DataTable();
                     dt.Load(reader);
 
-                    // 將資料轉換為 JSON 格式返回
-                    return ConvertDataTableToJson(dt);
+                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+                    var result = new
+                    {
+                        Data = ConvertDataTableToJson(dt),
+                        TotalPages = totalPages
+                    };
+
+                    return result;
                 }
             }
 

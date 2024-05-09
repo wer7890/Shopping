@@ -1,41 +1,6 @@
 ﻿$(document).ready(function () {
-
-    SearchAllUserInfo(currentPage, pageSize);
+    SearchAllData(currentPage, pageSize);
     $("#labSearchUser").hide();
-
-    //上一頁
-    $("#ulPagination").on("click", "#previousPage", function () {
-        if (currentPage > 1) {
-            currentPage--;
-            SearchAllUserInfo(currentPage, pageSize);
-        }
-    });
-
-    //下一頁
-    $("#ulPagination").on("click", "#nextPage", function () {
-        if (currentPage < pagesTotal) {
-            currentPage++;
-            SearchAllUserInfo(currentPage, pageSize);
-        }
-    });
-
-    //數字頁數
-    $("#pagination").on('click', 'a.pageNumber', function () {
-        currentPage = parseInt($(this).text());
-        SearchAllUserInfo(currentPage, pageSize);
-    });
-
-    //首頁
-    $("#ulPagination").on("click", "#firstPage", function () {
-        currentPage = 1;
-        SearchAllUserInfo(currentPage, pageSize);
-    });
-
-    //末頁
-    $("#ulPagination").on("click", "#lastPage", function () {
-        currentPage = pagesTotal;
-        SearchAllUserInfo(currentPage, pageSize);
-    });
 
     //新增管理員
     $("#btnAddUser").click(function () {
@@ -65,7 +30,7 @@
 });
 
 //全部管理員資料
-function SearchAllUserInfo(pageNumber, pageSize) {
+function SearchAllData(pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/UserHandler.aspx/GetAllUserData',
         type: 'POST',
