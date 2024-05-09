@@ -17,7 +17,7 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public static object GetAllOrderData()
+        public static object GetAllOrderData(int pageNumber, int pageSize)
         {
 
             if (!CheckDuplicateLogin())
@@ -37,11 +37,18 @@ namespace ShoppingWeb.Ajax
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
+                    cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
                     SqlDataAdapter da = new SqlDataAdapter(); //宣告一個配接器(DataTable與DataSet必須)
                     DataSet ds = new DataSet(); //宣告DataSet物件
                     da.SelectCommand = cmd; //執行
                     da.Fill(ds); //結果存放至DataTable
+
+                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                     object[] resultArr = new object[2];
 
@@ -50,7 +57,13 @@ namespace ShoppingWeb.Ajax
                         resultArr[i] = ConvertDataTableToJson(ds.Tables[i]);
                     }
 
-                    return resultArr;
+                    var result = new
+                    {
+                        Data = resultArr,
+                        TotalPages = totalPages
+                    };
+
+                    return result;
                 }
             }
 
@@ -176,7 +189,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="deliveryStatusNum"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetOrderData(int deliveryStatusNum)
+        public static object GetOrderData(int deliveryStatusNum, int pageNumber, int pageSize)
         {
             if (!CheckDuplicateLogin())
             {
@@ -196,11 +209,18 @@ namespace ShoppingWeb.Ajax
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     cmd.Parameters.Add(new SqlParameter("@deliveryStatusNum", deliveryStatusNum));
+                    cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
+                    cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
                     SqlDataAdapter da = new SqlDataAdapter();
                     DataSet ds = new DataSet();
                     da.SelectCommand = cmd;
                     da.Fill(ds);
+
+                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                     object[] resultArr = new object[2];
 
@@ -209,7 +229,20 @@ namespace ShoppingWeb.Ajax
                         resultArr[i] = ConvertDataTableToJson(ds.Tables[i]);
                     }
 
-                    return resultArr;
+                    if (totalCount > 0)
+                    {
+                        var result = new
+                        {
+                            Data = resultArr,
+                            TotalPages = totalPages
+                        };
+                        return result;
+                    }
+                    else
+                    {
+                        return (int)DatabaseOperationResult.Failure;
+                    }
+
                 }
             }
 
@@ -221,7 +254,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="orderStatusNum"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetReturnOrderData()
+        public static object GetReturnOrderData(int pageNumber, int pageSize)
         {
             if (!CheckDuplicateLogin())
             {
@@ -240,11 +273,18 @@ namespace ShoppingWeb.Ajax
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
+                    cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
+                    cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
                     SqlDataAdapter da = new SqlDataAdapter();
                     DataSet ds = new DataSet();
                     da.SelectCommand = cmd;
                     da.Fill(ds);
+
+                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                     object[] resultArr = new object[2];
 
@@ -253,7 +293,19 @@ namespace ShoppingWeb.Ajax
                         resultArr[i] = ConvertDataTableToJson(ds.Tables[i]);
                     }
 
-                    return resultArr;
+                    if (totalCount > 0)
+                    {
+                        var result = new
+                        {
+                            Data = resultArr,
+                            TotalPages = totalPages
+                        };
+                        return result;
+                    }
+                    else
+                    {
+                        return (int)DatabaseOperationResult.Failure;
+                    }
                 }
             }
 

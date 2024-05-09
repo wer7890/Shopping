@@ -3,7 +3,7 @@ let deliveryStatusValue;
 
 $(document).ready(function () {
     //初始化
-    SearchAllOrder();
+    SearchAllData(currentPage, pageSize);
     $("#labSearchOrder").hide();
 
     //點選上方按鈕時，該按鈕變色
@@ -13,6 +13,18 @@ $(document).ready(function () {
         });
 
         $(this).removeClass("btn-outline-secondary").addClass("btn-secondary");
+
+        let buttonId = $(this).attr("id"); // 獲取按鈕的 id
+        let deliveryStatus = buttonId.split("_")[1]; // 從 id 中提取出狀態碼
+        console.log(deliveryStatus);
+        // 根據狀態碼執行相應的函數
+        if (deliveryStatus === "0") {
+            SearchAllData(currentPage, pageSize);
+        } else if (deliveryStatus === "7") {
+            ShowReturnOrder(currentPage, pageSize);
+        } else {
+            ShowOrder(deliveryStatus, currentPage, pageSize);
+        }
     });
 
     // 修改訂單按鈕
@@ -66,14 +78,49 @@ $(document).ready(function () {
 
     });
 
+    // 搜尋後上一頁按鈕點擊事件
+    $("#ulPagination").on("click", "#searchPreviousPage", function () {
+        if (currentPage > 1) {
+            currentPage--;
+            ShowOrder(deliveryStatusValue, currentPage, pageSize);
+        }
+    });
+
+    // 搜尋後下一頁按鈕點擊事件
+    $("#ulPagination").on("click", "#searchNextPage", function () {
+        if (currentPage < pagesTotal) {
+            currentPage++;
+            ShowOrder(deliveryStatusValue, currentPage, pageSize);
+        }
+    });
+
+    // 搜尋後數字頁數點擊事件
+    $("#pagination").on('click', 'a.searchPageNumber', function () {
+        currentPage = parseInt($(this).text());
+        ShowOrder(deliveryStatusValue, currentPage, pageSize);
+    });
+
+    // 搜尋後首頁
+    $("#ulPagination").on("click", "#searchFirstPage", function () {
+        currentPage = 1;
+        ShowOrder(deliveryStatusValue, currentPage, pageSize);
+    });
+
+    // 搜尋後末頁
+    $("#ulPagination").on("click", "#searchLastPage", function () {
+        currentPage = pagesTotal;
+        ShowOrder(deliveryStatusValue, currentPage, pageSize);
+    });
+
 });
 
 //全部訂單資料
-function SearchAllOrder() {
+function SearchAllData(pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/GetAllOrderData',
         type: 'POST',
         contentType: 'application/json',
+        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
             if (response.d === 0) {
                 alert(langFont["duplicateLogin"]);
@@ -84,9 +131,12 @@ function SearchAllOrder() {
             } else {
                 deliveryStatusValue = 0;
                 $("#orderSure").remove();
-                let orderData = JSON.parse(response.d[0]);
-                let deliveryStatusCountData = JSON.parse(response.d[1]);
+                let orderData = JSON.parse(response.d.Data[0]);
+                let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
+                pagesTotal = response.d.TotalPages;
                 OrderHtml(orderData, deliveryStatusCountData);
+                AddPages(pagesTotal, false);
+                UpdatePaginationControls(pageNumber);
             }
         },
         error: function (error) {
@@ -175,10 +225,10 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
 }
 
 // 上方狀態按鈕點擊觸發事件
-function ShowOrder(deliveryStatusNum) {
+function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/GetOrderData',
-        data: JSON.stringify({ deliveryStatusNum: deliveryStatusNum }),
+        data: JSON.stringify({ deliveryStatusNum: deliveryStatusNum, pageNumber: pageNumber, pageSize: pageSize }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -189,12 +239,20 @@ function ShowOrder(deliveryStatusNum) {
             } else if (response.d === 1) {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
+            } else if (response.d === 101) {
+                $("#orderTableDiv").css('display', 'none');
+                $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
+                $('#ulPagination').empty();
             } else {
+                $("#orderTableDiv").css('display', 'block');
                 deliveryStatusValue = deliveryStatusNum;
                 $("#orderSure").remove();
-                let orderData = JSON.parse(response.d[0]);
-                let deliveryStatusCountData = JSON.parse(response.d[1]);
+                let orderData = JSON.parse(response.d.Data[0]);
+                let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
+                pagesTotal = response.d.TotalPages;
                 OrderHtml(orderData, deliveryStatusCountData);
+                AddPages(pagesTotal, true);
+                UpdatePaginationControls(pageNumber);
             }
 
         },
@@ -248,8 +306,8 @@ function OrderHtml(orderData, deliveryStatusCountData) {
         $("#btnDeliveryStatus_3").append('<span class="btnSpan">(' + item.status3 + ')</span>');
         $("#btnDeliveryStatus_4").append('<span class="btnSpan">(' + item.status4 + ')</span>');
         $("#btnDeliveryStatus_5").append('<span class="btnSpan">(' + item.status5 + ')</span>');
-        $("#btnDeliveryStatus_6 ").append('<span class="btnSpan">(' + item.status6 + ')</span>');
-        $("#btnOrderStatus_2").append('<span class="btnSpan">(' + item.orderStatus2 + ')</span>');
+        $("#btnDeliveryStatus_6").append('<span class="btnSpan">(' + item.status6 + ')</span>');
+        $("#btnDeliveryStatus_7").append('<span class="btnSpan">(' + item.orderStatus2 + ')</span>');
     });
 }
 
@@ -340,11 +398,11 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     let temp = (response.d === 100) ? langFont["editSuccessful"] : langFont["editOrderFailed"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     if (deliveryStatusValue === 0) {
-                        SearchAllOrder();
+                        SearchAllData(currentPage, pageSize);
                     } else if (deliveryStatusValue === 7) {
-                        ShowReturnOrder();
+                        ShowReturnOrder(currentPage, pageSize);
                     } else {
-                        ShowOrder(deliveryStatusValue);
+                        ShowOrder(deliveryStatusValue, currentPage, pageSize);
                     }
                     break;
                 default:
@@ -359,12 +417,13 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
 }
 
 // 點擊上方退貨申請按鈕事件
-function ShowReturnOrder() {
+function ShowReturnOrder(pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/GetReturnOrderData',
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
             if (response.d === 0) {
                 alert(langFont["duplicateLogin"]);
@@ -372,14 +431,22 @@ function ShowReturnOrder() {
             } else if (response.d === 1) {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
+            } else if (response.d === 101) {
+                $("#orderTableDiv").css('display', 'none');
+                $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
+                $('#ulPagination').empty();
             } else {
+                $("#orderTableDiv").css('display', 'block');
                 deliveryStatusValue = 7;
-                let orderData = JSON.parse(response.d[0]);
-                let deliveryStatusCountData = JSON.parse(response.d[1]);
+                let orderData = JSON.parse(response.d.Data[0]);
+                let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
+                pagesTotal = response.d.TotalPages;
 
                 $("#orderSure").remove();
                 $("#myTable > thead > tr").append("<th id='orderSure'>" + langFont['orderSure'] + "</th>");
                 OrderHtml(orderData, deliveryStatusCountData);
+                AddPages(pagesTotal, true);
+                UpdatePaginationControls(pageNumber);
             }
 
         },
@@ -414,7 +481,7 @@ function EditReturnOrder(orderId, boolReturn) {
                 case 101:
                     let temp = (response.d === 100) ? langFont["editSuccessful"] : langFont["editFail"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
-                    ShowReturnOrder();
+                    ShowReturnOrder(currentPage, pageSize);
                     break;
                 default:
                     $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();

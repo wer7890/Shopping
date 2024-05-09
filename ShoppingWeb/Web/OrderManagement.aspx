@@ -11,6 +11,7 @@
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
+    <script src="/js/<%= jsVersion %>/Pagination.js"></script>
     <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
     <script src="/js/<%= jsVersion %>/OrderManagement.js"></script>
 </head>
@@ -20,18 +21,18 @@
         <br />
         <div class="row">
             <div class="btn-group me-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_0" onclick="SearchAllOrder()"><%= Resources.Resource.all %></button>
-                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_1" onclick="ShowOrder(1)"><%= Resources.Resource.shipping %></button>
-                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_2" onclick="ShowOrder(2)"><%= Resources.Resource.shipped %></button>
-                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_3" onclick="ShowOrder(3)"><%= Resources.Resource.arrived %></button>
-                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_4" onclick="ShowOrder(4)"><%= Resources.Resource.received %></button>
-                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_5" onclick="ShowOrder(5)"><%= Resources.Resource.returning %></button>
-                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_6" onclick="ShowOrder(6)"><%= Resources.Resource.returned %></button>
-                <button type="button" class="btn btn-outline-secondary btnHand" id="btnOrderStatus_2" onclick="ShowReturnOrder()"><%= Resources.Resource.returnn %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_0"><%= Resources.Resource.all %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_1"><%= Resources.Resource.shipping %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_2"><%= Resources.Resource.shipped %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_3"><%= Resources.Resource.arrived %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_4"><%= Resources.Resource.received %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_5"><%= Resources.Resource.returning %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_6"><%= Resources.Resource.returned %></button>
+                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_7"><%= Resources.Resource.returnn %></button>
             </div>
         </div>
         <br />
-        <div class="row">
+        <div class="row" id="orderTableDiv">
             <table id="myTable" class="table table-striped">
                 <thead>
                     <tr>
@@ -47,7 +48,15 @@
                 <tbody id="tableBody">
                     <!-- 內容 -->
                 </tbody>
-            </table>
+            </table>          
+        </div>
+
+        <div class="row">
+            <div id="pagination" class="text-center d-flex justify-content-center">
+                <ul class="pagination" id="ulPagination">
+                    <!-- 分頁按鈕 -->
+                </ul>
+            </div>
             <span id="labSearchOrder" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
 

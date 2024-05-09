@@ -40,11 +40,11 @@ $(document).ready(function () {
 
 //依資料筆數來開分頁頁數
 function AddPages(pagesTotal, IsSearch) {
-    //依資料筆數來開分頁頁數 
-    if (pagesTotal > 0) {
-        let ulPagination = $('#ulPagination');
-        ulPagination.empty();
+    let ulPagination = $('#ulPagination');
+    ulPagination.empty();
 
+    if (pagesTotal > 0) {
+         //依資料筆數來開分頁頁數 
         let paginationBtnHtml = '<li class="page-item" id="' + (IsSearch ? 'searchFirstPage' : 'firstPage') + '"><a class="page-link" href="#">' + langFont["firstPage"] + '</a></li>' +
             '<li class="page-item" id="' + (IsSearch ? 'searchPreviousPage' : 'previousPage') + '"><a class="page-link" href="#"> < </a></li>';
 
