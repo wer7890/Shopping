@@ -16,7 +16,6 @@ $(document).ready(function () {
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
         currentPage = 1;
-        pageSize = 5;
         productName = $("#txbProductSearch").val();
         productCategory = $("#productCategory").val();  // 獲取大分類值
         productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
@@ -53,13 +52,13 @@ $(document).ready(function () {
     // 搜尋後首頁
     $("#ulPagination").on("click", "#searchFirstPage", function () {
         currentPage = 1;
-        SearchAllData(currentPage, pageSize);
+        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
     });
 
     // 搜尋後末頁
     $("#ulPagination").on("click", "#searchLastPage", function () {
         currentPage = pagesTotal;
-        SearchAllData(currentPage, pageSize);
+        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
     });
 
     // 開關改變事件
@@ -169,7 +168,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     tableBody.append(row);
                 });
 
-                AddPages(pagesTotal);
+                AddSearchPages(pagesTotal);
             }
             UpdatePaginationControls(pageNumber);
         },

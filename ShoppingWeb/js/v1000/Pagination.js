@@ -72,6 +72,7 @@ function AddPages(pagesTotal) {
     }
 }
 
+//搜尋後的分頁頁數
 function AddSearchPages(pagesTotal) {
     //依資料筆數來開分頁頁數 
     if (pagesTotal > 0) {
