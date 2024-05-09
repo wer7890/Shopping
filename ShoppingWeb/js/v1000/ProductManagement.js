@@ -5,37 +5,13 @@ let productBrand = null;
 let checkAllMinorCategories = null;
 let checkAllBrand = null;
 let newCategory = null;
+pageSize = 3;
 
 $(document).ready(function () {
-    let currentPage = 1; // 初始頁碼為 1
-    let pageSize = 5; // 每頁顯示的資料筆數
-
     // 初始化
     ProductDataReady();
-    SearchAllProduct(currentPage, pageSize);
+    SearchAllData(currentPage, pageSize);
     $("#labSearchProduct").hide();
-
-    // 上一頁按鈕點擊事件
-    $("#ulPagination").on("click", "#previousPage", function () {
-        if (currentPage > 1) {
-            currentPage--;
-            SearchAllProduct(currentPage, pageSize);
-        }
-    });
-
-    // 下一頁按鈕點擊事件
-    $("#ulPagination").on("click", "#nextPage", function () {
-        if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
-            currentPage++;
-            SearchAllProduct(currentPage, pageSize);
-        }
-    });
-
-    // 數字頁數點擊事件
-    $("#pagination").on('click', 'a.pageNumber', function () {
-        currentPage = parseInt($(this).text());
-        SearchAllProduct(currentPage, pageSize);
-    });
 
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
@@ -62,7 +38,7 @@ $(document).ready(function () {
 
     // 搜尋後下一頁按鈕點擊事件
     $("#ulPagination").on("click", "#searchNextPage", function () {
-        if (currentPage < $('#ulPagination').children('li').length - 2) {  // 獲取id="ulPagination"下的li元素個數，-2是因為要扣掉上跟下一頁
+        if (currentPage < pagesTotal) { 
             currentPage++;
             SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
         }
@@ -72,6 +48,18 @@ $(document).ready(function () {
     $("#pagination").on('click', 'a.searchPageNumber', function () {
         currentPage = parseInt($(this).text());
         SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
+    });
+
+    // 搜尋後首頁
+    $("#ulPagination").on("click", "#searchFirstPage", function () {
+        currentPage = 1;
+        SearchAllData(currentPage, pageSize);
+    });
+
+    // 搜尋後末頁
+    $("#ulPagination").on("click", "#searchLastPage", function () {
+        currentPage = pagesTotal;
+        SearchAllData(currentPage, pageSize);
     });
 
     // 開關改變事件
@@ -87,7 +75,7 @@ $(document).ready(function () {
 });
 
 //全部商品資料
-function SearchAllProduct(pageNumber, pageSize) {
+function SearchAllData(pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/ProductHandler.aspx/GetAllProductData',
         type: 'POST',
@@ -104,6 +92,7 @@ function SearchAllProduct(pageNumber, pageSize) {
                 // 處理成功取得資料的情況
                 let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
                 let tableBody = $('#tableBody');
+                pagesTotal = response.d.TotalPages;
 
                 // 清空表格內容
                 tableBody.empty();
@@ -126,17 +115,7 @@ function SearchAllProduct(pageNumber, pageSize) {
                     tableBody.append(row);
                 });
 
-                //依資料筆數來開分頁頁數
-                if (response.d.TotalPages > 0) {
-                    let ulPagination = $('#ulPagination');
-                    ulPagination.empty();
-                    ulPagination.append('<li class="page-item" id="previousPage"><a class="page-link" href="#"> << </a></li>');
-                    for (let i = 1; i <= response.d.TotalPages; i++) {
-                        ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link pageNumber" href="#">' + i + '</a></li>');
-                    }
-                    ulPagination.append('<li class="page-item" id="nextPage"><a class="page-link" href="#"> >> </a></li>');
-
-                }
+                AddPages(pagesTotal);
             }
             UpdatePaginationControls(pageNumber);
         },
@@ -170,6 +149,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                 $("#productTableDiv").css('display', 'block');
                 let data = JSON.parse(response.d.Data);
                 let tableBody = $('#tableBody');
+                pagesTotal = response.d.TotalPages;
 
                 tableBody.empty();
 
@@ -189,16 +169,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     tableBody.append(row);
                 });
 
-                if (response.d.TotalPages > 0) {
-                    let ulPagination = $('#ulPagination');
-                    ulPagination.empty();
-                    ulPagination.append('<li class="page-item" id="searchPreviousPage"><a class="page-link" href="#"> << </a></li>');
-                    for (let i = 1; i <= response.d.TotalPages; i++) {
-                        ulPagination.append('<li class="page-item" id="page' + i + '"><a class="page-link searchPageNumber" href="#">' + i + '</a></li>');
-                    }
-                    ulPagination.append('<li class="page-item" id="searchNextPage"><a class="page-link" href="#"> >> </a></li>');
-
-                }
+                AddPages(pagesTotal);
             }
             UpdatePaginationControls(pageNumber);
         },
