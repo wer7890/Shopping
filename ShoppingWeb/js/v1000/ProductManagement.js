@@ -114,7 +114,7 @@ function SearchAllData(pageNumber, pageSize) {
                     tableBody.append(row);
                 });
 
-                AddPages(pagesTotal);
+                AddPages(pagesTotal, false);
             }
             UpdatePaginationControls(pageNumber);
         },
@@ -168,7 +168,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     tableBody.append(row);
                 });
 
-                AddSearchPages(pagesTotal);
+                AddPages(pagesTotal, true);
             }
             UpdatePaginationControls(pageNumber);
         },

@@ -72,7 +72,7 @@ function SearchAllData(pageNumber, pageSize) {
                     tableBody.append(row);
                 });
 
-                AddPages(pagesTotal);
+                AddPages(pagesTotal, false);
             }
             UpdatePaginationControls(pageNumber);
         },
