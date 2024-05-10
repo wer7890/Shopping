@@ -46,10 +46,15 @@
         </div>
 
         <div class="row">
-            <div id="pagination" class="text-center d-flex justify-content-center">
+            <div id="pagination" class="text-center d-flex justify-content-center col-12 col-sm-12">
                 <ul class="pagination" id="ulPagination">
                     <!-- 分頁按鈕 -->
                 </ul>
+            </div>
+            <div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-3 mx-auto">
+                <select id="pageSelect" class="form-select form-select-sm" onchange="changePage(this)">
+                    <!-- 動態生成選項 -->
+                </select>
             </div>
             <span id="labSearchMember" class="col-12 col-sm-12 text-center text-success"></span>
         </div>

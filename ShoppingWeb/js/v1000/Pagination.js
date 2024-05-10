@@ -42,9 +42,11 @@ $(document).ready(function () {
 function AddPages(pagesTotal, IsSearch) {
     let ulPagination = $('#ulPagination');
     ulPagination.empty();
+    let paginationInfoDiv = $('#paginationInfo');
+    paginationInfoDiv.empty();
 
     if (pagesTotal > 0) {
-         //依資料筆數來開分頁頁數 
+        //依資料筆數來開分頁頁數 
         let paginationBtnHtml = '<li class="page-item" id="' + (IsSearch ? 'searchFirstPage' : 'firstPage') + '"><a class="page-link" href="#">' + langFont["firstPage"] + '</a></li>' +
             '<li class="page-item" id="' + (IsSearch ? 'searchPreviousPage' : 'previousPage') + '"><a class="page-link" href="#"> < </a></li>';
 
@@ -66,6 +68,14 @@ function AddPages(pagesTotal, IsSearch) {
             '<li class="page-item" id="' + (IsSearch ? 'searchLastPage' : 'lastPage') + '"><a class="page-link" href="#">' + langFont["lastPage"] + '</a></li>';
 
         ulPagination.append(paginationBtnHtml);
+
+        let selectElement = $('<select id="pageSelect" class="form-select form-select-sm ms-3" onchange="ChangePage(this)"></select>');
+        for (let i = 1; i <= pagesTotal; i++) {
+            let = optionHtml = '<option value="' + i + '"' + (i === currentPage ? ' selected' : '') + '>第' + i + '頁</option>';
+            selectElement.append(optionHtml);
+        }
+        paginationInfoDiv.append(selectElement);
+        paginationInfoDiv.append('<span class="col-3">共 ' + pagesTotal + ' 頁</span>');
     }
 }
 
@@ -73,4 +83,10 @@ function AddPages(pagesTotal, IsSearch) {
 function UpdatePaginationControls(currentPage) {
     $('#pagination .page-item').removeClass('active');
     $('#page' + currentPage).addClass('active');
+}
+
+//頁數下拉選單
+function ChangePage(selectElement) {
+    currentPage = parseInt(selectElement.value);
+    SearchAllData(currentPage, pageSize);
 }

@@ -129,6 +129,7 @@ function SearchAllData(pageNumber, pageSize) {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
             } else {
+                $("#orderTableDiv").css('display', 'block');
                 deliveryStatusValue = 0;
                 $("#orderSure").remove();
                 let orderData = JSON.parse(response.d.Data[0]);
