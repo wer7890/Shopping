@@ -71,11 +71,11 @@ function AddPages(pagesTotal, IsSearch) {
 
         let selectElement = $('<select id="pageSelect" class="form-select form-select-sm ms-3" onchange="' + (IsSearch ? 'SearchChangePage(this)' : 'ChangePage(this)') + '"></select>');
         for (let i = 1; i <= pagesTotal; i++) {
-            let = optionHtml = '<option value="' + i + '"' + (i === currentPage ? ' selected' : '') + '>第' + i + '頁</option>';
+            let = optionHtml = '<option value="' + i + '"' + (i === currentPage ? ' selected' : '') + '>' + langFont["pageNumFirst"] + ' ' + i + ' ' + langFont["pageNumLast"] + '</option>';
             selectElement.append(optionHtml);
         }
         paginationInfoDiv.append(selectElement);
-        paginationInfoDiv.append('<span class="col-3">共 ' + pagesTotal + ' 頁</span>');
+        paginationInfoDiv.append('<span class="col-5 text-left"> ' + langFont["totalPage"] + ' ' + pagesTotal + ' ' + langFont["page"] + '</span>');
     }
 }
 

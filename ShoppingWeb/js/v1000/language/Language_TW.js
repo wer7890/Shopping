@@ -144,6 +144,10 @@
 
     'firstPage': '首頁',
     'lastPage': '末頁',
+    'totalPage': '共',
+    'page': '頁',
+    'pageNumFirst': '第',
+    'pageNumLast': '頁',
 };
 
 // 商品大分類

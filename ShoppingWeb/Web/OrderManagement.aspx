@@ -59,7 +59,7 @@
             </div>
             <div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-4 mx-auto">
                 <select id="pageSelect" class="form-select form-select-sm" onchange="changePage(this)">
-                    <!-- 這裡會動態生成選項，所以這裡先空著 -->
+                    <!-- 動態生成選項 -->
                 </select>
             </div>            
         </div>
