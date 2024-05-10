@@ -1,5 +1,6 @@
 ﻿let selectedOrderId;
 let deliveryStatusValue;
+pageSize = 10;
 
 $(document).ready(function () {
     //初始化
@@ -16,7 +17,8 @@ $(document).ready(function () {
 
         let buttonId = $(this).attr("id"); // 獲取按鈕的 id
         let deliveryStatus = buttonId.split("_")[1]; // 從 id 中提取出狀態碼
-        console.log(deliveryStatus);
+        currentPage = 1; //把當前頁數改成1
+
         // 根據狀態碼執行相應的函數
         if (deliveryStatus === "0") {
             SearchAllData(currentPage, pageSize);
@@ -241,9 +243,10 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
             } else if (response.d === 101) {
+                $('#ulPagination, #paginationInfo').empty();
                 $("#orderTableDiv").css('display', 'none');
                 $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
-                $('#ulPagination').empty();
+                
             } else {
                 $("#orderTableDiv").css('display', 'block');
                 deliveryStatusValue = deliveryStatusNum;
@@ -435,7 +438,7 @@ function ShowReturnOrder(pageNumber, pageSize) {
             } else if (response.d === 101) {
                 $("#orderTableDiv").css('display', 'none');
                 $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
-                $('#ulPagination').empty();
+                $('#ulPagination, #paginationInfo').empty();
             } else {
                 $("#orderTableDiv").css('display', 'block');
                 deliveryStatusValue = 7;
@@ -446,8 +449,12 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 $("#orderSure").remove();
                 $("#myTable > thead > tr").append("<th id='orderSure'>" + langFont['orderSure'] + "</th>");
                 OrderHtml(orderData, deliveryStatusCountData);
-                AddPages(pagesTotal, true);
-                UpdatePaginationControls(pageNumber);
+
+                //這邊先把退貨申請的分頁功能關閉
+                //AddPages(pagesTotal, true);
+                //UpdatePaginationControls(pageNumber);
+                $('#ulPagination, #paginationInfo').empty();
+                
             }
 
         },
@@ -514,4 +521,10 @@ function IsSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
     }
 
     return true;
+}
+
+//頁數下拉選單
+function SearchChangePage(selectElement) {
+    currentPage = parseInt(selectElement.value);
+    ShowOrder(deliveryStatusValue, currentPage, pageSize);
 }

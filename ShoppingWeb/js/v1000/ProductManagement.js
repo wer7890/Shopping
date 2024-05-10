@@ -61,7 +61,7 @@ $(document).ready(function () {
         SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
     });
 
-    // 開關改變事件
+    // 商品是否開放開關
     $(document).on("change", ".toggle-switch", function () {
         let productId = $(this).data('id');
         ToggleProductStatus(productId);
@@ -278,4 +278,10 @@ function EditProduct(productId) {
     });
 
 
+}
+
+//頁數下拉選單
+function SearchChangePage(selectElement) {
+    currentPage = parseInt(selectElement.value);
+    SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
 }

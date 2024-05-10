@@ -51,12 +51,20 @@
             </table>          
         </div>
 
-        <div class="row">
-            <div id="pagination" class="text-center d-flex justify-content-center">
+        <div class="row" id="paginationDiv">
+            <div id="pagination" class="text-center d-flex justify-content-center col-12 col-sm-12">
                 <ul class="pagination" id="ulPagination">
                     <!-- 分頁按鈕 -->
                 </ul>
             </div>
+            <div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-4 mx-auto">
+                <select id="pageSelect" class="form-select form-select-sm" onchange="changePage(this)">
+                    <!-- 這裡會動態生成選項，所以這裡先空著 -->
+                </select>
+            </div>            
+        </div>
+
+        <div class="row">
             <span id="labSearchOrder" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
 

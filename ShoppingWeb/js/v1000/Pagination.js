@@ -69,7 +69,7 @@ function AddPages(pagesTotal, IsSearch) {
 
         ulPagination.append(paginationBtnHtml);
 
-        let selectElement = $('<select id="pageSelect" class="form-select form-select-sm ms-3" onchange="ChangePage(this)"></select>');
+        let selectElement = $('<select id="pageSelect" class="form-select form-select-sm ms-3" onchange="' + (IsSearch ? 'SearchChangePage(this)' : 'ChangePage(this)') + '"></select>');
         for (let i = 1; i <= pagesTotal; i++) {
             let = optionHtml = '<option value="' + i + '"' + (i === currentPage ? ' selected' : '') + '>第' + i + '頁</option>';
             selectElement.append(optionHtml);
