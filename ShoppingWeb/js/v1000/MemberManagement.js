@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     SearchAllData(currentPage, pageSize);
+    $("#labSearchMember").hide();
 
     //按下新增會員按鈕
     $("#btnAddMember").click(function () {
@@ -20,36 +21,34 @@
                         parent.location.reload();
                         break;
                     case 2:
-                        $("#labSearchMember").text(langFont["inputError"]);
+                        $("#labSearchMember").text(langFont["inputError"]).show().delay(3000).fadeOut();
                         break;
                     case 100:
                         window.location.reload();
                         break;
                     case 101:
-                        $("#labSearchMember").text(langFont["addFailed"]);
+                        $("#labSearchMember").text(langFont["addFailed"]).show().delay(3000).fadeOut();
                         break;
                     default:
-                        $("#labSearchMember").text(langFont["errorLog"]);
+                        $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
 
                 }
             },
             error: function (error) {
                 console.error('AJAX Error:', error);
-                $("#labSearchMember").text(langFont["ajaxError"]);
+                $("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
             }
         });
     })
 
     //是否停權
     $(document).on("change", ".toggle-switch", function () {
-        $("#labSearchMember").text("");
         let memberId = $(this).data('id');
         ToggleMemberStatus(memberId);
     });
 
     //更改等級
     $(document).on("change", ".f_level", function () {
-        $("#labSearchMember").text("");
         let memberId = $(this).data('id');
         let level = $(this).val();
         ToggleMemberLevel(memberId, level);
@@ -177,7 +176,7 @@ function SearchAllData(pageNumber, pageSize) {
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchMember").text(langFont["ajaxError"]);
+            $("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -201,18 +200,18 @@ function ToggleMemberStatus(memberId) {
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchMember").text(langFont["editStateSuccessful"]);
+                    $("#labSearchMember").text(langFont["editStateSuccessful"]).show().delay(3000).fadeOut();
                     break;
                 case 101:
-                    $("#labSearchMember").text(langFont["editStateFailed"]);
+                    $("#labSearchMember").text(langFont["editStateFailed"]).show().delay(3000).fadeOut();
                     break;
                 default:
-                    $("#labSearchMember").text(langFont["errorLog"]);
+                    $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchMember").text(langFont["ajaxError"]);
+            $("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -236,18 +235,18 @@ function ToggleMemberLevel(memberId, level) {
                     parent.location.reload();
                     break;
                 case 100:
-                    $("#labSearchMember").text(langFont["editLevelSuccessful"]);
+                    $("#labSearchMember").text(langFont["editLevelSuccessful"]).show().delay(3000).fadeOut();
                     break;
                 case 101:
-                    $("#labSearchMember").text(langFont["editLevelFailed"]);
+                    $("#labSearchMember").text(langFont["editLevelFailed"]).show().delay(3000).fadeOut();
                     break;
                 default:
-                    $("#labSearchMember").text(langFont["errorLog"]);
+                    $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
             console.error('Error:', error);
-            $("#labSearchMember").text(langFont["ajaxError"]);
+            $("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
