@@ -47,7 +47,7 @@ function AddPages(pagesTotal, IsSearch) {
 
     if (pagesTotal > 0) {
         //依資料筆數來開分頁頁數 
-        let paginationBtnHtml = '<li class="page-item" id="' + (IsSearch ? 'searchFirstPage' : 'firstPage') + '"><a class="page-link" href="#">' + langFont["firstPage"] + '</a></li>' +
+        let paginationBtnHtml = '<li class="page-item" id="' + (IsSearch ? 'searchFirstPage' : 'firstPage') + '"><a class="page-link" href="#">|<</a></li>' +
             '<li class="page-item" id="' + (IsSearch ? 'searchPreviousPage' : 'previousPage') + '"><a class="page-link" href="#"> < </a></li>';
 
         if (currentPage <= 2) {
@@ -65,7 +65,7 @@ function AddPages(pagesTotal, IsSearch) {
         }
 
         paginationBtnHtml += '<li class="page-item" id="' + (IsSearch ? 'searchNextPage' : 'nextPage') + '"><a class="page-link" href="#"> > </a></li>' +
-            '<li class="page-item" id="' + (IsSearch ? 'searchLastPage' : 'lastPage') + '"><a class="page-link" href="#">' + langFont["lastPage"] + '</a></li>';
+            '<li class="page-item" id="' + (IsSearch ? 'searchLastPage' : 'lastPage') + '"><a class="page-link" href="#">>|</a></li>';
 
         ulPagination.append(paginationBtnHtml);
 
