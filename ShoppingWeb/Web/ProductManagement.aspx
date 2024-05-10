@@ -81,9 +81,7 @@
                 </ul>
             </div>
             <div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-4 mx-auto">
-                <select id="pageSelect" class="form-select form-select-sm" onchange="changePage(this)">
-                    <!-- 動態生成選項 -->
-                </select>
+                <!-- 動態生成頁數選項，總頁數，筆數選項 -->
             </div>
             <span id="labSearchProduct" class="col-12 col-sm-12 text-center text-success"></span>
         </div>

@@ -280,8 +280,15 @@ function EditProduct(productId) {
 
 }
 
-//頁數下拉選單
+// 搜尋後頁數下拉選單
 function SearchChangePage(selectElement) {
     currentPage = parseInt(selectElement.value);
+    SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
+}
+
+// 搜尋後幾筆資料下拉選單
+function SearchEditPageSize(selectElement) {
+    currentPage = 1;
+    pageSize = parseInt(selectElement.value);
     SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
 }

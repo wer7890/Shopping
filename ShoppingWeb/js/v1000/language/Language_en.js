@@ -144,10 +144,12 @@
 
     'firstPage': 'first',
     'lastPage': 'last',
-    'totalPage': 'total',
-    'page': 'page',
+    'totalPageFirst': 'total',
+    'totalPageLast': '',
     'pageNumFirst': 'page',
     'pageNumLast': '',
+    'recordNum': 'record',
+    'page': 'page',
 };
 
 // 商品大分類

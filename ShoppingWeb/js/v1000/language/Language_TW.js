@@ -144,10 +144,12 @@
 
     'firstPage': '首頁',
     'lastPage': '末頁',
-    'totalPage': '共',
-    'page': '頁',
-    'pageNumFirst': '第',
+    'totalPageFirst': '共',
+    'totalPageLast': '頁',
+    'pageNumFirst': '',
     'pageNumLast': '頁',
+    'recordNum': '筆',
+    'page': '頁',
 };
 
 // 商品大分類

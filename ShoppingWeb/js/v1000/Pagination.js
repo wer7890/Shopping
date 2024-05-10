@@ -69,13 +69,24 @@ function AddPages(pagesTotal, IsSearch) {
 
         ulPagination.append(paginationBtnHtml);
 
-        let selectElement = $('<select id="pageSelect" class="form-select form-select-sm ms-3" onchange="' + (IsSearch ? 'SearchChangePage(this)' : 'ChangePage(this)') + '"></select>');
-        for (let i = 1; i <= pagesTotal; i++) {
-            let = optionHtml = '<option value="' + i + '"' + (i === currentPage ? ' selected' : '') + '>' + langFont["pageNumFirst"] + ' ' + i + ' ' + langFont["pageNumLast"] + '</option>';
-            selectElement.append(optionHtml);
+        //一頁幾筆資料的下拉選單
+        let selectPageSize = $('<select id="selectPageSize" class="form-select form-select-sm ms-1 col" onchange="' + (IsSearch ? 'SearchEditPageSize(this)' : 'EditPageSize(this)') + '"></select>');
+        let pageSizeOptionHtml = null;
+        for (let i = 1; i <= 10; i++) {
+            pageSizeOptionHtml += '<option value="' + i + '"' + (pageSize == i ? ' selected' : '') + '>' + i + '' + langFont["recordNum"] + '/ ' + langFont["page"] + '</option>';
         }
-        paginationInfoDiv.append(selectElement);
-        paginationInfoDiv.append('<span class="col-5 text-left"> ' + langFont["totalPage"] + ' ' + pagesTotal + ' ' + langFont["page"] + '</span>');
+        selectPageSize.append(pageSizeOptionHtml);
+        paginationInfoDiv.append(selectPageSize);
+
+        //第幾頁的下拉選單
+        let selectPageNum = $('<select id="pageSelect" class="form-select form-select-sm ms-3 col" onchange="' + (IsSearch ? 'SearchChangePage(this)' : 'ChangePage(this)') + '"></select>');
+        let pageNumOptionHtml = null;
+        for (let i = 1; i <= pagesTotal; i++) {
+            pageNumOptionHtml += '<option value="' + i + '"' + (i === currentPage ? ' selected' : '') + '>' + langFont["pageNumFirst"] + '' + i + '' + langFont["pageNumLast"] + '/ ' + langFont["totalPageFirst"] + '' + pagesTotal + '' + langFont["totalPageLast"] + '</option>';           
+        }
+        selectPageNum.append(pageNumOptionHtml);
+        paginationInfoDiv.append(selectPageNum);
+
     }
 }
 
@@ -85,8 +96,15 @@ function UpdatePaginationControls(currentPage) {
     $('#page' + currentPage).addClass('active');
 }
 
-//頁數下拉選單
+// 頁數下拉選單
 function ChangePage(selectElement) {
     currentPage = parseInt(selectElement.value);
+    SearchAllData(currentPage, pageSize);
+}
+
+// 幾筆資料下拉選單
+function EditPageSize(selectElement) {
+    currentPage = 1;
+    pageSize = parseInt(selectElement.value);
     SearchAllData(currentPage, pageSize);
 }
