@@ -1,5 +1,6 @@
 ﻿let selectedOrderId;
 let deliveryStatusValue;
+let isReturn;
 pageSize = 10;
 
 $(document).ready(function () {
@@ -84,7 +85,7 @@ $(document).ready(function () {
     $("#ulPagination").on("click", "#searchPreviousPage", function () {
         if (currentPage > 1) {
             currentPage--;
-            ShowOrder(deliveryStatusValue, currentPage, pageSize);
+            isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
         }
     });
 
@@ -92,26 +93,26 @@ $(document).ready(function () {
     $("#ulPagination").on("click", "#searchNextPage", function () {
         if (currentPage < pagesTotal) {
             currentPage++;
-            ShowOrder(deliveryStatusValue, currentPage, pageSize);
+            isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
         }
     });
 
     // 搜尋後數字頁數點擊事件
     $("#pagination").on('click', 'a.searchPageNumber', function () {
         currentPage = parseInt($(this).text());
-        ShowOrder(deliveryStatusValue, currentPage, pageSize);
+        isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
     });
 
     // 搜尋後首頁
     $("#ulPagination").on("click", "#searchFirstPage", function () {
         currentPage = 1;
-        ShowOrder(deliveryStatusValue, currentPage, pageSize);
+        isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
     });
 
     // 搜尋後末頁
     $("#ulPagination").on("click", "#searchLastPage", function () {
         currentPage = pagesTotal;
-        ShowOrder(deliveryStatusValue, currentPage, pageSize);
+        isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
     });
 
 });
@@ -254,6 +255,8 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                 let orderData = JSON.parse(response.d.Data[0]);
                 let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
                 pagesTotal = response.d.TotalPages;
+                isReturn = false;
+
                 OrderHtml(orderData, deliveryStatusCountData);
                 AddPages(pagesTotal, true);
                 UpdatePaginationControls(pageNumber);
@@ -445,15 +448,14 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 let orderData = JSON.parse(response.d.Data[0]);
                 let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
                 pagesTotal = response.d.TotalPages;
+                isReturn = true;
 
                 $("#orderSure").remove();
                 $("#myTable > thead > tr").append("<th id='orderSure'>" + langFont['orderSure'] + "</th>");
                 OrderHtml(orderData, deliveryStatusCountData);
 
-                //這邊先把退貨申請的分頁功能關閉
-                //AddPages(pagesTotal, true);
-                //UpdatePaginationControls(pageNumber);
-                $('#ulPagination, #paginationInfo').empty();
+                AddPages(pagesTotal, true);
+                UpdatePaginationControls(pageNumber);
                 
             }
 
@@ -526,12 +528,12 @@ function IsSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
 // 搜尋後頁數下拉選單
 function SearchChangePage(selectElement) {
     currentPage = parseInt(selectElement.value);
-    ShowOrder(deliveryStatusValue, currentPage, pageSize);
+    isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
 }
 
 // 搜尋後幾筆資料下拉選單
 function SearchEditPageSize(selectElement) {
     currentPage = 1;
     pageSize = parseInt(selectElement.value);
-    ShowOrder(deliveryStatusValue, currentPage, pageSize);
+    isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
 }
