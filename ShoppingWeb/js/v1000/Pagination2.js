@@ -36,7 +36,7 @@ $(document).ready(function () {
         currentPage = pagesTotal;
         SearchAllData(currentPage, pageSize);
     });
-})
+});
 
 //依資料筆數來開分頁頁數
 function AddPages(pagesTotal, IsSearch) {

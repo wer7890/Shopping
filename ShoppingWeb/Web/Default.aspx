@@ -9,13 +9,20 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
 
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/Default.css" />
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    
 </head>
 <body>
-    <div class="container mt-2">
+    <%--<div class="container mt-2">
         <h2 class="text-center"><%= Resources.Resource.title1Default %></h2>
-    </div>
+    </div>--%>
 
+
+    <%--<div id="pgt_invitation"></div>--%>
+    <ul id="pageList"></ul>
+
+    <script src="/js/<%= jsVersion %>/Default.js"></script>
 </body>
 </html>
