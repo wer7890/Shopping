@@ -20,7 +20,7 @@
 
 	// 初始dom
 	Pagination.prototype.doInit = function (index, cur) {
-		index = index || 0;  //分業按鈕起始索引
+		index = index || 0;  //分頁按鈕起始索引
 		cur = cur || 0;  //當前頁碼
 		var html = '';
 		var showButtons = this.setting.showButtons;  //顯示的按鈕數量
@@ -99,16 +99,14 @@
 				}
 				else {
 					for (var i = 0; i < len; i++) {
-						//items[i].className = '';
 						items[i].parentNode.classList.remove('active');
 					}
-					//e.target.className = 'active';
 					e.target.parentNode.classList.add('active');
 				}
 			}
 		}
 
-		// 上一頁 previous page
+		// 上一頁
 		if (target.id === 'prev') {
 			this.cur--;
 			if (this.cur < end - (len - 3) && this.cur > 2) {
@@ -117,7 +115,7 @@
 			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
 		}
 
-		// 下一頁 next page
+		// 下一頁
 		if (target.id === 'next') {
 			this.cur++;
 			if (this.cur > end - 2 && this.cur < total - 1) {  //前兩頁和後兩頁不用變
@@ -126,21 +124,21 @@
 			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
 		}
 
-		// 首頁 first page
+		// 首頁
 		if (target.id === 'first') {
 			this.cur = 1;
 			end = pages;
 			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
 		}
 
-		// 末頁 last page
+		// 末頁
 		if (target.id === 'last') {
 			this.cur = total;
 			end = total;
 			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
 		}
 
-		this.setting.callback && this.setting.callback(this.cur - 1);
+		this.setting.callback && this.setting.callback(this.cur - 1);  //&& 是從左邊到右邊，回傳第一個是falsy的值，若全部皆為truthy，則回傳最後一個值。 || 是從左邊到右邊，回傳第一個是truthy的值，若全部皆為falsy，則回傳最後一個值。
 	}
 
 	window.Pagination = Pagination;

@@ -9,7 +9,6 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
 
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
-    <%--<link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/Default.css" />--%>
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/Pagination.js"></script>
@@ -32,6 +31,9 @@
             </div>
             <div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-4 mx-auto">
                 <!-- 動態生成頁數選項，總頁數，筆數選項 -->
+                <ul class="pagination" id="ulPagination2">
+                    <!-- 分頁按鈕 -->
+                </ul>
             </div>
         </div>
     </div>

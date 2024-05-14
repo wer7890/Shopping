@@ -180,8 +180,7 @@ function SearchAllData(pageNumber, pageSize) {
                         id: 'ulPagination', //頁面元素的id
                         total: pagesTotal, //總頁數
                         showButtons: 5,  //需要顯示的按鈕數量
-                        callback: function (pageIndex) {  //点击分页后触发的回调，pageIndex就是当前选择的页面的索引，从0开始
-                            //console.log(pageIndex);
+                        callback: function (pageIndex) {  //點擊分頁後觸發的回調，pageIndex就是當前選擇的頁面的索引，從0開始
                             SearchAllData(pageIndex + 1, pageSize);  //(目前頁數, 每頁幾筆資料)
                         }
                     });
