@@ -1,6 +1,4 @@
-﻿let pageSize = 5;
-
-; (function () {
+﻿; (function () {
 	function Pagination(users) {
 		this.setting = {
 			id: null,
@@ -26,21 +24,20 @@
 		var showButtons = this.setting.showButtons;  //顯示的按鈕數量
 		var total = this.setting.total;  //總頁數
 		var pages = showButtons >= total ? total : showButtons; // 頁數，假如要顯示的按鈕數量大於等於總頁數，那頁數等於總頁數
+
 		for (var i = index, lens = pages + index; i < lens; i++) {
 			if (i == cur) {
 				html += '<li class="page-item active"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
-			}
-			else {
+			} else {
 				html += '<li class="page-item"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
 			}
 		}
 
-		if (cur == 0 && total > showButtons) {
+		if (cur == 0 && total > showButtons) {  //顯示末頁和下一頁
 			return html + '<li class="page-item"><span id="next" class="page-link"> > </span></li>' + '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
-		}
-		else if (cur == this.setting.total - 1 && total > showButtons) {
+		} else if (cur == this.setting.total - 1 && total > showButtons) {  //顯示首頁和上一頁
 			return '<li class="page-item"><span id="first" class="page-link"> |< </span>' + '</li><li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html;
-		} else if (showButtons >= total) {
+		} else if (showButtons >= total) {  //只顯示數字按鈕
 			return html;
 		}
 
@@ -79,25 +76,16 @@
 			// 往右 
 			if ((cur == end - 1 && cur != total - 1) || (cur == end && cur == total - 1)) { // 倒二  每次1頁
 				pageList.innerHTML = this.doInit(end - (len - 1), cur - 1);
-			}
-			else if (cur == end && cur != total) { // 倒一 每次2頁
+			} else if (cur == end && cur != total) { // 倒一 每次2頁
 				pageList.innerHTML = this.doInit(end - (len - 2), cur - 1);
-			}
-
-			// 往左
-			else if (cur == end - (len - 1) && cur > 2) { // 左1 每次2頁
+			} else if (cur == end - (len - 1) && cur > 2) { // 左1 每次2頁
 				pageList.innerHTML = this.doInit(end - (len + 2), cur - 1);
-			}
-			else if ((cur == end - (len - 2) && cur != 2) || (cur == end - (len - 1) && cur == 2)) { // 左2 每次1頁
+			} else if ((cur == end - (len - 2) && cur != 2) || (cur == end - (len - 1) && cur == 2)) { // 左2 每次1頁
 				pageList.innerHTML = this.doInit(end - (len + 1), cur - 1);
-			}
-
-			// 最左2個 最右2個 中間
-			else {
+			} else {  // 最左2個 最右2個 中間
 				if (total > pages) {
 					pageList.innerHTML = this.doInit(end - pages, cur - 1);
-				}
-				else {
+				} else {
 					for (var i = 0; i < len; i++) {
 						items[i].parentNode.classList.remove('active');
 					}
@@ -106,36 +94,34 @@
 			}
 		}
 
-		// 上一頁
-		if (target.id === 'prev') {
-			this.cur--;
-			if (this.cur < end - (len - 3) && this.cur > 2) {
-				end--;
-			}
-			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
-		}
 
-		// 下一頁
-		if (target.id === 'next') {
-			this.cur++;
-			if (this.cur > end - 2 && this.cur < total - 1) {  //前兩頁和後兩頁不用變
-				end++;
-			}
-			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
-		}
-
-		// 首頁
-		if (target.id === 'first') {
-			this.cur = 1;
-			end = pages;
-			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
-		}
-
-		// 末頁
-		if (target.id === 'last') {
-			this.cur = total;
-			end = total;
-			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+		switch (target.id) {
+			case "prev":  // 上一頁
+				this.cur--;
+				if (this.cur < end - (len - 3) && this.cur > 2) {
+					end--;
+				}
+				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+				break;
+			case "next":  //下一頁
+				this.cur++;
+				if (this.cur > end - 2 && this.cur < total - 1) {  //前兩頁和後兩頁不用變
+					end++;
+				}
+				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+				break;
+			case "first":  //首頁
+				this.cur = 1;
+				end = pages;
+				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+				break;
+			case "last":  // 末頁
+				this.cur = total;
+				end = total;
+				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+				break;
+			default:
+				break;
 		}
 
 		this.setting.callback && this.setting.callback(this.cur - 1);  //&& 是從左邊到右邊，回傳第一個是falsy的值，若全部皆為truthy，則回傳最後一個值。 || 是從左邊到右邊，回傳第一個是truthy的值，若全部皆為falsy，則回傳最後一個值。

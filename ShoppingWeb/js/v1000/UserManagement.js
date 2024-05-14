@@ -1,4 +1,5 @@
 ﻿let paginationInitialized = false;
+let pageSize = 5;
 
 $(document).ready(function () {
     SearchAllData(1, pageSize);

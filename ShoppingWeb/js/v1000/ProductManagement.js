@@ -5,17 +5,18 @@ let productBrand = null;
 let checkAllMinorCategories = null;
 let checkAllBrand = null;
 let newCategory = null;
-pageSize = 3;
+let paginationInitialized = false;
+let pageSize = 3;
 
 $(document).ready(function () {
     // 初始化
     ProductDataReady();
-    SearchAllData(currentPage, pageSize);
+    SearchAllData(1, pageSize);
     $("#labSearchProduct").hide();
 
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
-        currentPage = 1;
+        paginationInitialized = false;
         productName = $("#txbProductSearch").val();
         productCategory = $("#productCategory").val();  // 獲取大分類值
         productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
@@ -24,41 +25,7 @@ $(document).ready(function () {
         checkAllBrand = (productBrand == "00");  //是否為全部品牌
 
         newCategory = productCategory + productMinorCategory + productBrand;  //類別編號組合
-        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
-    });
-
-    // 搜尋後上一頁按鈕點擊事件
-    $("#ulPagination").on("click", "#searchPreviousPage", function () {
-        if (currentPage > 1) {
-            currentPage--;
-            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
-        }
-    });
-
-    // 搜尋後下一頁按鈕點擊事件
-    $("#ulPagination").on("click", "#searchNextPage", function () {
-        if (currentPage < pagesTotal) { 
-            currentPage++;
-            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
-        }
-    });
-
-    // 搜尋後數字頁數點擊事件
-    $("#pagination").on('click', 'a.searchPageNumber', function () {
-        currentPage = parseInt($(this).text());
-        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
-    });
-
-    // 搜尋後首頁
-    $("#ulPagination").on("click", "#searchFirstPage", function () {
-        currentPage = 1;
-        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
-    });
-
-    // 搜尋後末頁
-    $("#ulPagination").on("click", "#searchLastPage", function () {
-        currentPage = pagesTotal;
-        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
+        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, 1, pageSize);
     });
 
     // 商品是否開放開關
@@ -114,9 +81,18 @@ function SearchAllData(pageNumber, pageSize) {
                     tableBody.append(row);
                 });
 
-                AddPages(pagesTotal, false);
+                if (!paginationInitialized) {
+                    var page = new Pagination({
+                        id: 'ulPagination', //頁面元素的id
+                        total: pagesTotal, //總頁數
+                        showButtons: 5,  //需要顯示的按鈕數量
+                        callback: function (pageIndex) {  //點擊分頁後觸發的回調，pageIndex就是當前選擇的頁面的索引，從0開始
+                            SearchAllData(pageIndex + 1, pageSize);  //(目前頁數, 每頁幾筆資料)
+                        }
+                    });
+                    paginationInitialized = true;
+                }
             }
-            UpdatePaginationControls(pageNumber);
         },
         error: function (error) {
             console.error('Error:', error);
@@ -168,9 +144,18 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     tableBody.append(row);
                 });
 
-                AddPages(pagesTotal, true);
+                if (!paginationInitialized) {
+                    var page = new Pagination({
+                        id: 'ulPagination', //頁面元素的id
+                        total: pagesTotal, //總頁數
+                        showButtons: 5,  //需要顯示的按鈕數量
+                        callback: function (pageIndex) {  //點擊分頁後觸發的回調，pageIndex就是當前選擇的頁面的索引，從0開始
+                            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, pageIndex + 1, pageSize);
+                        }
+                    });
+                    paginationInitialized = true;
+                }
             }
-            UpdatePaginationControls(pageNumber);
         },
         error: function (error) {
             console.error('Error:', error);
@@ -179,11 +164,6 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
     });
 }
 
-//當切換到哪個頁面時，就把該頁面的按鈕變色
-function UpdatePaginationControls(currentPage) {
-    $('#pagination .page-item').removeClass('active');
-    $('#page' + currentPage).addClass('active');
-}
 
 //按下是否開放開關，更改資料庫
 function ToggleProductStatus(productId) {
@@ -278,17 +258,4 @@ function EditProduct(productId) {
     });
 
 
-}
-
-// 搜尋後頁數下拉選單
-function SearchChangePage(selectElement) {
-    currentPage = parseInt(selectElement.value);
-    SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
-}
-
-// 搜尋後幾筆資料下拉選單
-function SearchEditPageSize(selectElement) {
-    currentPage = 1;
-    pageSize = parseInt(selectElement.value);
-    SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, currentPage, pageSize);
 }
