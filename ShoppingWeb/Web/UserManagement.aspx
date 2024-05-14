@@ -59,15 +59,6 @@
             <span id="labSearchUser" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
 
-        
-        <div class="row">
-            <div id="pagination2" class="text-center d-flex justify-content-center col-12 col-sm-12">
-                <ul class="pagination" id="ulPagination2">
-                    <!-- 分頁按鈕 -->
-                </ul>
-            </div>
-        </div>
-
     </div>
 
 </body>

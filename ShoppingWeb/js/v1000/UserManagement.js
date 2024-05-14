@@ -77,8 +77,6 @@ function SearchAllData(pageNumber, pageSize) {
                     tableBody.append(row);
                 });
 
-                //AddPages(pagesTotal, false);
-
                 if (!paginationInitialized) {
                     var page = new Pagination({
                         id: 'ulPagination', //頁面元素的id
@@ -92,7 +90,6 @@ function SearchAllData(pageNumber, pageSize) {
                 }
 
             }
-            //UpdatePaginationControls(pageNumber);
         },
         error: function (xhr, status, error) {
             // 處理發生錯誤的情況

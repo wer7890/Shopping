@@ -67,7 +67,7 @@
 		var end = items[len - 1].innerHTML;  // 最後一個按鈕的頁碼
 		var num = Number(target.innerHTML);  //轉成數字
 		this.cur = num ? num : this.cur;
-		var cur = this.cur;
+		var cur = this.cur;  //當前頁面
 		var total = this.setting.total;  //總頁數
 		var pages = this.setting.showButtons;  //顯示的按鈕數量
 
@@ -93,7 +93,6 @@
 				}
 			}
 		}
-
 
 		switch (target.id) {
 			case "prev":  // 上一頁
