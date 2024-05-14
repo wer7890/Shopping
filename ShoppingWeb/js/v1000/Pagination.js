@@ -1,4 +1,6 @@
-﻿; (function () {
+﻿let pageSize = 5;
+
+; (function () {
 	function Pagination(users) {
 		this.setting = {
 			id: null,
@@ -8,7 +10,6 @@
 		}
 
 		this.cur = 1; //當前頁碼
-		console.log("aa");
 		for (var attr in users) {
 			this.setting[attr] = users[attr];
 		}
@@ -35,15 +36,15 @@
 		}
 
 		if (cur == 0 && total > showButtons) {
-			return html + '<li class="page-item"><span id="next" class="page-link"> 下一頁 </span></li>';
+			return html + '<li class="page-item"><span id="next" class="page-link"> > </span></li>' + '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
 		}
 		else if (cur == this.setting.total - 1 && total > showButtons) {
-			return '<li class="page-item"><span id="prev" class="page-link"> 上一頁 </span></li>' + html;
+			return '<li class="page-item"><span id="first" class="page-link"> |< </span>' + '</li><li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html;
 		} else if (showButtons >= total) {
 			return html;
 		}
 
-		return '<li class="page-item"><span id="prev" class="page-link"> 上一頁 </span></li>' + html + '<li class="page-item"><span id="next" class="page-link"> 下一頁 </span></li>';
+		return '<li class="page-item"><span id="first" class="page-link"> |< </span>' + '<li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html + '<li class="page-item"><span id="next" class="page-link"> > </span></li>' + '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
 	}
 
 	// 渲染
@@ -59,7 +60,7 @@
 	// click
 	Pagination.prototype.handle = function (e) {
 		var target = e.target || e.srcElement;
-		if (target.className === 'active') {  //如果是點選有變色的a標籤，那就直接return
+		if (target.parentNode.className === 'page-item active') {  //如果是點選有變色的a標籤，那就直接return
 			return false;
 		}
 
@@ -122,6 +123,20 @@
 			if (this.cur > end - 2 && this.cur < total - 1) {  //前兩頁和後兩頁不用變
 				end++;
 			}
+			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+		}
+
+		// 首頁 first page
+		if (target.id === 'first') {
+			this.cur = 1;
+			end = pages;
+			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+		}
+
+		// 末頁 last page
+		if (target.id === 'last') {
+			this.cur = total;
+			end = total;
 			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
 		}
 

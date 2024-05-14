@@ -22,9 +22,6 @@
     </div>
 
 
-    <ul id="pageList"></ul>
-
-
 
     <div class="container">
         <div class="row">
