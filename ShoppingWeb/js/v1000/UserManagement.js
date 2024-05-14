@@ -1,5 +1,10 @@
-﻿$(document).ready(function () {
-    SearchAllData(currentPage, pageSize);
+﻿let paginationInitialized = false;
+let pageSize = 2;
+
+$(document).ready(function () {
+    SearchAllData(1, pageSize);
+    
+    
     $("#labSearchUser").hide();
 
     //新增管理員
@@ -72,18 +77,23 @@ function SearchAllData(pageNumber, pageSize) {
                     tableBody.append(row);
                 });
 
-                AddPages(pagesTotal, false);
+                //AddPages(pagesTotal, false);
 
-                //var page = new Pagination({
-                //    id: 'pageList', //頁面元素的id
-                //    total: pagesTotal, //總頁數
-                //    showButtons: 5,  //需要顯示的按鈕數量
-                //    callback: function (pageIndex) {  //点击分页后触发的回调，pageIndex就是当前选择的页面的索引，从0开始
-                //        console.log(pageIndex);
-                //    }
-                //});
+                if (!paginationInitialized) {
+                    var page = new Pagination({
+                        id: 'ulPagination', //頁面元素的id
+                        total: pagesTotal, //總頁數
+                        showButtons: 5,  //需要顯示的按鈕數量
+                        callback: function (pageIndex) {  //点击分页后触发的回调，pageIndex就是当前选择的页面的索引，从0开始
+                            //console.log(pageIndex);
+                            SearchAllData(pageIndex + 1, pageSize);  //(目前頁數, 每頁幾筆資料)
+                        }
+                    });
+                    paginationInitialized = true;
+                }
+
             }
-            UpdatePaginationControls(pageNumber);
+            //UpdatePaginationControls(pageNumber);
         },
         error: function (xhr, status, error) {
             // 處理發生錯誤的情況

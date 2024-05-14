@@ -1,4 +1,4 @@
-﻿(function () {
+﻿; (function () {
 	function Pagination(users) {
 		this.setting = {
 			id: null,
@@ -8,41 +8,42 @@
 		}
 
 		this.cur = 1; //當前頁碼
-
+		console.log("aa");
 		for (var attr in users) {
 			this.setting[attr] = users[attr];
 		}
 		this.setting.id = document.getElementById(this.setting.id);
 		this.render();
+		
 	}
 
 	// 初始dom
 	Pagination.prototype.doInit = function (index, cur) {
-		index = index || 0;
-		cur = cur || 0;
+		index = index || 0;  //分業按鈕起始索引
+		cur = cur || 0;  //當前頁碼
 		var html = '';
-		var showButtons = this.setting.showButtons;
-		var total = this.setting.total;
-		var pages = showButtons >= total ? total : showButtons;
+		var showButtons = this.setting.showButtons;  //顯示的按鈕數量
+		var total = this.setting.total;  //總頁數
+		var pages = showButtons >= total ? total : showButtons; // 頁數，假如要顯示的按鈕數量大於等於總頁數，那頁數等於總頁數
 		for (var i = index, lens = pages + index; i < lens; i++) {
 			if (i == cur) {
-				html += '<li><a href="javascript:;" class="active">' + (i + 1) + '</a></li>';
+				html += '<li class="page-item active"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
 			}
 			else {
-				html += '<li><a href="javascript:;">' + (i + 1) + '</a></li>';
+				html += '<li class="page-item"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
 			}
 		}
 
 		if (cur == 0 && total > showButtons) {
-			return html + '<li><span id="next">下一页</span></li>';
+			return html + '<li class="page-item"><span id="next" class="page-link"> 下一頁 </span></li>';
 		}
 		else if (cur == this.setting.total - 1 && total > showButtons) {
-			return '<li><span id="prev">上一页</span></li>' + html;
+			return '<li class="page-item"><span id="prev" class="page-link"> 上一頁 </span></li>' + html;
 		} else if (showButtons >= total) {
 			return html;
 		}
 
-		return '<li><span id="prev">上一页</span></li>' + html + '<li><span id="next">下一页</span></li>';
+		return '<li class="page-item"><span id="prev" class="page-link"> 上一頁 </span></li>' + html + '<li class="page-item"><span id="next" class="page-link"> 下一頁 </span></li>';
 	}
 
 	// 渲染
@@ -58,22 +59,22 @@
 	// click
 	Pagination.prototype.handle = function (e) {
 		var target = e.target || e.srcElement;
-		if (target.className === 'active') {
+		if (target.className === 'active') {  //如果是點選有變色的a標籤，那就直接return
 			return false;
 		}
 
-		var pageList = this.setting.id;
-		var items = pageList.querySelectorAll('a');
-		var len = items.length;
-		var end = items[len - 1].innerHTML; // 最後一個按鈕的頁碼
-		var num = Number(target.innerHTML);
+		var pageList = this.setting.id;  //ul標籤
+		var items = pageList.querySelectorAll('a');  //ul標籤下的a標籤，會返回陣列
+		var len = items.length;  //items陣列的長度，就是showButtons顯示的按鈕數量
+		var end = items[len - 1].innerHTML;  // 最後一個按鈕的頁碼
+		var num = Number(target.innerHTML);  //轉成數字
 		this.cur = num ? num : this.cur;
 		var cur = this.cur;
-		var total = this.setting.total;
-		var pages = this.setting.showButtons;
+		var total = this.setting.total;  //總頁數
+		var pages = this.setting.showButtons;  //顯示的按鈕數量
 
 		// 點擊分頁 
-		if (target.nodeName === 'A') {
+		if (target.nodeName === 'A') {  //節點名稱，英文大寫呈現
 			// 往右 
 			if ((cur == end - 1 && cur != total - 1) || (cur == end && cur == total - 1)) { // 倒二  每次1頁
 				pageList.innerHTML = this.doInit(end - (len - 1), cur - 1);
@@ -97,9 +98,11 @@
 				}
 				else {
 					for (var i = 0; i < len; i++) {
-						items[i].className = '';
+						//items[i].className = '';
+						items[i].parentNode.classList.remove('active');
 					}
-					e.target.className = 'active';
+					//e.target.className = 'active';
+					e.target.parentNode.classList.add('active');
 				}
 			}
 		}
@@ -116,11 +119,12 @@
 		// 下一頁 next page
 		if (target.id === 'next') {
 			this.cur++;
-			if (this.cur > end - 2 && this.cur < total - 1) {
+			if (this.cur > end - 2 && this.cur < total - 1) {  //前兩頁和後兩頁不用變
 				end++;
 			}
 			pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
 		}
+
 		this.setting.callback && this.setting.callback(this.cur - 1);
 	}
 

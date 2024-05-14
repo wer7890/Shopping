@@ -8,12 +8,10 @@
     <title>查詢帳號</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
-    <%--<link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/Default.css" />--%>
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
-    <script src="/js/<%= jsVersion %>/Pagination2.js"></script>
-    <%--<script src="/js/<%= jsVersion %>/Pagination.js"></script>--%>
+    <script src="/js/<%= jsVersion %>/Pagination.js"></script>
     <script src="/js/<%= jsVersion %>/UserManagement.js"></script>
 </head>
 <body>
@@ -60,9 +58,16 @@
             </div>
             <span id="labSearchUser" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
-        
 
-        <%--<ul id="pageList"></ul>--%>
+        
+        <div class="row">
+            <div id="pagination2" class="text-center d-flex justify-content-center col-12 col-sm-12">
+                <ul class="pagination" id="ulPagination2">
+                    <!-- 分頁按鈕 -->
+                </ul>
+            </div>
+        </div>
+
     </div>
 
 </body>
