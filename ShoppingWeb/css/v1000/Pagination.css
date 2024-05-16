@@ -11,3 +11,11 @@
 #pageInput {
     width: 50px;
 }
+
+.paginationTotal {
+    display: inline-block;
+    width: 120px;
+    vertical-align: middle;
+    margin-right: 10px;
+    line-height: 38px;
+}

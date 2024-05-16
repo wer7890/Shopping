@@ -6,6 +6,7 @@
 			showButtons: 5, //需要顯示的按鈕數量
 			showFirstLastButtons: false, //是否顯示首頁和末頁按鈕
 			showGoInput: false,  //是否顯示跳轉頁面輸入框和按鈕
+			showPagesTotal: false,  //是否顯示總頁數
 			callback: null  //回呼函示
 		}
 
@@ -70,6 +71,11 @@
 		if (this.setting.showGoInput) {
 			html += '<div class="input-group mb-3 ps-4"><input type="text" id="pageInput" class="form-control" aria-label="GoBtn" aria-describedby="paginationGo" /><button class="btn btn-outline-secondary btn-sm" type="button" id="paginationGo">GO</button></div>'
         }
+
+		//新增總頁數
+		if (this.setting.showPagesTotal) {
+			html = '<div ><span class="paginationTotal">Pages: ' + (cur + 1) + '/' + total + '</span></div>' + html;
+		} 
 
 		return html;
 	}

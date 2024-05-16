@@ -180,6 +180,7 @@ function SearchAllData(pageNumber, pageSize) {
                         showButtons: 5, 
                         showFirstLastButtons: true, 
                         showGoInput: true,
+                        showPagesTotal: true,
                         callback: function (pageIndex) {  
                             SearchAllData(pageIndex + 1, pageSize);  
                         }
