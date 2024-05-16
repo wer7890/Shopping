@@ -1,11 +1,12 @@
 ﻿; (function () {
 	function Pagination(users) {
 		this.setting = {
-			id: null,
-			total: 21,
-			showButtons: 6,
-			showFirstLastButtons: true, 
-			callback: null
+			id: null,  //新增分頁元素的id
+			total: 21,  //總頁數
+			showButtons: 5, //需要顯示的按鈕數量
+			showFirstLastButtons: false, //是否顯示首頁和末頁按鈕
+			showGoInput: false,  //是否顯示跳轉頁面輸入框和按鈕
+			callback: null  //回呼函示
 		}
 
 		this.cur = 1; //當前頁碼
@@ -13,8 +14,8 @@
 			this.setting[attr] = users[attr];
 		}
 		
-		document.getElementById(this.setting.id).innerHTML = '<div id="paginationBtn" class="text-center d-flex justify-content-center col-12 col-sm-12"><ul class="pagination" id="ulPagination"></ul></div>' +
-			'<div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-4 mx-auto"></div>';
+		document.getElementById(this.setting.id).innerHTML = '<div id="paginationBtn" class="text-center d-flex justify-content-center col-12 col-sm-12"><ul class="pagination d-flex justify-content-center" id="ulPagination"></ul></div>' +
+			'<div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-5 mx-auto"></div>';
 		this.setting.id = document.getElementById("ulPagination");
 
 		this.render();
@@ -30,6 +31,7 @@
 		var total = this.setting.total;  //總頁數
 		var pages = showButtons >= total ? total : showButtons; // 頁數，假如要顯示的按鈕數量大於等於總頁數，那頁數等於總頁數
 
+		//新增數字按鈕
 		for (var i = index, lens = pages + index; i < lens; i++) {
 			if (i == cur) {
 				html += '<li class="page-item active"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
@@ -38,7 +40,7 @@
 			}
 		}
 
-		//新增上下頁按鈕
+		//新增上下頁和首末按鈕
 		if (cur == 0 && total > showButtons) {  //當前頁數1且總頁數大於顯示頁數
 			html += '<li class="page-item"><span id="next" class="page-link"> > </span></li>';
 
@@ -54,7 +56,7 @@
 			}
 
 		} else if (showButtons >= total) {  //只顯示數字按鈕
-			return html;
+
         } else {
 			html = '<li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html + '<li class="page-item"><span id="next" class="page-link"> > </span></li>';
 
@@ -62,6 +64,11 @@
 				html = '<li class="page-item"><span id="first" class="page-link"> |< </span>' + html + '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
 			}
 
+        }
+
+		//新增輸入頁數功能
+		if (this.setting.showGoInput) {
+			html += '<div class="input-group mb-3 ps-4 me-5"><input type="text" id="pageInput" class="form-control " aria-label="GoBtn" aria-describedby="paginationGo" /><button class="btn btn-outline-secondary btn-sm" type="button" id="paginationGo">GO</button></div>'
         }
 
 		return html;
@@ -95,7 +102,7 @@
 		var total = this.setting.total;  //總頁數
 		var pages = this.setting.showButtons;  //顯示的按鈕數量
 
-		// 點擊分頁 
+		// 點擊頁數按鈕 
 		if (target.nodeName === 'A') {  //節點名稱，英文大寫呈現
 			// 往右 
 			if ((cur == end - 1 && cur != total - 1) || (cur == end && cur == total - 1)) { // 倒二  每次1頁
@@ -131,6 +138,7 @@
 				if (this.cur > end - 2 && this.cur < total - 1) {  //前兩頁和後兩頁不用變
 					end++;
 				}
+				console.log(end + "," + pages + "," + this.cur);
 				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
 				break;
 			case "first":  //首頁
@@ -142,6 +150,21 @@
 				this.cur = total;
 				end = total;
 				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+				break;
+			case "paginationGo":  //跳轉
+				var inputPage = parseInt(document.getElementById("pageInput").value); 
+
+				if (inputPage > 0 && inputPage <= total) { 
+					this.cur = inputPage;
+					var startIndex = Math.max(0, Math.min(this.cur - Math.ceil(this.setting.showButtons / 2), total - this.setting.showButtons)); 
+					if (total <= this.setting.showButtons) {
+						startIndex = 0; 
+					}
+					console.log(startIndex + "," + this.cur);
+					pageList.innerHTML = this.doInit(startIndex, this.cur - 1); 
+					
+				}
+				
 				break;
 			default:
 				break;
