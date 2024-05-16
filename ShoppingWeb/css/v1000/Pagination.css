@@ -1,9 +1,9 @@
-﻿a {
+﻿.paginationA {
     width: 45px;
     text-align: center;
 }
 
-span {
+.paginationSpan {
     width: 45px;
     cursor: pointer;
 }

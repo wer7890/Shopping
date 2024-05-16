@@ -34,34 +34,34 @@
 		//新增數字按鈕
 		for (var i = index, lens = pages + index; i < lens; i++) {
 			if (i == cur) {
-				html += '<li class="page-item active"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
+				html += '<li class="page-item active"><a class="page-link paginationA" href="javascript:;">' + (i + 1) + '</a></li>';
 			} else {
-				html += '<li class="page-item"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
+				html += '<li class="page-item"><a class="page-link paginationA" href="javascript:;">' + (i + 1) + '</a></li>';
 			}
 		}
 
 		//新增上下頁和首末按鈕
 		if (cur == 0 && total > showButtons) {  //當前頁數1且總頁數大於顯示頁數
-			html += '<li class="page-item"><span id="next" class="page-link"> > </span></li>';
+			html += '<li class="page-item"><span id="next" class="page-link paginationSpan"> > </span></li>';
 
 			if (this.setting.showFirstLastButtons) {
-				html += '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
+				html += '<li class="page-item"><span id="last" class="page-link paginationSpan"> >| </span></li>';
 			}
 
 		} else if (cur == this.setting.total - 1 && total > showButtons) {  //當前在末頁且總頁數大於顯示頁數
-			html = '</li><li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html;
+			html = '</li><li class="page-item"><span id="prev" class="page-link paginationSpan"> < </span></li>' + html;
 
 			if (this.setting.showFirstLastButtons) {
-				html = '<li class="page-item"><span id="first" class="page-link"> |< </span>' + html;
+				html = '<li class="page-item"><span id="first" class="page-link paginationSpan"> |< </span>' + html;
 			}
 
 		} else if (showButtons >= total) {  //只顯示數字按鈕
 
         } else {
-			html = '<li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html + '<li class="page-item"><span id="next" class="page-link"> > </span></li>';
+			html = '<li class="page-item"><span id="prev" class="page-link paginationSpan"> < </span></li>' + html + '<li class="page-item"><span id="next" class="page-link paginationSpan"> > </span></li>';
 
 			if (this.setting.showFirstLastButtons) {
-				html = '<li class="page-item"><span id="first" class="page-link"> |< </span>' + html + '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
+				html = '<li class="page-item"><span id="first" class="page-link paginationSpan"> |< </span>' + html + '<li class="page-item"><span id="last" class="page-link paginationSpan"> >| </span></li>';
 			}
 
         }
@@ -104,27 +104,32 @@
 
 		// 點擊頁數按鈕 
 		if (target.nodeName === 'A') {  //節點名稱，英文大寫呈現
-			// 往右 
-			if ((cur == end - 1 && cur != total - 1) || (cur == end && cur == total - 1)) { // 倒二  每次1頁
-				pageList.innerHTML = this.doInit(end - (len - 1), cur - 1);
-			} else if (cur == end && cur != total) { // 倒一 每次2頁
-				pageList.innerHTML = this.doInit(end - (len - 2), cur - 1);
-			} else if (cur == end - (len - 1) && cur > 2) { // 左1 每次2頁
-				pageList.innerHTML = this.doInit(end - (len + 2), cur - 1);
-			} else if ((cur == end - (len - 2) && cur != 2) || (cur == end - (len - 1) && cur == 2)) { // 左2 每次1頁
-				pageList.innerHTML = this.doInit(end - (len + 1), cur - 1);
-			} else {  // 最左2個 最右2個 中間
-				if (total > pages) {
-					pageList.innerHTML = this.doInit(end - pages, cur - 1);
-				} else {
-					for (var i = 0; i < len; i++) {
-						items[i].parentNode.classList.remove('active');
+			switch (true) {
+				case (cur == end - 1 && cur != total - 1) || (cur == end && cur == total - 1): // 倒二  每次1頁
+					pageList.innerHTML = this.doInit(end - (len - 1), cur - 1);
+					break;
+				case cur == end && cur != total: // 倒一 每次2頁
+					pageList.innerHTML = this.doInit(end - (len - 2), cur - 1);
+					break;
+				case cur == end - (len - 1) && cur > 2: // 左1 每次2頁
+					pageList.innerHTML = this.doInit(end - (len + 2), cur - 1);
+					break;
+				case (cur == end - (len - 2) && cur != 2) || (cur == end - (len - 1) && cur == 2): // 左2 每次1頁
+					pageList.innerHTML = this.doInit(end - (len + 1), cur - 1);
+					break;
+				default: // 最左2個 最右2個 中間
+					if (total > pages) {
+						pageList.innerHTML = this.doInit(end - pages, cur - 1);
+					} else {
+						for (var i = 0; i < len; i++) {
+							items[i].parentNode.classList.remove('active');
+						}
+						e.target.parentNode.classList.add('active');
 					}
-					e.target.parentNode.classList.add('active');
-				}
 			}
 		}
 
+		//其他按鈕
 		switch (target.id) {
 			case "prev":  // 上一頁
 				this.cur--;
