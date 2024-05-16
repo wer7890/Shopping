@@ -1,0 +1,13 @@
+﻿a {
+    width: 45px;
+    text-align: center;
+}
+
+span {
+    width: 45px;
+    cursor: pointer;
+}
+
+#pageInput {
+    width: 50px;
+}

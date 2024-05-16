@@ -87,6 +87,7 @@ function SearchAllData(pageNumber, pageSize) {
                         total: pagesTotal, //總頁數
                         showButtons: 5,  //需要顯示的按鈕數量
                         showFirstLastButtons: true,  //是否顯示首頁和末頁按鈕
+                        showGoInput: true,
                         callback: function (pageIndex) {  //點擊分頁後觸發的回調，pageIndex就是當前選擇的頁面的索引，從0開始
                             SearchAllData(pageIndex + 1, pageSize);  //(目前頁數, 每頁幾筆資料)
                         }

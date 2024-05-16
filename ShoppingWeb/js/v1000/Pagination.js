@@ -68,7 +68,7 @@
 
 		//新增輸入頁數功能
 		if (this.setting.showGoInput) {
-			html += '<div class="input-group mb-3 ps-4 me-5"><input type="text" id="pageInput" class="form-control " aria-label="GoBtn" aria-describedby="paginationGo" /><button class="btn btn-outline-secondary btn-sm" type="button" id="paginationGo">GO</button></div>'
+			html += '<div class="input-group mb-3 ps-4"><input type="text" id="pageInput" class="form-control" aria-label="GoBtn" aria-describedby="paginationGo" /><button class="btn btn-outline-secondary btn-sm" type="button" id="paginationGo">GO</button></div>'
         }
 
 		return html;

@@ -77,6 +77,7 @@
     <Content Include="Ajax\UserHandler.aspx" />
     <Content Include="css\v1000\bootstrap.min.css" />
     <Content Include="css\v1000\OrderManagement.css" />
+    <Content Include="css\v1000\Pagination.css" />
     <Content Include="Global.asax" />
     <Content Include="js\v1000\AddProduct.js" />
     <Content Include="js\v1000\AddUser.js" />
