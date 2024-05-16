@@ -83,7 +83,7 @@ function SearchAllData(pageNumber, pageSize) {
 
                 if (!paginationInitialized) {
                     var page = new Pagination({
-                        id: 'ulPagination', //頁面元素的id
+                        id: 'pagination', //頁面元素的id
                         total: pagesTotal, //總頁數
                         showButtons: 5,  //需要顯示的按鈕數量
                         showFirstLastButtons: true,  //是否顯示首頁和末頁按鈕
@@ -147,7 +147,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
 
                 if (!paginationInitialized) {
                     var page = new Pagination({
-                        id: 'ulPagination', //頁面元素的id
+                        id: 'pagination', //頁面元素的id
                         total: pagesTotal, //總頁數
                         showButtons: 5,  //需要顯示的按鈕數量
                         showFirstLastButtons: true,  //是否顯示首頁和末頁按鈕

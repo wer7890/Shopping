@@ -12,7 +12,11 @@
 		for (var attr in users) {
 			this.setting[attr] = users[attr];
 		}
-		this.setting.id = document.getElementById(this.setting.id);
+		
+		document.getElementById(this.setting.id).innerHTML = '<div id="paginationBtn" class="text-center d-flex justify-content-center col-12 col-sm-12"><ul class="pagination" id="ulPagination"></ul></div>' +
+			'<div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-4 mx-auto"></div>';
+		this.setting.id = document.getElementById("ulPagination");
+
 		this.render();
 		
 	}
@@ -33,7 +37,6 @@
 				html += '<li class="page-item"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
 			}
 		}
-
 
 		//新增上下頁按鈕
 		if (cur == 0 && total > showButtons) {  //當前頁數1且總頁數大於顯示頁數
@@ -67,7 +70,7 @@
 	// 渲染
 	Pagination.prototype.render = function () {
 		var self = this;
-		
+
 		this.setting.id.innerHTML = this.doInit();
 		this.setting.id.onclick = function (e) {
 			e = e || window.event;  //處理跨瀏覽器的兼容性
