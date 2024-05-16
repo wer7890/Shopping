@@ -4,6 +4,7 @@
 			id: null,
 			total: 21,
 			showButtons: 6,
+			showFirstLastButtons: true, 
 			callback: null
 		}
 
@@ -33,15 +34,34 @@
 			}
 		}
 
-		if (cur == 0 && total > showButtons) {  //顯示末頁和下一頁
-			return html + '<li class="page-item"><span id="next" class="page-link"> > </span></li>' + '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
-		} else if (cur == this.setting.total - 1 && total > showButtons) {  //顯示首頁和上一頁
-			return '<li class="page-item"><span id="first" class="page-link"> |< </span>' + '</li><li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html;
+
+		//新增上下頁按鈕
+		if (cur == 0 && total > showButtons) {  //當前頁數1且總頁數大於顯示頁數
+			html += '<li class="page-item"><span id="next" class="page-link"> > </span></li>';
+
+			if (this.setting.showFirstLastButtons) {
+				html += '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
+			}
+
+		} else if (cur == this.setting.total - 1 && total > showButtons) {  //當前在末頁且總頁數大於顯示頁數
+			html = '</li><li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html;
+
+			if (this.setting.showFirstLastButtons) {
+				html = '<li class="page-item"><span id="first" class="page-link"> |< </span>' + html;
+			}
+
 		} else if (showButtons >= total) {  //只顯示數字按鈕
 			return html;
-		}
+        } else {
+			html = '<li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html + '<li class="page-item"><span id="next" class="page-link"> > </span></li>';
 
-		return '<li class="page-item"><span id="first" class="page-link"> |< </span>' + '<li class="page-item"><span id="prev" class="page-link"> < </span></li>' + html + '<li class="page-item"><span id="next" class="page-link"> > </span></li>' + '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
+			if (this.setting.showFirstLastButtons) {
+				html = '<li class="page-item"><span id="first" class="page-link"> |< </span>' + html + '<li class="page-item"><span id="last" class="page-link"> >| </span></li>';
+			}
+
+        }
+
+		return html;
 	}
 
 	// 渲染
