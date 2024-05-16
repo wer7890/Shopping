@@ -78,6 +78,10 @@
         <div class="row" id="pagination">
             <!-- 分頁內容 -->
         </div>
+
+        <div class="row">
+            <span id="labSearchProduct" class="col-12 col-sm-12 text-center text-success"></span>
+        </div>
     </div>
  
 </body>

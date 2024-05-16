@@ -52,6 +52,9 @@
             <!-- 分頁內容 -->
         </div>
 
+        <div class="row">
+            <span id="labSearchUser" class="col-12 col-sm-12 text-center text-success"></span>
+        </div>
     </div>
 
 </body>

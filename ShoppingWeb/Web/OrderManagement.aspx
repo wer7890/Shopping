@@ -8,10 +8,11 @@
     <title>查詢訂單</title>
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/OrderManagement.css" />
+    <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/Pagination.css" />
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
-    <script src="/js/<%= jsVersion %>/Pagination2.js"></script>
+    <script src="/js/<%= jsVersion %>/Pagination.js"></script>
     <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
     <script src="/js/<%= jsVersion %>/OrderManagement.js"></script>
 </head>
@@ -51,15 +52,8 @@
             </table>          
         </div>
 
-        <div class="row" id="paginationDiv">
-            <div id="pagination" class="text-center d-flex justify-content-center col-12 col-sm-12">
-                <ul class="pagination" id="ulPagination">
-                    <!-- 分頁按鈕 -->
-                </ul>
-            </div>
-            <div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-4 mx-auto">
-                <!-- 動態生成頁數選項，總頁數，筆數選項 -->
-            </div>            
+        <div class="row" id="pagination">
+            <!-- 分頁內容 -->
         </div>
 
         <div class="row">

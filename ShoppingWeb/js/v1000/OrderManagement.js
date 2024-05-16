@@ -1,15 +1,17 @@
 ﻿let selectedOrderId;
 let deliveryStatusValue;
 let isReturn;
-pageSize = 10;
+let paginationInitialized = false;
+let pageSize = 10;
 
 $(document).ready(function () {
     //初始化
-    SearchAllData(currentPage, pageSize);
+    SearchAllData(1, pageSize);
     $("#labSearchOrder").hide();
 
     //點選上方按鈕時，該按鈕變色
     $(".btnHand").click(function () {
+        paginationInitialized = false;
         $(".btnHand").each(function (index) {
             $(this).removeClass("btn-secondary").addClass("btn-outline-secondary");
         });
@@ -18,15 +20,14 @@ $(document).ready(function () {
 
         let buttonId = $(this).attr("id"); // 獲取按鈕的 id
         let deliveryStatus = buttonId.split("_")[1]; // 從 id 中提取出狀態碼
-        currentPage = 1; //把當前頁數改成1
 
         // 根據狀態碼執行相應的函數
         if (deliveryStatus === "0") {
-            SearchAllData(currentPage, pageSize);
+            SearchAllData(1, pageSize);
         } else if (deliveryStatus === "7") {
-            ShowReturnOrder(currentPage, pageSize);
+            ShowReturnOrder(1, pageSize);
         } else {
-            ShowOrder(deliveryStatus, currentPage, pageSize);
+            ShowOrder(deliveryStatus, 1, pageSize);
         }
     });
 
@@ -80,41 +81,6 @@ $(document).ready(function () {
         deliveryStatusSelect.append(selectHtml);
 
     });
-
-    // 搜尋後上一頁按鈕點擊事件
-    $("#ulPagination").on("click", "#searchPreviousPage", function () {
-        if (currentPage > 1) {
-            currentPage--;
-            isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
-        }
-    });
-
-    // 搜尋後下一頁按鈕點擊事件
-    $("#ulPagination").on("click", "#searchNextPage", function () {
-        if (currentPage < pagesTotal) {
-            currentPage++;
-            isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
-        }
-    });
-
-    // 搜尋後數字頁數點擊事件
-    $("#pagination").on('click', 'a.searchPageNumber', function () {
-        currentPage = parseInt($(this).text());
-        isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
-    });
-
-    // 搜尋後首頁
-    $("#ulPagination").on("click", "#searchFirstPage", function () {
-        currentPage = 1;
-        isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
-    });
-
-    // 搜尋後末頁
-    $("#ulPagination").on("click", "#searchLastPage", function () {
-        currentPage = pagesTotal;
-        isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
-    });
-
 });
 
 //全部訂單資料
@@ -139,8 +105,19 @@ function SearchAllData(pageNumber, pageSize) {
                 let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
                 pagesTotal = response.d.TotalPages;
                 OrderHtml(orderData, deliveryStatusCountData);
-                AddPages(pagesTotal, false);
-                UpdatePaginationControls(pageNumber);
+
+                if (!paginationInitialized) {
+                    var page = new Pagination({
+                        id: 'pagination',
+                        total: pagesTotal,
+                        showButtons: 5,
+                        showFirstLastButtons: true,
+                        callback: function (pageIndex) {
+                            SearchAllData(pageIndex + 1, pageSize);
+                        }
+                    });
+                    paginationInitialized = true;
+                }
             }
         },
         error: function (error) {
@@ -258,8 +235,19 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                 isReturn = false;
 
                 OrderHtml(orderData, deliveryStatusCountData);
-                AddPages(pagesTotal, true);
-                UpdatePaginationControls(pageNumber);
+
+                if (!paginationInitialized) {
+                    var page = new Pagination({
+                        id: 'pagination',
+                        total: pagesTotal,
+                        showButtons: 5,
+                        showFirstLastButtons: true,
+                        callback: function (pageIndex) {
+                            ShowOrder(deliveryStatusValue, pageIndex + 1, pageSize);
+                        }
+                    });
+                    paginationInitialized = true;
+                }
             }
 
         },
@@ -405,11 +393,11 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     let temp = (response.d === 100) ? langFont["editSuccessful"] : langFont["editOrderFailed"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     if (deliveryStatusValue === 0) {
-                        SearchAllData(currentPage, pageSize);
+                        SearchAllData(1, pageSize);
                     } else if (deliveryStatusValue === 7) {
-                        ShowReturnOrder(currentPage, pageSize);
+                        ShowReturnOrder(1, pageSize);
                     } else {
-                        ShowOrder(deliveryStatusValue, currentPage, pageSize);
+                        ShowOrder(deliveryStatusValue, 1, pageSize);
                     }
                     break;
                 default:
@@ -491,7 +479,7 @@ function EditReturnOrder(orderId, boolReturn) {
                 case 101:
                     let temp = (response.d === 100) ? langFont["editSuccessful"] : langFont["editFail"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
-                    ShowReturnOrder(currentPage, pageSize);
+                    ShowReturnOrder(1, pageSize);
                     break;
                 default:
                     $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
@@ -523,17 +511,4 @@ function IsSpecialChar(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
     }
 
     return true;
-}
-
-// 搜尋後頁數下拉選單
-function SearchChangePage(selectElement) {
-    currentPage = parseInt(selectElement.value);
-    isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
-}
-
-// 搜尋後幾筆資料下拉選單
-function SearchEditPageSize(selectElement) {
-    currentPage = 1;
-    pageSize = parseInt(selectElement.value);
-    isReturn ? ShowReturnOrder(currentPage, pageSize) : ShowOrder(deliveryStatusValue, currentPage, pageSize);
 }

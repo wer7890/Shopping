@@ -87,7 +87,7 @@
 
 	// click
 	Pagination.prototype.handle = function (e) {
-		var target = e.target || e.srcElement;  //處理跨瀏覽器的兼容性，e.target如果你点击了一个按钮，那么 e.target 就会指向这个按钮元素。e.srcElement適用老版本瀏覽器
+		var target = e.target || e.srcElement;  //處理跨瀏覽器的兼容性，e.target如果你點擊了一個按鈕，那麼 e.target 就會指向這個按鈕元素。e.srcElement適用老版本瀏覽器
 		if (target.parentNode.className === 'page-item active') {  //如果是點選有變色的a標籤，那就直接return
 			return false;
 		}
