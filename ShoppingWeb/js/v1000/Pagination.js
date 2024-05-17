@@ -4,7 +4,8 @@
 			id: null,  //新增分頁元素的id
 			total: 21,  //總頁數
 			showButtons: 5, //需要顯示的按鈕數量
-			showFirstLastButtons: false, //是否顯示首頁和末頁按鈕
+			showPrevNext: true,  //是否顯示上下頁按鈕
+			showFirstLastButtons: false,  //是否顯示首頁和末頁按鈕
 			showGoInput: false,  //是否顯示跳轉頁面輸入框和按鈕
 			showPagesTotal: false,  //是否顯示總頁數
 			directType: false,  //是否為直式 
@@ -44,14 +45,20 @@
 
 		//新增上下頁和首末按鈕
 		if (cur == 0 && total > showButtons) {  //當前頁數1且總頁數大於顯示頁數
-			html += '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="next" class="page-link"> > </span></li>';
 
+			if (this.setting.showPrevNext) {
+				html += '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="next" class="page-link"> > </span></li>';
+            }
+			
 			if (this.setting.showFirstLastButtons) {
 				html += '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="last" class="page-link"> >| </span></li>';
 			}
 
 		} else if (cur == this.setting.total - 1 && total > showButtons) {  //當前在末頁且總頁數大於顯示頁數
-			html = '</li><li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="prev" class="page-link"> < </span></li>' + html;
+
+			if (this.setting.showPrevNext) {
+				html = '</li><li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="prev" class="page-link"> < </span></li>' + html;
+			}
 
 			if (this.setting.showFirstLastButtons) {
 				html = '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="first" class="page-link"> |< </span>' + html;
@@ -60,7 +67,10 @@
 		} else if (showButtons >= total) {  //只顯示數字按鈕
 
 		} else {
-			html = '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="prev" class="page-link"> < </span></li>' + html + '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="next" class="page-link"> > </span></li>';
+
+			if (this.setting.showPrevNext) {
+				html = '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="prev" class="page-link"> < </span></li>' + html + '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="next" class="page-link"> > </span></li>';
+			}
 
 			if (this.setting.showFirstLastButtons) {
 				html = '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="first" class="page-link"> |< </span>' + html + '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="last" class="page-link"> >| </span></li>';
