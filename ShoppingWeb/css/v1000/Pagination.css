@@ -1,21 +1,102 @@
-﻿.paginationA {
+﻿.pagination-container {  /*分頁div*/
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-container-direct {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-direction: column; /* 改成垂直排列 */
+    align-items: center; /* 垂直居中 */
+}
+
+.pagination { /*分頁ul*/
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination-direct { /*分頁ul*/
+    display: flex;
+    flex-direction: column; /* 改成垂直排列 */
+    list-style: none;
+    padding: 0;
+    align-items: center;
+}
+
+.page-item { /*分頁li*/
+    margin: 0 2px;
+}
+
+.page-item-direct { /*分頁li*/ 
+    margin: 2px 0; 
+}
+
+.page-link {
     width: 45px;
+    display: block;
+    padding: 8px 5px; /* 調整按鈕內部的填充 */
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
     text-align: center;
 }
 
-.paginationSpan {
+.page-item.active .page-link, .page-item-direct.active .page-link {
+    background-color: #007bff;
+    color: white;
+}
+
+.page-link:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination-go { 
+    display: flex;
+    align-items: center;
+    margin-left: 10px; 
+}
+
+.pagination-go-direct {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.page-input {
     width: 45px;
+    padding: 5px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+}
+
+.go-btn {
+    width: 45px;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
     cursor: pointer;
 }
 
-#pageInput {
-    width: 50px;
+.go-btn:hover {
+    background-color: #0056b3;
 }
 
-.paginationTotal {
-    display: inline-block;
-    width: 120px;
-    vertical-align: middle;
+.pagination-info {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.pagination-total {
     margin-right: 10px;
-    line-height: 38px;
+    color: #007bff;
+    line-height: 42px;
 }

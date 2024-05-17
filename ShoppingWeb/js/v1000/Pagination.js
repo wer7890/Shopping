@@ -7,6 +7,7 @@
 			showFirstLastButtons: false, //是否顯示首頁和末頁按鈕
 			showGoInput: false,  //是否顯示跳轉頁面輸入框和按鈕
 			showPagesTotal: false,  //是否顯示總頁數
+			directType: false,  //是否為直式 
 			callback: null  //回呼函示
 		}
 
@@ -14,9 +15,9 @@
 		for (var attr in users) {
 			this.setting[attr] = users[attr];
 		}
-		
-		document.getElementById(this.setting.id).innerHTML = '<div id="paginationBtn" class="text-center d-flex justify-content-center col-12 col-sm-12"><ul class="pagination d-flex justify-content-center" id="ulPagination"></ul></div>' +
-			'<div id="paginationInfo" class="text-center text-center d-flex justify-content-center col-5 mx-auto"></div>';
+
+		document.getElementById(this.setting.id).innerHTML = '<div id="paginationBtn" class="' + (this.setting.directType ? 'pagination-container-direct' : 'pagination-container') + '"><ul class="' + (this.setting.directType ? ' pagination-direct' : 'pagination') + '" id="ulPagination"></ul></div>' +
+			'<div id="paginationInfo" class="pagination-info"></div>';
 		this.setting.id = document.getElementById("ulPagination");
 
 		this.render();
@@ -35,47 +36,47 @@
 		//新增數字按鈕
 		for (var i = index, lens = pages + index; i < lens; i++) {
 			if (i == cur) {
-				html += '<li class="page-item active"><a class="page-link paginationA" href="javascript:;">' + (i + 1) + '</a></li>';
+				html += '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + ' active"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
 			} else {
-				html += '<li class="page-item"><a class="page-link paginationA" href="javascript:;">' + (i + 1) + '</a></li>';
+				html += '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><a class="page-link" href="javascript:;">' + (i + 1) + '</a></li>';
 			}
 		}
 
 		//新增上下頁和首末按鈕
 		if (cur == 0 && total > showButtons) {  //當前頁數1且總頁數大於顯示頁數
-			html += '<li class="page-item"><span id="next" class="page-link paginationSpan"> > </span></li>';
+			html += '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="next" class="page-link"> > </span></li>';
 
 			if (this.setting.showFirstLastButtons) {
-				html += '<li class="page-item"><span id="last" class="page-link paginationSpan"> >| </span></li>';
+				html += '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="last" class="page-link"> >| </span></li>';
 			}
 
 		} else if (cur == this.setting.total - 1 && total > showButtons) {  //當前在末頁且總頁數大於顯示頁數
-			html = '</li><li class="page-item"><span id="prev" class="page-link paginationSpan"> < </span></li>' + html;
+			html = '</li><li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="prev" class="page-link"> < </span></li>' + html;
 
 			if (this.setting.showFirstLastButtons) {
-				html = '<li class="page-item"><span id="first" class="page-link paginationSpan"> |< </span>' + html;
+				html = '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="first" class="page-link"> |< </span>' + html;
 			}
 
 		} else if (showButtons >= total) {  //只顯示數字按鈕
 
-        } else {
-			html = '<li class="page-item"><span id="prev" class="page-link paginationSpan"> < </span></li>' + html + '<li class="page-item"><span id="next" class="page-link paginationSpan"> > </span></li>';
+		} else {
+			html = '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="prev" class="page-link"> < </span></li>' + html + '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="next" class="page-link"> > </span></li>';
 
 			if (this.setting.showFirstLastButtons) {
-				html = '<li class="page-item"><span id="first" class="page-link paginationSpan"> |< </span>' + html + '<li class="page-item"><span id="last" class="page-link paginationSpan"> >| </span></li>';
+				html = '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="first" class="page-link"> |< </span>' + html + '<li class="' + (this.setting.directType ? 'page-item-direct' : 'page-item') + '"><span id="last" class="page-link"> >| </span></li>';
 			}
 
-        }
+		}
 
 		//新增輸入頁數功能
-		if (this.setting.showGoInput) {
-			html += '<div class="input-group mb-3 ps-4"><input type="text" id="pageInput" class="form-control" aria-label="GoBtn" aria-describedby="paginationGo" /><button class="btn btn-outline-secondary btn-sm" type="button" id="paginationGo">GO</button></div>'
-        }
+		if (this.setting.showGoInput) {  
+			html += '<div class="' + (this.setting.directType ? ' pagination-go-direct' : 'pagination-go') + '"><input type="text" id="pageInput" class="page-input" /><button class="go-btn" type="button" id="paginationGo">GO</button></div>';
+		}
 
 		//新增總頁數
 		if (this.setting.showPagesTotal) {
-			html = '<div ><span class="paginationTotal">Pages: ' + (cur + 1) + '/' + total + '</span></div>' + html;
-		} 
+			html = '<div><span class="pagination-total">Pages: ' + (cur + 1) + '/' + total + '</span></div>' + html;
+		}
 
 		return html;
 	}
@@ -149,7 +150,6 @@
 				if (this.cur > end - 2 && this.cur < total - 1) {  //前兩頁和後兩頁不用變
 					end++;
 				}
-				console.log(end + "," + pages + "," + this.cur);
 				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
 				break;
 			case "first":  //首頁
@@ -171,7 +171,6 @@
 					if (total <= this.setting.showButtons) {
 						startIndex = 0; 
 					}
-					console.log(startIndex + "," + this.cur);
 					pageList.innerHTML = this.doInit(startIndex, this.cur - 1); 
 					
 				}

@@ -48,7 +48,7 @@
             </table>
         </div>
 
-        <div class="row" id="pagination">
+        <div class="" id="pagination">
             <!-- 分頁內容 -->
         </div>
 
