@@ -7,6 +7,7 @@ let checkAllBrand = null;
 let newCategory = null;
 let paginationInitialized = false;
 let pageSize = 3;
+let page;
 
 $(document).ready(function () {
     // 初始化
@@ -17,7 +18,6 @@ $(document).ready(function () {
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
         paginationInitialized = false;
-        $("#pagination").empty();
         productName = $("#txbProductSearch").val();
         productCategory = $("#productCategory").val();  // 獲取大分類值
         productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
@@ -83,7 +83,7 @@ function SearchAllData(pageNumber, pageSize) {
                 });
 
                 if (!paginationInitialized) {
-                    var page = new Pagination({
+                    page = new Pagination({
                         id: 'pagination',
                         total: pagesTotal,
                         showButtons: 5, 
@@ -149,14 +149,8 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                 });
 
                 if (!paginationInitialized) {
-                    var page = new Pagination({
-                        id: 'pagination', 
-                        total: pagesTotal, 
-                        showButtons: 5,  
-                        showFirstLastButtons: true, 
-                        callback: function (pageIndex) {  
-                            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, pageIndex + 1, pageSize);
-                        }
+                    page.update(pagesTotal, function (pageIndex) {
+                        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, pageIndex + 1, pageSize);
                     });
                     paginationInitialized = true;
                 }

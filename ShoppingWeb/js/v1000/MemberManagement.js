@@ -1,5 +1,6 @@
 ﻿let paginationInitialized = false;
 let pageSize = 1;
+let page;
 
 $(document).ready(function () {
     SearchAllData(1, pageSize);
@@ -174,7 +175,7 @@ function SearchAllData(pageNumber, pageSize) {
                 });
 
                 if (!paginationInitialized) {
-                    var page = new Pagination({
+                    page = new Pagination({
                         id: 'pagination', 
                         total: pagesTotal, 
                         showButtons: 5, 

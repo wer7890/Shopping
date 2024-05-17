@@ -3,6 +3,7 @@ let deliveryStatusValue;
 let isReturn;
 let paginationInitialized = false;
 let pageSize = 10;
+let page;
 
 $(document).ready(function () {
     //初始化
@@ -107,7 +108,7 @@ function SearchAllData(pageNumber, pageSize) {
                 OrderHtml(orderData, deliveryStatusCountData);
 
                 if (!paginationInitialized) {
-                    let page = new Pagination({
+                    page = new Pagination({
                         id: 'pagination',
                         total: pagesTotal,
                         showButtons: 5,
@@ -236,15 +237,10 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
 
                 OrderHtml(orderData, deliveryStatusCountData);
 
+
                 if (!paginationInitialized) {
-                    let page = new Pagination({
-                        id: 'pagination',
-                        total: pagesTotal,
-                        showButtons: 5,
-                        showFirstLastButtons: true,
-                        callback: function (pageIndex) {
-                            ShowOrder(deliveryStatusValue, pageIndex + 1, pageSize);
-                        }
+                    page.update(pagesTotal, function (pageIndex) {
+                        ShowOrder(deliveryStatusValue, pageIndex + 1, pageSize);
                     });
                     paginationInitialized = true;
                 }
@@ -443,14 +439,8 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 OrderHtml(orderData, deliveryStatusCountData);
 
                 if (!paginationInitialized) {
-                    let page = new Pagination({
-                        id: 'pagination',
-                        total: pagesTotal,
-                        showButtons: 5,
-                        showFirstLastButtons: true,
-                        callback: function (pageIndex) {
-                            ShowReturnOrder(pageIndex + 1, pageSize);
-                        }
+                    page.update(pagesTotal, function (pageIndex) {
+                        ShowReturnOrder(pageIndex + 1, pageSize);
                     });
                     paginationInitialized = true;
                 }

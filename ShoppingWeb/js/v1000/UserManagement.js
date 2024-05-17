@@ -1,10 +1,10 @@
 ﻿let paginationInitialized = false;
 let pageSize = 1;
+let page;
 
 $(document).ready(function () {
     SearchAllData(1, pageSize);
-    
-    
+       
     $("#labSearchUser").hide();
 
     //新增管理員
@@ -78,7 +78,7 @@ function SearchAllData(pageNumber, pageSize) {
                 });
 
                 if (!paginationInitialized) {
-                    var page = new Pagination({
+                    page = new Pagination({
                         id: 'pagination', 
                         total: pagesTotal, 
                         showButtons: 5,
@@ -91,7 +91,6 @@ function SearchAllData(pageNumber, pageSize) {
                     });
                     paginationInitialized = true;
                 }
-
             }
         },
         error: function (xhr, status, error) {
