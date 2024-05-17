@@ -128,10 +128,7 @@
 					if (total > pages) {
 						pageList.innerHTML = this.doInit(end - pages, cur - 1);
 					} else {
-						for (var i = 0; i < len; i++) {
-							items[i].parentNode.classList.remove('active');
-						}
-						e.target.parentNode.classList.add('active');
+						pageList.innerHTML = this.doInit(0, cur - 1);
 					}
 			}
 		}

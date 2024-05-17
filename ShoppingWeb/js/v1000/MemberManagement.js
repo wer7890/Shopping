@@ -1,5 +1,5 @@
 ﻿let paginationInitialized = false;
-let pageSize = 10;
+let pageSize = 1;
 
 $(document).ready(function () {
     SearchAllData(1, pageSize);
@@ -181,6 +181,7 @@ function SearchAllData(pageNumber, pageSize) {
                         showFirstLastButtons: true, 
                         showGoInput: true,
                         showPagesTotal: true,
+                        directType: true,
                         callback: function (pageIndex) {  
                             SearchAllData(pageIndex + 1, pageSize);  
                         }

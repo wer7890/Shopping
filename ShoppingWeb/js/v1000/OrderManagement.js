@@ -107,7 +107,7 @@ function SearchAllData(pageNumber, pageSize) {
                 OrderHtml(orderData, deliveryStatusCountData);
 
                 if (!paginationInitialized) {
-                    var page = new Pagination({
+                    let page = new Pagination({
                         id: 'pagination',
                         total: pagesTotal,
                         showButtons: 5,
@@ -237,7 +237,7 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                 OrderHtml(orderData, deliveryStatusCountData);
 
                 if (!paginationInitialized) {
-                    var page = new Pagination({
+                    let page = new Pagination({
                         id: 'pagination',
                         total: pagesTotal,
                         showButtons: 5,
@@ -442,8 +442,18 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 $("#myTable > thead > tr").append("<th id='orderSure'>" + langFont['orderSure'] + "</th>");
                 OrderHtml(orderData, deliveryStatusCountData);
 
-                AddPages(pagesTotal, true);
-                UpdatePaginationControls(pageNumber);
+                if (!paginationInitialized) {
+                    let page = new Pagination({
+                        id: 'pagination',
+                        total: pagesTotal,
+                        showButtons: 5,
+                        showFirstLastButtons: true,
+                        callback: function (pageIndex) {
+                            ShowReturnOrder(pageIndex + 1, pageSize);
+                        }
+                    });
+                    paginationInitialized = true;
+                }
                 
             }
 
@@ -479,6 +489,7 @@ function EditReturnOrder(orderId, boolReturn) {
                 case 101:
                     let temp = (response.d === 100) ? langFont["editSuccessful"] : langFont["editFail"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
+                    paginationInitialized = false;
                     ShowReturnOrder(1, pageSize);
                     break;
                 default:

@@ -85,7 +85,6 @@ function SearchAllData(pageNumber, pageSize) {
                         showFirstLastButtons: true,
                         showGoInput: true,
                         showPagesTotal: true,
-                        directType: true,
                         callback: function (pageIndex) { 
                             SearchAllData(pageIndex + 1, pageSize);
                         }

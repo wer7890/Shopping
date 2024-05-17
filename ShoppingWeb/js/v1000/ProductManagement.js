@@ -87,7 +87,9 @@ function SearchAllData(pageNumber, pageSize) {
                         id: 'pagination',
                         total: pagesTotal,
                         showButtons: 5, 
-                        showFirstLastButtons: true,  
+                        showFirstLastButtons: true, 
+                        showGoInput: true,
+                        showPagesTotal: true,
                         callback: function (pageIndex) {  
                             SearchAllData(pageIndex + 1, pageSize);  
                         }
@@ -153,7 +155,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                         showButtons: 5,  
                         showFirstLastButtons: true, 
                         callback: function (pageIndex) {  
-                            SearchAllData(pageIndex + 1, pageSize); 
+                            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, pageIndex + 1, pageSize);
                         }
                     });
                     paginationInitialized = true;
