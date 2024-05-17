@@ -3,7 +3,8 @@ let deliveryStatusValue;
 let isReturn;
 let paginationInitialized = false;
 let pageSize = 10;
-let page;
+let pagesTotal = null;
+let page = null;
 
 $(document).ready(function () {
     //初始化

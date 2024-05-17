@@ -7,7 +7,8 @@ let checkAllBrand = null;
 let newCategory = null;
 let paginationInitialized = false;
 let pageSize = 3;
-let page;
+let pagesTotal = null;
+let page = null;
 
 $(document).ready(function () {
     // 初始化

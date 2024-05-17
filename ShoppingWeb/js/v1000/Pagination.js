@@ -11,7 +11,7 @@
 			directType: false,  //是否為直式 
 			callback: null  //回呼函示
 		}
-
+		
 		this.cur = 1; //當前頁碼
 		for (var attr in users) {
 			this.setting[attr] = users[attr];
@@ -190,7 +190,8 @@
 		this.setting.callback && this.setting.callback(this.cur - 1);  //&& 是從左邊到右邊，回傳第一個是falsy的值，若全部皆為truthy，則回傳最後一個值。 || 是從左邊到右邊，回傳第一個是truthy的值，若全部皆為falsy，則回傳最後一個值。
 	}
 
-	Pagination.prototype.update = function (newTotal, newCallback) {
+	//更改設定值
+	Pagination.prototype.update = function (newTotal = this.setting.total, newCallback = this.setting.callback) {
 		this.setting.total = newTotal;
 		this.setting.callback = newCallback;
 		this.render();

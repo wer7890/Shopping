@@ -1,6 +1,6 @@
-﻿let paginationInitialized = false;
-let pageSize = 1;
-let page;
+﻿let pageSize = 1;
+let pagesTotal = null;
+let page = null;
 
 $(document).ready(function () {
     SearchAllData(1, pageSize);
@@ -77,7 +77,7 @@ function SearchAllData(pageNumber, pageSize) {
                     tableBody.append(row);
                 });
 
-                if (!paginationInitialized) {
+                if (page === null) {
                     page = new Pagination({
                         id: 'pagination', 
                         total: pagesTotal, 
@@ -89,7 +89,6 @@ function SearchAllData(pageNumber, pageSize) {
                             SearchAllData(pageIndex + 1, pageSize);
                         }
                     });
-                    paginationInitialized = true;
                 }
             }
         },

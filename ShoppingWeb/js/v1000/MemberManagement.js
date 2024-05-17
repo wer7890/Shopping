@@ -1,6 +1,6 @@
-﻿let paginationInitialized = false;
-let pageSize = 1;
-let page;
+﻿let pageSize = 1;
+let pagesTotal = null;
+let page = null;
 
 $(document).ready(function () {
     SearchAllData(1, pageSize);
@@ -174,7 +174,7 @@ function SearchAllData(pageNumber, pageSize) {
                     tableBody.append(row);
                 });
 
-                if (!paginationInitialized) {
+                if (page === null) {
                     page = new Pagination({
                         id: 'pagination', 
                         total: pagesTotal, 
@@ -182,13 +182,11 @@ function SearchAllData(pageNumber, pageSize) {
                         showFirstLastButtons: true, 
                         showGoInput: true,
                         showPagesTotal: true,
-                        directType: true,
                         callback: function (pageIndex) {  
-                            SearchAllData(pageIndex + 1, pageSize);  
+                            SearchAllData(pageIndex + 1, pageSize); 
                         }
                     });
-                    paginationInitialized = true;
-                }
+                } 
 
             }
         },
@@ -199,7 +197,7 @@ function SearchAllData(pageNumber, pageSize) {
     });
 }
 
-//按下是否啟用，更改資料庫
+//按下是否啟用，更改資料庫 
 function ToggleMemberStatus(memberId) {
     $.ajax({
         type: "POST",
