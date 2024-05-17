@@ -194,6 +194,7 @@
 	Pagination.prototype.update = function (newTotal = this.setting.total, newCallback = this.setting.callback) {
 		this.setting.total = newTotal;
 		this.setting.callback = newCallback;
+		this.cur = 1;
 		this.render();
 	}
 

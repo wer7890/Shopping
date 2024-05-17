@@ -1,6 +1,7 @@
 ﻿let pageSize = 1;
 let pagesTotal = null;
 let page = null;
+let beforePagesTotal = null;
 
 $(document).ready(function () {
     SearchAllData(1, pageSize);
@@ -186,8 +187,16 @@ function SearchAllData(pageNumber, pageSize) {
                             SearchAllData(pageIndex + 1, pageSize); 
                         }
                     });
-                } 
+                } else {
 
+                    if (pagesTotal != beforePagesTotal) {
+                        SearchAllData(1, pageSize);
+                        page.update(pagesTotal)
+                    }
+
+                }
+
+                beforePagesTotal = pagesTotal;
             }
         },
         error: function (error) {
