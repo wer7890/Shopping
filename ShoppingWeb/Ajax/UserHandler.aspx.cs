@@ -38,8 +38,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_getPwdAndEditSessionId", con))
@@ -123,7 +121,6 @@ namespace ShoppingWeb.Ajax
         {
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_getAccountRoles", con))
@@ -190,8 +187,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_delUserData", con))
@@ -249,7 +244,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_getAllUserData", con))
@@ -308,8 +302,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_editRoles", con))
@@ -364,7 +356,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_addUserData", con))
@@ -416,7 +407,6 @@ namespace ShoppingWeb.Ajax
         {
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
 
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -480,7 +470,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {

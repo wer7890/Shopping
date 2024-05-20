@@ -30,7 +30,6 @@ namespace ShoppingWeb.Ajax
                 return (int)UserStatus.AccessDenied;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("pro_sw_getAllOrderData", con))
@@ -87,7 +86,6 @@ namespace ShoppingWeb.Ajax
                 return (int)UserStatus.AccessDenied;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("pro_sw_getOrderDetailsData", con))
@@ -137,8 +135,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_editOrderData", con))
@@ -201,7 +197,6 @@ namespace ShoppingWeb.Ajax
                 return (int)UserStatus.AccessDenied;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("pro_sw_getOrderData", con))
@@ -266,7 +261,6 @@ namespace ShoppingWeb.Ajax
                 return (int)UserStatus.AccessDenied;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("pro_sw_getReturnOrderData", con))
@@ -336,7 +330,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_editReturnOrder", con))

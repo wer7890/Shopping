@@ -14,6 +14,8 @@ namespace ShoppingWeb.Ajax
 {
     public class BasePage : System.Web.UI.Page
     {
+        public static readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
         public string cssVersion;
         public string jsVersion;
         public string cookieLanguage;

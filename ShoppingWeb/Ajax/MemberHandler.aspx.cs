@@ -34,7 +34,6 @@ namespace ShoppingWeb.Ajax
                 return (int)UserStatus.AccessDenied;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("pro_sw_getAllMemberData", con))
@@ -85,8 +84,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_editMemberStatus", con))
@@ -132,8 +129,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_editMemberLevel", con))
@@ -183,7 +178,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_addMemberData", con))
@@ -220,7 +214,6 @@ namespace ShoppingWeb.Ajax
         /// <returns></returns>
         public static bool AddMemberSpecialChar(string account, string pwd, string name, string birthday, string phone, string email, string address)
         {
-            string s = birthday;
             bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
             bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
             bool cheackName = Regex.IsMatch(name, @"^[\u4E00-\u9FFF]{1,15}$");

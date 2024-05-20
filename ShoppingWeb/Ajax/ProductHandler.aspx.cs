@@ -109,7 +109,6 @@ namespace ShoppingWeb.Ajax
                 return (int)UserStatus.AccessDenied;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("pro_sw_getAllProductData", con))
@@ -162,7 +161,6 @@ namespace ShoppingWeb.Ajax
                 return (int)UserStatus.AccessDenied;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("pro_sw_getSearchProductData", con))
@@ -226,8 +224,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_delProductData", con))
@@ -288,8 +284,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_editProductStatus", con))
@@ -347,7 +341,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_addProductData", con))
@@ -432,7 +425,6 @@ namespace ShoppingWeb.Ajax
         {
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 string sessionProductId = HttpContext.Current.Session["productId"] as string;
 
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -506,7 +498,6 @@ namespace ShoppingWeb.Ajax
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
                 string sessionProductId = HttpContext.Current.Session["productId"] as string;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
