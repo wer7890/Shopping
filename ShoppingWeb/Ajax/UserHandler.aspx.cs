@@ -16,8 +16,6 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         private const int PERMITTED_USER_ROLES = 1;
 
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         public UserHandler() 
         {
             //判斷權限是否可使用該功能
@@ -76,7 +74,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -150,8 +149,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
 
@@ -209,8 +208,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -247,33 +246,43 @@ namespace ShoppingWeb.Ajax
                 return (int)UserStatus.AccessDenied;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(connectionString))
+
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("pro_sw_getAllUserData", con))
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
-                    cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
-                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    DataTable dt = new DataTable();
-                    dt.Load(reader);
-
-                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-
-                    var result = new
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllUserData", con))
                     {
-                        Data = ConvertDataTableToJson(dt),
-                        TotalPages = totalPages
-                    };
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
-                    return result;
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+
+                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                        int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+                        var result = new
+                        {
+                            Data = ConvertDataTableToJson(dt),
+                            TotalPages = totalPages
+                        };
+
+                        return result;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
+                return (int)DatabaseOperationResult.Error;
             }
         }
 
@@ -319,8 +328,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -374,8 +383,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -438,8 +447,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
 
@@ -491,8 +500,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
