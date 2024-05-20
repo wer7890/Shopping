@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Web.Services;
+using NLog;
 
 namespace ShoppingWeb.Ajax
 {
@@ -14,6 +15,8 @@ namespace ShoppingWeb.Ajax
         /// 帳號系統所要求的權限
         /// </summary>
         private const int PERMITTED_USER_ROLES = 1;
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public UserHandler() 
         {
@@ -73,8 +76,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
