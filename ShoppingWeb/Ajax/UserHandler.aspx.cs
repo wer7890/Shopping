@@ -73,7 +73,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
@@ -148,7 +148,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
@@ -207,7 +207,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
@@ -317,7 +317,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
@@ -372,7 +372,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
@@ -436,7 +436,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
@@ -489,7 +489,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }

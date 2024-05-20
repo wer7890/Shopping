@@ -6,11 +6,11 @@ using System.Web;
 
 namespace ShoppingWeb.Ajax
 {
-    public class Logger
+    public class Logger3
     {
         private readonly string logFilePath;
 
-        public Logger()
+        public Logger3()
         {
             // 設定日誌文件路徑
             logFilePath = HttpContext.Current.Server.MapPath("~/Logs/log.txt");

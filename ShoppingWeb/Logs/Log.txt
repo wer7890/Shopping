@@ -1,0 +1,5 @@
+[2024/5/20 下午 02:56:53] Exception: 此 SqlParameterCollection 中未包含带有 ParameterName“@userId”的 SqlParameter。
+StackTrace:    在 System.Data.SqlClient.SqlParameterCollection.GetParameter(String parameterName)
+   在 System.Data.SqlClient.SqlParameterCollection.get_Item(String parameterName)
+   在 ShoppingWeb.Ajax.UserHandler.LoginUser(String account, String pwd) 位置 D:\Code3\ShoppingWeb\ShoppingWeb\Ajax\UserHandler.aspx.cs:行号 53
+--------------------------------------------------

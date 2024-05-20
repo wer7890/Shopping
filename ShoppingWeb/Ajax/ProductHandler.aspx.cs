@@ -261,7 +261,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
@@ -307,7 +307,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
@@ -380,7 +380,7 @@ namespace ShoppingWeb.Ajax
             {
                 string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
                 File.Delete(imagePath);
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return "發生內部錯誤: " + ex.Message;
             }
@@ -471,7 +471,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
@@ -530,7 +530,7 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger logger = new Logger();
+                Logger3 logger = new Logger3();
                 logger.LogException(ex);
                 return (int)DatabaseOperationResult.Error;
             }
