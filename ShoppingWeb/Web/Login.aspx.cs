@@ -1,8 +1,6 @@
 ﻿using ShoppingWeb.Ajax;
 using System;
 using System.Globalization;
-using System.Reflection;
-using System.Resources;
 using System.Threading;
 using System.Web;
 
