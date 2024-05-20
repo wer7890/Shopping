@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -34,33 +35,41 @@ namespace ShoppingWeb.Ajax
                 return (int)UserStatus.AccessDenied;
             }
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("pro_sw_getAllMemberData", con))
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
-                    cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
-                    cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                    cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    DataTable dt = new DataTable();
-                    dt.Load(reader);
-
-                    int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-
-                    var result = new
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllMemberData", con))
                     {
-                        Data = ConvertDataTableToJson(dt),
-                        TotalPages = totalPages
-                    };
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
 
-                    return result;
+                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                        int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+                        var result = new
+                        {
+                            Data = ConvertDataTableToJson(dt),
+                            TotalPages = totalPages
+                        };
+
+                        return result;
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
+                return (int)DatabaseOperationResult.Error;
+            }
         }
 
         /// <summary>
@@ -101,8 +110,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -147,8 +156,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -200,8 +209,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                Logger3 logger = new Logger3();
-                logger.LogException(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
