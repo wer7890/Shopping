@@ -1,6 +1,7 @@
-﻿let pageSize = 1;
+﻿let pageSize = 5;
 let pagesTotal = null;
 let page = null;
+let beforePagesTotal = null;
 
 $(document).ready(function () {
     SearchAllData(1, pageSize);
@@ -89,7 +90,17 @@ function SearchAllData(pageNumber, pageSize) {
                             SearchAllData(pageIndex + 1, pageSize);
                         }
                     });
+                } else {
+
+                    if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        SearchAllData(1, pageSize);
+                        page.Update(pagesTotal);
+                    }
+
                 }
+
+                beforePagesTotal = pagesTotal;
             }
         },
         error: function (xhr, status, error) {

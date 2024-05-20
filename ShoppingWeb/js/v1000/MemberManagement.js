@@ -1,4 +1,4 @@
-﻿let pageSize = 1;
+﻿let pageSize = 5;
 let pagesTotal = null;
 let page = null;
 let beforePagesTotal = null;
@@ -189,9 +189,10 @@ function SearchAllData(pageNumber, pageSize) {
                     });
                 } else {
 
-                    if (pagesTotal != beforePagesTotal) {
-                        SearchAllData(1, pageSize);
-                        page.update(pagesTotal)
+                    if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        SearchAllData(1, pageSize); 
+                        page.Update(pagesTotal);
                     }
 
                 }

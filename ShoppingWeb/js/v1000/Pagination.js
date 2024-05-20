@@ -21,12 +21,12 @@
 			'<div id="paginationInfo" class="pagination-info"></div>';
 		this.setting.id = document.getElementById("ulPagination");
 
-		this.render();
+		this._RenderPagination();
 		
 	}
 
-	// 初始dom
-	Pagination.prototype.doInit = function (index, cur) {
+	// 初始dom 
+	Pagination.prototype._GeneratePaginationHtml = function (index, cur) {
 		index = index || 0;  //分頁按鈕起始索引
 		cur = cur || 0;  //當前頁碼
 		var html = '';
@@ -91,19 +91,19 @@
 		return html;
 	}
 
-	// 渲染
-	Pagination.prototype.render = function () {
+	// 渲染  
+	Pagination.prototype._RenderPagination = function () {
 		var self = this;
 
-		this.setting.id.innerHTML = this.doInit();
+		this.setting.id.innerHTML = this._GeneratePaginationHtml();
 		this.setting.id.onclick = function (e) {
 			e = e || window.event;  //處理跨瀏覽器的兼容性
-			self.handle(e)
+			self._HandlePageClick(e)
 		};
 	}
 
 	// click
-	Pagination.prototype.handle = function (e) {
+	Pagination.prototype._HandlePageClick = function (e) {
 		var target = e.target || e.srcElement;  //處理跨瀏覽器的兼容性，e.target如果你點擊了一個按鈕，那麼 e.target 就會指向這個按鈕元素。e.srcElement適用老版本瀏覽器
 		if (target.parentNode.className === 'page-item active') {  //如果是點選有變色的a標籤，那就直接return
 			return false;
@@ -123,22 +123,22 @@
 		if (target.nodeName === 'A') {  //節點名稱，英文大寫呈現
 			switch (true) {
 				case (cur == end - 1 && cur != total - 1) || (cur == end && cur == total - 1): // 倒二  每次1頁
-					pageList.innerHTML = this.doInit(end - (len - 1), cur - 1);
+					pageList.innerHTML = this._GeneratePaginationHtml(end - (len - 1), cur - 1);
 					break;
 				case cur == end && cur != total: // 倒一 每次2頁
-					pageList.innerHTML = this.doInit(end - (len - 2), cur - 1);
+					pageList.innerHTML = this._GeneratePaginationHtml(end - (len - 2), cur - 1);
 					break;
 				case cur == end - (len - 1) && cur > 2: // 左1 每次2頁
-					pageList.innerHTML = this.doInit(end - (len + 2), cur - 1);
+					pageList.innerHTML = this._GeneratePaginationHtml(end - (len + 2), cur - 1);
 					break;
 				case (cur == end - (len - 2) && cur != 2) || (cur == end - (len - 1) && cur == 2): // 左2 每次1頁
-					pageList.innerHTML = this.doInit(end - (len + 1), cur - 1);
+					pageList.innerHTML = this._GeneratePaginationHtml(end - (len + 1), cur - 1);
 					break;
 				default: // 最左2個 最右2個 中間
 					if (total > pages) {
-						pageList.innerHTML = this.doInit(end - pages, cur - 1);
+						pageList.innerHTML = this._GeneratePaginationHtml(end - pages, cur - 1);
 					} else {
-						pageList.innerHTML = this.doInit(0, cur - 1);
+						pageList.innerHTML = this._GeneratePaginationHtml(0, cur - 1);
 					}
 			}
 		}
@@ -150,24 +150,24 @@
 				if (this.cur < end - (len - 3) && this.cur > 2) {
 					end--;
 				}
-				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+				pageList.innerHTML = this._GeneratePaginationHtml(end - pages, this.cur - 1);
 				break;
 			case "next":  //下一頁
 				this.cur++;
 				if (this.cur > end - 2 && this.cur < total - 1) {  //前兩頁和後兩頁不用變
 					end++;
 				}
-				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+				pageList.innerHTML = this._GeneratePaginationHtml(end - pages, this.cur - 1);
 				break;
 			case "first":  //首頁
 				this.cur = 1;
 				end = pages;
-				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+				pageList.innerHTML = this._GeneratePaginationHtml(end - pages, this.cur - 1);
 				break;
 			case "last":  // 末頁
 				this.cur = total;
 				end = total;
-				pageList.innerHTML = this.doInit(end - pages, this.cur - 1);
+				pageList.innerHTML = this._GeneratePaginationHtml(end - pages, this.cur - 1);
 				break;
 			case "paginationGo":  //跳轉
 				var inputPage = parseInt(document.getElementById("pageInput").value); 
@@ -178,7 +178,7 @@
 					if (total <= this.setting.showButtons) {
 						startIndex = 0; 
 					}
-					pageList.innerHTML = this.doInit(startIndex, this.cur - 1); 
+					pageList.innerHTML = this._GeneratePaginationHtml(startIndex, this.cur - 1); 
 					
 				}
 				
@@ -191,11 +191,11 @@
 	}
 
 	//更改設定值
-	Pagination.prototype.update = function (newTotal = this.setting.total, newCallback = this.setting.callback) {
+	Pagination.prototype.Update = function (newTotal = this.setting.total, newCallback = this.setting.callback) {
 		this.setting.total = newTotal;
 		this.setting.callback = newCallback;
 		this.cur = 1;
-		this.render();
+		this._RenderPagination();
 	}
 
 	window.Pagination = Pagination;

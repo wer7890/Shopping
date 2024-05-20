@@ -5,6 +5,7 @@ let paginationInitialized = false;
 let pageSize = 10;
 let pagesTotal = null;
 let page = null;
+let beforePagesTotal = null;
 
 $(document).ready(function () {
     //初始化
@@ -119,7 +120,17 @@ function SearchAllData(pageNumber, pageSize) {
                         }
                     });
                     paginationInitialized = true;
+                } else {
+
+                    if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        SearchAllData(1, pageSize);
+                        page.Update(pagesTotal);
+                    }
+
                 }
+
+                beforePagesTotal = pagesTotal;
             }
         },
         error: function (error) {
@@ -240,11 +251,21 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
 
 
                 if (!paginationInitialized) {
-                    page.update(pagesTotal, function (pageIndex) {
+                    page.Update(pagesTotal, function (pageIndex) {
                         ShowOrder(deliveryStatusValue, pageIndex + 1, pageSize);
                     });
                     paginationInitialized = true;
+                } else {
+
+                    if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        ShowOrder(deliveryStatusValue, 1, pageSize);
+                        page.Update(pagesTotal);
+                    }
+
                 }
+
+                beforePagesTotal = pagesTotal;
             }
 
         },
@@ -440,12 +461,21 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 OrderHtml(orderData, deliveryStatusCountData);
 
                 if (!paginationInitialized) {
-                    page.update(pagesTotal, function (pageIndex) {
+                    page.Update(pagesTotal, function (pageIndex) {
                         ShowReturnOrder(pageIndex + 1, pageSize);
                     });
                     paginationInitialized = true;
+                } else {
+
+                    if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        ShowReturnOrder(1, pageSize);
+                        page.Update(pagesTotal);
+                    }
+
                 }
-                
+
+                beforePagesTotal = pagesTotal;
             }
 
         },

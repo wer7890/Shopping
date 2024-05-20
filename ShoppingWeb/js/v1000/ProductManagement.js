@@ -9,6 +9,7 @@ let paginationInitialized = false;
 let pageSize = 3;
 let pagesTotal = null;
 let page = null;
+let beforePagesTotal = null;
 
 $(document).ready(function () {
     // 初始化
@@ -96,7 +97,17 @@ function SearchAllData(pageNumber, pageSize) {
                         }
                     });
                     paginationInitialized = true;
+                } else {
+
+                    if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        SearchAllData(1, pageSize);
+                        page.Update(pagesTotal);
+                    }
+
                 }
+
+                beforePagesTotal = pagesTotal;
             }
         },
         error: function (error) {
@@ -150,11 +161,21 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                 });
 
                 if (!paginationInitialized) {
-                    page.update(pagesTotal, function (pageIndex) {
+                    page.Update(pagesTotal, function (pageIndex) {
                         SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, pageIndex + 1, pageSize);
                     });
                     paginationInitialized = true;
+                } else {
+
+                    if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, 1, pageSize);
+                        page.Update(pagesTotal);
+                    }
+
                 }
+
+                beforePagesTotal = pagesTotal;
             }
         },
         error: function (error) {
