@@ -227,7 +227,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetAllUserData(int pageNumber, int pageSize)
+        public static object GetAllUserData(int pageNumber, int pageSize, int beforePagesTotal)
         {
 
             if (!CheckDuplicateLogin())
@@ -251,6 +251,7 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
                         cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", beforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 

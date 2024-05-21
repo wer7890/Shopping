@@ -6,10 +6,10 @@ let checkAllMinorCategories = null;
 let checkAllBrand = null;
 let newCategory = null;
 let paginationInitialized = false;
-let pageSize = 3;
+let pageSize = 1;
 let pagesTotal = null;
 let page = null;
-let beforePagesTotal = null;
+let beforePagesTotal = 1;
 
 $(document).ready(function () {
     // 初始化
@@ -49,7 +49,7 @@ function SearchAllData(pageNumber, pageSize) {
         url: '/Ajax/ProductHandler.aspx/GetAllProductData',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
+        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
             switch (response.d) {
                 case 0:
@@ -103,14 +103,9 @@ function SearchAllData(pageNumber, pageSize) {
                             }
                         });
                         paginationInitialized = true;
-                    } else {
-
-                        if (beforePagesTotal !== pagesTotal) {
-                            alert("資料頁數變動");
-                            SearchAllData(1, pageSize);
-                            page.Update(pagesTotal);
-                        }
-
+                    } else if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        page.Update(pagesTotal);
                     }
 
                     beforePagesTotal = pagesTotal;

@@ -1,7 +1,7 @@
 ﻿let pageSize = 5;
 let pagesTotal = null;
 let page = null;
-let beforePagesTotal = null;
+let beforePagesTotal = 1;
 
 $(document).ready(function () {
     SearchAllData(1, pageSize);
@@ -136,7 +136,7 @@ function SearchAllData(pageNumber, pageSize) {
         url: '/Ajax/MemberHandler.aspx/GetAllMemberData',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
+        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
             switch (response.d) {
                 case 0:
@@ -193,14 +193,9 @@ function SearchAllData(pageNumber, pageSize) {
                                 SearchAllData(pageIndex + 1, pageSize);
                             }
                         });
-                    } else {
-
-                        if (beforePagesTotal !== pagesTotal) {
-                            alert("資料頁數變動");
-                            SearchAllData(1, pageSize);
-                            page.Update(pagesTotal);
-                        }
-
+                    } else if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        page.Update(pagesTotal);
                     }
 
                     beforePagesTotal = pagesTotal;

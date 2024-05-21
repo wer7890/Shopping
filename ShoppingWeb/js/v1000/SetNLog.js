@@ -12,10 +12,8 @@ $(document).ready(function () {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    console.log("日誌紀錄成功");
                 },
                 error: function (error) {
-                    console.error('日誌紀錄失敗:', error);
                 }
             });
         }
