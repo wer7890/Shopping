@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -82,7 +83,6 @@ namespace ShoppingWeb.Ajax
         /// 判斷同一隻帳號是否有重複登入
         /// </summary>
         /// <returns></returns>
-        [WebMethod]
         public static bool CheckDuplicateLogin()
         {
             bool result = false;
@@ -121,7 +121,8 @@ namespace ShoppingWeb.Ajax
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
                 return false;
             }
         }
@@ -178,13 +179,24 @@ namespace ShoppingWeb.Ajax
         }
 
         /// <summary>
-        /// 取的Session["language"]
+        /// 紀錄前端錯誤
         /// </summary>
-        /// <returns></returns>
+        /// <param name="errorDetails"></param>
         [WebMethod]
-        public static string GetLanguage()
+        public static void LogClientError(params string[] errorDetails)
         {
-            return HttpContext.Current.Session["language"].ToString();
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                foreach (string no in errorDetails)
+                {
+                    logger.Error(no);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "前端NLog錯誤");
+            }
         }
 
     }

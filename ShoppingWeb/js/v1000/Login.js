@@ -19,7 +19,7 @@
         $.ajax({
             type: "POST",
             url: "/Ajax/UserHandler.aspx/LoginUser",  // 這裡指定後端方法的位置
-            data: JSON.stringify({ account: account, pwd: pwd }),
+            data: JSON.stringify({ account: account, pwd: pwd}),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -46,8 +46,8 @@
                 }
             },
             error: function (error) {
-                console.error('AJAX Error:', error);
                 $("#labLogin").text(langFont["ajaxError"]);
+                addToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
             }
         });
     });
@@ -105,4 +105,3 @@ function GetAccountCookie(name) {
     }
     return null;
 }
-

@@ -12,6 +12,7 @@
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
+    <script src="/js/<%= jsVersion %>/SetNLog.js"></script>
     <script src="/js/<%= jsVersion %>/Login.js"></script>
 
 </head>

@@ -95,6 +95,7 @@
     <Content Include="js\v1000\Pagination.js" />
     <Content Include="js\v1000\Pagination2.js" />
     <Content Include="js\v1000\ProductCategories.js" />
+    <Content Include="js\v1000\SetNLog.js" />
     <Content Include="js\v1000\UserManagement.js" />
     <Content Include="js\v1000\bootstrap.bundle.min.js" />
     <Content Include="js\v1000\Login.js" />
