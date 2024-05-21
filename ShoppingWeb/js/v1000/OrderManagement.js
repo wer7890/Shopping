@@ -100,6 +100,8 @@ function SearchAllData(pageNumber, pageSize) {
             } else if (response.d === 1) {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
+            } else if (response.d === 102) {
+                $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             } else {
                 $("#orderTableDiv").css('display', 'block');
                 deliveryStatusValue = 0;
@@ -238,6 +240,8 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                 $("#orderTableDiv").css('display', 'none');
                 $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
                 
+            } else if (response.d === 102) {
+                $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             } else {
                 $("#orderTableDiv").css('display', 'block');
                 deliveryStatusValue = deliveryStatusNum;
@@ -339,6 +343,8 @@ function ShowOrderDetail(orderId) {
             } else if (response.d === 1) {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
+            } else if (response.d === 102) {
+                $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             } else {
                 selectedOrderId = orderId;
 
@@ -448,6 +454,8 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 $("#orderTableDiv").css('display', 'none');
                 $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
                 $('#ulPagination, #paginationInfo').empty();
+            } else if (response.d === 102) {
+                $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             } else {
                 $("#orderTableDiv").css('display', 'block');
                 deliveryStatusValue = 7;

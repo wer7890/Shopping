@@ -49,6 +49,8 @@ function SearchAllData(pageNumber, pageSize) {
             } else if (response.d === 1) {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
+            } else if (response.d === 102) {
+                $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             } else {
                 // 處理成功取得資料的情況
                 let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件

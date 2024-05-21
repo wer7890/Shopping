@@ -19,7 +19,7 @@ $(document).ready(function () {
                 }
             });
         }
-    }, 3000); // 每3秒發送一次錯誤訊息
+    }, 5000); // 每3秒發送一次錯誤訊息
 });
 
 function AddToErrorQueue(errorDetails) {

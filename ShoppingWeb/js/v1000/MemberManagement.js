@@ -144,6 +144,8 @@ function SearchAllData(pageNumber, pageSize) {
             } else if (response.d === 1) {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
+            } else if (response.d === 102) {
+                $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             } else {
                 let data = JSON.parse(response.d.Data);
                 let tableBody = $('#tableBody');

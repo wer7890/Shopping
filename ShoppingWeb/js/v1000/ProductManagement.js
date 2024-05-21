@@ -57,6 +57,8 @@ function SearchAllData(pageNumber, pageSize) {
             } else if (response.d === 1) {
                 alert(langFont["accessDenied"]);
                 parent.location.reload();
+            } else if (response.d === 102) {
+                $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             } else {
                 // 處理成功取得資料的情況
                 let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
@@ -136,6 +138,8 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                 $("#productTableDiv").css('display', 'none');
                 $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
                 $('#ulPagination').empty();
+            } else if (response.d === 102) {
+                $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             } else {
                 $("#productTableDiv").css('display', 'block');
                 let data = JSON.parse(response.d.Data);
@@ -277,6 +281,4 @@ function EditProduct(productId) {
             AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
-
-
 }
