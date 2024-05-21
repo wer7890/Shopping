@@ -22,6 +22,6 @@ $(document).ready(function () {
     }, 3000); // 每3秒發送一次錯誤訊息
 });
 
-function addToErrorQueue(errorDetails) {
+function AddToErrorQueue(errorDetails) {
     errorQueue.push(errorDetails);
 }
