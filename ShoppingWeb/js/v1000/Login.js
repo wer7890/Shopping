@@ -42,7 +42,6 @@
                         break;
                     default:
                         $("#labLogin").text(langFont["errorLog"]);
-
                 }
             },
             error: function (error) {

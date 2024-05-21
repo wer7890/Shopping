@@ -12,14 +12,14 @@ $(document).ready(function () {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    console.log("Errors logged successfully.");
+                    console.log("日誌紀錄成功");
                 },
                 error: function (error) {
-                    console.error('Failed to log errors:', error);
+                    console.error('日誌紀錄失敗:', error);
                 }
             });
         }
-    }, 5000); // 每3秒發送一次錯誤訊息
+    }, 3000); // 每3秒發送一次錯誤訊息
 });
 
 function AddToErrorQueue(errorDetails) {
