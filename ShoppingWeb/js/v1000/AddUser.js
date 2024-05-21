@@ -38,7 +38,6 @@
                         break;
                     default:
                         $("#labAddUser").text(langFont["errorLog"]);
-
                 }
             },
             error: function (error) {

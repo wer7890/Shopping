@@ -43,66 +43,70 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
-            if (response.d === 0) {
-                alert(langFont["duplicateLogin"]);
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === 1) {
-                alert(langFont["accessDenied"]);
-                parent.location.reload();
-            } else if (response.d === 102) {
-                $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-            } else {
-                // 處理成功取得資料的情況
-                let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
-                let tableBody = $('#tableBody');
+            switch (response.d) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
+                case 102:
+                    $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
+                    break;
+                default:
+                    // 處理成功取得資料的情況
+                    let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
+                    let tableBody = $('#tableBody');
 
-                pagesTotal = response.d.TotalPages;
-                
-                // 清空表格內容
-                tableBody.empty();
+                    pagesTotal = response.d.TotalPages;
 
-                // 動態生成表格內容
-                $.each(data, function (index, item) {
-                    let row = '<tr>' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_account + '</td>' +
-                        '<td>' +
-                        '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
-                        '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>' + langFont["superAdmin"] + '</option>' +
-                        '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>' + langFont["memberAdmin"] + '</option>' +
-                        '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>' + langFont["productAdmin"] + '</option>' +
-                        '</select>' +
-                        '</td>' +
-                        '<td><button class="btn btn-primary" onclick="EditUser(' + item.f_id + ')">' + langFont["edit"] + '</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="DeleteUser(' + item.f_id + ')">' + langFont["del"] + '</button></td>' +
-                        '</tr>';
+                    // 清空表格內容
+                    tableBody.empty();
 
-                    tableBody.append(row);
-                });
+                    // 動態生成表格內容
+                    $.each(data, function (index, item) {
+                        let row = '<tr>' +
+                            '<td>' + item.f_id + '</td>' +
+                            '<td>' + item.f_account + '</td>' +
+                            '<td>' +
+                            '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
+                            '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>' + langFont["superAdmin"] + '</option>' +
+                            '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>' + langFont["memberAdmin"] + '</option>' +
+                            '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>' + langFont["productAdmin"] + '</option>' +
+                            '</select>' +
+                            '</td>' +
+                            '<td><button class="btn btn-primary" onclick="EditUser(' + item.f_id + ')">' + langFont["edit"] + '</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="DeleteUser(' + item.f_id + ')">' + langFont["del"] + '</button></td>' +
+                            '</tr>';
 
-                if (page === null) {
-                    page = new Pagination({
-                        id: 'pagination', 
-                        total: pagesTotal, 
-                        showButtons: 5,
-                        showFirstLastButtons: true,
-                        showGoInput: true,
-                        showPagesTotal: true,
-                        callback: function (pageIndex) { 
-                            SearchAllData(pageIndex + 1, pageSize);
-                        }
+                        tableBody.append(row);
                     });
-                } else {
 
-                    if (beforePagesTotal !== pagesTotal) {
-                        alert("資料頁數變動");
-                        SearchAllData(1, pageSize);
-                        page.Update(pagesTotal);
+                    if (page === null) {
+                        page = new Pagination({
+                            id: 'pagination',
+                            total: pagesTotal,
+                            showButtons: 5,
+                            showFirstLastButtons: true,
+                            showGoInput: true,
+                            showPagesTotal: true,
+                            callback: function (pageIndex) {
+                                SearchAllData(pageIndex + 1, pageSize);
+                            }
+                        });
+                    } else {
+
+                        if (beforePagesTotal !== pagesTotal) {
+                            alert("資料頁數變動");
+                            SearchAllData(1, pageSize);
+                            page.Update(pagesTotal);
+                        }
+
                     }
 
-                }
-
-                beforePagesTotal = pagesTotal;
+                    beforePagesTotal = pagesTotal;
             }
         },
         error: function (error) {

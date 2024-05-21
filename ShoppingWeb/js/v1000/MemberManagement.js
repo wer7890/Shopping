@@ -138,68 +138,72 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
-            if (response.d === 0) {
-                alert(langFont["duplicateLogin"]);
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === 1) {
-                alert(langFont["accessDenied"]);
-                parent.location.reload();
-            } else if (response.d === 102) {
-                $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-            } else {
-                let data = JSON.parse(response.d.Data);
-                let tableBody = $('#tableBody');
+            switch (response.d) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
+                case 102:
+                    $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
+                    break;
+                default:
+                    let data = JSON.parse(response.d.Data);
+                    let tableBody = $('#tableBody');
 
-                pagesTotal = response.d.TotalPages;
+                    pagesTotal = response.d.TotalPages;
 
-                tableBody.empty();
+                    tableBody.empty();
 
-                $.each(data, function (index, item) {
-                    let row = '<tr>' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_account + '</td>' +
-                        '<td>' + item.f_pwd + '</td>' +
-                        '<td>' + item.f_name + '</td>' +
-                        '<td>' +
-                        '<select class="form-select form-select-sm f_level" data-id="' + item.f_id + '">' +
-                        '<option value="0"' + (item.f_level == '0' ? ' selected' : '') + '>' + langFont["level0"] + '</option>' +
-                        '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + '>' + langFont["level1"] + '</option>' +
-                        '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + '>' + langFont["level2"] + '</option>' +
-                        '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + '>' + langFont["level3"] + '</option>' +
-                        '</select>' +
-                        '</td>' +
-                        '<td>' + item.f_phoneNumber + '</td>' +
-                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_accountStatus ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
-                        '<td>' + item.f_amount + '</td>' +
-                        '<td>' + item.f_totalSpent + '</td>' +
-                        '</tr>';
+                    $.each(data, function (index, item) {
+                        let row = '<tr>' +
+                            '<td>' + item.f_id + '</td>' +
+                            '<td>' + item.f_account + '</td>' +
+                            '<td>' + item.f_pwd + '</td>' +
+                            '<td>' + item.f_name + '</td>' +
+                            '<td>' +
+                            '<select class="form-select form-select-sm f_level" data-id="' + item.f_id + '">' +
+                            '<option value="0"' + (item.f_level == '0' ? ' selected' : '') + '>' + langFont["level0"] + '</option>' +
+                            '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + '>' + langFont["level1"] + '</option>' +
+                            '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + '>' + langFont["level2"] + '</option>' +
+                            '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + '>' + langFont["level3"] + '</option>' +
+                            '</select>' +
+                            '</td>' +
+                            '<td>' + item.f_phoneNumber + '</td>' +
+                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_accountStatus ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                            '<td>' + item.f_amount + '</td>' +
+                            '<td>' + item.f_totalSpent + '</td>' +
+                            '</tr>';
 
-                    tableBody.append(row);
-                });
-
-                if (page === null) {
-                    page = new Pagination({
-                        id: 'pagination', 
-                        total: pagesTotal, 
-                        showButtons: 5, 
-                        showFirstLastButtons: true, 
-                        showGoInput: true,
-                        showPagesTotal: true,
-                        callback: function (pageIndex) {  
-                            SearchAllData(pageIndex + 1, pageSize); 
-                        }
+                        tableBody.append(row);
                     });
-                } else {
 
-                    if (beforePagesTotal !== pagesTotal) {
-                        alert("資料頁數變動");
-                        SearchAllData(1, pageSize); 
-                        page.Update(pagesTotal);
+                    if (page === null) {
+                        page = new Pagination({
+                            id: 'pagination',
+                            total: pagesTotal,
+                            showButtons: 5,
+                            showFirstLastButtons: true,
+                            showGoInput: true,
+                            showPagesTotal: true,
+                            callback: function (pageIndex) {
+                                SearchAllData(pageIndex + 1, pageSize);
+                            }
+                        });
+                    } else {
+
+                        if (beforePagesTotal !== pagesTotal) {
+                            alert("資料頁數變動");
+                            SearchAllData(1, pageSize);
+                            page.Update(pagesTotal);
+                        }
+
                     }
 
-                }
-
-                beforePagesTotal = pagesTotal;
+                    beforePagesTotal = pagesTotal;
             }
         },
         error: function (error) {

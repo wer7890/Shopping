@@ -94,45 +94,49 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
-            if (response.d === 0) {
-                alert(langFont["duplicateLogin"]);
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === 1) {
-                alert(langFont["accessDenied"]);
-                parent.location.reload();
-            } else if (response.d === 102) {
-                $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-            } else {
-                $("#orderTableDiv").css('display', 'block');
-                deliveryStatusValue = 0;
-                $("#orderSure").remove();
-                let orderData = JSON.parse(response.d.Data[0]);
-                let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
-                pagesTotal = response.d.TotalPages;
-                OrderHtml(orderData, deliveryStatusCountData);
+            switch (response.d) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
+                case 102:
+                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
+                    break;
+                default:
+                    $("#orderTableDiv").css('display', 'block');
+                    deliveryStatusValue = 0;
+                    $("#orderSure").remove();
+                    let orderData = JSON.parse(response.d.Data[0]);
+                    let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
+                    pagesTotal = response.d.TotalPages;
+                    OrderHtml(orderData, deliveryStatusCountData);
 
-                if (!paginationInitialized) {
-                    page = new Pagination({
-                        id: 'pagination',
-                        total: pagesTotal,
-                        showButtons: 5,
-                        showFirstLastButtons: true,
-                        callback: function (pageIndex) {
-                            SearchAllData(pageIndex + 1, pageSize);
+                    if (!paginationInitialized) {
+                        page = new Pagination({
+                            id: 'pagination',
+                            total: pagesTotal,
+                            showButtons: 5,
+                            showFirstLastButtons: true,
+                            callback: function (pageIndex) {
+                                SearchAllData(pageIndex + 1, pageSize);
+                            }
+                        });
+                        paginationInitialized = true;
+                    } else {
+
+                        if (beforePagesTotal !== pagesTotal) {
+                            alert("資料頁數變動");
+                            SearchAllData(1, pageSize);
+                            page.Update(pagesTotal);
                         }
-                    });
-                    paginationInitialized = true;
-                } else {
 
-                    if (beforePagesTotal !== pagesTotal) {
-                        alert("資料頁數變動");
-                        SearchAllData(1, pageSize);
-                        page.Update(pagesTotal);
                     }
 
-                }
-
-                beforePagesTotal = pagesTotal;
+                    beforePagesTotal = pagesTotal;
             }
         },
         error: function (error) {
@@ -229,49 +233,52 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === 0) {
-                alert(langFont["duplicateLogin"]);
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === 1) {
-                alert(langFont["accessDenied"]);
-                parent.location.reload();
-            } else if (response.d === 101) {
-                $('#ulPagination, #paginationInfo').empty();
-                $("#orderTableDiv").css('display', 'none');
-                $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
-                
-            } else if (response.d === 102) {
-                $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-            } else {
-                $("#orderTableDiv").css('display', 'block');
-                deliveryStatusValue = deliveryStatusNum;
-                $("#orderSure").remove();
-                let orderData = JSON.parse(response.d.Data[0]);
-                let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
-                pagesTotal = response.d.TotalPages;
-                isReturn = false;
+            switch (response.d) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
+                case 101:
+                    $('#ulPagination, #paginationInfo').empty();
+                    $("#orderTableDiv").css('display', 'none');
+                    $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
+                    break;
+                case 102:
+                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
+                    break;
+                default:
+                    $("#orderTableDiv").css('display', 'block');
+                    deliveryStatusValue = deliveryStatusNum;
+                    $("#orderSure").remove();
+                    let orderData = JSON.parse(response.d.Data[0]);
+                    let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
+                    pagesTotal = response.d.TotalPages;
+                    isReturn = false;
 
-                OrderHtml(orderData, deliveryStatusCountData);
+                    OrderHtml(orderData, deliveryStatusCountData);
 
 
-                if (!paginationInitialized) {
-                    page.Update(pagesTotal, function (pageIndex) {
-                        ShowOrder(deliveryStatusValue, pageIndex + 1, pageSize);
-                    });
-                    paginationInitialized = true;
-                } else {
+                    if (!paginationInitialized) {
+                        page.Update(pagesTotal, function (pageIndex) {
+                            ShowOrder(deliveryStatusValue, pageIndex + 1, pageSize);
+                        });
+                        paginationInitialized = true;
+                    } else {
 
-                    if (beforePagesTotal !== pagesTotal) {
-                        alert("資料頁數變動");
-                        ShowOrder(deliveryStatusValue, 1, pageSize);
-                        page.Update(pagesTotal);
+                        if (beforePagesTotal !== pagesTotal) {
+                            alert("資料頁數變動");
+                            ShowOrder(deliveryStatusValue, 1, pageSize);
+                            page.Update(pagesTotal);
+                        }
+
                     }
 
-                }
-
-                beforePagesTotal = pagesTotal;
+                    beforePagesTotal = pagesTotal;
             }
-
         },
         error: function (error) {
             $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
@@ -337,47 +344,50 @@ function ShowOrderDetail(orderId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === 0) {
-                alert(langFont["duplicateLogin"]);
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === 1) {
-                alert(langFont["accessDenied"]);
-                parent.location.reload();
-            } else if (response.d === 102) {
-                $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-            } else {
-                selectedOrderId = orderId;
+            switch (response.d) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
+                case 102:
+                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
+                    break;
+                default:
+                    selectedOrderId = orderId;
 
-                let data = JSON.parse(response.d);
-                let detailElement = $("#box");
+                    let data = JSON.parse(response.d);
+                    let detailElement = $("#box");
 
-                //明細
-                let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered my-4">' +
-                    '<thead>' +
-                    '<tr>' +
-                    '<th>' + langFont["productName"] + '</th>' +
-                    '<th>' + langFont["productPrice"] + '</th>' +
-                    '<th>' + langFont["productType"] + '</th>' +
-                    '<th>' + langFont["quantity"] + '</th>' +
-                    '<th>' + langFont["subtotal"] + '</th>' +
-                    '</tr>' +
-                    '</thead>' +
-                    '<tbody id="orderDetailTableBody">';
+                    //明細
+                    let detailHtml = '<table id="orderDetailTable" class="table table-striped table-hover table-bordered my-4">' +
+                        '<thead>' +
+                        '<tr>' +
+                        '<th>' + langFont["productName"] + '</th>' +
+                        '<th>' + langFont["productPrice"] + '</th>' +
+                        '<th>' + langFont["productType"] + '</th>' +
+                        '<th>' + langFont["quantity"] + '</th>' +
+                        '<th>' + langFont["subtotal"] + '</th>' +
+                        '</tr>' +
+                        '</thead>' +
+                        '<tbody id="orderDetailTableBody">';
 
-                $.each(data, function (index, item) {
-                    detailHtml += '<tr>' +
-                        '<td>' + item.f_productName + '</td>' +
-                        '<td>' + item.f_productPrice + '</td>' +
-                        '<td>' + CategoryCodeToText(item.f_productCategory.toString()) + '</td>' +
-                        '<td>' + item.f_quantity + '</td>' +
-                        '<td>' + item.f_subtotal + '</td>' +
-                        '</tr>';
-                });
-                detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">' + langFont["closure"] + '</button></div>';
-                detailElement.prepend(detailHtml);
-                $("#overlay").fadeIn(300);
+                    $.each(data, function (index, item) {
+                        detailHtml += '<tr>' +
+                            '<td>' + item.f_productName + '</td>' +
+                            '<td>' + item.f_productPrice + '</td>' +
+                            '<td>' + CategoryCodeToText(item.f_productCategory.toString()) + '</td>' +
+                            '<td>' + item.f_quantity + '</td>' +
+                            '<td>' + item.f_subtotal + '</td>' +
+                            '</tr>';
+                    });
+                    detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">' + langFont["closure"] + '</button></div>';
+                    detailElement.prepend(detailHtml);
+                    $("#overlay").fadeIn(300);
             }
-
         },
         error: function (error) {
             $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
@@ -444,48 +454,52 @@ function ShowReturnOrder(pageNumber, pageSize) {
         dataType: "json",
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
-            if (response.d === 0) {
-                alert(langFont["duplicateLogin"]);
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === 1) {
-                alert(langFont["accessDenied"]);
-                parent.location.reload();
-            } else if (response.d === 101) {
-                $("#orderTableDiv").css('display', 'none');
-                $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
-                $('#ulPagination, #paginationInfo').empty();
-            } else if (response.d === 102) {
-                $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-            } else {
-                $("#orderTableDiv").css('display', 'block');
-                deliveryStatusValue = 7;
-                let orderData = JSON.parse(response.d.Data[0]);
-                let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
-                pagesTotal = response.d.TotalPages;
-                isReturn = true;
+            switch (response.d) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
+                case 101:
+                    $("#orderTableDiv").css('display', 'none');
+                    $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
+                    $('#ulPagination, #paginationInfo').empty();
+                    break;
+                case 102:
+                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
+                    break;
+                default:
+                    $("#orderTableDiv").css('display', 'block');
+                    deliveryStatusValue = 7;
+                    let orderData = JSON.parse(response.d.Data[0]);
+                    let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
+                    pagesTotal = response.d.TotalPages;
+                    isReturn = true;
 
-                $("#orderSure").remove();
-                $("#myTable > thead > tr").append("<th id='orderSure'>" + langFont['orderSure'] + "</th>");
-                OrderHtml(orderData, deliveryStatusCountData);
+                    $("#orderSure").remove();
+                    $("#myTable > thead > tr").append("<th id='orderSure'>" + langFont['orderSure'] + "</th>");
+                    OrderHtml(orderData, deliveryStatusCountData);
 
-                if (!paginationInitialized) {
-                    page.Update(pagesTotal, function (pageIndex) {
-                        ShowReturnOrder(pageIndex + 1, pageSize);
-                    });
-                    paginationInitialized = true;
-                } else {
+                    if (!paginationInitialized) {
+                        page.Update(pagesTotal, function (pageIndex) {
+                            ShowReturnOrder(pageIndex + 1, pageSize);
+                        });
+                        paginationInitialized = true;
+                    } else {
 
-                    if (beforePagesTotal !== pagesTotal) {
-                        alert("資料頁數變動");
-                        ShowReturnOrder(1, pageSize);
-                        page.Update(pagesTotal);
+                        if (beforePagesTotal !== pagesTotal) {
+                            alert("資料頁數變動");
+                            ShowReturnOrder(1, pageSize);
+                            page.Update(pagesTotal);
+                        }
+
                     }
 
-                }
-
-                beforePagesTotal = pagesTotal;
+                    beforePagesTotal = pagesTotal;
             }
-
         },
         error: function (error) {
             $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();

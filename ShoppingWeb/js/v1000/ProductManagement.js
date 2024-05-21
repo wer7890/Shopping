@@ -51,65 +51,69 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
         success: function (response) {
-            if (response.d === 0) {
-                alert(langFont["duplicateLogin"]);
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === 1) {
-                alert(langFont["accessDenied"]);
-                parent.location.reload();
-            } else if (response.d === 102) {
-                $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-            } else {
-                // 處理成功取得資料的情況
-                let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
-                let tableBody = $('#tableBody');
-                pagesTotal = response.d.TotalPages;
+            switch (response.d) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
+                case 102:
+                    $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
+                    break;
+                default:
+                    // 處理成功取得資料的情況
+                    let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
+                    let tableBody = $('#tableBody');
+                    pagesTotal = response.d.TotalPages;
 
-                // 清空表格內容
-                tableBody.empty();
+                    // 清空表格內容
+                    tableBody.empty();
 
-                // 動態生成表格內容
-                $.each(data, function (index, item) {
-                    let row = '<tr>' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_name + '</td>' +
-                        '<td>' + CategoryCodeToText(item.f_category.toString()) + '</td>' +
-                        '<td>' + item.f_price + '</td>' +
-                        '<td>' + item.f_stock + '</td>' +
-                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
-                        '<td>' + item.f_introduce + '</td>' +
-                        '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="' + langFont["img"] + '"></td>' +
-                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">' + langFont["delOne"] + '</button></td>' +
-                        '</tr>';
+                    // 動態生成表格內容
+                    $.each(data, function (index, item) {
+                        let row = '<tr>' +
+                            '<td>' + item.f_id + '</td>' +
+                            '<td>' + item.f_name + '</td>' +
+                            '<td>' + CategoryCodeToText(item.f_category.toString()) + '</td>' +
+                            '<td>' + item.f_price + '</td>' +
+                            '<td>' + item.f_stock + '</td>' +
+                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                            '<td>' + item.f_introduce + '</td>' +
+                            '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="' + langFont["img"] + '"></td>' +
+                            '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">' + langFont["delOne"] + '</button></td>' +
+                            '</tr>';
 
-                    tableBody.append(row);
-                });
-
-                if (!paginationInitialized) {
-                    page = new Pagination({
-                        id: 'pagination',
-                        total: pagesTotal,
-                        showButtons: 5, 
-                        showFirstLastButtons: true, 
-                        showGoInput: true,
-                        showPagesTotal: true,
-                        callback: function (pageIndex) {  
-                            SearchAllData(pageIndex + 1, pageSize);  
-                        }
+                        tableBody.append(row);
                     });
-                    paginationInitialized = true;
-                } else {
 
-                    if (beforePagesTotal !== pagesTotal) {
-                        alert("資料頁數變動");
-                        SearchAllData(1, pageSize);
-                        page.Update(pagesTotal);
+                    if (!paginationInitialized) {
+                        page = new Pagination({
+                            id: 'pagination',
+                            total: pagesTotal,
+                            showButtons: 5,
+                            showFirstLastButtons: true,
+                            showGoInput: true,
+                            showPagesTotal: true,
+                            callback: function (pageIndex) {
+                                SearchAllData(pageIndex + 1, pageSize);
+                            }
+                        });
+                        paginationInitialized = true;
+                    } else {
+
+                        if (beforePagesTotal !== pagesTotal) {
+                            alert("資料頁數變動");
+                            SearchAllData(1, pageSize);
+                            page.Update(pagesTotal);
+                        }
+
                     }
 
-                }
-
-                beforePagesTotal = pagesTotal;
+                    beforePagesTotal = pagesTotal;
             }
         },
         error: function (error) {
@@ -128,58 +132,63 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === 0) {
-                alert(langFont["duplicateLogin"]);
-                window.parent.location.href = "Login.aspx";
-            } else if (response.d === 1) {
-                alert(langFont["accessDenied"]);
-                parent.location.reload();
-            } else if (response.d === 101) {
-                $("#productTableDiv").css('display', 'none');
-                $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
-                $('#ulPagination').empty();
-            } else if (response.d === 102) {
-                $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-            } else {
-                $("#productTableDiv").css('display', 'block');
-                let data = JSON.parse(response.d.Data);
-                let tableBody = $('#tableBody');
-                pagesTotal = response.d.TotalPages;
+            switch (response.d) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
+                case 101:
+                    $("#productTableDiv").css('display', 'none');
+                    $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
+                    $('#ulPagination').empty();
+                    break;
+                case 102:
+                    $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
+                    break;
+                default:
+                    $("#productTableDiv").css('display', 'block');
+                    let data = JSON.parse(response.d.Data);
+                    let tableBody = $('#tableBody');
+                    pagesTotal = response.d.TotalPages;
 
-                tableBody.empty();
+                    tableBody.empty();
 
-                $.each(data, function (index, item) {
-                    let row = '<tr>' +
-                        '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_name + '</td>' +
-                        '<td>' + CategoryCodeToText(item.f_category.toString()) + '</td>' +
-                        '<td>' + item.f_price + '</td>' +
-                        '<td>' + item.f_stock + '</td>' +
-                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
-                        '<td>' + item.f_introduce + '</td>' +
-                        '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">' + langFont["delOne"] + '</button></td>' +
-                        '</tr>';
-                    tableBody.append(row);
-                });
-
-                if (!paginationInitialized) {
-                    page.Update(pagesTotal, function (pageIndex) {
-                        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, pageIndex + 1, pageSize);
+                    $.each(data, function (index, item) {
+                        let row = '<tr>' +
+                            '<td>' + item.f_id + '</td>' +
+                            '<td>' + item.f_name + '</td>' +
+                            '<td>' + CategoryCodeToText(item.f_category.toString()) + '</td>' +
+                            '<td>' + item.f_price + '</td>' +
+                            '<td>' + item.f_stock + '</td>' +
+                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                            '<td>' + item.f_introduce + '</td>' +
+                            '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
+                            '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">' + langFont["delOne"] + '</button></td>' +
+                            '</tr>';
+                        tableBody.append(row);
                     });
-                    paginationInitialized = true;
-                } else {
 
-                    if (beforePagesTotal !== pagesTotal) {
-                        alert("資料頁數變動");
-                        SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, 1, pageSize);
-                        page.Update(pagesTotal);
+                    if (!paginationInitialized) {
+                        page.Update(pagesTotal, function (pageIndex) {
+                            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, pageIndex + 1, pageSize);
+                        });
+                        paginationInitialized = true;
+                    } else {
+
+                        if (beforePagesTotal !== pagesTotal) {
+                            alert("資料頁數變動");
+                            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, 1, pageSize);
+                            page.Update(pagesTotal);
+                        }
+
                     }
 
-                }
-
-                beforePagesTotal = pagesTotal;
+                    beforePagesTotal = pagesTotal;
             }
         },
         error: function (error) {
