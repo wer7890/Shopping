@@ -12,6 +12,7 @@
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
     <script src="/js/<%= jsVersion %>/ProductCategories.js"></script>
+    <script src="/js/<%= jsVersion %>/SetNLog.js"></script>
     <script src="/js/<%= jsVersion %>/AddProduct.js"></script>
 </head>
 <body>

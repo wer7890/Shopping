@@ -134,8 +134,8 @@ function SearchAllData(pageNumber, pageSize) {
             }
         },
         error: function (error) {
-            console.error('Error:', error);
             $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
@@ -270,8 +270,8 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
 
         },
         error: function (error) {
-            console.error('Error:', error);
             $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
@@ -374,8 +374,8 @@ function ShowOrderDetail(orderId) {
 
         },
         error: function (error) {
-            console.error('Error:', error);
             $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
@@ -423,8 +423,8 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
             }
         },
         error: function (error) {
-            console.error('Error:', error);
             $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
@@ -480,8 +480,8 @@ function ShowReturnOrder(pageNumber, pageSize) {
 
         },
         error: function (error) {
-            console.error('Error:', error);
             $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
@@ -519,8 +519,8 @@ function EditReturnOrder(orderId, boolReturn) {
             }
         },
         error: function (error) {
-            console.error('Error:', error);
             $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }

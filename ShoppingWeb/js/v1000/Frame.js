@@ -71,7 +71,7 @@ function GetUserPermission() {
         },
         error: function (error) {
             $("#labUserAccount").text(langFont["ajaxError"]);
-            addToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
+            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
@@ -90,7 +90,7 @@ function ChangeLanguage(language) {
         },
         error: function (error) {
             $("#labUserAccount").text(langFont["ajaxError"]);
-            addToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
+            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
