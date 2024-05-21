@@ -103,10 +103,9 @@ function SearchAllData(pageNumber, pageSize) {
                 beforePagesTotal = pagesTotal;
             }
         },
-        error: function (xhr, status, error) {
-            // 處理發生錯誤的情況
-            console.error('Error:', error);
+        error: function (error) {
             $("#labSearchUser").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            addToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
@@ -143,8 +142,8 @@ function DeleteUser(userId) {
                 }
             },
             error: function (error) {
-                console.error('Error:', error);
                 $("#labSearchUser").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+                addToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
             }
         });
     }
@@ -166,8 +165,8 @@ function EditUser(userId) {
             }
         },
         error: function (error) {
-            console.error('Error:', error);
             $("#labSearchUser").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            addToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
@@ -201,8 +200,8 @@ function ToggleUserRoles(userId, roles) {
             }
         },
         error: function (error) {
-            console.error('Error:', error);
             $("#labSearchUser").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            addToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }

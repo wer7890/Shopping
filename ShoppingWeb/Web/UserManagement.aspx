@@ -13,6 +13,7 @@
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
     <script src="/js/<%= jsVersion %>/Pagination.js"></script>
+    <script src="/js/<%= jsVersion %>/SetNLog.js"></script>
     <script src="/js/<%= jsVersion %>/UserManagement.js"></script>
 </head>
 <body>

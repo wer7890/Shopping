@@ -30,8 +30,8 @@
             }
         },
         error: function (error) {
-            console.error('Error:', error);
             $("#labRenewUser").text(langFont["ajaxError"]);
+            addToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 
@@ -76,8 +76,8 @@
                 }
             },
             error: function (error) {
-                console.error('Error:', error);
                 $("#labAddUser").text(langFont["ajaxError"]);
+                addToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
             }
         });
     })
