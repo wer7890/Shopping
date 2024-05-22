@@ -17,7 +17,7 @@ namespace ShoppingWeb.Ajax
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public static object GetAllOrderData(int pageNumber, int pageSize)
+        public static object GetAllOrderData(int pageNumber, int pageSize, int beforePagesTotal)
         {
 
             if (!CheckDuplicateLogin())
@@ -40,6 +40,7 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
                         cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", beforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
@@ -201,7 +202,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="deliveryStatusNum"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetOrderData(int deliveryStatusNum, int pageNumber, int pageSize)
+        public static object GetOrderData(int deliveryStatusNum, int pageNumber, int pageSize, int beforePagesTotal)
         {
             if (!CheckDuplicateLogin())
             {
@@ -224,6 +225,7 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@deliveryStatusNum", deliveryStatusNum));
                         cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
                         cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", beforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
@@ -273,7 +275,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="orderStatusNum"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetReturnOrderData(int pageNumber, int pageSize)
+        public static object GetReturnOrderData(int pageNumber, int pageSize, int beforePagesTotal)
         {
             if (!CheckDuplicateLogin())
             {
@@ -295,6 +297,7 @@ namespace ShoppingWeb.Ajax
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@pageNumber", pageNumber));
                         cmd.Parameters.Add(new SqlParameter("@pageSize", pageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", beforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 

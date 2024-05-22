@@ -5,7 +5,7 @@ let paginationInitialized = false;
 let pageSize = 10;
 let pagesTotal = null;
 let page = null;
-let beforePagesTotal = null;
+let beforePagesTotal = 1;
 
 $(document).ready(function () {
     //初始化
@@ -15,6 +15,7 @@ $(document).ready(function () {
     //點選上方按鈕時，該按鈕變色
     $(".btnHand").click(function () {
         paginationInitialized = false;
+        beforePagesTotal = 1;
         $(".btnHand").each(function (index) {
             $(this).removeClass("btn-secondary").addClass("btn-outline-secondary");
         });
@@ -92,7 +93,7 @@ function SearchAllData(pageNumber, pageSize) {
         url: '/Ajax/OrderHandler.aspx/GetAllOrderData',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
+        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
             switch (response.d) {
                 case 0:
@@ -126,14 +127,9 @@ function SearchAllData(pageNumber, pageSize) {
                             }
                         });
                         paginationInitialized = true;
-                    } else {
-
-                        if (beforePagesTotal !== pagesTotal) {
-                            alert("資料頁數變動");
-                            SearchAllData(1, pageSize);
-                            page.Update(pagesTotal);
-                        }
-
+                    } else if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        page.Update(pagesTotal);
                     }
 
                     beforePagesTotal = pagesTotal;
@@ -228,7 +224,7 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
 function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/OrderHandler.aspx/GetOrderData',
-        data: JSON.stringify({ deliveryStatusNum: deliveryStatusNum, pageNumber: pageNumber, pageSize: pageSize }),
+        data: JSON.stringify({ deliveryStatusNum: deliveryStatusNum, pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -267,14 +263,9 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                             ShowOrder(deliveryStatusValue, pageIndex + 1, pageSize);
                         });
                         paginationInitialized = true;
-                    } else {
-
-                        if (beforePagesTotal !== pagesTotal) {
-                            alert("資料頁數變動");
-                            ShowOrder(deliveryStatusValue, 1, pageSize);
-                            page.Update(pagesTotal);
-                        }
-
+                    } else if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        page.Update(pagesTotal);
                     }
 
                     beforePagesTotal = pagesTotal;
@@ -452,7 +443,7 @@ function ShowReturnOrder(pageNumber, pageSize) {
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize }),
+        data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
             switch (response.d) {
                 case 0:
@@ -488,14 +479,9 @@ function ShowReturnOrder(pageNumber, pageSize) {
                             ShowReturnOrder(pageIndex + 1, pageSize);
                         });
                         paginationInitialized = true;
-                    } else {
-
-                        if (beforePagesTotal !== pagesTotal) {
-                            alert("資料頁數變動");
-                            ShowReturnOrder(1, pageSize);
-                            page.Update(pagesTotal);
-                        }
-
+                    } else if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        page.Update(pagesTotal);
                     }
 
                     beforePagesTotal = pagesTotal;

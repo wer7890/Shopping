@@ -6,7 +6,7 @@ let checkAllMinorCategories = null;
 let checkAllBrand = null;
 let newCategory = null;
 let paginationInitialized = false;
-let pageSize = 1;
+let pageSize = 3;
 let pagesTotal = null;
 let page = null;
 let beforePagesTotal = 1;
@@ -20,6 +20,7 @@ $(document).ready(function () {
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
         paginationInitialized = false;
+        beforePagesTotal = 1;
         productName = $("#txbProductSearch").val();
         productCategory = $("#productCategory").val();  // 獲取大分類值
         productMinorCategory = $("#minorCategory").val(); // 獲取小分類值
@@ -122,7 +123,7 @@ function SearchAllData(pageNumber, pageSize) {
 function SearchProduct(productCategory, productName, checkAllMinorCategories, checkAllBrand, pageNumber, pageSize) {
     $.ajax({
         url: '/Ajax/ProductHandler.aspx/GetProductData',
-        data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllMinorCategories: checkAllMinorCategories, checkAllBrand: checkAllBrand, pageNumber: pageNumber, pageSize: pageSize }),
+        data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllMinorCategories: checkAllMinorCategories, checkAllBrand: checkAllBrand, pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -173,14 +174,9 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                             SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, pageIndex + 1, pageSize);
                         });
                         paginationInitialized = true;
-                    } else {
-
-                        if (beforePagesTotal !== pagesTotal) {
-                            alert("資料頁數變動");
-                            SearchProduct(newCategory, productName, checkAllMinorCategories, checkAllBrand, 1, pageSize);
-                            page.Update(pagesTotal);
-                        }
-
+                    } else if (beforePagesTotal !== pagesTotal) {
+                        alert("資料頁數變動");
+                        page.Update(pagesTotal);
                     }
 
                     beforePagesTotal = pagesTotal;

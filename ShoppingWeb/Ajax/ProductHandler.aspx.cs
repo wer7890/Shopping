@@ -158,7 +158,7 @@ namespace ShoppingWeb.Ajax
         /// <param name="searchName"></param>
         /// <returns></returns>
         [WebMethod]
-        public static object GetProductData(string productCategory, string productName, bool checkAllMinorCategories, bool checkAllBrand, int pageNumber, int pageSize)
+        public static object GetProductData(string productCategory, string productName, bool checkAllMinorCategories, bool checkAllBrand, int pageNumber, int pageSize, int beforePagesTotal)
         {
 
             if (!CheckDuplicateLogin())
@@ -185,6 +185,7 @@ namespace ShoppingWeb.Ajax
                         cmd.Parameters.Add(new SqlParameter("@allBrand", checkAllBrand));
                         cmd.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
                         cmd.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", beforePagesTotal));
                         int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
                         cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
