@@ -16,7 +16,7 @@ $(document).ready(function () {
                 window.location.href = "Login.aspx";
             },
             error: function (error) {
-                console.error('Error:', error);
+                $("#labUserAccount").text(langFont["ajaxError"]);
             }
         });
     });
@@ -71,7 +71,6 @@ function GetUserPermission() {
         },
         error: function (error) {
             $("#labUserAccount").text(langFont["ajaxError"]);
-            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }
@@ -90,7 +89,6 @@ function ChangeLanguage(language) {
         },
         error: function (error) {
             $("#labUserAccount").text(langFont["ajaxError"]);
-            AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
         }
     });
 }

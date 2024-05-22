@@ -1,8 +1,8 @@
-﻿window.onerror = function (message, source, lineno, colno, error) {
+﻿// onerror事件
+window.onerror = function (message, source, lineno, colno, error) {
     AddToErrorQueue("\n錯誤訊息: " + message + "\n發生錯誤的腳本: " + source + "\n發生錯誤的行號: " + lineno + "\n發生錯誤的列號: " + colno + "\nError對象: " + error);
     return true;
 }
-
 
 let errorQueue = [];
 

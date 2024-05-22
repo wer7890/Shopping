@@ -46,7 +46,6 @@
             },
             error: function (error) {
                 $("#labLogin").text(langFont["ajaxError"]);
-                AddToErrorQueue("HTTP狀態碼: " + error.status + "'\n'HTTP狀態碼文本描述: " + error.statusText + "'\n'詳細訊息: " + error.responseText);
             }
         });
     });
@@ -86,7 +85,6 @@ function ChangeLanguage(language) {
             parent.location.reload();
         },
         error: function (error) {
-            console.error('AJAX Error:', error);
             $("#labLogin").text(langFont["ajaxError"]);
         }
     });
