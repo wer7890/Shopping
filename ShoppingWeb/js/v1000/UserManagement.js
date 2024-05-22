@@ -1,4 +1,4 @@
-﻿let pageSize = 1;
+﻿let pageSize = 5;
 let pagesTotal = null;
 let page = null;
 let beforePagesTotal = 1;
