@@ -2,13 +2,9 @@
 using NLog;
 using ShoppingWeb.Ajax;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
