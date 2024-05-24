@@ -69,7 +69,7 @@
                             parent.location.reload();
                             break;
                         case 2:
-                            $("#labAddProduct").text(langFont["addFormat"]);
+                            $("#labAddProduct").text(langFont["inputError"]);
                             break;
                         case 100:
                             alert(langFont["addSuccessful"]);
@@ -79,7 +79,7 @@
                             $("#labAddProduct").text(langFont["addFailed"]);
                             break;
                         default:
-                            $("#labAddProduct").text(langFont["inputError"]);
+                            $("#labAddProduct").text(langFont["errorLog"]);
                     }
                 },
                 error: function () {
