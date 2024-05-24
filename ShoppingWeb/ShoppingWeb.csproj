@@ -85,10 +85,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Ajax\MemberHandler.aspx" />
-    <Content Include="Ajax\OrderHandler.aspx" />
-    <Content Include="Ajax\ProductHandler.aspx" />
-    <Content Include="Ajax\UserHandler.aspx" />
     <Content Include="css\v1000\bootstrap.min.css" />
     <Content Include="css\v1000\OrderManagement.css" />
     <Content Include="css\v1000\Pagination.css" />
@@ -133,34 +129,6 @@
     <Compile Include="App_Data\UserInfo.cs" />
     <Compile Include="App_Data\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Ajax\MemberHandler.aspx.cs">
-      <DependentUpon>MemberHandler.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Ajax\MemberHandler.aspx.designer.cs">
-      <DependentUpon>MemberHandler.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Ajax\OrderHandler.aspx.cs">
-      <DependentUpon>OrderHandler.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Ajax\OrderHandler.aspx.designer.cs">
-      <DependentUpon>OrderHandler.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Ajax\ProductHandler.aspx.cs">
-      <DependentUpon>ProductHandler.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Ajax\ProductHandler.aspx.designer.cs">
-      <DependentUpon>ProductHandler.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Ajax\UserHandler.aspx.cs">
-      <DependentUpon>UserHandler.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Ajax\UserHandler.aspx.designer.cs">
-      <DependentUpon>UserHandler.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\Resource.EN.designer.cs">
       <AutoGen>True</AutoGen>

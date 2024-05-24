@@ -1,22 +1,12 @@
-﻿using NLog;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System;
 using System.Globalization;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Web;
-using System.Web.Services;
 
 namespace ShoppingWeb.Ajax
 {
     public class BasePage : System.Web.UI.Page
     {
-        public static readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
         public string cssVersion;
         public string jsVersion;
         public string cookieLanguage;
@@ -76,126 +66,6 @@ namespace ShoppingWeb.Ajax
                 //設定resx檔
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(cookieLanguage);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookieLanguage);
-            }
-        }
-
-        /// <summary>
-        /// 判斷同一隻帳號是否有重複登入
-        /// </summary>
-        /// <returns></returns>
-        public static bool CheckDuplicateLogin()
-        {
-            bool result = false;
-            try
-            {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getSessionId", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
-
-                        object dbResult = cmd.ExecuteScalar();
-
-                        if (dbResult != null)
-                        {
-                            string currentSessionID = HttpContext.Current.Session.SessionID;
-
-                            if (dbResult.ToString() == currentSessionID)
-                            {
-                                result = true;
-                            }
-                            else
-                            {
-                                HttpContext.Current.Session["userInfo"] = null;
-                            }
-
-                        }
-
-                        return result;
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 將 DataTable 轉換為 JSON 字串的輔助方法
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        public static string ConvertDataTableToJson(DataTable dt)
-        {
-            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            System.Collections.ArrayList rows = new System.Collections.ArrayList();
-            System.Collections.IDictionary row;
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in dt.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-
-            return serializer.Serialize(rows);
-        }
-
-        /// <summary>
-        /// 判斷權限是否可使用該功能
-        /// </summary>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        public static bool CheckRoles(int roles)
-        {
-            return (((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 1 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == roles);
-        }
-
-        /// <summary>
-        /// SHA256加密
-        /// </summary>
-        /// <param name="strData"></param>
-        /// <returns></returns>
-        public static string GetSHA256HashFromString(string strData)
-        {
-            byte[] bytValue = Encoding.UTF8.GetBytes(strData);
-            byte[] retVal = SHA256.Create().ComputeHash(bytValue);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < retVal.Length; i++)
-            {
-                sb.Append(retVal[i].ToString("x2"));
-            }
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// 紀錄前端錯誤
-        /// </summary>
-        /// <param name="errorDetails"></param>
-        [WebMethod]
-        public static void LogClientError(params string[] errorDetails)
-        {
-            Logger logger = LogManager.GetCurrentClassLogger();
-            try
-            {
-                foreach (string no in errorDetails)
-                {
-                    logger.Error(no);
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "前端NLog錯誤");
             }
         }
 
