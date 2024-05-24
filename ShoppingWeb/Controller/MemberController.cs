@@ -2,12 +2,8 @@
 using NLog;
 using ShoppingWeb.Ajax;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web.Http;
 
@@ -17,6 +13,11 @@ namespace ShoppingWeb.Controller
     public class MemberController : Base
     {
         /// <summary>
+        /// 會員系統所要求的權限
+        /// </summary>
+        private const int PERMITTED_USER_ROLES = 2;
+
+        /// <summary>
         /// 一開始顯示所有會員資訊
         /// </summary>
         /// <returns></returns>
@@ -24,6 +25,18 @@ namespace ShoppingWeb.Controller
         [Route("GetAllMemberData")]
         public object GetAllMemberData([FromBody] JObject obj)
         {
+            //HttpContext.Current.Session["MySessionKey"] = "aa";
+            //string a = HttpContext.Current.Session["MySessionKey"].ToString();
+            if (!CheckDuplicateLogin())
+            {
+                return (int)UserStatus.DuplicateLogin;
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -71,6 +84,17 @@ namespace ShoppingWeb.Controller
         [Route("ToggleProductStatus")]
         public int ToggleProductStatus([FromBody] JObject obj)
         {
+
+            if (!CheckDuplicateLogin())
+            {
+                return (int)UserStatus.DuplicateLogin;
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -106,6 +130,17 @@ namespace ShoppingWeb.Controller
         [Route("ToggleMemberLevel")]
         public int ToggleMemberLevel([FromBody] JObject obj)
         {
+
+            if (!CheckDuplicateLogin())
+            {
+                return (int)UserStatus.DuplicateLogin;
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -140,6 +175,22 @@ namespace ShoppingWeb.Controller
         [Route("AddMember")]
         public int AddMember([FromBody] JObject obj)
         {
+
+            if (!CheckDuplicateLogin())
+            {
+                return (int)UserStatus.DuplicateLogin;
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
+            if (!AddMemberSpecialChar(obj["account"].ToString(), obj["pwd"].ToString(), obj["name"].ToString(), obj["birthday"].ToString(), obj["phone"].ToString(), obj["email"].ToString(), obj["address"].ToString()))
+            {
+                return (int)UserStatus.InputError;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
-using System.Web.Security;
 using System.Web.SessionState;
 
 namespace ShoppingWeb
@@ -19,6 +16,19 @@ namespace ShoppingWeb
                 defaults: new { id = RouteParameter.Optional },
                 constraints: new { folder = "Controller" } // 约束 folder 只能是 "Ajax"
             );
+        }
+
+        private bool IsWebApiRequest()
+        {
+            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith("~/api");
+        }
+
+        void Application_PostAuthorizeRequest()
+        {
+            if (IsWebApiRequest())
+            {
+                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+            }
         }
     }
 }
