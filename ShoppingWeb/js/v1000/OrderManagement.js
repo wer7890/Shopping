@@ -421,6 +421,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     } else {
                         ShowOrder(deliveryStatusValue, 1, pageSize);
                     }
+                    page.Update();
                     break;
                 default:
                     $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
