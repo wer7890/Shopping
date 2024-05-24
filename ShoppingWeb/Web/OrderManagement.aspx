@@ -23,7 +23,7 @@
         <br />
         <div class="row">
             <div class="btn-group me-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_0"><%= Resources.Resource.all %></button>
+                <button type="button" class="btn btn-secondary btnHand" id="btnDeliveryStatus_0"><%= Resources.Resource.all %></button>
                 <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_1"><%= Resources.Resource.shipping %></button>
                 <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_2"><%= Resources.Resource.shipped %></button>
                 <button type="button" class="btn btn-outline-secondary btnHand" id="btnDeliveryStatus_3"><%= Resources.Resource.arrived %></button>
