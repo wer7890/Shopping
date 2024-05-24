@@ -10,14 +10,20 @@ namespace ShoppingWeb
     {
         protected void Application_Start(object sender, EventArgs e)
         {
+            //註冊WebAPI路由
             RouteTable.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{folder}/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional },
-                constraints: new { folder = "Controller" } // 约束 folder 只能是 "Ajax"
+                constraints: new { folder = "Controller" } 
             );
         }
 
+
+        /// <summary>
+        /// 檢查當前請求的URL是否以~/api開頭
+        /// </summary>
+        /// <returns></returns>
         private bool IsWebApiRequest()
         {
             return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith("~/api");
