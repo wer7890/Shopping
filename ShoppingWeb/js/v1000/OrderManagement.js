@@ -90,12 +90,12 @@ $(document).ready(function () {
 //全部訂單資料
 function SearchAllData(pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/OrderHandler.aspx/GetAllOrderData',
+        url: '/api/Controller/order/GetAllOrderData',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -111,9 +111,9 @@ function SearchAllData(pageNumber, pageSize) {
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = 0;
                     $("#orderSure").remove();
-                    let orderData = JSON.parse(response.d.Data[0]);
-                    let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
-                    pagesTotal = response.d.TotalPages;
+                    let orderData = JSON.parse(response.Data[0]);
+                    let deliveryStatusCountData = JSON.parse(response.Data[1]);
+                    pagesTotal = response.TotalPages;
                     OrderHtml(orderData, deliveryStatusCountData);
 
                     if (!paginationInitialized) {
@@ -222,13 +222,13 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
 // 上方狀態按鈕點擊觸發事件
 function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/OrderHandler.aspx/GetOrderData',
+        url: '/api/Controller/order/GetOrderData',
         data: JSON.stringify({ deliveryStatusNum: deliveryStatusNum, pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -249,9 +249,9 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = deliveryStatusNum;
                     $("#orderSure").remove();
-                    let orderData = JSON.parse(response.d.Data[0]);
-                    let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
-                    pagesTotal = response.d.TotalPages;
+                    let orderData = JSON.parse(response.Data[0]);
+                    let deliveryStatusCountData = JSON.parse(response.Data[1]);
+                    pagesTotal = response.TotalPages;
                     isReturn = false;
 
                     OrderHtml(orderData, deliveryStatusCountData);
@@ -327,13 +327,13 @@ function OrderHtml(orderData, deliveryStatusCountData) {
 // 顯示訂單詳細內容
 function ShowOrderDetail(orderId) {
     $.ajax({
-        url: '/Ajax/OrderHandler.aspx/GetOrderDetailsData',
+        url: '/api/Controller/order/GetOrderDetailsData',
         data: JSON.stringify({ orderId: orderId }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -348,7 +348,7 @@ function ShowOrderDetail(orderId) {
                 default:
                     selectedOrderId = orderId;
 
-                    let data = JSON.parse(response.d);
+                    let data = JSON.parse(response);
                     let detailElement = $("#box");
 
                     //明細
@@ -393,12 +393,12 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
 
     $.ajax({
         type: "POST",
-        url: "/Ajax/OrderHandler.aspx/EditOrder",
+        url: "/api/Controller/order/EditOrder",
         data: JSON.stringify({ orderId: orderId, orderStatusNum: orderStatusNum, deliveryStatusNum: deliveryStatusNum, deliveryMethodNum: deliveryMethodNum }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -412,7 +412,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     break;
                 case 100:
                 case 101:
-                    let temp = (response.d === 100) ? langFont["editSuccessful"] : langFont["editOrderFailed"];
+                    let temp = (response === 100) ? langFont["editSuccessful"] : langFont["editOrderFailed"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     if (deliveryStatusValue === 0) {
                         SearchAllData(1, pageSize);
@@ -435,13 +435,13 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
 // 點擊上方退貨申請按鈕事件
 function ShowReturnOrder(pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/OrderHandler.aspx/GetReturnOrderData',
+        url: '/api/Controller/order/GetReturnOrderData',
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -461,9 +461,9 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 default:
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = 7;
-                    let orderData = JSON.parse(response.d.Data[0]);
-                    let deliveryStatusCountData = JSON.parse(response.d.Data[1]);
-                    pagesTotal = response.d.TotalPages;
+                    let orderData = JSON.parse(response.Data[0]);
+                    let deliveryStatusCountData = JSON.parse(response.Data[1]);
+                    pagesTotal = response.TotalPages;
                     isReturn = true;
 
                     $("#orderSure").remove();
@@ -492,12 +492,12 @@ function ShowReturnOrder(pageNumber, pageSize) {
 // 同意或拒絕退款申請後，更改訂單狀態和配送狀態
 function EditReturnOrder(orderId, boolReturn) {
     $.ajax({
-        url: '/Ajax/OrderHandler.aspx/EditReturnOrder',
+        url: '/api/Controller/order/EditReturnOrder',
         data: JSON.stringify({ orderId: orderId, boolReturn: boolReturn }),
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -511,7 +511,7 @@ function EditReturnOrder(orderId, boolReturn) {
                     break;
                 case 100:
                 case 101:
-                    let temp = (response.d === 100) ? langFont["editSuccessful"] : langFont["editFail"];
+                    let temp = (response === 100) ? langFont["editSuccessful"] : langFont["editFail"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     paginationInitialized = false;
                     ShowReturnOrder(1, pageSize);
