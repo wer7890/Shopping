@@ -109,7 +109,7 @@
     'confirmAdd': '確定要新增商品嗎',
     'productNameIimit': '商品名稱長度需在1到40之間',
     'productNameENIimit': '商品英文名稱長度需在1到100之間且不能包含中文',
-    'productImgIimit': '請選擇圖片檔案1到100之間且不能包含中文',
+    'productImgIimit': '請選擇圖片檔案',
     'productCategoryIimit': '商品類別和是否開放必須填寫',
     'productIntroduceIimit': '商品中文描述長度需在1到500之間',
     'productIntroduceENIimit': '商品英文描述長度需在1到500之間且不能包含中文',
