@@ -11,12 +11,12 @@ $(document).ready(function () {
     $("#btnAddMember").click(function () {
         $.ajax({
             type: "POST",
-            url: "/Ajax/MemberHandler.aspx/AddMember",  // 這裡指定後端方法的位置
+            url: "/api/Controller/member/AddMember",  // 這裡指定後端方法的位置
             data: JSON.stringify({ account: GetRandomStr(), pwd: GetRandomStr(), name: GetRandomName(), birthday: GetRandomDate(), phone: GetRandomPhone(), email: GetRandomEmail(), address: "台中市" }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.d) {
+                switch (response) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -132,12 +132,12 @@ function GetRandomEmail() {
 //全部會員資料
 function SearchAllData(pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/MemberHandler.aspx/GetAllMemberData',
+        url: '/api/Controller/member/GetAllMemberData',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -150,10 +150,10 @@ function SearchAllData(pageNumber, pageSize) {
                     $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
                 default:
-                    let data = JSON.parse(response.d.Data);
+                    let data = JSON.parse(response.Data);
                     let tableBody = $('#tableBody');
 
-                    pagesTotal = response.d.TotalPages;
+                    pagesTotal = response.TotalPages;
 
                     tableBody.empty();
 
@@ -210,12 +210,12 @@ function SearchAllData(pageNumber, pageSize) {
 function ToggleMemberStatus(memberId) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/MemberHandler.aspx/ToggleProductStatus",
+        url: "/api/Controller/member/ToggleProductStatus",
         data: JSON.stringify({ memberId: memberId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -244,12 +244,12 @@ function ToggleMemberStatus(memberId) {
 function ToggleMemberLevel(memberId, level) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/MemberHandler.aspx/ToggleMemberLevel",
+        url: "/api/Controller/member/ToggleMemberLevel",
         data: JSON.stringify({ memberId: memberId, level: level }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
