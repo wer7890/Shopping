@@ -12,12 +12,12 @@
 
         $.ajax({
             type: "POST",
-            url: "/Ajax/UserHandler.aspx/RegisterNewUser",  // 這裡指定後端方法的位置
+            url: "/api/Controller/user/RegisterNewUser",  // 這裡指定後端方法的位置
             data: JSON.stringify({ account: account, pwd: pwd, roles: roles }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.d) {
+                switch (response) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";

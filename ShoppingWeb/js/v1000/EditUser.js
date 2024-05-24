@@ -3,17 +3,17 @@
     //一開始input預設值
     $.ajax({
         type: "POST",
-        url: "/Ajax/UserHandler.aspx/GetUserDataForEdit",
+        url: "/api/Controller/user/GetUserDataForEdit",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            if (data.d === 102) {
+            if (data === 102) {
                 $("#labRenewUser").text(langFont["errorLog"]);
             } else {
                 // 直接設定 input 元素的值
-                $("#labUserId").text(data.d.UserId);
-                $("#labAccount").text(data.d.Account);
-                switch (data.d.Roles) {
+                $("#labUserId").text(data.UserId);
+                $("#labAccount").text(data.Account);
+                switch (data.Roles) {
                     case 1:
                         $("#labUserRoles").text(langFont["superAdmin"]);
                         break;
@@ -45,12 +45,12 @@
 
         $.ajax({
             type: "POST",
-            url: "/Ajax/UserHandler.aspx/EditUser",
+            url: "/api/Controller/user/EditUser",
             data: JSON.stringify({ pwd: pwd }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.d) {
+                switch (response) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";

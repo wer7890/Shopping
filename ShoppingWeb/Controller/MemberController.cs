@@ -25,8 +25,7 @@ namespace ShoppingWeb.Controller
         [Route("GetAllMemberData")]
         public object GetAllMemberData([FromBody] JObject obj)
         {
-            //HttpContext.Current.Session["MySessionKey"] = "aa";
-            //string a = HttpContext.Current.Session["MySessionKey"].ToString();
+            
             if (!CheckDuplicateLogin())
             {
                 return (int)UserStatus.DuplicateLogin;

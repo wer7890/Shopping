@@ -38,12 +38,12 @@ $(document).ready(function () {
 //全部管理員資料
 function SearchAllData(pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/UserHandler.aspx/GetAllUserData',
+        url: '/api/Controller/user/GetAllUserData',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -57,10 +57,10 @@ function SearchAllData(pageNumber, pageSize) {
                     break;
                 default:
                     // 處理成功取得資料的情況
-                    let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
+                    let data = JSON.parse(response.Data); // 解析 JSON 資料為 JavaScript 物件
                     let tableBody = $('#tableBody');
 
-                    pagesTotal = response.d.TotalPages;
+                    pagesTotal = response.TotalPages;
 
                     // 清空表格內容
                     tableBody.empty();
@@ -116,12 +116,12 @@ function DeleteUser(userId) {
     if (yes == true) {
         $.ajax({
             type: "POST",
-            url: "/Ajax/UserHandler.aspx/RemoveUserInfo",
+            url: "/api/Controller/user/RemoveUserInfo",
             data: JSON.stringify({ userId: userId }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.d) {
+                switch (response) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -152,12 +152,12 @@ function DeleteUser(userId) {
 function EditUser(userId) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/UserHandler.aspx/SetSessionSelectUserId",
+        url: "/api/Controller/user/SetSessionSelectUserId",
         data: JSON.stringify({ userId: userId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === true) {
+            if (response === true) {
                 window.location.href = "EditUser.aspx";
             } else {
                 alert(langFont["editFailed"]);
@@ -173,12 +173,12 @@ function EditUser(userId) {
 function ToggleUserRoles(userId, roles) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/UserHandler.aspx/ToggleUserRoles",
+        url: "/api/Controller/user/ToggleUserRoles",
         data: JSON.stringify({ userId: userId, roles: roles }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";

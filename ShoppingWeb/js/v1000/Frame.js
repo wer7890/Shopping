@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
-            url: "/Ajax/UserHandler.aspx/DeleteSession",
+            url: "/api/Controller/user/DeleteSession",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -40,17 +40,17 @@ $(document).ready(function () {
 function GetUserPermission() {
     $.ajax({
         type: "POST",
-        url: "/Ajax/UserHandler.aspx/GetUserPermission",
+        url: "/api/Controller/user/GetUserPermission",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
 
-            if (response.d === 102) {
+            if (response === 102) {
                 $("#labUserRoles").text(langFont["errorLog"]);
             } else {
-                userAccount = response.d.Account
+                userAccount = response.Account
                 $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
-                switch (response.d.Roles) {
+                switch (response.Roles) {
                     case "1":
                         break;
                     case "2":
@@ -79,7 +79,7 @@ function GetUserPermission() {
 function ChangeLanguage(language) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/UserHandler.aspx/SetLanguage",
+        url: "/api/Controller/user/SetLanguage",
         data: JSON.stringify({ language: language }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

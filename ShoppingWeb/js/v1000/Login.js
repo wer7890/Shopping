@@ -18,12 +18,12 @@
 
         $.ajax({
             type: "POST",
-            url: "/Ajax/UserHandler.aspx/LoginUser",  // 這裡指定後端方法的位置
+            url: "/api/Controller/user/LoginUser",  // 這裡指定後端方法的位置
             data: JSON.stringify({ account: account, pwd: pwd }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.d) {
+                switch (response) {
                     case 2:
                         $("#labLogin").text(langFont["loginFormat"]);
                         break;
@@ -77,7 +77,7 @@ function IsSpecialChar(account, pwd) {
 function ChangeLanguage(language) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/UserHandler.aspx/SetLanguage",
+        url: "/api/Controller/user/SetLanguage",
         data: JSON.stringify({ language: language }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
