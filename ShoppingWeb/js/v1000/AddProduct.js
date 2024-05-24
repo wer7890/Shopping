@@ -34,10 +34,11 @@
             let file = fileInput.files[0];
 
             if (!CheckFileSize(file)) {
+                $("#labAddProduct").text(langFont["inputError"]);
                 return;
             }
 
-            // 建立 FormData 物件來儲存檔案資料
+            // 建立 FormData 物件來儲存檔案資料 
             let formData = new FormData();
             // 將檔案加入到 FormData 物件中
             formData.append("file", file);
@@ -52,23 +53,33 @@
 
             // 圖片上傳
             $.ajax({
-                url: "/Ajax/ProductHandler.aspx",
+                url: "/api/Controller/product/UploadProduct",
                 type: "POST",
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response === "重複登入") {
-                        alert(langFont["duplicateLogin"]);
-                        window.parent.location.href = "Login.aspx";
-                    } else if (response === "權限不足") {
-                        alert(langFont["accessDenied"]);
-                        parent.location.reload();
-                    } else if (response === "1") {
-                        alert(langFont["addSuccessful"]);
-                        window.location.href = "ProductManagement.aspx"
-                    } else {
-                        $("#labAddProduct").text(langFont["addFailed"] + response);
+                    switch (response) {
+                        case 0:
+                            alert(langFont["duplicateLogin"]);
+                            window.parent.location.href = "Login.aspx";
+                            break;
+                        case 1:
+                            alert(langFont["accessDenied"]);
+                            parent.location.reload();
+                            break;
+                        case 2:
+                            $("#labAddProduct").text(langFont["addFormat"]);
+                            break;
+                        case 100:
+                            alert(langFont["addSuccessful"]);
+                            window.location.href = "ProductManagement.aspx"
+                            break;
+                        case 101:
+                            $("#labAddProduct").text(langFont["addFailed"]);
+                            break;
+                        default:
+                            $("#labAddProduct").text(langFont["inputError"]);
                     }
                 },
                 error: function () {
@@ -129,6 +140,10 @@ function IsSpecialChar(productName, productNameEN, productCategory, productMinor
 
 //判斷圖片大小
 function CheckFileSize(file) {
+
+    if (typeof file === 'undefined') {
+        return false;
+    }
 
     // 檢查圖片大小
     const maxSizeInBytes = 500 * 1024; // 500KB

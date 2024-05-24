@@ -3,26 +3,26 @@
     //一開始input預設值
     $.ajax({
         type: "POST",
-        url: "/Ajax/ProductHandler.aspx/GetProductDataForEdit",
+        url: "/api/Controller/product/GetProductDataForEdit",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            if (data.d === 102) {
+            if (data === 102) {
                 $("#labRenewProduct").text(langFont["errorLog"]);
             } else {
                 // 直接設定 input 元素的值
-                $("#labProductId").text(data.d.ProductId);
-                $("#labProductCreatedOn").text(data.d.ProductCreatedOn);
-                $("#labProductOwner").text(data.d.ProductOwner);
-                $("#labProductName").text(data.d.ProductName);
-                $("#labProductNameEN").text(data.d.ProductNameEN);
-                $("#labProductCategory").text(CategoryCodeToText(data.d.ProductCategory.toString()));
-                $("#labProductStock").text(data.d.ProductStock);
-                $("#imgProduct").attr("src", "/ProductImg/" + data.d.ProductImg);
-                $("#txbProductPrice").val(data.d.ProductPrice);
-                $("#txbProductIntroduce").val(data.d.ProductIntroduce);
-                $("#txbProductIntroduceEN").val(data.d.ProductIntroduceEN);
-                dbStock = data.d.ProductStock;
+                $("#labProductId").text(data.ProductId);
+                $("#labProductCreatedOn").text(data.ProductCreatedOn);
+                $("#labProductOwner").text(data.ProductOwner);
+                $("#labProductName").text(data.ProductName);
+                $("#labProductNameEN").text(data.ProductNameEN);
+                $("#labProductCategory").text(CategoryCodeToText(data.ProductCategory.toString()));
+                $("#labProductStock").text(data.ProductStock);
+                $("#imgProduct").attr("src", "/ProductImg/" + data.ProductImg);
+                $("#txbProductPrice").val(data.ProductPrice);
+                $("#txbProductIntroduce").val(data.ProductIntroduce);
+                $("#txbProductIntroduceEN").val(data.ProductIntroduceEN);
+                dbStock = data.ProductStock;
             }
         },
         error: function (error) {
@@ -50,12 +50,12 @@
 
         $.ajax({
             type: "POST",
-            url: "/Ajax/ProductHandler.aspx/EditProduct",
+            url: "/api/Controller/product/EditProduct",
             data: JSON.stringify({ productPrice: productPrice, productStock: productStock, productIntroduce: productIntroduce, productIntroduceEN: productIntroduceEN, productCheckStock: productCheckStock }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.d) {
+                switch (response) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";

@@ -14,6 +14,7 @@ using System.Web.Http;
 
 namespace ShoppingWeb.Controller
 {
+    [RoutePrefix("/api/Controller/order")]
     public class OrderController : Base
     {
         /// <summary>

@@ -47,12 +47,12 @@ $(document).ready(function () {
 //全部商品資料
 function SearchAllData(pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/ProductHandler.aspx/GetAllProductData',
+        url: '/api/Controller/product/GetAllProductData',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -66,9 +66,9 @@ function SearchAllData(pageNumber, pageSize) {
                     break;
                 default:
                     // 處理成功取得資料的情況
-                    let data = JSON.parse(response.d.Data); // 解析 JSON 資料為 JavaScript 物件
+                    let data = JSON.parse(response.Data); // 解析 JSON 資料為 JavaScript 物件
                     let tableBody = $('#tableBody');
-                    pagesTotal = response.d.TotalPages;
+                    pagesTotal = response.TotalPages;
 
                     // 清空表格內容
                     tableBody.empty();
@@ -121,13 +121,13 @@ function SearchAllData(pageNumber, pageSize) {
 //搜尋商品資料
 function SearchProduct(productCategory, productName, checkAllMinorCategories, checkAllBrand, pageNumber, pageSize) {
     $.ajax({
-        url: '/Ajax/ProductHandler.aspx/GetProductData',
+        url: '/api/Controller/product/GetProductData',
         data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllMinorCategories: checkAllMinorCategories, checkAllBrand: checkAllBrand, pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -146,9 +146,9 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     break;
                 default:
                     $("#productTableDiv").css('display', 'block');
-                    let data = JSON.parse(response.d.Data);
+                    let data = JSON.parse(response.Data);
                     let tableBody = $('#tableBody');
-                    pagesTotal = response.d.TotalPages;
+                    pagesTotal = response.TotalPages;
 
                     tableBody.empty();
 
@@ -192,12 +192,12 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
 function ToggleProductStatus(productId) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/ProductHandler.aspx/ToggleProductStatus",
+        url: "/api/Controller/product/ToggleProductStatus",
         data: JSON.stringify({ productId: productId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.d) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -228,12 +228,12 @@ function DeleteProduct(productId) {
     if (yes == true) {
         $.ajax({
             type: "POST",
-            url: "/Ajax/ProductHandler.aspx/RemoveProduct",
+            url: "/api/Controller/product/RemoveProduct",
             data: JSON.stringify({ productId: productId }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.d) {
+                switch (response) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -263,12 +263,12 @@ function DeleteProduct(productId) {
 function EditProduct(productId) {
     $.ajax({
         type: "POST",
-        url: "/Ajax/ProductHandler.aspx/SetSessionProductId",
+        url: "/api/Controller/product/SetSessionProductId",
         data: JSON.stringify({ productId: productId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.d === true) {
+            if (response === true) {
                 window.location.href = "EditProduct.aspx";
             }
         },
