@@ -60,14 +60,6 @@
                 processData: false,
                 success: function (response) {
                     switch (response) {
-                        case 0:
-                            alert(langFont["duplicateLogin"]);
-                            window.parent.location.href = "Login.aspx";
-                            break;
-                        case 1:
-                            alert(langFont["accessDenied"]);
-                            parent.location.reload();
-                            break;
                         case 2:
                             $("#labAddProduct").text(langFont["inputError"]);
                             break;
@@ -82,8 +74,22 @@
                             $("#labAddProduct").text(langFont["errorLog"]);
                     }
                 },
-                error: function () {
-                    $("#labAddProduct").text(langFont["ajaxError"]);
+                error: function (xhr, status, error) {
+                    if (xhr.status === 500) {
+                        let errorResponse = JSON.parse(xhr.responseText);
+                        let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                        if (errorMessage === "0") {
+                            alert(langFont["duplicateLogin"]);
+                            window.parent.location.href = "Login.aspx";
+                        } else if (errorMessage === "1") {
+                            alert(langFont["accessDenied"]);
+                            parent.location.reload();
+                        }
+
+                    } else {
+                        $("#labAddProduct").text(langFont["ajaxError"]);
+                    }
                 }
             });
         }

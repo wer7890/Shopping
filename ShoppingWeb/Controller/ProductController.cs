@@ -14,6 +14,19 @@ namespace ShoppingWeb.Controller
     [RoutePrefix("/api/Controller/product")]
     public class ProductController : Base
     {
+        public ProductController()
+        {
+            if (!CheckDuplicateLogin())
+            {
+                throw new Exception(((int)UserStatus.DuplicateLogin).ToString());
+            }
+
+            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
+            {
+                throw new Exception(((int)UserStatus.AccessDenied).ToString());
+            }
+        }
+
         private static string pubguid = "";
 
         /// <summary>
@@ -29,17 +42,6 @@ namespace ShoppingWeb.Controller
         [Route("GetAllProductData")]
         public object GetAllProductData([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -92,17 +94,6 @@ namespace ShoppingWeb.Controller
         [Route("GetProductData")]
         public object GetProductData([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -164,17 +155,6 @@ namespace ShoppingWeb.Controller
         [Route("RemoveProduct")]
         public int RemoveProduct([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -225,17 +205,6 @@ namespace ShoppingWeb.Controller
         [Route("ToggleProductStatus")]
         public int ToggleProductStatus([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -282,17 +251,7 @@ namespace ShoppingWeb.Controller
         [HttpPost]
         [Route("UploadProduct")]
         public int UploadProduct()
-        { 
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
+        {
             //檢查ProductImg資料夾是否存在，如果不存在就建立資料夾
             string checkTargetFolderPath = HttpContext.Current.Server.MapPath("~/ProductImg/");
             if (!Directory.Exists(checkTargetFolderPath))
@@ -511,16 +470,6 @@ namespace ShoppingWeb.Controller
         [Route("EditProduct")]
         public int EditProduct([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
 
             if (!RenewProductSpecialChar((int)obj["productPrice"], (int)obj["productStock"], obj["productIntroduce"].ToString()))
             {
