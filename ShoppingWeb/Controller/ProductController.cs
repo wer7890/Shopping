@@ -429,6 +429,7 @@ namespace ShoppingWeb.Controller
         /// <param name="productPrice"></param>
         /// <param name="productStock"></param>
         /// <returns></returns>
+        [NonAction]
         public bool AddProductSpecialChar(string productName, string productNameEN, string productCategory, string productIsOpen, string productIntroduce, string productIntroduceEN, string productPrice, string productStock)
         {
             bool cheackName = Regex.IsMatch(productName, @"^.{1,40}$");
@@ -564,6 +565,7 @@ namespace ShoppingWeb.Controller
         /// <param name="productStock"></param>
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
+        [NonAction]
         public bool RenewProductSpecialChar(int productPrice, int productStock, string productIntroduce)
         {
             bool cheackIntroduce = Regex.IsMatch(productIntroduce, @"^.{1,500}$");

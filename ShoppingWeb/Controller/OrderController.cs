@@ -410,6 +410,7 @@ namespace ShoppingWeb.Controller
         /// <param name="deliveryStatusNum"></param>
         /// <param name="deliveryMethodNum"></param>
         /// <returns></returns>
+        [NonAction]
         public bool EditReturnOrderSpecialChar(int orderId)
         {
             bool cheackOrderId = Regex.IsMatch(orderId.ToString(), @"^[0-9]{1,10}$");
