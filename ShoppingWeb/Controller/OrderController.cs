@@ -13,6 +13,19 @@ namespace ShoppingWeb.Controller
     [RoutePrefix("/api/Controller/order")]
     public class OrderController : Base
     {
+        public OrderController()
+        {
+            if (!CheckDuplicateLogin())
+            {
+                throw new Exception(((int)UserStatus.DuplicateLogin).ToString());
+            }
+
+            if (!CheckRoles(PERMITTED_Order_ROLES))
+            {
+                throw new Exception(((int)UserStatus.AccessDenied).ToString());
+            }
+        }
+
         /// <summary>
         /// 訂單系統所要求的權限
         /// </summary>
@@ -26,17 +39,6 @@ namespace ShoppingWeb.Controller
         [Route("GetAllOrderData")]
         public object GetAllOrderData([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_Order_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -93,16 +95,6 @@ namespace ShoppingWeb.Controller
         [Route("GetOrderDetailsData")]
         public object GetOrderDetailsData([FromBody] JObject obj)
         {
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_Order_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -143,16 +135,6 @@ namespace ShoppingWeb.Controller
         [Route("EditOrder")]
         public int EditOrder([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_Order_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
 
             if (!EditOrderSpecialChar((int)obj["orderId"], (int)obj["orderStatusNum"], (int)obj["deliveryStatusNum"], (int)obj["deliveryMethodNum"]))
             {
@@ -215,16 +197,6 @@ namespace ShoppingWeb.Controller
         [Route("GetOrderData")]
         public object GetOrderData([FromBody] JObject obj)
         {
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_Order_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -289,16 +261,6 @@ namespace ShoppingWeb.Controller
         [Route("GetReturnOrderData")]
         public object GetReturnOrderData([FromBody] JObject obj)
         {
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_Order_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -361,15 +323,6 @@ namespace ShoppingWeb.Controller
         [Route("EditReturnOrder")]
         public int EditReturnOrder([FromBody] JObject obj)
         {
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_Order_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
 
             if (!EditReturnOrderSpecialChar((int)obj["orderId"]))
             {

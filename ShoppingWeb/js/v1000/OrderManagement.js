@@ -96,14 +96,6 @@ function SearchAllData(pageNumber, pageSize) {
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
             switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                    break;
-                case 1:
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                    break;
                 case 102:
                     $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
@@ -135,8 +127,22 @@ function SearchAllData(pageNumber, pageSize) {
                     beforePagesTotal = pagesTotal;
             }
         },
-        error: function (error) {
-            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            }
         }
     });
 }
@@ -229,14 +235,6 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
         dataType: "json",
         success: function (response) {
             switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                    break;
-                case 1:
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                    break;
                 case 101:
                     $('#ulPagination, #paginationInfo').empty();
                     $("#orderTableDiv").css('display', 'none');
@@ -270,8 +268,22 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                     beforePagesTotal = pagesTotal;
             }
         },
-        error: function (error) {
-            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            }
         }
     });
 }
@@ -334,14 +346,6 @@ function ShowOrderDetail(orderId) {
         dataType: "json",
         success: function (response) {
             switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                    break;
-                case 1:
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                    break;
                 case 102:
                     $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
@@ -378,8 +382,22 @@ function ShowOrderDetail(orderId) {
                     $("#overlay").fadeIn(300);
             }
         },
-        error: function (error) {
-            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            }
         }
     });
 }
@@ -399,14 +417,6 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
         dataType: "json",
         success: function (response) {
             switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                    break;
-                case 1:
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                    break;
                 case 2:
                     alert(langFont["inputError"]);
                     break;
@@ -427,8 +437,22 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
-        error: function (error) {
-            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            }
         }
     });
 }
@@ -443,14 +467,6 @@ function ShowReturnOrder(pageNumber, pageSize) {
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
             switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                    break;
-                case 1:
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                    break;
                 case 101:
                     $("#orderTableDiv").css('display', 'none');
                     $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
@@ -484,8 +500,22 @@ function ShowReturnOrder(pageNumber, pageSize) {
                     beforePagesTotal = pagesTotal;
             }
         },
-        error: function (error) {
-            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            }
         }
     });
 }
@@ -499,14 +529,6 @@ function EditReturnOrder(orderId, boolReturn) {
         contentType: 'application/json',
         success: function (response) {
             switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                    break;
-                case 1:
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                    break;
                 case 2:
                     alert(langFont["inputError"]);
                     break;
@@ -522,8 +544,22 @@ function EditReturnOrder(orderId, boolReturn) {
 
             }
         },
-        error: function (error) {
-            $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                $("#labSearchOrder").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            }
         }
     });
 }
