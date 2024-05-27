@@ -9,28 +9,14 @@ $(document).ready(function () {
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
-            url: "/api/Controller/user/DeleteSession",
+            url: "/api/Controller/login/DeleteSession",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
                 window.location.href = "Login.aspx";
             },
-            error: function (xhr, status, error) {
-                if (xhr.status === 500) {
-                    let errorResponse = JSON.parse(xhr.responseText);
-                    let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                    if (errorMessage === "0") {
-                        alert(langFont["duplicateLogin"]);
-                        window.parent.location.href = "Login.aspx";
-                    } else if (errorMessage === "1") {
-                        alert(langFont["accessDenied"]);
-                        parent.location.reload();
-                    }
-
-                } else {
-                    $("#labUserAccount").text(langFont["ajaxError"]);
-                }
+            error: function (error) {
+                $("#labUserAccount").text(langFont["ajaxError"]);
             }
         });
     });
@@ -54,7 +40,7 @@ $(document).ready(function () {
 function GetUserPermission() {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/user/GetUserPermission",
+        url: "/api/Controller/login/GetUserPermission",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -83,22 +69,8 @@ function GetUserPermission() {
             }
 
         },
-        error: function (xhr, status, error) {
-            if (xhr.status === 500) {
-                let errorResponse = JSON.parse(xhr.responseText);
-                let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                if (errorMessage === "0") {
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                } else if (errorMessage === "1") {
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                }
-
-            } else {
-                $("#labUserAccount").text(langFont["ajaxError"]);
-            }
+        error: function (error) {
+            $("#labUserAccount").text(langFont["ajaxError"]);
         }
     });
 }
@@ -107,7 +79,7 @@ function GetUserPermission() {
 function ChangeLanguage(language) {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/user/SetLanguage",
+        url: "/api/Controller/login/SetLanguage",
         data: JSON.stringify({ language: language }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -115,22 +87,8 @@ function ChangeLanguage(language) {
             parent.location.reload();
             $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
         },
-        error: function (xhr, status, error) {
-            if (xhr.status === 500) {
-                let errorResponse = JSON.parse(xhr.responseText);
-                let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                if (errorMessage === "0") {
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                } else if (errorMessage === "1") {
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                }
-
-            } else {
-                $("#labUserAccount").text(langFont["ajaxError"]);
-            }
+        error: function (error) {
+            $("#labUserAccount").text(langFont["ajaxError"]);
         }
     });
 }

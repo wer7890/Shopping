@@ -77,7 +77,7 @@ function IsSpecialChar(account, pwd) {
 function ChangeLanguage(language) {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/user/SetLanguage",
+        url: "/api/Controller/login/SetLanguage",
         data: JSON.stringify({ language: language }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
