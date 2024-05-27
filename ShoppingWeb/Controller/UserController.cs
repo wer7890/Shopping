@@ -30,7 +30,7 @@ namespace ShoppingWeb.Controller
         /// 帳號系統所要求的權限
         /// </summary>
         private const int PERMITTED_USER_ROLES = 1;
-
+        
         /// <summary>
         /// 刪除管理員
         /// </summary>

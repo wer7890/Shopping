@@ -199,7 +199,6 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
     });
 }
 
-
 //按下是否開放開關，更改資料庫
 function ToggleProductStatus(productId) {
     $.ajax({
