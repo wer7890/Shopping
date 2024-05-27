@@ -17,14 +17,6 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 switch (response) {
-                    case 0:
-                        alert(langFont["duplicateLogin"]);
-                        window.parent.location.href = "Login.aspx";
-                        break;
-                    case 1:
-                        alert(langFont["accessDenied"]);
-                        parent.location.reload();
-                        break;
                     case 2:
                         $("#labSearchMember").text(langFont["inputError"]).show().delay(3000).fadeOut();
                         break;
@@ -39,8 +31,22 @@ $(document).ready(function () {
 
                 }
             },
-            error: function (error) {
-                $("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            error: function (xhr, status, error) {
+                if (xhr.status === 500) {
+                    let errorResponse = JSON.parse(xhr.responseText);
+                    let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                    if (errorMessage === "0") {
+                        alert(langFont["duplicateLogin"]);
+                        window.parent.location.href = "Login.aspx";
+                    } else if (errorMessage === "1") {
+                        alert(langFont["accessDenied"]);
+                        parent.location.reload();
+                    }
+
+                } else {
+                    $("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+                }
             }
         });
     })
@@ -138,14 +144,6 @@ function SearchAllData(pageNumber, pageSize) {
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
             switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                    break;
-                case 1:
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                    break;
                 case 102:
                     $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
@@ -200,8 +198,22 @@ function SearchAllData(pageNumber, pageSize) {
                     beforePagesTotal = pagesTotal;
             }
         },
-        error: function (error) {
-            $("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                ("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            }
         }
     });
 }
@@ -216,14 +228,6 @@ function ToggleMemberStatus(memberId) {
         dataType: "json",
         success: function (response) {
             switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                    break;
-                case 1:
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                    break;
                 case 100:
                     $("#labSearchMember").text(langFont["editStateSuccessful"]).show().delay(3000).fadeOut();
                     break;
@@ -234,8 +238,22 @@ function ToggleMemberStatus(memberId) {
                     $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
-        error: function (error) {
-            $("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                ("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            }
         }
     });
 }
@@ -250,14 +268,6 @@ function ToggleMemberLevel(memberId, level) {
         dataType: "json",
         success: function (response) {
             switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                    break;
-                case 1:
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                    break;
                 case 100:
                     $("#labSearchMember").text(langFont["editLevelSuccessful"]).show().delay(3000).fadeOut();
                     break;
@@ -268,8 +278,22 @@ function ToggleMemberLevel(memberId, level) {
                     $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
-        error: function (error) {
-            $("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                ("#labSearchMember").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            }
         }
     });
 }
