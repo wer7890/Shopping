@@ -15,8 +15,22 @@ $(document).ready(function () {
             success: function (response) {
                 window.location.href = "Login.aspx";
             },
-            error: function (error) {
-                $("#labUserAccount").text(langFont["ajaxError"]);
+            error: function (xhr, status, error) {
+                if (xhr.status === 500) {
+                    let errorResponse = JSON.parse(xhr.responseText);
+                    let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                    if (errorMessage === "0") {
+                        alert(langFont["duplicateLogin"]);
+                        window.parent.location.href = "Login.aspx";
+                    } else if (errorMessage === "1") {
+                        alert(langFont["accessDenied"]);
+                        parent.location.reload();
+                    }
+
+                } else {
+                    $("#labUserAccount").text(langFont["ajaxError"]);
+                }
             }
         });
     });
@@ -69,8 +83,22 @@ function GetUserPermission() {
             }
 
         },
-        error: function (error) {
-            $("#labUserAccount").text(langFont["ajaxError"]);
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                $("#labUserAccount").text(langFont["ajaxError"]);
+            }
         }
     });
 }
@@ -87,8 +115,22 @@ function ChangeLanguage(language) {
             parent.location.reload();
             $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
         },
-        error: function (error) {
-            $("#labUserAccount").text(langFont["ajaxError"]);
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                $("#labUserAccount").text(langFont["ajaxError"]);
+            }
         }
     });
 }

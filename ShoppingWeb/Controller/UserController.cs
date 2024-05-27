@@ -13,103 +13,23 @@ namespace ShoppingWeb.Controller
     [RoutePrefix("/api/Controller/user")]
     public class UserController : Base
     {
+        public UserController()
+        {
+            if (!CheckDuplicateLogin())
+            {
+                throw new Exception(((int)UserStatus.DuplicateLogin).ToString());
+            }
+
+            if (!CheckRoles(PERMITTED_USER_ROLES))
+            {
+                throw new Exception(((int)UserStatus.AccessDenied).ToString());
+            }
+        }
+
         /// <summary>
         /// 帳號系統所要求的權限
         /// </summary>
         private const int PERMITTED_USER_ROLES = 1;
-
-        /// <summary>
-        /// 登入，如果成功就把sessionId寫入資料庫，並且創建userInfo物件把userId和roles存到userInfo物件中，再存到Session["userInfo"]
-        /// </summary>
-        /// <param name="account"></param>
-        /// <param name="pwd"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("LoginUser")]
-        public int LoginUser([FromBody] JObject obj)
-        {
-
-            if (!LoginSpecialChar(obj["account"].ToString(), obj["pwd"].ToString()))
-            {
-                return (int)UserStatus.InputError;
-            }
-
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getPwdAndEditSessionId", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@account", obj["account"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(obj["pwd"].ToString())));
-                        cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@userId", SqlDbType.Int));
-                        cmd.Parameters["@userId"].Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add(new SqlParameter("@roles", SqlDbType.Int));
-                        cmd.Parameters["@roles"].Direction = ParameterDirection.Output;
-
-                        object result = cmd.ExecuteScalar();
-
-                        if (result != null && result.ToString() == "1")
-                        {
-                            UserInfo user = new UserInfo
-                            {
-                                UserId = (int)cmd.Parameters["@userId"].Value,
-                                Roles = (int)cmd.Parameters["@roles"].Value
-                            };
-                            HttpContext.Current.Session["userInfo"] = user;
-
-                            return (int)DatabaseOperationResult.Success;
-                        }
-
-                        return (int)DatabaseOperationResult.Failure;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
-                return (int)DatabaseOperationResult.Error;
-            }
-        }
-
-        /// <summary>
-        /// 判斷輸入值
-        /// </summary>
-        /// <param name="account"></param>
-        /// <param name="pwd"></param>
-        /// <returns></returns>
-        [NonAction]
-        public bool LoginSpecialChar(string account, string pwd)
-        {
-            bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
-            bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
-
-            return (cheackAccount && cheackPwd);
-        }
-
-        /// <summary>
-        /// 按下中英文按鈕時，Cookies["language"]紀錄該語言
-        /// </summary>
-        /// <param name="language"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("SetLanguage")]
-        public bool SetLanguage([FromBody] JObject obj)
-        {
-
-            if (HttpContext.Current.Request.Cookies["language"] != null)
-            {
-                HttpContext.Current.Response.Cookies["language"].Value = obj["language"].ToString();
-                HttpContext.Current.Response.Cookies["language"].Expires = DateTime.Now.AddDays(30);
-            }
-
-            return true;
-        }
-
 
         /// <summary>
         /// 取得管理員身分
@@ -175,17 +95,6 @@ namespace ShoppingWeb.Controller
         [Route("RemoveUserInfo")]
         public int RemoveUserInfo([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_USER_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -233,18 +142,6 @@ namespace ShoppingWeb.Controller
         [Route("SetSessionSelectUserId")]
         public object GetAllUserData([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_USER_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -294,17 +191,6 @@ namespace ShoppingWeb.Controller
         [Route("ToggleUserRoles")]
         public int ToggleUserRoles([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_USER_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -343,16 +229,6 @@ namespace ShoppingWeb.Controller
         [Route("ToggleUserRoles")]
         public int RegisterNewUser([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_USER_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
 
             if (!AddUserSpecialChar(obj["account"].ToString(), obj["pwd"].ToString(), obj["roles"].ToString()))
             {
@@ -459,16 +335,6 @@ namespace ShoppingWeb.Controller
         [Route("EditUser")]
         public int EditUser([FromBody] JObject obj)
         {
-
-            if (!CheckDuplicateLogin())
-            {
-                return (int)UserStatus.DuplicateLogin;
-            }
-
-            if (!CheckRoles(PERMITTED_USER_ROLES))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
 
             if (!EditUserSpecialChar(obj["pwd"].ToString()))
             {

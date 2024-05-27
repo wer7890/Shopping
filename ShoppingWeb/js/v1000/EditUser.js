@@ -29,8 +29,22 @@
                 }
             }
         },
-        error: function (error) {
-            $("#labRenewUser").text(langFont["ajaxError"]);
+        error: function (xhr, status, error) {
+            if (xhr.status === 500) {
+                let errorResponse = JSON.parse(xhr.responseText);
+                let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                if (errorMessage === "0") {
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                } else if (errorMessage === "1") {
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                }
+
+            } else {
+                $("#labRenewUser").text(langFont["ajaxError"]);
+            }
         }
     });
 
@@ -51,14 +65,6 @@
             dataType: "json",
             success: function (response) {
                 switch (response) {
-                    case 0:
-                        alert(langFont["duplicateLogin"]);
-                        window.parent.location.href = "Login.aspx";
-                        break;
-                    case 1:
-                        alert(langFont["accessDenied"]);
-                        parent.location.reload();
-                        break;
                     case 2:
                         $("#labRenewUser").text(langFont["editFormat"]);
                         break;
@@ -74,8 +80,22 @@
 
                 }
             },
-            error: function (error) {
-                $("#labAddUser").text(langFont["ajaxError"]);
+            error: function (xhr, status, error) {
+                if (xhr.status === 500) {
+                    let errorResponse = JSON.parse(xhr.responseText);
+                    let errorMessage = errorResponse.InnerException.ExceptionMessage;
+
+                    if (errorMessage === "0") {
+                        alert(langFont["duplicateLogin"]);
+                        window.parent.location.href = "Login.aspx";
+                    } else if (errorMessage === "1") {
+                        alert(langFont["accessDenied"]);
+                        parent.location.reload();
+                    }
+
+                } else {
+                    $("#labRenewUser").text(langFont["ajaxError"]);
+                }
             }
         });
     })

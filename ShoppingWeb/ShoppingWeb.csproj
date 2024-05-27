@@ -138,6 +138,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\MemberController.cs" />
     <Compile Include="Controller\OrderController.cs" />
     <Compile Include="Controller\ProductController.cs" />
