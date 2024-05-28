@@ -327,28 +327,5 @@ namespace ShoppingWeb.Controller
             return cheackPwd;
         }
 
-
-        /// <summary>
-        /// 紀錄前端錯誤
-        /// </summary>
-        /// <param name="errorDetails"></param>
-        [HttpPost]
-        [Route("LogClientError")]
-        public void LogClientError([FromBody] string[] errorDetails)
-        {
-            Logger logger = LogManager.GetCurrentClassLogger();
-
-            try
-            {
-                foreach (var error in errorDetails)
-                {
-                    logger.Error(error);
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "前端NLog錯誤");
-            }
-        }
     }
 }
