@@ -14,8 +14,8 @@ namespace ShoppingWeb
             RouteTable.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{folder}/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional },
-                constraints: new { folder = "Controller" } 
+                defaults: new { id = RouteParameter.Optional },  //預設值
+                constraints: new { folder = "Controller" }   //條件約束
             );
         }
 
