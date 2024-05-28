@@ -14,25 +14,17 @@ namespace ShoppingWeb.Controller
     [RoutePrefix("/api/Controller/product")]
     public class ProductController : Base
     {
-        public ProductController()
-        {
-            if (!CheckDuplicateLogin())
-            {
-                throw new Exception(((int)UserStatus.DuplicateLogin).ToString());
-            }
-
-            if (!CheckRoles(PERMITTED_PRODUCT_ROLES))
-            {
-                throw new Exception(((int)UserStatus.AccessDenied).ToString());
-            }
-        }
-
         private static string pubguid = "";
 
         /// <summary>
         /// 商品系統所要求的權限
         /// </summary>
         private const int PERMITTED_PRODUCT_ROLES = 3;
+
+        public ProductController() : base(PERMITTED_PRODUCT_ROLES)
+        {
+
+        }
 
         /// <summary>
         /// 一開始顯示所有商品

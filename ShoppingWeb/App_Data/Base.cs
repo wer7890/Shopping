@@ -14,6 +14,19 @@ namespace ShoppingWeb.Controller
 {
     public class Base : ApiController
     {
+        public Base(int premittedRoles)
+        {
+            if (!CheckDuplicateLogin())
+            {
+                throw new Exception(((int)UserStatus.DuplicateLogin).ToString());
+            }
+
+            if (!CheckRoles(premittedRoles))
+            {
+                throw new Exception(((int)UserStatus.AccessDenied).ToString());
+            }
+        }
+
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
         /// <summary>

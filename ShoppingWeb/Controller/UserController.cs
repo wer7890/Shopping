@@ -13,24 +13,16 @@ namespace ShoppingWeb.Controller
     [RoutePrefix("/api/Controller/user")]
     public class UserController : Base
     {
-        public UserController()
-        {
-            if (!CheckDuplicateLogin())
-            {
-                throw new Exception(((int)UserStatus.DuplicateLogin).ToString());
-            }
-
-            if (!CheckRoles(PERMITTED_USER_ROLES))
-            {
-                throw new Exception(((int)UserStatus.AccessDenied).ToString());
-            }
-        }
-
         /// <summary>
         /// 帳號系統所要求的權限
         /// </summary>
         private const int PERMITTED_USER_ROLES = 1;
-        
+
+        public UserController() : base(PERMITTED_USER_ROLES)
+        { 
+            
+        }
+
         /// <summary>
         /// 刪除管理員
         /// </summary>

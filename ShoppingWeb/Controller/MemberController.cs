@@ -12,23 +12,15 @@ namespace ShoppingWeb.Controller
     [RoutePrefix("/api/Controller/member")]
     public class MemberController : Base
     {
-        public MemberController()
-        {
-            if (!CheckDuplicateLogin())
-            {
-                throw new Exception(((int)UserStatus.DuplicateLogin).ToString());
-            }
-
-            if (!CheckRoles(PERMITTED_USER_ROLES))
-            {
-                throw new Exception(((int)UserStatus.AccessDenied).ToString());
-            }
-        }
-
         /// <summary>
         /// 會員系統所要求的權限
         /// </summary>
-        private const int PERMITTED_USER_ROLES = 2;
+        private const int PERMITTED_MEMBER_ROLES = 2;
+
+        public MemberController() : base(PERMITTED_MEMBER_ROLES)
+        {
+
+        }
 
         /// <summary>
         /// 一開始顯示所有會員資訊

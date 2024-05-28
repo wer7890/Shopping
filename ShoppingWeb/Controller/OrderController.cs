@@ -13,23 +13,15 @@ namespace ShoppingWeb.Controller
     [RoutePrefix("/api/Controller/order")]
     public class OrderController : Base
     {
-        public OrderController()
-        {
-            if (!CheckDuplicateLogin())
-            {
-                throw new Exception(((int)UserStatus.DuplicateLogin).ToString());
-            }
-
-            if (!CheckRoles(PERMITTED_Order_ROLES))
-            {
-                throw new Exception(((int)UserStatus.AccessDenied).ToString());
-            }
-        }
-
         /// <summary>
         /// 訂單系統所要求的權限
         /// </summary>
-        private const int PERMITTED_Order_ROLES = 2;
+        private const int PERMITTED_ORDER_ROLES = 2;
+
+        public OrderController() : base(PERMITTED_ORDER_ROLES)
+        {
+
+        }
 
         /// <summary>
         /// 一開始顯示所有訂單資訊
