@@ -12,7 +12,7 @@
         let pwd = $("#txbPassword").val();
         $("#labLogin").text("");
 
-        if (!IsSpecialChar(account, pwd)){
+        if (!IsSpecialChars(account, pwd)){
             return;
         }
 
