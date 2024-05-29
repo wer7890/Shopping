@@ -7,44 +7,43 @@
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            if (data === 102) {
-                $("#labRenewUser").text(langFont["errorLog"]);
-            } else {
-                // 直接設定 input 元素的值
-                $("#labUserId").text(data.UserId);
-                $("#labAccount").text(data.Account);
-                switch (data.Roles) {
-                    case 1:
-                        $("#labUserRoles").text(langFont["superAdmin"]);
-                        break;
-                    case 2:
-                        $("#labUserRoles").text(langFont["memberAdmin"]);
-                        break;
-                    case 3:
-                        $("#labUserRoles").text(langFont["productAdmin"]);
-                        break;
-                    default:
-                        $("#labUserRoles").text(langFont["mistake"]);
-                        break;
-                }
-            }
-        },
-        error: function (xhr, status, error) {
-            if (xhr.status === 500) {
-                let errorResponse = JSON.parse(xhr.responseText);
-                let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                if (errorMessage === "0") {
+            switch (parseInt(data)) {
+                case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
-                } else if (errorMessage === "1") {
+                    break;
+                case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
-                }
-
-            } else {
-                $("#labRenewUser").text(langFont["ajaxError"]);
+                    break;
+                case 3:
+                    $("#labRenewUser").text(langFont["validationException"]);
+                    break;
+                case 102:
+                    $("#labRenewUser").text(langFont["errorLog"]);
+                    break;
+                default:
+                    // 直接設定 input 元素的值
+                    $("#labUserId").text(data.UserId);
+                    $("#labAccount").text(data.Account);
+                    switch (data.Roles) {
+                        case 1:
+                            $("#labUserRoles").text(langFont["superAdmin"]);
+                            break;
+                        case 2:
+                            $("#labUserRoles").text(langFont["memberAdmin"]);
+                            break;
+                        case 3:
+                            $("#labUserRoles").text(langFont["productAdmin"]);
+                            break;
+                        default:
+                            $("#labUserRoles").text(langFont["mistake"]);
+                            break;
+                    }
             }
+        },
+        error: function (error) {
+            $("#labRenewUser").text(langFont["ajaxError"]);
         }
     });
 
@@ -64,7 +63,18 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response) {
+                switch (parseInt(response)) {
+                    case 0:
+                        alert(langFont["duplicateLogin"]);
+                        window.parent.location.href = "Login.aspx";
+                        break;
+                    case 1:
+                        alert(langFont["accessDenied"]);
+                        parent.location.reload();
+                        break;
+                    case 3:
+                        $("#labRenewUser").text(langFont["validationException"]);
+                        break;
                     case 2:
                         $("#labRenewUser").text(langFont["editFormat"]);
                         break;
@@ -80,22 +90,8 @@
 
                 }
             },
-            error: function (xhr, status, error) {
-                if (xhr.status === 500) {
-                    let errorResponse = JSON.parse(xhr.responseText);
-                    let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                    if (errorMessage === "0") {
-                        alert(langFont["duplicateLogin"]);
-                        window.parent.location.href = "Login.aspx";
-                    } else if (errorMessage === "1") {
-                        alert(langFont["accessDenied"]);
-                        parent.location.reload();
-                    }
-
-                } else {
-                    $("#labRenewUser").text(langFont["ajaxError"]);
-                }
+            error: function (error) {
+                $("#labRenewUser").text(langFont["ajaxError"]);
             }
         });
     })

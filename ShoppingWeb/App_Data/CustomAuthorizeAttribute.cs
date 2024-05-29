@@ -1,0 +1,72 @@
+﻿using ShoppingWeb.Ajax;
+using System;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Net.Http;
+using System.Web;
+using System.Web.Http;
+using System.Web.Http.Controllers;
+using System.Web.Http.Filters;
+
+namespace ShoppingWeb.Controller
+{
+    public class CustomAuthorizeAttribute : AuthorizationFilterAttribute
+    {
+        public CustomAuthorizeAttribute()
+        {
+        }
+
+        public override void OnAuthorization(HttpActionContext actionContext)
+        {
+            try
+            {
+                if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Count > 0)
+                {
+                    return;
+                }
+                if (actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Count > 0)
+                {
+                    return;
+                }
+
+                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+                // 判斷同一隻帳號是否有重複登入
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getSessionId", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
+
+                        object dbResult = cmd.ExecuteScalar();
+
+                        if (dbResult != null)
+                        {
+                            string currentSessionID = HttpContext.Current.Session.SessionID;
+
+                            if (dbResult.ToString() != currentSessionID)
+                            {
+                                HttpContext.Current.Session["userInfo"] = null;
+                                throw new CustomException(((int)UserStatus.DuplicateLogin).ToString());
+                            }
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (!(ex is CustomException))
+                {
+                    ex = new CustomException(((int)UserStatus.validationException).ToString());
+                }
+
+                actionContext.Response = actionContext.Request.CreateResponse(ex.Message);
+            }
+        }
+    }
+}

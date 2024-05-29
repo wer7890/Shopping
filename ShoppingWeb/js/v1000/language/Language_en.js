@@ -150,6 +150,8 @@
     'pageNumLast': '',
     'recordNum': 'record',
     'page': 'page',
+
+    'validationException': 'Permission verification exception',
 };
 
 // 商品大分類

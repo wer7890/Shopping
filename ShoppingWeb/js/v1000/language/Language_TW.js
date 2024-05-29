@@ -150,6 +150,8 @@
     'pageNumLast': '頁',
     'recordNum': '筆',
     'page': '頁',
+
+    'validationException': '權限驗證異常',
 };
 
 // 商品大分類

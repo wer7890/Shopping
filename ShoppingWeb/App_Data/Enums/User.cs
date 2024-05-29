@@ -18,6 +18,11 @@
         /// <summary>
         /// 輸入值錯誤
         /// </summary>
-        InputError = 2
+        InputError = 2,
+
+        /// <summary>
+        /// 權限驗證異常
+        /// </summary>
+        validationException = 3
     }
 }
