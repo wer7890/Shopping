@@ -1,8 +1,8 @@
 ﻿// onerror事件
-window.onerror = function (message, source, lineno, colno, error) {
-    AddToErrorQueue("\n錯誤訊息: " + message + "\n發生錯誤的腳本: " + source + "\n發生錯誤的行號: " + lineno + "\n發生錯誤的列號: " + colno + "\nError對象: " + error);
-    return true;
-}
+window.addEventListener('error', function (event) {
+    AddToErrorQueue("\n錯誤訊息: " + event.message + "\n腳本: " + event.filename + "\n行號: " + event.lineno + "\n列號: " + event.colno + "\nError對象: " + event.error);
+    event.preventDefault();  //停止事件的默認動作，不會把錯誤印在console上
+});
 
 let errorQueue = [];
 
