@@ -9,7 +9,7 @@ let errorQueue = [];
 $(document).ready(function () {
     setInterval(function () {
         if (errorQueue.length > 0) {
-            let errorsToSend = errorQueue;
+            let errorsToSend = Array.from(new Set(errorQueue));  //Set()陣列元素不會重複
             errorQueue = [];
             $.ajax({
                 type: "POST",
