@@ -143,9 +143,9 @@
     <Compile Include="Controller\MemberController.cs" />
     <Compile Include="Controller\OrderController.cs" />
     <Compile Include="Controller\ProductController.cs" />
+    <Compile Include="App_Data\Enums\Roles.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="App_Data\CustomAuthorizeAttribute.cs" />
-    <Compile Include="App_Data\CustomException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

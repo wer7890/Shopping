@@ -1,5 +1,4 @@
 ﻿using System;
-using ShoppingWeb.Ajax;
 
 namespace ShoppingWeb.Web
 {

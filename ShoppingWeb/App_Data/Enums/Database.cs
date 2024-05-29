@@ -1,4 +1,4 @@
-﻿namespace ShoppingWeb.Ajax
+﻿namespace ShoppingWeb
 {
     /// <summary>
     /// 操作資料庫的結果

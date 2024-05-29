@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using NLog;
-using ShoppingWeb.Ajax;
 using System;
 using System.Configuration;
 using System.Data;

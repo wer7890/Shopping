@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using NLog;
-using ShoppingWeb.Ajax;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,12 +13,6 @@ namespace ShoppingWeb.Controller
     public class UserController : BaseController
     {
         /// <summary>
-        /// 帳號系統所要求的權限
-        /// </summary>
-        private const int PERMITTED_USER_ROLES = 1;
-
-
-        /// <summary>
         /// 刪除管理員
         /// </summary>
         /// <param name="userId"></param>
@@ -29,7 +22,7 @@ namespace ShoppingWeb.Controller
         public int RemoveUserInfo([FromBody] JObject obj)
         {
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles((int)Roles.User))
             {
                 return (int)UserStatus.AccessDenied;
             }
@@ -68,7 +61,7 @@ namespace ShoppingWeb.Controller
         public int SetSessionSelectUserId([FromBody] JObject obj)
         {
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles((int)Roles.User))
             {
                 return (int)UserStatus.AccessDenied;
             }
@@ -88,7 +81,7 @@ namespace ShoppingWeb.Controller
         public object GetAllUserData([FromBody] JObject obj)
         {
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles((int)Roles.User))
             {
                 return (int)UserStatus.AccessDenied;
             }
@@ -143,7 +136,7 @@ namespace ShoppingWeb.Controller
         public int ToggleUserRoles([FromBody] JObject obj)
         {
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles((int)Roles.User))
             {
                 return (int)UserStatus.AccessDenied;
             }
@@ -187,7 +180,7 @@ namespace ShoppingWeb.Controller
         public int RegisterNewUser([FromBody] JObject obj)
         {
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles((int)Roles.User))
             {
                 return (int)UserStatus.AccessDenied;
             }
@@ -250,7 +243,7 @@ namespace ShoppingWeb.Controller
         public object GetUserDataForEdit()
         {
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles((int)Roles.User))
             {
                 return (int)UserStatus.AccessDenied;
             }
@@ -304,7 +297,7 @@ namespace ShoppingWeb.Controller
         public int EditUser([FromBody] JObject obj)
         {
 
-            if (!CheckRoles(PERMITTED_USER_ROLES))
+            if (!CheckRoles((int)Roles.User))
             {
                 return (int)UserStatus.AccessDenied;
             }

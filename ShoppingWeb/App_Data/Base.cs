@@ -1,5 +1,4 @@
 ﻿using NLog;
-using ShoppingWeb.Ajax;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

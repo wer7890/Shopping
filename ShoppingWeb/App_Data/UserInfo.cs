@@ -1,4 +1,4 @@
-﻿namespace ShoppingWeb.Ajax
+﻿namespace ShoppingWeb
 {
     public class UserInfo
     {

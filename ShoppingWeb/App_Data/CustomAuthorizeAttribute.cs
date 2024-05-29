@@ -1,4 +1,4 @@
-﻿using ShoppingWeb.Ajax;
+﻿using NLog;
 using System;
 using System.Configuration;
 using System.Data;
@@ -50,7 +50,7 @@ namespace ShoppingWeb.Controller
                             if (dbResult.ToString() != currentSessionID)
                             {
                                 HttpContext.Current.Session["userInfo"] = null;
-                                throw new CustomException(((int)UserStatus.DuplicateLogin).ToString());
+                                actionContext.Response = actionContext.Request.CreateResponse((int)UserStatus.DuplicateLogin);
                             }
 
                         }
@@ -60,12 +60,9 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                if (!(ex is CustomException))
-                {
-                    ex = new CustomException(((int)UserStatus.validationException).ToString());
-                }
-
-                actionContext.Response = actionContext.Request.CreateResponse(ex.Message);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
+                actionContext.Response = actionContext.Request.CreateResponse((int)DatabaseOperationResult.Error);
             }
         }
     }

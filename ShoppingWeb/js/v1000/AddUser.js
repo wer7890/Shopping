@@ -17,7 +17,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (parseInt(response)) {
+                switch (response) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -25,9 +25,6 @@
                     case 1:
                         alert(langFont["accessDenied"]);
                         parent.location.reload();
-                        break;
-                    case 3:
-                        $("#labAddUser").text(langFont["validationException"]);
                         break;
                     case 2:
                         $("#labAddUser").text(langFont["addFormat"]);

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Threading;
 using System.Web;
 
-namespace ShoppingWeb.Ajax
+namespace ShoppingWeb
 {
     public class BasePage : System.Web.UI.Page
     {

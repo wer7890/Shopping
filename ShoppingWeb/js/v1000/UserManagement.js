@@ -43,7 +43,7 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (parseInt(response)) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -51,9 +51,6 @@ function SearchAllData(pageNumber, pageSize) {
                 case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
-                    break;
-                case 3:
-                    $("#labSearchUser").text(langFont["validationException"]).show().delay(3000).fadeOut();
                     break;
                 case 102:
                     $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
@@ -124,7 +121,7 @@ function DeleteUser(userId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (parseInt(response)) {
+                switch (response) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -132,9 +129,6 @@ function DeleteUser(userId) {
                     case 1:
                         alert(langFont["accessDenied"]);
                         parent.location.reload();
-                        break;
-                    case 3:
-                        $("#labSearchUser").text(langFont["validationException"]).show().delay(3000).fadeOut();
                         break;
                     case 100:
                         // 刪除成功後，刷新當前頁面並刷新表格
@@ -163,7 +157,7 @@ function EditUser(userId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (parseInt(response)) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -171,9 +165,6 @@ function EditUser(userId) {
                 case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
-                    break;
-                case 3:
-                    $("#labSearchUser").text(langFont["validationException"]).show().delay(3000).fadeOut();
                     break;
                 case 100:
                     window.location.href = "EditUser.aspx";
@@ -198,7 +189,7 @@ function ToggleUserRoles(userId, roles) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (parseInt(response)) {
+            switch (response) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -206,9 +197,6 @@ function ToggleUserRoles(userId, roles) {
                 case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
-                    break;
-                case 3:
-                    $("#labSearchUser").text(langFont["validationException"]).show().delay(3000).fadeOut();
                     break;
                 case 100:
                     $("#labSearchUser").text(langFont["changeSuccessful"]).show().delay(3000).fadeOut();

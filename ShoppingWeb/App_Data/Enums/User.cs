@@ -1,4 +1,4 @@
-﻿namespace ShoppingWeb.Ajax
+﻿namespace ShoppingWeb
 {
     /// <summary>
     /// 判斷使用者狀態

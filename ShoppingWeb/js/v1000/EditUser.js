@@ -7,7 +7,7 @@
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            switch (parseInt(data)) {
+            switch (data) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -15,9 +15,6 @@
                 case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
-                    break;
-                case 3:
-                    $("#labRenewUser").text(langFont["validationException"]);
                     break;
                 case 102:
                     $("#labRenewUser").text(langFont["errorLog"]);
@@ -63,7 +60,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (parseInt(response)) {
+                switch (response) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -71,9 +68,6 @@
                     case 1:
                         alert(langFont["accessDenied"]);
                         parent.location.reload();
-                        break;
-                    case 3:
-                        $("#labRenewUser").text(langFont["validationException"]);
                         break;
                     case 2:
                         $("#labRenewUser").text(langFont["editFormat"]);
