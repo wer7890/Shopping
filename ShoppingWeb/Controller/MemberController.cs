@@ -9,18 +9,8 @@ using System.Web.Http;
 namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/member")]
-    public class MemberController : Base
+    public class MemberController : BaseController
     {
-        /// <summary>
-        /// 會員系統所要求的權限
-        /// </summary>
-        private const int PERMITTED_MEMBER_ROLES = 2;
-
-        public MemberController() : base(PERMITTED_MEMBER_ROLES)
-        {
-
-        }
-
         /// <summary>
         /// 一開始顯示所有會員資訊
         /// </summary>
@@ -29,6 +19,12 @@ namespace ShoppingWeb.Controller
         [Route("GetAllMemberData")]
         public object GetAllMemberData([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Member))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -76,6 +72,12 @@ namespace ShoppingWeb.Controller
         [Route("ToggleProductStatus")]
         public int ToggleProductStatus([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Member))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -111,6 +113,12 @@ namespace ShoppingWeb.Controller
         [Route("ToggleMemberLevel")]
         public int ToggleMemberLevel([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Member))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -145,6 +153,11 @@ namespace ShoppingWeb.Controller
         [Route("AddMember")]
         public int AddMember([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Member))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
 
             if (!AddMemberSpecialChar(obj["account"].ToString(), obj["pwd"].ToString(), obj["name"].ToString(), obj["birthday"].ToString(), obj["phone"].ToString(), obj["email"].ToString(), obj["address"].ToString()))
             {
