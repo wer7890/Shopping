@@ -1,6 +1,6 @@
 ﻿// onerror事件
 window.addEventListener('error', function (event) {
-    AddToErrorQueue("\n錯誤訊息: " + event.message + "\n腳本: " + event.filename + "\n行號: " + event.lineno + "\n列號: " + event.colno + "\nError對象: " + event.error);
+    AddToErrorQueue("錯誤訊息: " + event.message + " Error對象: " + event.error.stack + " 位置: " + event.filename + " 行號: " + event.lineno + " 列號: " + event.colno);
     event.preventDefault();  //停止事件的默認動作，不會把錯誤印在console上
 });
 
