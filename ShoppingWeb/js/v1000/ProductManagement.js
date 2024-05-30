@@ -53,6 +53,14 @@ function SearchAllData(pageNumber, pageSize) {
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
             switch (response) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
                 case 102:
                     $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
@@ -104,22 +112,8 @@ function SearchAllData(pageNumber, pageSize) {
                     beforePagesTotal = pagesTotal;
             }
         },
-        error: function (xhr, status, error) {
-            if (xhr.status === 500) {
-                let errorResponse = JSON.parse(xhr.responseText);
-                let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                if (errorMessage === "0") {
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                } else if (errorMessage === "1") {
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                }
-
-            } else {
-                $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
-            }
+        error: function (error) {
+            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -134,6 +128,14 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
         dataType: "json",
         success: function (response) {
             switch (response) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
                 case 101:
                     $("#productTableDiv").css('display', 'none');
                     $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
@@ -179,22 +181,8 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     beforePagesTotal = pagesTotal;
             }
         },
-        error: function (xhr, status, error) {
-            if (xhr.status === 500) {
-                let errorResponse = JSON.parse(xhr.responseText);
-                let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                if (errorMessage === "0") {
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                } else if (errorMessage === "1") {
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                }
-
-            } else {
-                $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
-            }
+        error: function (error) {
+            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -209,6 +197,14 @@ function ToggleProductStatus(productId) {
         dataType: "json",
         success: function (response) {
             switch (response) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 1:
+                    alert(langFont["accessDenied"]);
+                    parent.location.reload();
+                    break;
                 case 100:
                     $("#labSearchProduct").text(langFont["editSuccessful"]).show().delay(3000).fadeOut();
                     break;
@@ -219,22 +215,8 @@ function ToggleProductStatus(productId) {
                     $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
-        error: function (xhr, status, error) {
-            if (xhr.status === 500) {
-                let errorResponse = JSON.parse(xhr.responseText);
-                let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                if (errorMessage === "0") {
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
-                } else if (errorMessage === "1") {
-                    alert(langFont["accessDenied"]);
-                    parent.location.reload();
-                }
-
-            } else {
-                $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
-            }
+        error: function (error) {
+            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }
@@ -251,6 +233,14 @@ function DeleteProduct(productId) {
             dataType: "json",
             success: function (response) {
                 switch (response) {
+                    case 0:
+                        alert(langFont["duplicateLogin"]);
+                        window.parent.location.href = "Login.aspx";
+                        break;
+                    case 1:
+                        alert(langFont["accessDenied"]);
+                        parent.location.reload();
+                        break;
                     case 100:
                         window.location.reload();
                         break;
@@ -261,22 +251,8 @@ function DeleteProduct(productId) {
                         $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                 }
             },
-            error: function (xhr, status, error) {
-                if (xhr.status === 500) {
-                    let errorResponse = JSON.parse(xhr.responseText);
-                    let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                    if (errorMessage === "0") {
-                        alert(langFont["duplicateLogin"]);
-                        window.parent.location.href = "Login.aspx";
-                    } else if (errorMessage === "1") {
-                        alert(langFont["accessDenied"]);
-                        parent.location.reload();
-                    }
-
-                } else {
-                    $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
-                }
+            error: function (error) {
+                $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
             }
         });
     }
@@ -291,26 +267,25 @@ function EditProduct(productId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response === true) {
-                window.location.href = "EditProduct.aspx";
-            }
-        },
-        error: function (xhr, status, error) {
-            if (xhr.status === 500) {
-                let errorResponse = JSON.parse(xhr.responseText);
-                let errorMessage = errorResponse.InnerException.ExceptionMessage;
-
-                if (errorMessage === "0") {
+            switch (response) {
+                case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
-                } else if (errorMessage === "1") {
+                    break;
+                case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
-                }
-
-            } else {
-                $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+                    break;
+                case 100:
+                    window.location.href = "EditProduct.aspx";
+                    break;
+                default:
+                    alert(langFont["editFailed"]);
+                    break;
             }
+        },
+        error: function (error) {
+            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }

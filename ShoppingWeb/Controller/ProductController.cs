@@ -11,19 +11,9 @@ using System.Web.Http;
 namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/product")]
-    public class ProductController : Base
+    public class ProductController : BaseController
     {
         private static string pubguid = "";
-
-        /// <summary>
-        /// 商品系統所要求的權限
-        /// </summary>
-        private const int PERMITTED_PRODUCT_ROLES = 3;
-
-        public ProductController() : base(PERMITTED_PRODUCT_ROLES)
-        {
-
-        }
 
         /// <summary>
         /// 一開始顯示所有商品
@@ -33,6 +23,12 @@ namespace ShoppingWeb.Controller
         [Route("GetAllProductData")]
         public object GetAllProductData([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Product))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -85,6 +81,12 @@ namespace ShoppingWeb.Controller
         [Route("GetProductData")]
         public object GetProductData([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Product))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -146,6 +148,12 @@ namespace ShoppingWeb.Controller
         [Route("RemoveProduct")]
         public int RemoveProduct([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Product))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -196,6 +204,12 @@ namespace ShoppingWeb.Controller
         [Route("ToggleProductStatus")]
         public int ToggleProductStatus([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Product))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -228,10 +242,16 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("SetSessionProductId")]
-        public bool SetSessionProductId([FromBody] JObject obj)
+        public int SetSessionProductId([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Product))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             HttpContext.Current.Session["productId"] = obj["productId"].ToString();
-            return true;
+            return (int)DatabaseOperationResult.Success;
         }
 
 
@@ -243,6 +263,12 @@ namespace ShoppingWeb.Controller
         [Route("UploadProduct")]
         public int UploadProduct()
         {
+
+            if (!CheckRoles((int)Roles.Product))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             //檢查ProductImg資料夾是否存在，如果不存在就建立資料夾
             string checkTargetFolderPath = HttpContext.Current.Server.MapPath("~/ProductImg/");
             if (!Directory.Exists(checkTargetFolderPath))
@@ -403,6 +429,12 @@ namespace ShoppingWeb.Controller
         [Route("GetProductDataForEdit")]
         public object GetProductDataForEdit()
         {
+
+            if (!CheckRoles((int)Roles.Product))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
+
             try
             {
                 string sessionProductId = HttpContext.Current.Session["productId"] as string;
@@ -461,6 +493,11 @@ namespace ShoppingWeb.Controller
         [Route("EditProduct")]
         public int EditProduct([FromBody] JObject obj)
         {
+
+            if (!CheckRoles((int)Roles.Product))
+            {
+                return (int)UserStatus.AccessDenied;
+            }
 
             if (!RenewProductSpecialChar((int)obj["productPrice"], (int)obj["productStock"], obj["productIntroduce"].ToString()))
             {
