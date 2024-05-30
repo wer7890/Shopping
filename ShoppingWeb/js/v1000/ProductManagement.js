@@ -66,7 +66,8 @@ function SearchAllData(pageNumber, pageSize) {
                     break;
                 default:
                     // 處理成功取得資料的情況
-                    let data = JSON.parse(response.Data); // 解析 JSON 資料為 JavaScript 物件
+                    let data = JSON.parse(response.Data[0]); // 解析 JSON 資料為 JavaScript 物件
+                    let stockInsufficient = JSON.parse(response.Data[1]);
                     let tableBody = $('#tableBody');
                     pagesTotal = response.TotalPages;
 
@@ -90,7 +91,7 @@ function SearchAllData(pageNumber, pageSize) {
 
                         tableBody.append(row);
                     });
-
+                    
                     if (!paginationInitialized) {
                         page = new Pagination({
                             id: 'pagination',
@@ -104,6 +105,15 @@ function SearchAllData(pageNumber, pageSize) {
                             }
                         });
                         paginationInitialized = true;
+
+                        if (stockInsufficient.length > 0) {
+                            let stockAlert = '庫存量小於100\n';
+                            $.each(stockInsufficient, function (index, item) {
+                                stockAlert += '商品ID: ' + item.f_id + '    名稱: ' + item.f_name + '    庫存量: ' + item.f_stock + '\n';
+                            });
+                            alert(stockAlert);
+                        }
+
                     } else if (beforePagesTotal !== pagesTotal) {
                         alert("資料頁數變動");
                         page.Update(pagesTotal);

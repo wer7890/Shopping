@@ -45,20 +45,34 @@ namespace ShoppingWeb.Controller
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
+                        SqlDataAdapter da = new SqlDataAdapter();
+                        DataSet ds = new DataSet();
+                        da.SelectCommand = cmd;
+                        da.Fill(ds);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
                         int totalPages = (int)Math.Ceiling((double)totalCount / (int)obj["pageSize"]);  // 計算總頁數，Math.Ceiling向上進位取整數
 
-                        var result = new
-                        {
-                            Data = ConvertDataTableToJson(dt),
-                            TotalPages = totalPages
-                        };
+                        object[] resultArr = new object[2];
 
-                        return result;
+                        for (int i = 0; i < ds.Tables.Count; i++)
+                        {
+                            resultArr[i] = ConvertDataTableToJson(ds.Tables[i]);
+                        }
+
+                        if (totalCount > 0)
+                        {
+                            var result = new
+                            {
+                                Data = resultArr,
+                                TotalPages = totalPages
+                            };
+                            return result;
+                        }
+                        else
+                        {
+                            return (int)DatabaseOperationResult.Failure;
+                        }
                     }
                 }
             }
