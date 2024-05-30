@@ -120,7 +120,6 @@
     <Content Include="Web\UserManagement.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Data\Base.cs" />
     <Compile Include="App_Data\Enums\Language.cs" />
     <Compile Include="App_Data\Enums\Database.cs" />
     <Compile Include="App_Data\Enums\User.cs" />
