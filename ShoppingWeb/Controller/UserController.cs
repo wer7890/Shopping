@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using NLog;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -45,8 +44,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                WriteNLog(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -119,8 +117,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                WriteNLog(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -161,8 +158,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                WriteNLog(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -210,8 +206,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                WriteNLog(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -280,8 +275,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                WriteNLog(ex);
                 return (int)DatabaseOperationResult.Error;
             }
 
@@ -328,8 +322,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                WriteNLog(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }

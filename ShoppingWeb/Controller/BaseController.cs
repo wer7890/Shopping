@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Timers;
 using System.Web;
 using System.Web.Http;
 
@@ -15,6 +15,23 @@ namespace ShoppingWeb.Controller
     public class BaseController : ApiController
     {
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+
+        public static readonly HashSet<string> errorsSet = new HashSet<string>();  //錯誤資料不重複的陣列
+        public static bool openTimer = false;
+
+        public BaseController()
+        {
+            if (!openTimer)
+            {
+                Timer t = new Timer(3600000)  //創建Timer，時間間隔1小時3600000毫秒
+                {
+                    AutoReset = true  //一直執行(true)
+                };
+                t.Elapsed += new ElapsedEventHandler(RemoveErrorsSet);  //到達時間的时候執行事件；
+                t.Start();  //啟動計時器
+                openTimer = true;
+            }
+        }
 
         /// <summary>
         /// 判斷權限是否可使用該功能
@@ -68,6 +85,34 @@ namespace ShoppingWeb.Controller
                 sb.Append(retVal[i].ToString("x2"));
             }
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 刪除錯誤日誌資料的Set
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        [NonAction]
+        public void RemoveErrorsSet(object sender, ElapsedEventArgs e)
+        {
+            errorsSet.Clear();
+        }
+
+        /// <summary>
+        /// 判斷錯誤資訊有無重複，如果沒有就寫入NLog
+        /// </summary>
+        /// <param name="ex"></param>
+        [NonAction]
+        public void WriteNLog(Exception ex)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            string errorKey = $"{ex.Message}-{ex.StackTrace}";
+
+            if (!errorsSet.Contains(errorKey))
+            {
+                logger.Error(ex);
+                errorsSet.Add(errorKey);
+            }
         }
     }
 }
