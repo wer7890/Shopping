@@ -1,6 +1,4 @@
-﻿using NLog;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Security.Cryptography;
@@ -96,23 +94,6 @@ namespace ShoppingWeb.Controller
         public void RemoveErrorsSet(object sender, ElapsedEventArgs e)
         {
             errorsSet.Clear();
-        }
-
-        /// <summary>
-        /// 判斷錯誤資訊有無重複，如果沒有就寫入NLog
-        /// </summary>
-        /// <param name="ex"></param>
-        [NonAction]
-        public void WriteNLog(Exception ex)
-        {
-            Logger logger = LogManager.GetCurrentClassLogger();
-            string errorKey = $"{ex.Message}-{ex.StackTrace}";
-
-            if (!errorsSet.Contains(errorKey))
-            {
-                logger.Error(ex);
-                errorsSet.Add(errorKey);
-            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using NLog;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -66,7 +67,14 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                WriteNLog(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                string errorKey = $"{ex.Message}-{ex.StackTrace}";
+
+                if (!errorsSet.Contains(errorKey))
+                {
+                    logger.Error(ex);
+                    errorsSet.Add(errorKey);
+                }
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -108,7 +116,14 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                WriteNLog(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                string errorKey = $"{ex.Message}-{ex.StackTrace}";
+
+                if (!errorsSet.Contains(errorKey))
+                {
+                    logger.Error(ex);
+                    errorsSet.Add(errorKey);
+                }
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -158,7 +173,14 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                WriteNLog(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                string errorKey = $"{ex.Message}-{ex.StackTrace}";
+
+                if (!errorsSet.Contains(errorKey))
+                {
+                    logger.Error(ex);
+                    errorsSet.Add(errorKey);
+                }
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -246,7 +268,14 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                WriteNLog(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                string errorKey = $"{ex.Message}-{ex.StackTrace}";
+
+                if (!errorsSet.Contains(errorKey))
+                {
+                    logger.Error(ex);
+                    errorsSet.Add(errorKey);
+                }
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -313,7 +342,14 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                WriteNLog(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                string errorKey = $"{ex.Message}-{ex.StackTrace}";
+
+                if (!errorsSet.Contains(errorKey))
+                {
+                    logger.Error(ex);
+                    errorsSet.Add(errorKey);
+                }
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -357,7 +393,14 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                WriteNLog(ex);
+                Logger logger = LogManager.GetCurrentClassLogger();
+                string errorKey = $"{ex.Message}-{ex.StackTrace}";
+
+                if (!errorsSet.Contains(errorKey))
+                {
+                    logger.Error(ex);
+                    errorsSet.Add(errorKey);
+                }
                 return (int)DatabaseOperationResult.Error;
             }
 
