@@ -13,7 +13,7 @@ $(document).ready(function () {
             errorQueue = [];
             $.ajax({
                 type: "POST",
-                url: "/api/Controller/login/LogClientError",
+                url: "/api/Controller/base/LogClientError",
                 data: JSON.stringify(errorsToSend),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

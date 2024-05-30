@@ -15,33 +15,15 @@ using System.Web.Http;
 namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/login")]
-    public class LoginController : ApiController
+    public class LoginController : BaseController
     {
-        public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-        public static readonly HashSet<string> errorsSet = new HashSet<string>();  //錯誤資料不重複的陣列
-        public static bool openTimer = false;
-
-        public LoginController()
-        {
-            if (!openTimer)
-            {
-                Timer t = new Timer(3600000)  //創建Timer，時間間隔1小時3600000毫秒
-                {
-                    AutoReset = true  //一直執行(true)
-                };
-                t.Elapsed += new ElapsedEventHandler(RemoveErrorsSet);  //到達時間的时候執行事件；
-                t.Start();  //啟動計時器
-                openTimer = true;
-            }
-        }
-
         /// <summary>
         /// 登入，如果成功就把sessionId寫入資料庫，並且創建userInfo物件把userId和roles存到userInfo物件中，再存到Session["userInfo"]
         /// </summary>
         /// <param name="account"></param>
         /// <param name="pwd"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
         [Route("LoginUser")]
         public int LoginUser([FromBody] JObject obj)
@@ -120,6 +102,7 @@ namespace ShoppingWeb.Controller
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
         [Route("SetLanguage")]
         public bool SetLanguage([FromBody] JObject obj)
@@ -139,6 +122,7 @@ namespace ShoppingWeb.Controller
         /// 取得管理員身分
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
         [Route("GetUserPermission")]
         public object GetUserPermission()
@@ -187,6 +171,7 @@ namespace ShoppingWeb.Controller
         /// 刪除Session["userId"]
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
         [Route("DeleteSession")]
         public bool DeleteSession()
@@ -195,62 +180,5 @@ namespace ShoppingWeb.Controller
             return true;
         }
 
-
-        /// <summary>
-        /// SHA256加密
-        /// </summary>
-        /// <param name="strData"></param>
-        /// <returns></returns>
-        [NonAction]
-        public string GetSHA256HashFromString(string strData)
-        {
-            byte[] bytValue = Encoding.UTF8.GetBytes(strData);
-            byte[] retVal = SHA256.Create().ComputeHash(bytValue);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < retVal.Length; i++)
-            {
-                sb.Append(retVal[i].ToString("x2"));
-            }
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// 紀錄前端錯誤
-        /// </summary>
-        /// <param name="errorDetails"></param>
-        [HttpPost]
-        [Route("LogClientError")]
-        public void LogClientError([FromBody] string[] errorDetails)
-        {
-            Logger logger = LogManager.GetCurrentClassLogger();
-
-            try
-            {
-                foreach (var error in errorDetails)
-                {
-                    if (!errorsSet.Contains(error))
-                    {
-                        logger.Error(error);
-                        errorsSet.Add(error);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "前端NLog錯誤");
-            }
-        }
-
-
-        /// <summary>
-        /// 刪除錯誤日誌資料的Set
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        [NonAction]
-        public void RemoveErrorsSet(object sender, ElapsedEventArgs e)
-        {
-            errorsSet.Clear();
-        }
     }
 }

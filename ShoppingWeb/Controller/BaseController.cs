@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NLog;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Security.Cryptography;
@@ -94,6 +96,34 @@ namespace ShoppingWeb.Controller
         public void RemoveErrorsSet(object sender, ElapsedEventArgs e)
         {
             errorsSet.Clear();
+        }
+
+        /// <summary>
+        /// 紀錄前端錯誤
+        /// </summary>
+        /// <param name="errorDetails"></param>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("LogClientError")]
+        public void LogClientError([FromBody] string[] errorDetails)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+
+            try
+            {
+                foreach (var error in errorDetails)
+                {
+                    if (!errorsSet.Contains(error))
+                    {
+                        logger.Error(error);
+                        errorsSet.Add(error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "前端NLog錯誤");
+            }
         }
     }
 }
