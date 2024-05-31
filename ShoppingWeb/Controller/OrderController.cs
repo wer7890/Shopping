@@ -68,13 +68,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                string errorKey = $"{ex.Message}-{ex.StackTrace}";
-
-                if (!errorsSet.Contains(errorKey))
-                {
-                    logger.Error(ex);
-                    errorsSet.Add(errorKey);
-                }
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -117,13 +111,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                string errorKey = $"{ex.Message}-{ex.StackTrace}";
-
-                if (!errorsSet.Contains(errorKey))
-                {
-                    logger.Error(ex);
-                    errorsSet.Add(errorKey);
-                }
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -174,13 +162,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                string errorKey = $"{ex.Message}-{ex.StackTrace}";
-
-                if (!errorsSet.Contains(errorKey))
-                {
-                    logger.Error(ex);
-                    errorsSet.Add(errorKey);
-                }
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -269,13 +251,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                string errorKey = $"{ex.Message}-{ex.StackTrace}";
-
-                if (!errorsSet.Contains(errorKey))
-                {
-                    logger.Error(ex);
-                    errorsSet.Add(errorKey);
-                }
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -343,13 +319,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                string errorKey = $"{ex.Message}-{ex.StackTrace}";
-
-                if (!errorsSet.Contains(errorKey))
-                {
-                    logger.Error(ex);
-                    errorsSet.Add(errorKey);
-                }
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -394,13 +364,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                string errorKey = $"{ex.Message}-{ex.StackTrace}";
-
-                if (!errorsSet.Contains(errorKey))
-                {
-                    logger.Error(ex);
-                    errorsSet.Add(errorKey);
-                }
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
 

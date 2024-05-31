@@ -16,21 +16,8 @@ namespace ShoppingWeb.Controller
     {
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
-        public static readonly HashSet<string> errorsSet = new HashSet<string>();  //錯誤資料不重複的陣列
-        public static bool openTimer = false;
-
         public BaseController()
         {
-            if (!openTimer)
-            {
-                Timer t = new Timer(3600000)  //創建Timer，時間間隔1小時3600000毫秒
-                {
-                    AutoReset = true  //一直執行(true)
-                };
-                t.Elapsed += new ElapsedEventHandler(RemoveErrorsSet);  //到達時間的时候執行事件；
-                t.Start();  //啟動計時器
-                openTimer = true;
-            }
         }
 
         /// <summary>
@@ -88,17 +75,6 @@ namespace ShoppingWeb.Controller
         }
 
         /// <summary>
-        /// 刪除錯誤日誌資料的Set
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        [NonAction]
-        public void RemoveErrorsSet(object sender, ElapsedEventArgs e)
-        {
-            errorsSet.Clear();
-        }
-
-        /// <summary>
         /// 紀錄前端錯誤
         /// </summary>
         /// <param name="errorDetails"></param>
@@ -113,11 +89,7 @@ namespace ShoppingWeb.Controller
             {
                 foreach (var error in errorDetails)
                 {
-                    if (!errorsSet.Contains(error))
-                    {
-                        logger.Error(error);
-                        errorsSet.Add(error);
-                    }
+                    logger.Error(error);
                 }
             }
             catch (Exception ex)
