@@ -1,7 +1,7 @@
 ﻿// onerror事件
 window.addEventListener('error', function (event) {
     let time = new Date();
-    AddToErrorQueue("前端錯誤時間: " + time.toLocaleString() + " 訊息: " + event.message + " 位置: " + event.filename + " 行號: " + event.lineno + " 帳號: " + GetAccountCookie("accoun"));
+    AddToErrorQueue("前端錯誤時間: " + time.toLocaleString() + " 訊息: " + event.message + " 位置: " + event.filename + " 行號: " + event.lineno + " 帳號: " + GetAccountCookie("account"));
     event.preventDefault();  //停止事件的默認動作，不會把錯誤印在console上
 });
 
@@ -29,4 +29,17 @@ $(document).ready(function () {
 
 function AddToErrorQueue(errorDetails) {
     errorQueue.push(errorDetails);
+}
+
+//查看cookie中有無帳號的cookie，如果有就拿出來
+function GetAccountCookie(name) {
+    var cookies = document.cookie.split(';');
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    return null;
 }
