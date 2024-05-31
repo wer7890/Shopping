@@ -13,7 +13,7 @@ namespace ShoppingWeb.Controller
     [RoutePrefix("/api/Controller/product")]
     public class ProductController : BaseController
     {
-        private static string pubguid = "";
+        private string pubguid = "";
 
         /// <summary>
         /// 一開始顯示所有商品
