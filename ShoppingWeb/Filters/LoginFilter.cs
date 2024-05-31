@@ -11,9 +11,9 @@ using System.Web.Http.Filters;
 
 namespace ShoppingWeb.Controller
 {
-    public class CustomAuthorizeAttribute : AuthorizationFilterAttribute
+    public class LoginFilter: AuthorizationFilterAttribute
     {
-        public CustomAuthorizeAttribute()
+        public LoginFilter()
         {
         }
 

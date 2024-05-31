@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace ShoppingWeb.Controller
 {
-    [CustomAuthorize]
+    [LoginFilter]
     public class BaseController : ApiController
     {
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
