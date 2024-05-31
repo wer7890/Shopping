@@ -15,7 +15,6 @@ namespace ShoppingWeb.Controller
     public class BaseController : ApiController
     {
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-        public static object stockInsufficient = null;
 
         public BaseController()
         {

@@ -21,11 +21,11 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Count > 0)
+                if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Count > 0)  //類上有無標記[AllowAnonymous]有就return
                 {
                     return;
                 }
-                if (actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Count > 0)
+                if (actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Count > 0)  //方法上有無標記[AllowAnonymous]有就return
                 {
                     return;
                 }

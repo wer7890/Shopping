@@ -10,12 +10,9 @@ let pageSize = 3;
 let pagesTotal = null;
 let page = null;
 let beforePagesTotal = 1;
-let stopAlert = false;
 
 $(document).ready(function () {
     // 初始化
-    ReadyShowLowStockData();
-    StartAlert();
     ProductDataReady();
     SearchAllData(1, pageSize);
     $("#labSearchProduct").hide();
@@ -107,7 +104,6 @@ function SearchAllData(pageNumber, pageSize) {
                             }
                         });
                         paginationInitialized = true;
-
                     } else if (beforePagesTotal !== pagesTotal) {
                         alert("資料頁數變動");
                         page.Update(pagesTotal);
@@ -292,63 +288,4 @@ function EditProduct(productId) {
             $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
-}
-
-//一開始先得到低庫存的資料
-function ReadyShowLowStockData() {
-    $.ajax({
-        type: "POST",
-        url: "/api/Controller/product/GetLowStockData",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            let stockInsufficient = JSON.parse(response);
-            if (stockInsufficient.length > 0) {
-                console.log("a");
-                let stockAlert = langFont["lowStock"] + '\n';
-                $.each(stockInsufficient, function (index, item) {
-                    stockAlert += langFont["productId"] + ': ' + item.f_id + '    ' + langFont["name"] + ': ' + item.f_name + '    ' + langFont["productStock"] + ': ' + item.f_stock + '\n';
-                });
-                alert(stockAlert);
-            }
-        },
-        error: function (error) {
-            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
-        }
-    });
-}
-
-//跳出庫存量不足的訊息
-function ShowLowStock() {
-    if (!stopAlert) {
-        $.ajax({
-            type: "POST",
-            url: "/api/Controller/product/GetLowStock",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                let stockInsufficient = JSON.parse(response);
-                if (stockInsufficient.length > 0) {
-                    let stockAlert = langFont["lowStock"] + '\n';
-                    $.each(stockInsufficient, function (index, item) {
-                        stockAlert += langFont["productId"] + ': ' + item.f_id + '    ' + langFont["name"] + ': ' + item.f_name + '    ' + langFont["productStock"] + ': ' + item.f_stock + '\n';
-                    });
-                    let userChoice = confirm(stockAlert);
-                    if (!userChoice) {
-                        stopAlert = true;
-                    }
-                }
-            },
-            error: function (error) {
-                $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
-            }
-        });
-
-        
-    }
-}
-
-// 每60秒呼叫一次 ShowLowStock 函數
-function StartAlert() {
-    setInterval(ShowLowStock, 10000); 
 }

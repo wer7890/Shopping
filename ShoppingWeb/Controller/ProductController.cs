@@ -254,54 +254,7 @@ namespace ShoppingWeb.Controller
             return (int)DatabaseOperationResult.Success;
         }
 
-        /// <summary>
-        /// 搜尋低庫存的商品
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetLowStockData")]
-        public object GetLowStockData()
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getLowStock", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
-                        cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
-
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-
-                        stockInsufficient = ConvertDataTableToJson(dt);
-                        return ConvertDataTableToJson(dt);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
-            }
-        }
-
-        /// <summary>
-        /// 回傳stockInsufficient變數
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetLowStock")]
-        public object GetLowStock()
-        {
-            return stockInsufficient;
-        }
-
-
+        
         /// <summary>
         /// 新增商品和上傳圖片
         /// </summary>
