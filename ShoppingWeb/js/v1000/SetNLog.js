@@ -1,6 +1,7 @@
 ﻿// onerror事件
 window.addEventListener('error', function (event) {
-    AddToErrorQueue("前端錯誤訊息: " + event.message + " 位置: " + event.filename + " 行號: " + event.lineno);
+    let time = new Date();
+    AddToErrorQueue("前端錯誤時間: " + time.toLocaleString() + " 訊息: " + event.message + " 位置: " + event.filename + " 行號: " + event.lineno + " 帳號: " + GetAccountCookie("accoun"));
     event.preventDefault();  //停止事件的默認動作，不會把錯誤印在console上
 });
 
@@ -9,7 +10,7 @@ let errorQueue = [];
 $(document).ready(function () {
     setInterval(function () {
         if (errorQueue.length > 0) {
-            let errorsToSend = Array.from(new Set(errorQueue));  //Set()陣列元素不會重複
+            let errorsToSend = errorQueue; 
             errorQueue = [];
             $.ajax({
                 type: "POST",

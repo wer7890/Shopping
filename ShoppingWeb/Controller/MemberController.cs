@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Http;
 
 namespace ShoppingWeb.Controller
@@ -58,7 +59,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -98,7 +99,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -140,7 +141,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -189,7 +190,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
         }

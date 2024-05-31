@@ -52,7 +52,8 @@ namespace ShoppingWeb.Controller
                             UserInfo user = new UserInfo
                             {
                                 UserId = (int)cmd.Parameters["@userId"].Value,
-                                Roles = (int)cmd.Parameters["@roles"].Value
+                                Roles = (int)cmd.Parameters["@roles"].Value,
+                                Account = obj["account"].ToString()
                             };
                             HttpContext.Current.Session["userInfo"] = user;
 

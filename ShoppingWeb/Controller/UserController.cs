@@ -48,7 +48,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
 
@@ -102,7 +102,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -176,7 +176,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -218,7 +218,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -267,7 +267,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -337,7 +337,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
 
@@ -385,7 +385,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                logger.Error("後端" + ex.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return (int)DatabaseOperationResult.Error;
             }
         }
