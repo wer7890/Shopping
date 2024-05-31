@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
-            url: "/api/Controller/login/DeleteSession",
+            url: "/api/Controller/user/DeleteSession",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -40,34 +40,39 @@ $(document).ready(function () {
 function GetUserPermission() {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/login/GetUserPermission",
+        url: "/api/Controller/user/GetUserPermission",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-
-            if (response === 102) {
-                $("#labUserRoles").text(langFont["errorLog"]);
-            } else {
-                userAccount = response.Account
-                $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
-                switch (response.Roles) {
-                    case "1":
-                        break;
-                    case "2":
-                        $("#adminPanel").remove();
-                        $("#productPanel").remove();
-                        break;
-                    case "3":
-                        $("#adminPanel").remove();
-                        $("#memberPanel").remove();
-                        $("#orderPanel").remove();
-                        break;
-                    default:
-                        $("#labUserAccount").text(langFont["mistake"]);
-                        break;
-                }
+            switch (response) {
+                case 0:
+                    alert(langFont["duplicateLogin"]);
+                    window.parent.location.href = "Login.aspx";
+                    break;
+                case 102:
+                    $("#labUserRoles").text(langFont["errorLog"]);
+                    break;
+                default:
+                    userAccount = response.Account
+                    $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
+                    switch (response.Roles) {
+                        case "1":
+                            break;
+                        case "2":
+                            $("#adminPanel").remove();
+                            $("#productPanel").remove();
+                            break;
+                        case "3":
+                            $("#adminPanel").remove();
+                            $("#memberPanel").remove();
+                            $("#orderPanel").remove();
+                            break;
+                        default:
+                            $("#labUserAccount").text(langFont["mistake"]);
+                            break;
+                    }
+                    break;
             }
-
         },
         error: function (error) {
             $("#labUserAccount").text(langFont["ajaxError"]);

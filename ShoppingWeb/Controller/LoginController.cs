@@ -1,14 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using NLog;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Timers;
 using System.Web;
 using System.Web.Http;
 
@@ -116,69 +111,5 @@ namespace ShoppingWeb.Controller
 
             return true;
         }
-
-
-        /// <summary>
-        /// 取得管理員身分
-        /// </summary>
-        /// <returns></returns>
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("GetUserPermission")]
-        public object GetUserPermission()
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAccountRoles", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
-                        SqlDataAdapter da = new SqlDataAdapter();
-                        DataTable dt = new DataTable();
-                        da.SelectCommand = cmd;
-                        da.Fill(dt);
-
-                        var result = new
-                        {
-                            Account = dt.Rows[0]["f_account"].ToString(),
-                            Roles = dt.Rows[0]["f_roles"].ToString(),
-                        };
-
-                        return result;
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                string errorKey = $"{ex.Message}-{ex.StackTrace}";
-
-                if (!errorsSet.Contains(errorKey))
-                {
-                    logger.Error(ex);
-                    errorsSet.Add(errorKey);
-                }
-                return (int)DatabaseOperationResult.Error;
-            }
-
-        }
-
-        /// <summary>
-        /// 刪除Session["userId"]
-        /// </summary>
-        /// <returns></returns>
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("DeleteSession")]
-        public bool DeleteSession()
-        {
-            HttpContext.Current.Session["userInfo"] = null;
-            return true;
-        }
-
     }
 }
