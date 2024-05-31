@@ -152,6 +152,7 @@
     'page': 'page',
 
     'validationException': 'Permission verification exception',
+    'lowStock': 'Stock quantity is less than 100',
 };
 
 // 商品大分類

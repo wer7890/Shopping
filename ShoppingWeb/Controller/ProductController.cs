@@ -45,34 +45,20 @@ namespace ShoppingWeb.Controller
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
-                        SqlDataAdapter da = new SqlDataAdapter();
-                        DataSet ds = new DataSet();
-                        da.SelectCommand = cmd;
-                        da.Fill(ds);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
                         int totalPages = (int)Math.Ceiling((double)totalCount / (int)obj["pageSize"]);  // 計算總頁數，Math.Ceiling向上進位取整數
 
-                        object[] resultArr = new object[2];
+                        var result = new
+                        {
+                            Data = ConvertDataTableToJson(dt),
+                            TotalPages = totalPages
+                        };
 
-                        for (int i = 0; i < ds.Tables.Count; i++)
-                        {
-                            resultArr[i] = ConvertDataTableToJson(ds.Tables[i]);
-                        }
-
-                        if (totalCount > 0)
-                        {
-                            var result = new
-                            {
-                                Data = resultArr,
-                                TotalPages = totalPages
-                            };
-                            return result;
-                        }
-                        else
-                        {
-                            return (int)DatabaseOperationResult.Failure;
-                        }
+                        return result;
                     }
                 }
             }
@@ -266,6 +252,53 @@ namespace ShoppingWeb.Controller
 
             HttpContext.Current.Session["productId"] = obj["productId"].ToString();
             return (int)DatabaseOperationResult.Success;
+        }
+
+        /// <summary>
+        /// 搜尋低庫存的商品
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetLowStockData")]
+        public object GetLowStockData()
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getLowStock", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
+                        cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
+
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+
+                        stockInsufficient = ConvertDataTableToJson(dt);
+                        return ConvertDataTableToJson(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex);
+                return (int)DatabaseOperationResult.Error;
+            }
+        }
+
+        /// <summary>
+        /// 回傳stockInsufficient變數
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetLowStock")]
+        public object GetLowStock()
+        {
+            return stockInsufficient;
         }
 
 

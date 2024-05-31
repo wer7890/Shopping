@@ -152,6 +152,7 @@
     'page': '頁',
 
     'validationException': '權限驗證異常',
+    'lowStock': '庫存量小於100',
 };
 
 // 商品大分類
