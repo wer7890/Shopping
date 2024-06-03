@@ -11,7 +11,7 @@ namespace ShoppingWeb.Filters
         public override void OnException(HttpActionExecutedContext context)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
-            logger.Error("後端filter" + context.Exception.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+            logger.Error("後端" + context.Exception.Message + "帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
 
             context.Response = context.Request.CreateResponse((int)DatabaseOperationResult.Error);
         }
