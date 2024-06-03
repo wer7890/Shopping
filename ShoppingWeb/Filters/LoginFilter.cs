@@ -40,19 +40,14 @@ namespace ShoppingWeb.Controller
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
                         cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
+                        cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
 
-                        object dbResult = cmd.ExecuteScalar();
+                        int result = (int)cmd.ExecuteScalar();
 
-                        if (dbResult != null)
+                        if (result == 0)
                         {
-                            string currentSessionID = HttpContext.Current.Session.SessionID;
-
-                            if (dbResult.ToString() != currentSessionID)
-                            {
-                                HttpContext.Current.Session["userInfo"] = null;
-                                actionContext.Response = actionContext.Request.CreateResponse((int)UserStatus.DuplicateLogin);
-                            }
-
+                            HttpContext.Current.Session["userInfo"] = null;
+                            actionContext.Response = actionContext.Request.CreateResponse((int)UserStatus.DuplicateLogin);
                         }
                     }
                 }
