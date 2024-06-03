@@ -11,6 +11,7 @@ using System.Web.Http;
 namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/product")]
+    [RolesFilter((int)Roles.Product)]
     public class ProductController : BaseController
     {
         private string pubguid = "";
@@ -23,12 +24,6 @@ namespace ShoppingWeb.Controller
         [Route("GetAllProductData")]
         public object GetAllProductData([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Product))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -81,12 +76,6 @@ namespace ShoppingWeb.Controller
         [Route("GetProductData")]
         public object GetProductData([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Product))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -148,12 +137,6 @@ namespace ShoppingWeb.Controller
         [Route("RemoveProduct")]
         public int RemoveProduct([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Product))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -204,12 +187,6 @@ namespace ShoppingWeb.Controller
         [Route("ToggleProductStatus")]
         public int ToggleProductStatus([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Product))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -244,12 +221,6 @@ namespace ShoppingWeb.Controller
         [Route("SetSessionProductId")]
         public int SetSessionProductId([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Product))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             HttpContext.Current.Session["productId"] = obj["productId"].ToString();
             return (int)DatabaseOperationResult.Success;
         }
@@ -263,12 +234,6 @@ namespace ShoppingWeb.Controller
         [Route("UploadProduct")]
         public int UploadProduct()
         {
-
-            if (!CheckRoles((int)Roles.Product))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             //檢查ProductImg資料夾是否存在，如果不存在就建立資料夾
             string checkTargetFolderPath = HttpContext.Current.Server.MapPath("~/ProductImg/");
             if (!Directory.Exists(checkTargetFolderPath))
@@ -429,12 +394,6 @@ namespace ShoppingWeb.Controller
         [Route("GetProductDataForEdit")]
         public object GetProductDataForEdit()
         {
-
-            if (!CheckRoles((int)Roles.Product))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 string sessionProductId = HttpContext.Current.Session["productId"] as string;
@@ -493,11 +452,6 @@ namespace ShoppingWeb.Controller
         [Route("EditProduct")]
         public int EditProduct([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Product))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
 
             if (!RenewProductSpecialChar((int)obj["productPrice"], (int)obj["productStock"], obj["productIntroduce"].ToString()))
             {

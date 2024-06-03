@@ -11,10 +11,13 @@ using System.Web.Http.Filters;
 
 namespace ShoppingWeb.Controller
 {
-    public class LoginFilter : AuthorizationFilterAttribute
+    public class RolesFilter : AuthorizationFilterAttribute
     {
-        public LoginFilter()
+        private readonly int _roles;
+
+        public RolesFilter(int roles)
         {
+            _roles = roles;
         }
 
         public override void OnAuthorization(HttpActionContext actionContext)
@@ -30,28 +33,10 @@ namespace ShoppingWeb.Controller
                     return;
                 }
 
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-                // 判斷同一隻帳號是否有重複登入
-                using (SqlConnection con = new SqlConnection(connectionString))
+                if (!(((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 1 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == _roles))
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getSessionId", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
-                        cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
-
-                        int result = (int)cmd.ExecuteScalar();
-
-                        if (result == 0)
-                        {
-                            HttpContext.Current.Session["userInfo"] = null;
-                            actionContext.Response = actionContext.Request.CreateResponse((int)UserStatus.DuplicateLogin);
-                        }
-                    }
+                    actionContext.Response = actionContext.Request.CreateResponse((int)UserStatus.AccessDenied);
                 }
-
             }
             catch (Exception ex)
             {

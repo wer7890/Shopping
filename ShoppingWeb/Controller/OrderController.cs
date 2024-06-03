@@ -10,6 +10,7 @@ using System.Web.Http;
 namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/order")]
+    [RolesFilter((int)Roles.Member)]
     public class OrderController : BaseController
     {
         /// <summary>
@@ -20,12 +21,6 @@ namespace ShoppingWeb.Controller
         [Route("GetAllOrderData")]
         public object GetAllOrderData([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Member))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -82,12 +77,6 @@ namespace ShoppingWeb.Controller
         [Route("GetOrderDetailsData")]
         public object GetOrderDetailsData([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Member))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -128,11 +117,6 @@ namespace ShoppingWeb.Controller
         [Route("EditOrder")]
         public int EditOrder([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Member))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
 
             if (!EditOrderSpecialChar((int)obj["orderId"], (int)obj["orderStatusNum"], (int)obj["deliveryStatusNum"], (int)obj["deliveryMethodNum"]))
             {
@@ -195,12 +179,6 @@ namespace ShoppingWeb.Controller
         [Route("GetOrderData")]
         public object GetOrderData([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Member))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -265,12 +243,6 @@ namespace ShoppingWeb.Controller
         [Route("GetReturnOrderData")]
         public object GetReturnOrderData([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Member))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -333,12 +305,6 @@ namespace ShoppingWeb.Controller
         [Route("EditReturnOrder")]
         public int EditReturnOrder([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.Member))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             if (!EditReturnOrderSpecialChar((int)obj["orderId"]))
             {
                 return (int)UserStatus.InputError;
