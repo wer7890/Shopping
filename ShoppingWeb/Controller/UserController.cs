@@ -10,12 +10,14 @@ using System.Web.Http;
 namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/user")]
+    [RolesFilter((int)Roles.User)]
     public class UserController : BaseController
     {
         /// <summary>
         /// 取得管理員身分
         /// </summary>
         /// <returns></returns>
+        [SkipFilter("RolesFilter")]
         [HttpPost]
         [Route("GetUserPermission")]
         public object GetUserPermission()
@@ -77,12 +79,6 @@ namespace ShoppingWeb.Controller
         [Route("RemoveUserInfo")]
         public int RemoveUserInfo([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.User))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -116,12 +112,6 @@ namespace ShoppingWeb.Controller
         [Route("SetSessionSelectUserId")]
         public int SetSessionSelectUserId([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.User))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             HttpContext.Current.Session["selectUserId"] = obj["userId"].ToString();  //存儲資料到 Session 變數
             return (int)DatabaseOperationResult.Success;
         }
@@ -136,12 +126,6 @@ namespace ShoppingWeb.Controller
         [Route("SetSessionSelectUserId")]
         public object GetAllUserData([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.User))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -191,12 +175,6 @@ namespace ShoppingWeb.Controller
         [Route("ToggleUserRoles")]
         public int ToggleUserRoles([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.User))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -235,11 +213,6 @@ namespace ShoppingWeb.Controller
         [Route("ToggleUserRoles")]
         public int RegisterNewUser([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.User))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
 
             if (!AddUserSpecialChar(obj["account"].ToString(), obj["pwd"].ToString(), obj["roles"].ToString()))
             {
@@ -298,12 +271,6 @@ namespace ShoppingWeb.Controller
         [Route("GetUserDataForEdit")]
         public object GetUserDataForEdit()
         {
-
-            if (!CheckRoles((int)Roles.User))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
-
             try
             {
                 string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
@@ -352,11 +319,6 @@ namespace ShoppingWeb.Controller
         [Route("EditUser")]
         public int EditUser([FromBody] JObject obj)
         {
-
-            if (!CheckRoles((int)Roles.User))
-            {
-                return (int)UserStatus.AccessDenied;
-            }
 
             if (!EditUserSpecialChar(obj["pwd"].ToString()))
             {
