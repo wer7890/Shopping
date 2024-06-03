@@ -7,7 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace ShoppingWeb.Filter
+namespace ShoppingWeb.Filters
 {
     public class RolesFilter : AuthorizationFilterAttribute
     {

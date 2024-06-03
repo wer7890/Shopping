@@ -1,5 +1,5 @@
 ﻿using NLog;
-using ShoppingWeb.Filter;
+using ShoppingWeb.Filters;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,6 +11,7 @@ using System.Web.Http;
 namespace ShoppingWeb.Controller
 {
     [LoginFilter]
+    [ExceptionFilter]
     public class BaseController : ApiController
     {
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
