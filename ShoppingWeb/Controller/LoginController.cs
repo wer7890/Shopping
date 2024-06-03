@@ -71,7 +71,8 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
+                string fileName = ex.StackTrace.Substring(ex.StackTrace.IndexOf("位置"));
+                logger.Error("後端錯誤時間: " + DateTime.Now + " 訊息: " + ex.Message + fileName);
                 return (int)DatabaseOperationResult.Error;
             }
         }
