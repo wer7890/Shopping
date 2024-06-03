@@ -20,17 +20,6 @@ namespace ShoppingWeb.Controller
         }
 
         /// <summary>
-        /// 判斷權限是否可使用該功能
-        /// </summary>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        [NonAction]
-        public bool CheckRoles(int roles)
-        {
-            return (((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 1 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == roles);
-        }
-
-        /// <summary>
         /// 將 DataTable 轉換為 JSON 字串的輔助方法
         /// </summary>
         /// <param name="dt"></param>

@@ -2,7 +2,7 @@
 
 namespace ShoppingWeb.Controller
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method)]  //自訂屬性只能應用於方法
     public class SkipFilter : Attribute
     {
         public string FilterName { get; }
