@@ -1,11 +1,11 @@
 ﻿using NLog;
+using ShoppingWeb.Filter;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 using System.Web.Http;
 
 namespace ShoppingWeb.Controller

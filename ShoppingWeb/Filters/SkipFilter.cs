@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShoppingWeb.Controller
+namespace ShoppingWeb.Filter
 {
     [AttributeUsage(AttributeTargets.Method)]  //自訂屬性只能應用於方法
     public class SkipFilter : Attribute

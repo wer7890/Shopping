@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using NLog;
+using ShoppingWeb.Filter;
 using System;
 using System.Data;
 using System.Data.SqlClient;
