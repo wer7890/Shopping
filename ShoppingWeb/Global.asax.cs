@@ -37,6 +37,8 @@ namespace ShoppingWeb
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
 
+                        cmd.Parameters.Add(new SqlParameter("@threshold", 100));
+
                         SqlDataReader reader = cmd.ExecuteReader();
                         DataTable dt = new DataTable();
                         dt.Load(reader);

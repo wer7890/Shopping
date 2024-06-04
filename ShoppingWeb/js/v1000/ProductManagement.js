@@ -16,6 +16,7 @@ $(document).ready(function () {
     ProductDataReady();
     SearchAllData(1, pageSize);
     $("#labSearchProduct").hide();
+    $("#lowStockProductsDiv").hide();
 
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
@@ -44,9 +45,16 @@ $(document).ready(function () {
     })
 
     $("#btnLowProduct").click(function () {
-        $("#allProductDiv").hide();
+        $("#allProductDiv").empty();
         GetDefaultLowStock();
     })
+
+    $("#btnSetLowStock").click(function () {
+        let threshold = $("#txbLowStockThreshold").val();
+        if (threshold) {
+            GetNewLowStock(threshold);
+        }
+    });
 });
 
 //全部商品資料
@@ -299,35 +307,73 @@ function EditProduct(productId) {
 function GetDefaultLowStock() {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/product/GetLowStock",
+        url: "/api/Controller/product/GetDefaultLowStock",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
             let stockInsufficient = JSON.parse(response);
             let lowStockTableBody = $('#lowStockTableBody');
             lowStockTableBody.empty(); // 清空表格內容
+            $("#lowStockProductsDiv").show(); // 顯示庫存不足的商品區域
 
             if (stockInsufficient.length > 0) {
-                $("#lowStockProductsDiv").show(); // 顯示庫存不足的商品區域
+                $("#lowStockTable").show();
 
                 $.each(stockInsufficient, function (index, item) {
                     let row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
                         '<td>' + item.f_nameTW + '</td>' +
                         '<td>' + item.f_stock + '</td>' +
+                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
                         '</tr>';
                     lowStockTableBody.append(row);
                 });
             } else {
-                $("#lowStockProductsDiv").hide();
-                $("#productTableDiv").css('display', 'none');
-                $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
-                $('#ulPagination').empty();
+                $("#lowStockTable").hide();
+                $("#labSearchStork").text(langFont["noData"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
-            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+            $("#labSearchStork").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        }
+    });
+}
+
+//更改庫存預警值
+function GetNewLowStock(threshold) {
+    $.ajax({
+        type: "POST",
+        url: "/api/Controller/product/GetLowStockData",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ threshold: threshold }),
+        dataType: "json",
+        success: function (response) {
+            let stockInsufficient = JSON.parse(response);
+            let lowStockTableBody = $('#lowStockTableBody');
+            lowStockTableBody.empty(); // 清空表格內容
+            $("#lowStockProductsDiv").show(); // 顯示庫存不足的商品區域
+
+            if (stockInsufficient.length > 0) {
+                $("#lowStockTable").show();
+
+                $.each(stockInsufficient, function (index, item) {
+                    let row = '<tr>' +
+                        '<td>' + item.f_id + '</td>' +
+                        '<td>' + item.f_nameTW + '</td>' +
+                        '<td>' + item.f_stock + '</td>' +
+                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
+                        '</tr>';
+                    lowStockTableBody.append(row);
+                });
+            } else {
+                $("#lowStockTable").hide();
+                $("#labSearchStork").text(langFont["noData"]).show().delay(3000).fadeOut();
+            }
+        },
+        error: function (error) {
+            $("#labSearchStork").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
         }
     });
 }

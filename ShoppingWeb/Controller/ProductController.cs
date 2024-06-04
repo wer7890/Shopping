@@ -235,8 +235,8 @@ namespace ShoppingWeb.Controller
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("GetLowStock")]
-        public object GetLowStock()
+        [Route("GetDefaultLowStock")]
+        public object GetDefaultLowStock()
         {
             return stockInsufficient;
         }
@@ -522,6 +522,43 @@ namespace ShoppingWeb.Controller
             bool cheackStock = Regex.IsMatch(productStock.ToString(), @"^[0-9]{1,7}$");
 
             return cheackIntroduce && cheackPrice && cheackStock;
+        }
+
+        /// <summary>
+        /// 設定商品預警值
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetLowStockData")]
+        public object GetLowStockData([FromBody] JObject obj)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getLowStock", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+
+                        cmd.Parameters.Add(new SqlParameter("@threshold", (int)obj["threshold"]));
+
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+
+                        return ConvertDataTableToJson(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                string fileName = ex.StackTrace.Substring(ex.StackTrace.IndexOf("位置"));
+                logger.Error("後端錯誤時間: " + DateTime.Now + " 訊息: " + ex.Message + fileName + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                return (int)DatabaseOperationResult.Error;
+            }
         }
     }
 }
