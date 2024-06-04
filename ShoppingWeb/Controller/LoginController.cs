@@ -71,8 +71,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                string fileName = ex.StackTrace.Substring(ex.StackTrace.IndexOf("位置"));
-                logger.Error("後端錯誤時間: " + DateTime.Now + " 訊息: " + ex.Message + fileName);
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
         }
@@ -165,8 +164,7 @@ namespace ShoppingWeb.Controller
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
-                string fileName = ex.StackTrace.Substring(ex.StackTrace.IndexOf("位置"));
-                logger.Error("後端錯誤時間: " + DateTime.Now + " 訊息: " + ex.Message + fileName + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                logger.Error(ex);
                 return (int)DatabaseOperationResult.Error;
             }
 
