@@ -192,6 +192,9 @@
   <data name="level" xml:space="preserve">
     <value>Level</value>
   </data>
+  <data name="lowStock" xml:space="preserve">
+    <value>Stock alert</value>
+  </data>
   <data name="memberAdmin" xml:space="preserve">
     <value>Member Administrator</value>
   </data>

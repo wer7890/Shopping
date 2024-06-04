@@ -230,7 +230,17 @@ namespace ShoppingWeb.Controller
             return (int)DatabaseOperationResult.Success;
         }
 
-        
+        /// <summary>
+        /// 回傳stockInsufficient變數
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetLowStock")]
+        public object GetLowStock()
+        {
+            return stockInsufficient;
+        }
+
         /// <summary>
         /// 新增商品和上傳圖片
         /// </summary>

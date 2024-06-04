@@ -286,6 +286,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///  查找类似 庫存預警 的本地化字符串。
+        /// </summary>
+        internal static string lowStock {
+            get {
+                return ResourceManager.GetString("lowStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///  查找类似 會員管理員 的本地化字符串。
         /// </summary>
         internal static string memberAdmin {

@@ -192,6 +192,9 @@
   <data name="level" xml:space="preserve">
     <value>等級</value>
   </data>
+  <data name="lowStock" xml:space="preserve">
+    <value>庫存預警</value>
+  </data>
   <data name="memberAdmin" xml:space="preserve">
     <value>會員管理員</value>
   </data>

@@ -6,7 +6,7 @@ let checkAllMinorCategories = null;
 let checkAllBrand = null;
 let newCategory = null;
 let paginationInitialized = false;
-let pageSize = 3;
+let pageSize = 4;
 let pagesTotal = null;
 let page = null;
 let beforePagesTotal = 1;
@@ -41,6 +41,11 @@ $(document).ready(function () {
     // 新增商品按鈕點擊事件
     $("#btnAddProduct").click(function () {
         window.location.href = "AddProduct.aspx";
+    })
+
+    $("#btnLowProduct").click(function () {
+        $("#allProductDiv").hide();
+        GetDefaultLowStock();
     })
 });
 
@@ -282,6 +287,43 @@ function EditProduct(productId) {
                 default:
                     alert(langFont["editFailed"]);
                     break;
+            }
+        },
+        error: function (error) {
+            $("#labSearchProduct").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        }
+    });
+}
+
+//按下庫存預警按鈕
+function GetDefaultLowStock() {
+    $.ajax({
+        type: "POST",
+        url: "/api/Controller/product/GetLowStock",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            let stockInsufficient = JSON.parse(response);
+            let lowStockTableBody = $('#lowStockTableBody');
+            lowStockTableBody.empty(); // 清空表格內容
+
+            if (stockInsufficient.length > 0) {
+                $("#lowStockProductsDiv").show(); // 顯示庫存不足的商品區域
+
+                $.each(stockInsufficient, function (index, item) {
+                    let row = '<tr>' +
+                        '<td>' + item.f_id + '</td>' +
+                        '<td>' + item.f_nameTW + '</td>' +
+                        '<td>' + item.f_stock + '</td>' +
+                        '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
+                        '</tr>';
+                    lowStockTableBody.append(row);
+                });
+            } else {
+                $("#lowStockProductsDiv").hide();
+                $("#productTableDiv").css('display', 'none');
+                $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
+                $('#ulPagination').empty();
             }
         },
         error: function (error) {

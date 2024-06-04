@@ -13,6 +13,7 @@ namespace ShoppingWeb.Controller
     [LoginFilter]
     public class BaseController : ApiController
     {
+        public static object stockInsufficient = null;
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
         public BaseController()
