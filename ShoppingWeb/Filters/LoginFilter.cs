@@ -14,22 +14,12 @@ namespace ShoppingWeb.Filters
 {
     public class LoginFilter : AuthorizationFilterAttribute
     {
-        public LoginFilter()
-        {
-        }
-
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             try
             {
                 //類上或方法上有標記[AllowAnonymous]有就return
                 if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any() || actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())  
-                {
-                    return;
-                }
-
-                //跳過有標記[SkipFilter(參數)]的該參數的Filter
-                if (actionContext.ActionDescriptor.GetCustomAttributes<SkipFilter>().Any(a => a.FilterName == "LoginFilter"))
                 {
                     return;
                 }

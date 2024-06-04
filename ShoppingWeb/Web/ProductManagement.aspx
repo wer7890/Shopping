@@ -89,7 +89,7 @@
     </div>
 
     <!-- 商品庫存預警 -->
-    <div id="lowStockProductsDiv" class="w-auto mx-3 mt-4">
+    <%--<div id="lowStockProductsDiv" class="w-auto mx-3 mt-4">
         <h3 class="text-center text-danger"><%= Resources.Resource.lowStock %></h3>
 
         <div class="table-responsive mt-3">
@@ -121,7 +121,44 @@
         <div class="row">
             <span id="labSearchStork" class="col-12 col-sm-12 text-center text-success"></span>
         </div>
+    </div>--%>
+
+    <!-- 商品庫存預警 -->
+    <div id="lowStockProductsDiv" class="container my-4">
+        <h3 class="text-center text-danger mb-4"><%= Resources.Resource.lowStock %></h3>
+
+        <div class="table-responsive">
+            <table id="lowStockTable" class="table table-striped table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col"><%= Resources.Resource.id %></th>
+                        <th scope="col"><%= Resources.Resource.name %></th>
+                        <th scope="col"><%= Resources.Resource.stock %></th>
+                        <th scope="col"><%= Resources.Resource.open %></th>
+                        <th scope="col"><%= Resources.Resource.edit %></th>
+                    </tr>
+                </thead>
+                <tbody id="lowStockTableBody">
+                    <!-- 動態生成的商品資料 -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 更改存預警 -->
+        <div class="row justify-content-center align-items-end mt-4">
+            <div class="col-12 col-md-4">
+                <label for="txbLowStockThreshold" class="form-label">更改預警值</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="txbLowStockThreshold" min="1" />
+                    <button id="btnSetLowStock" type="button" class="btn btn-outline-primary">設定</button>
+                </div>
+            </div>
+            <div class="row">
+                <span id="labSearchStork" class="col-12 col-sm-12 text-center text-success"></span>
+            </div>
+        </div>
     </div>
+
 
 
 </body>

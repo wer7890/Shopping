@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#btnSignOut").click(function () {
         $.ajax({
             type: "POST",
-            url: "/api/Controller/user/DeleteSession",
+            url: "/api/Controller/login/DeleteSession",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -40,7 +40,7 @@ $(document).ready(function () {
 function GetUserPermission() {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/user/GetUserPermission",
+        url: "/api/Controller/login/GetUserPermission",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {

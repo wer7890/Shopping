@@ -28,12 +28,6 @@ namespace ShoppingWeb.Filters
                     return;
                 }
 
-                //跳過有標記[SkipFilter(參數)]的該參數的Filter
-                if (actionContext.ActionDescriptor.GetCustomAttributes<SkipFilter>().Any(a => a.FilterName == "RolesFilter"))
-                {
-                    return;
-                }
-
                 if (!(((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 1 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == _roles))
                 {
                     actionContext.Response = actionContext.Request.CreateResponse((int)UserStatus.AccessDenied);
