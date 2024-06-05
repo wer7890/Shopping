@@ -25,7 +25,7 @@ namespace ShoppingWeb
             );
 
             GetLowStockData(null, null);
-            Timer t = new Timer(60000)  //創建Timer，時間間隔1分鐘
+            Timer t = new Timer(30000)  //創建Timer，時間間隔30秒
             {
                 AutoReset = true  //一直執行(true)
             };

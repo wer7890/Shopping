@@ -13,11 +13,15 @@ let beforePagesTotal = 1;
 
 $(document).ready(function () {
     // 初始化
+    SetBtnLowProduct();
     ProductDataReady();
     SearchAllData(1, pageSize);
     $("#labSearchProduct").hide();
     $("#lowStockProductsDiv").hide();
-
+    setInterval(function () {
+        SetBtnLowProduct();
+    }, 30000); 
+    
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
         paginationInitialized = false;
@@ -328,6 +332,28 @@ function GetDefaultLowStock() {
             } else {
                 $("#lowStockTable").hide();
                 $("#labSearchStork").text(langFont["noData"]).show().delay(3000).fadeOut();
+            }
+        },
+        error: function (error) {
+            $("#labSearchStork").text(langFont["ajaxError"]).show().delay(3000).fadeOut();
+        }
+    });
+}
+
+//設定庫存預警按鈕顏色
+function SetBtnLowProduct() {
+    $.ajax({
+        type: "POST",
+        url: "/api/Controller/product/GetDefaultLowStock",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            let stockInsufficient = JSON.parse(response);
+
+            if (stockInsufficient.length > 0) {
+                $("#btnLowProduct").removeClass("btn-outline-primary").addClass("btn-danger");
+            } else {
+                $("#btnLowProduct").removeClass("btn-danger").addClass("btn-outline-primary");
             }
         },
         error: function (error) {
