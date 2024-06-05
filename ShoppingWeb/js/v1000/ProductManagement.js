@@ -88,7 +88,7 @@ function SearchAllData(pageNumber, pageSize) {
                             '<td>' + item.f_price + '</td>' +
                             '<td>' + item.f_stock + '</td>' +
                             '<td>' + item.f_warningValue + '</td>' +
-                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' ' + (item.f_stock === 0 ? 'disabled' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                             '<td>' + item.f_introduce + '</td>' +
                             '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="' + langFont["img"] + '"></td>' +
                             '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
@@ -167,7 +167,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                             '<td>' + item.f_price + '</td>' +
                             '<td>' + item.f_stock + '</td>' +
                             '<td>' + item.f_warningValue + '</td>' +
-                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' ' + (item.f_stock === 0 ? 'disabled' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                             '<td>' + item.f_introduce + '</td>' +
                             '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
                             '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
@@ -320,7 +320,7 @@ function GetDefaultLowStock() {
                         '<td>' + item.f_nameTW + '</td>' +
                         '<td>' + item.f_stock + '</td>' +
                         '<td>' + item.f_warningValue + '</td>' +
-                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
+                        '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' ' + (item.f_stock === 0 ? 'disabled' : '') + ' data-id="' + item.f_id + '"></div></td>' +
                         '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
                         '</tr>';
                     lowStockTableBody.append(row);
