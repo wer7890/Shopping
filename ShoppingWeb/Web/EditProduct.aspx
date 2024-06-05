@@ -74,6 +74,10 @@
                     <input type="number" id="txbProductStock" class="form-control" />
                 </div>
             </div>
+            <div class="mx-auto col-12 col-md-7 mt-3">
+                <label for="txbProductStockWarning" class="form-label i18n" data-key="productPrice"><%= Resources.Resource.warningValue %></label>
+                <input type="number" id="txbProductStockWarning" class="form-control" />
+            </div>
             <div class="mx-auto col-12 col-md-7 mt-4">
                 <label for="txbProductIntroduce" class="form-label"><%= Resources.Resource.productIntroduceTW %></label>
                 <textarea rows="3" class="form-control" id="txbProductIntroduce"></textarea>

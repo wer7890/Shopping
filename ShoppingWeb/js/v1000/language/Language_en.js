@@ -113,7 +113,7 @@
     'productCategoryIimit': 'Product category and openness must be filled',
     'productIntroduceIimit': 'Product description length must be between 1 and 500 characters',
     'productIntroduceENIimit': 'Product English description length must be between 1 and 500 characters and cannot contain Chinese characters',
-    'productPriceIimit': 'Price and stock must be numeric and both must be filled',
+    'productPriceIimit': 'Price, inventory and warning value can only be numbers and must be filled in',
     'imgSize': 'Image size exceeds limit (maximum 500KB)',
     'brand': 'Brand',
     'selectMajorCategories': 'Select a product type',

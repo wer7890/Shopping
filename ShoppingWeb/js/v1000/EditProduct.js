@@ -32,6 +32,7 @@
                     $("#txbProductPrice").val(data.ProductPrice);
                     $("#txbProductIntroduce").val(data.ProductIntroduce);
                     $("#txbProductIntroduceEN").val(data.ProductIntroduceEN);
+                    $("#txbProductStockWarning").val(data.ProductStockWarning);
                     dbStock = data.ProductStock;
             }
         },
@@ -46,10 +47,11 @@
         let productStock = $("#txbProductStock").val(); 
         let productIntroduce = $("#txbProductIntroduce").val();
         let productIntroduceEN = $("#txbProductIntroduceEN").val();
+        let productStockWarning = $("#txbProductStockWarning").val();
         let productCheckStock = $("input[name='flexRadioDefault']:checked").val();
         $("#labRenewUser").text("");
 
-        if (!IsSpecialChar(productIntroduce, productIntroduceEN, productPrice, productStock)) {
+        if (!IsSpecialChar(productIntroduce, productIntroduceEN, productPrice, productStock, productStockWarning)) {
             return;
         }
 
@@ -61,7 +63,7 @@
         $.ajax({
             type: "POST",
             url: "/api/Controller/product/EditProduct",
-            data: JSON.stringify({ productPrice: productPrice, productStock: productStock, productIntroduce: productIntroduce, productIntroduceEN: productIntroduceEN, productCheckStock: productCheckStock }),
+            data: JSON.stringify({ productPrice: productPrice, productStock: productStock, productIntroduce: productIntroduce, productIntroduceEN: productIntroduceEN, productCheckStock: productCheckStock, productStockWarning: productStockWarning }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -96,9 +98,9 @@
 });
 
 //判斷文字長度 
-function IsSpecialChar(productIntroduce, productIntroduceEN, productPrice, productStock) {
+function IsSpecialChar(productIntroduce, productIntroduceEN, productPrice, productStock, productStockWarning) {
 
-    if (typeof productIntroduce === 'undefined' || typeof productIntroduceEN === 'undefined' || typeof productPrice === 'undefined' || typeof productStock === 'undefined') {
+    if (typeof productIntroduce === 'undefined' || typeof productIntroduceEN === 'undefined' || typeof productPrice === 'undefined' || typeof productStock === 'undefined' || typeof productStockWarning === 'undefined') {
         $("#labRenewProduct").text("undefined");
         return false;
     }
@@ -113,7 +115,7 @@ function IsSpecialChar(productIntroduce, productIntroduceEN, productPrice, produ
         return false;
     }
 
-    if (!/^[0-9]{1,7}$/.test(productPrice) || !/^[0-9]{1,7}$/.test(productStock)) {
+    if (!/^[0-9]{1,7}$/.test(productPrice) || !/^[0-9]{1,7}$/.test(productStock) || !/^[0-9]{1,7}$/.test(productStockWarning)) {
         $("#labRenewProduct").text(langFont["productPriceIimit"]);
         return false;
     }

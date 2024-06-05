@@ -282,8 +282,9 @@ namespace ShoppingWeb.Controller
                         string productIsOpen = HttpContext.Current.Request.Form["productIsOpen"];
                         string productIntroduce = HttpContext.Current.Request.Form["productIntroduce"];
                         string productIntroduceEN = HttpContext.Current.Request.Form["productIntroduceEN"];
+                        string productStockWarning = HttpContext.Current.Request.Form["productStockWarning"];
 
-                        int result = AddProduct(productName, productNameEN, productCategory, productPrice, productStock, productIsOpen, productIntroduce, productIntroduceEN);
+                        int result = AddProduct(productName, productNameEN, productCategory, productPrice, productStock, productIsOpen, productIntroduce, productIntroduceEN, productStockWarning);
 
                         return result;
                     }
@@ -310,10 +311,10 @@ namespace ShoppingWeb.Controller
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
         [NonAction]
-        public int AddProduct(string productName, string productNameEN, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce, string productIntroduceEN)
+        public int AddProduct(string productName, string productNameEN, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce, string productIntroduceEN, string productStockWarning)
         {
 
-            if (!AddProductSpecialChar(productName, productNameEN, productCategory, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock))
+            if (!AddProductSpecialChar(productName, productNameEN, productCategory, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock, productStockWarning))
             {
                 return (int)UserStatus.InputError;
             }
@@ -335,6 +336,7 @@ namespace ShoppingWeb.Controller
                         cmd.Parameters.Add(new SqlParameter("@isOpen", productIsOpen));
                         cmd.Parameters.Add(new SqlParameter("@introduce", productIntroduce));
                         cmd.Parameters.Add(new SqlParameter("@introduceEN", productIntroduceEN));
+                        cmd.Parameters.Add(new SqlParameter("@warningValue", productStockWarning));
                         cmd.Parameters.Add(new SqlParameter("@owner", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
                         int result = (int)cmd.ExecuteScalar();
 
@@ -382,7 +384,7 @@ namespace ShoppingWeb.Controller
         /// <param name="productStock"></param>
         /// <returns></returns>
         [NonAction]
-        public bool AddProductSpecialChar(string productName, string productNameEN, string productCategory, string productIsOpen, string productIntroduce, string productIntroduceEN, string productPrice, string productStock)
+        public bool AddProductSpecialChar(string productName, string productNameEN, string productCategory, string productIsOpen, string productIntroduce, string productIntroduceEN, string productPrice, string productStock, string productStockWarning)
         {
             bool cheackName = Regex.IsMatch(productName, @"^.{1,40}$");
             bool cheackNameEN = Regex.IsMatch(productNameEN, @"^[^\u4e00-\u9fa5]{1,100}$");
@@ -392,8 +394,9 @@ namespace ShoppingWeb.Controller
             bool cheackIntroduceEN = Regex.IsMatch(productIntroduceEN, @"^[^\u4e00-\u9fa5]{1,1000}$");
             bool cheackPrice = Regex.IsMatch(productPrice, @"^[0-9]{1,7}$");
             bool cheackStock = Regex.IsMatch(productStock, @"^[0-9]{1,7}$");
+            bool cheackStockWarning = Regex.IsMatch(productStockWarning, @"^[0-9]{1,7}$");
 
-            return cheackName && cheackNameEN && cheackCategory && cheackIsOpen && cheackIntroduce && cheackIntroduceEN && cheackPrice && cheackStock;
+            return cheackName && cheackNameEN && cheackCategory && cheackIsOpen && cheackIntroduce && cheackIntroduceEN && cheackPrice && cheackStock && cheackStockWarning;
         }
 
 
@@ -435,7 +438,8 @@ namespace ShoppingWeb.Controller
                                 ProductCreatedOn = dt.Rows[0]["f_createdTime"].ToString(),
                                 ProductIntroduce = dt.Rows[0]["f_introduceTW"],
                                 ProductIntroduceEN = dt.Rows[0]["f_introduceEN"],
-                                ProductImg = dt.Rows[0]["f_img"]
+                                ProductImg = dt.Rows[0]["f_img"],
+                                ProductStockWarning = dt.Rows[0]["f_warningValue"]
                             };
 
                             return productObject;
@@ -484,6 +488,7 @@ namespace ShoppingWeb.Controller
                         cmd.Parameters.Add(new SqlParameter("@stock", obj["productStock"].ToString()));
                         cmd.Parameters.Add(new SqlParameter("@introduce", obj["productIntroduce"].ToString()));
                         cmd.Parameters.Add(new SqlParameter("@introduceEN", obj["productIntroduceEN"].ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@warningValue", obj["productStockWarning"].ToString()));
                         cmd.Parameters.Add(new SqlParameter("@checkStoct", obj["productCheckStock"].ToString()));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();

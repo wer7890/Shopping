@@ -113,7 +113,7 @@
     'productCategoryIimit': '商品類別和是否開放必須填寫',
     'productIntroduceIimit': '商品中文描述長度需在1到500之間',
     'productIntroduceENIimit': '商品英文描述長度需在1到500之間且不能包含中文',
-    'productPriceIimit': '價格和庫存量只能是數字且都要填寫',
+    'productPriceIimit': '價格，庫存量和預警值只能是數字且都要填寫',
     'imgSize': '圖片大小超過限制（最大500KB）',
     'brand': '品牌',
     'selectMajorCategories': '請選擇商品類型',

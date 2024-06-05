@@ -351,6 +351,9 @@
   <data name="wallet" xml:space="preserve">
     <value>Wallet</value>
   </data>
+  <data name="warningValue" xml:space="preserve">
+    <value>Warning Value</value>
+  </data>
   <data name="yes" xml:space="preserve">
     <value>Yes</value>
   </data>

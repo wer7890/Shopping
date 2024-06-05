@@ -55,6 +55,10 @@
                 <input type="number" id="txbProductStock" class="form-control" />
             </div>
             <div class="mx-auto col-12 col-md-7 mt-3">
+                <label for="txbProductStockWarning" class="form-label"><%= Resources.Resource.warningValue %></label>
+                <input type="number" id="txbProductStockWarning" class="form-control" />
+            </div>
+            <div class="mx-auto col-12 col-md-7 mt-3">
                 <label for="productIsOpen" class="form-label"><%= Resources.Resource.isOpen %></label>
                 <select id="productIsOpen" class="form-select">
                     <option value="0"><%= Resources.Resource.no %></option>

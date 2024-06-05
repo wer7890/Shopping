@@ -351,6 +351,9 @@
   <data name="wallet" xml:space="preserve">
     <value>錢包</value>
   </data>
+  <data name="warningValue" xml:space="preserve">
+    <value>預警值</value>
+  </data>
   <data name="yes" xml:space="preserve">
     <value>是</value>
   </data>

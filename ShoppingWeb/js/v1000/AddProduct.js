@@ -17,13 +17,14 @@
         let productImg = $("#txbProductImg").val().split('\\').pop(); // 提取文件名
         let productPrice = $("#txbProductPrice").val();
         let productStock = $("#txbProductStock").val();
+        let productStockWarning = $("#txbProductStockWarning").val();
         let productIsOpen = $("#productIsOpen").val();
         let productIntroduce = $("#txbProductIntroduce").val();
         let productIntroduceEN = $("#txbProductIntroduceEN").val();
         $("#labAddProduct").text("");
         let newCategory = productCategory + productMinorCategory + productBrand;
 
-        if (!IsSpecialChar(productName, productNameEN, productCategory, productMinorCategory, productBrand, productImg, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock)) {
+        if (!IsSpecialChar(productName, productNameEN, productCategory, productMinorCategory, productBrand, productImg, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock, productStockWarning)) {
             return;
         }
 
@@ -50,6 +51,7 @@
             formData.append("productIsOpen", productIsOpen);
             formData.append("productIntroduce", productIntroduce);
             formData.append("productIntroduceEN", productIntroduceEN);
+            formData.append("productStockWarning", productStockWarning);
 
             // 圖片上傳
             $.ajax({
@@ -93,9 +95,9 @@
 
 
 //判斷文字長度 
-function IsSpecialChar(productName, productNameEN, productCategory, productMinorCategory, productBrand, productImg, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock) {
+function IsSpecialChar(productName, productNameEN, productCategory, productMinorCategory, productBrand, productImg, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock, productStockWarning) {
 
-    if (typeof productName === 'undefined' || typeof productNameEN === 'undefined' || typeof productCategory === 'undefined' || typeof productImg === 'undefined' || typeof productIsOpen === 'undefined' || typeof productIntroduce === 'undefined' || typeof productIntroduceEN === 'undefined' || typeof productPrice === 'undefined' || typeof productStock === 'undefined') {
+    if (typeof productName === 'undefined' || typeof productNameEN === 'undefined' || typeof productCategory === 'undefined' || typeof productImg === 'undefined' || typeof productIsOpen === 'undefined' || typeof productIntroduce === 'undefined' || typeof productIntroduceEN === 'undefined' || typeof productPrice === 'undefined' || typeof productStock === 'undefined' || typeof productStockWarning === 'undefined') {
         $("#labAddProduct").text("undefined");
         return false;
     }
@@ -130,7 +132,7 @@ function IsSpecialChar(productName, productNameEN, productCategory, productMinor
         return false;
     }
 
-    if (!/^[0-9]{1,7}$/.test(productPrice) || !/^[0-9]{1,7}$/.test(productStock)) {
+    if (!/^[0-9]{1,7}$/.test(productPrice) || !/^[0-9]{1,7}$/.test(productStock) || !/^[0-9]{1,7}$/.test(productStockWarning)) {
         $("#labAddProduct").text(langFont["productPriceIimit"]);
         return false;
     }

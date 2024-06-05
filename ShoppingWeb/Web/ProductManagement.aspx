@@ -61,6 +61,8 @@
                         <th>
                             <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.stock %></button></th>
                         <th>
+                            <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.warningValue %></button></th>
+                        <th>
                             <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.open %></button></th>
                         <th>
                             <button type="button" class="btn btn-light btn-sm"><%= Resources.Resource.introduce %></button></th>

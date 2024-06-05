@@ -763,6 +763,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///  查找类似 預警值 的本地化字符串。
+        /// </summary>
+        internal static string warningValue {
+            get {
+                return ResourceManager.GetString("warningValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///  查找类似 是 的本地化字符串。
         /// </summary>
         internal static string yes {
