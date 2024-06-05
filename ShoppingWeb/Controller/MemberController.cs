@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using NLog;
+﻿using NLog;
 using ShoppingWeb.Filters;
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 
