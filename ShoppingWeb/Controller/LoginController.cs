@@ -136,38 +136,13 @@ namespace ShoppingWeb.Controller
         [Route("GetUserPermission")]
         public object GetUserPermission()
         {
-            try
+            var result = new
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAccountRoles", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
-                        SqlDataAdapter da = new SqlDataAdapter();
-                        DataTable dt = new DataTable();
-                        da.SelectCommand = cmd;
-                        da.Fill(dt);
+                Account = ((UserInfo)HttpContext.Current.Session["userInfo"]).Account,
+                Roles = ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles,
+            };
 
-                        var result = new
-                        {
-                            Account = dt.Rows[0]["f_account"].ToString(),
-                            Roles = dt.Rows[0]["f_roles"].ToString(),
-                        };
-
-                        return result;
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
-                return (int)DatabaseOperationResult.Error;
-            }
-
+            return result;
         }
 
         /// <summary>

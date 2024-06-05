@@ -44,33 +44,26 @@ function GetUserPermission() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response) {
-                case 0:
-                    alert(langFont["duplicateLogin"]);
-                    window.parent.location.href = "Login.aspx";
+            userAccount = response.Account
+            $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
+            switch (response.Roles) {
+                case 1:
                     break;
-                case 102:
-                    $("#labUserRoles").text(langFont["errorLog"]);
+                case 2:
+                    $("#adminPanel").remove();
+                    $("#productPanel").remove();
+                    break;
+                case 3:
+                    $("#adminPanel").remove();
+                    $("#memberPanel").remove();
+                    $("#orderPanel").remove();
                     break;
                 default:
-                    userAccount = response.Account
-                    $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
-                    switch (response.Roles) {
-                        case "1":
-                            break;
-                        case "2":
-                            $("#adminPanel").remove();
-                            $("#productPanel").remove();
-                            break;
-                        case "3":
-                            $("#adminPanel").remove();
-                            $("#memberPanel").remove();
-                            $("#orderPanel").remove();
-                            break;
-                        default:
-                            $("#labUserAccount").text(langFont["mistake"]);
-                            break;
-                    }
+                    $("#adminPanel").remove();
+                    $("#memberPanel").remove();
+                    $("#productPanel").remove();
+                    $("#orderPanel").remove();
+                    $("#labUserAccount").text(langFont["mistake"]);
                     break;
             }
         },
