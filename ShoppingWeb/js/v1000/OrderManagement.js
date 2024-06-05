@@ -104,6 +104,9 @@ function SearchAllData(pageNumber, pageSize) {
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 102:
                     $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
@@ -237,6 +240,9 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 101:
                     $('#ulPagination, #paginationInfo').empty();
                     $("#orderTableDiv").css('display', 'none');
@@ -342,6 +348,9 @@ function ShowOrderDetail(orderId) {
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 102:
                     $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
@@ -408,7 +417,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     parent.location.reload();
                     break;
                 case 2:
-                    alert(langFont["inputError"]);
+                    $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
                 case 100:
                 case 101:
@@ -450,6 +459,9 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
+                    break;
+                case 2:
+                    $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
                 case 101:
                     $("#orderTableDiv").css('display', 'none');
@@ -508,7 +520,7 @@ function EditReturnOrder(orderId, boolReturn) {
                     parent.location.reload();
                     break;
                 case 2:
-                    alert(langFont["inputError"]);
+                    $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
                 case 100:
                 case 101:

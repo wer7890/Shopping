@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ShoppingWeb
 {
@@ -15,21 +11,18 @@ namespace ShoppingWeb
         /// 現在頁數
         /// </summary>
         [Required]
-        [RegularExpression(@"^\d{1,11}$", ErrorMessage = "PageNumber Error")]
         public int PageNumber { get; set; }
 
         /// <summary>
         /// 每頁資料筆數
         /// </summary>
         [Required]
-        [RegularExpression(@"^\d{1,11}$", ErrorMessage = "PageSize Error")]
         public int PageSize { get; set; }
 
         /// <summary>
         /// 之前頁數
         /// </summary>
         [Required]
-        [RegularExpression(@"^\d{1,11}$", ErrorMessage = "BeforePagesTotal Error")]
         public int BeforePagesTotal { get; set; }
     }
 
@@ -42,7 +35,6 @@ namespace ShoppingWeb
         /// 會員ID
         /// </summary>
         [Required]
-        [RegularExpression(@"^\d{1,11}$", ErrorMessage = "MemberId Error")]
         public int MemberId { get; set; }
     }
 
@@ -55,7 +47,6 @@ namespace ShoppingWeb
         /// 會員ID
         /// </summary>
         [Required]
-        [RegularExpression(@"^\d{1,11}$", ErrorMessage = "MemberId Error")]
         public int MemberId { get; set; }
 
         /// <summary>
