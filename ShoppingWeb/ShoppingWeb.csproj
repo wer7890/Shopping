@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="Controller\BaseController.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="App_Data\Member.cs" />
     <Compile Include="Controller\MemberController.cs" />
     <Compile Include="Controller\OrderController.cs" />
     <Compile Include="Controller\ProductController.cs" />

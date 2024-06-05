@@ -20,8 +20,14 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllMemberData")]
-        public object GetAllMemberData([FromBody] JObject obj)
+        public object GetAllMemberData([FromBody] GetAllMemberDataRegex member)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return (int)UserStatus.InputError;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -30,9 +36,9 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", obj["pageNumber"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", obj["pageSize"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", obj["beforePagesTotal"].ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", member.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", member.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", member.BeforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -40,7 +46,7 @@ namespace ShoppingWeb.Controller
                         dt.Load(reader);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / (int)obj["pageSize"]);  // 計算總頁數，Math.Ceiling向上進位取整數
+                        int totalPages = (int)Math.Ceiling((double)totalCount / member.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                         var result = new
                         {
@@ -67,8 +73,14 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductStatus")]
-        public int ToggleProductStatus([FromBody] JObject obj)
+        public int ToggleProductStatus([FromBody] ToggleProductStatusRegex member)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return (int)UserStatus.InputError;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -77,7 +89,7 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@memberId", obj["memberId"].ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@memberId", member.MemberId));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -102,8 +114,14 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleMemberLevel")]
-        public int ToggleMemberLevel([FromBody] JObject obj)
+        public int ToggleMemberLevel([FromBody] ToggleMemberLevelRegex member)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return (int)UserStatus.InputError;
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -112,13 +130,12 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@memberId", obj["memberId"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@level", obj["level"].ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@memberId", member.MemberId));
+                        cmd.Parameters.Add(new SqlParameter("@level", member.Level));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
                         return (rowsAffected > 0) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
-
                     }
                 }
             }
@@ -136,9 +153,10 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("AddMember")]
-        public int AddMember([FromBody] JObject obj)
+        public int AddMember([FromBody] AddMemberRegex member)
         {
-            if (!AddMemberSpecialChar(obj["account"].ToString(), obj["pwd"].ToString(), obj["name"].ToString(), obj["birthday"].ToString(), obj["phone"].ToString(), obj["email"].ToString(), obj["address"].ToString()))
+            
+            if (!ModelState.IsValid)
             {
                 return (int)UserStatus.InputError;
             }
@@ -151,13 +169,13 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@account", obj["account"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", obj["pwd"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@name", obj["name"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@birthday", obj["birthday"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@phone", obj["phone"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@email", obj["email"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@address", obj["address"].ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@account", member.Account));
+                        cmd.Parameters.Add(new SqlParameter("@pwd", member.Pwd));
+                        cmd.Parameters.Add(new SqlParameter("@name", member.Name));
+                        cmd.Parameters.Add(new SqlParameter("@birthday", DateTime.Parse(member.Birthday)));
+                        cmd.Parameters.Add(new SqlParameter("@phone", member.Phone));
+                        cmd.Parameters.Add(new SqlParameter("@email", member.Email));
+                        cmd.Parameters.Add(new SqlParameter("@address", member.Address));
 
                         int result = (int)cmd.ExecuteScalar();
 
@@ -173,24 +191,5 @@ namespace ShoppingWeb.Controller
             }
         }
 
-        /// <summary>
-        /// 判斷輸入值
-        /// </summary>
-        /// <param name="account"></param>
-        /// <param name="pwd"></param>
-        /// <returns></returns>
-        [NonAction]
-        public bool AddMemberSpecialChar(string account, string pwd, string name, string birthday, string phone, string email, string address)
-        {
-            bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
-            bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
-            bool cheackName = Regex.IsMatch(name, @"^[\u4E00-\u9FFF]{1,15}$");
-            bool cheackBirthday = Regex.IsMatch(birthday, @"^[0-9-]{8,10}$");
-            bool cheackPhone = Regex.IsMatch(phone, @"^[0-9]{10}$");
-            bool cheackEmail = Regex.IsMatch(email, @"^[a-zA-Z0-9_.+-]{1,25}@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
-            bool cheackAddress = Regex.IsMatch(address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$");
-
-            return (cheackAccount && cheackPwd && cheackName && cheackBirthday && cheackPhone && cheackEmail && cheackAddress);
-        }
     }
 }

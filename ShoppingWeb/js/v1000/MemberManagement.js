@@ -11,7 +11,7 @@ $(document).ready(function () {
     $("#btnAddMember").click(function () {
         $.ajax({
             type: "POST",
-            url: "/api/Controller/member/AddMember",  // 這裡指定後端方法的位置
+            url: "/api/Controller/member/AddMember",  // 這裡指定後端方法的位置 
             data: JSON.stringify({ account: GetRandomStr(), pwd: GetRandomStr(), name: GetRandomName(), birthday: GetRandomDate(), phone: GetRandomPhone(), email: GetRandomEmail(), address: "台中市" }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -146,6 +146,9 @@ function SearchAllData(pageNumber, pageSize) {
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchMember").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 102:
                     $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
@@ -224,6 +227,9 @@ function ToggleMemberStatus(memberId) {
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchMember").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 100:
                     $("#labSearchMember").text(langFont["editStateSuccessful"]).show().delay(3000).fadeOut();
                     break;
@@ -257,6 +263,9 @@ function ToggleMemberLevel(memberId, level) {
                 case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
+                    break;
+                case 2:
+                    $("#labSearchMember").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
                 case 100:
                     $("#labSearchMember").text(langFont["editLevelSuccessful"]).show().delay(3000).fadeOut();
