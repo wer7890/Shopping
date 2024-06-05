@@ -139,8 +139,15 @@ namespace ShoppingWeb.Controller
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
-
+                        if (rowsAffected > 0)
+                        {
+                            IsEditStock = true;
+                            return (int)DatabaseOperationResult.Success;
+                        }
+                        else
+                        {
+                            return (int)DatabaseOperationResult.Failure;
+                        }
                     }
                 }
             }

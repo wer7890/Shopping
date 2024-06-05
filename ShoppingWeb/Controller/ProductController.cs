@@ -161,6 +161,7 @@ namespace ShoppingWeb.Controller
                         {
                             string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
                             File.Delete(imagePath);
+                            IsEditStock = true;
                             return (int)DatabaseOperationResult.Success;
                         }
                         else
@@ -200,7 +201,15 @@ namespace ShoppingWeb.Controller
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
+                        if (rowsAffected > 0)
+                        {
+                            IsEditStock = true;
+                            return (int)DatabaseOperationResult.Success;
+                        }
+                        else
+                        {
+                            return (int)DatabaseOperationResult.Failure;
+                        }
 
                     }
                 }
@@ -347,6 +356,7 @@ namespace ShoppingWeb.Controller
                             return (int)DatabaseOperationResult.Failure;
                         }
 
+                        IsEditStock = true;
                         return (int)DatabaseOperationResult.Success;
                     }
                 }
@@ -493,7 +503,15 @@ namespace ShoppingWeb.Controller
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
+                        if (rowsAffected > 0)
+                        {
+                            IsEditStock = true;
+                            return (int)DatabaseOperationResult.Success;
+                        }
+                        else
+                        {
+                            return (int)DatabaseOperationResult.Failure;
+                        }
                     }
                 }
             }
@@ -520,42 +538,6 @@ namespace ShoppingWeb.Controller
             bool cheackStock = Regex.IsMatch(productStock.ToString(), @"^[0-9]{1,7}$");
 
             return cheackIntroduce && cheackPrice && cheackStock;
-        }
-
-        /// <summary>
-        /// 設定商品預警值
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetLowStockData")]
-        public object GetLowStockData([FromBody] JObject obj)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getLowStock", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-
-                        cmd.Parameters.Add(new SqlParameter("@threshold", (int)obj["threshold"]));
-
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-
-                        return ConvertDataTableToJson(dt);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
-            }
         }
     }
 }

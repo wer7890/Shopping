@@ -91,41 +91,6 @@
     </div>
 
     <!-- 商品庫存預警 -->
-    <%--<div id="lowStockProductsDiv" class="w-auto mx-3 mt-4">
-        <h3 class="text-center text-danger"><%= Resources.Resource.lowStock %></h3>
-
-        <div class="table-responsive mt-3">
-            <table id="lowStockTable" class="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th><%= Resources.Resource.id %></th>
-                        <th><%= Resources.Resource.name %></th>
-                        <th><%= Resources.Resource.stock %></th>
-                        <th><%= Resources.Resource.open %></th>
-                        <th><%= Resources.Resource.edit %></th>
-                    </tr>
-                </thead>
-                <tbody id="lowStockTableBody">
-                </tbody>
-            </table>
-        </div>
-
-        <!-- 更改存預警 -->
-        <div class="row col-12 mb-3 d-flex justify-content-center align-items-end">
-            <div class="col-2">
-                <label for="txbLowStockThreshold" class="form-label">更改預警值</label>
-                <input type="number" class="form-control" id="txbLowStockThreshold" min="1" />
-            </div>
-            <div class="col px-0">
-               <button id="btnSetLowStock" type="button" class="btn btn-outline-primary">設定</button>
-            </div>
-        </div>
-        <div class="row">
-            <span id="labSearchStork" class="col-12 col-sm-12 text-center text-success"></span>
-        </div>
-    </div>--%>
-
-    <!-- 商品庫存預警 -->
     <div id="lowStockProductsDiv" class="container my-4">
         <h3 class="text-center text-danger mb-4"><%= Resources.Resource.lowStock %></h3>
 
@@ -136,6 +101,7 @@
                         <th scope="col"><%= Resources.Resource.id %></th>
                         <th scope="col"><%= Resources.Resource.name %></th>
                         <th scope="col"><%= Resources.Resource.stock %></th>
+                        <th scope="col"><%= Resources.Resource.warningValue %></th>
                         <th scope="col"><%= Resources.Resource.open %></th>
                         <th scope="col"><%= Resources.Resource.edit %></th>
                     </tr>
@@ -144,20 +110,6 @@
                     <!-- 動態生成的商品資料 -->
                 </tbody>
             </table>
-        </div>
-
-        <!-- 更改存預警 -->
-        <div class="row justify-content-center align-items-end mt-4">
-            <div class="col-12 col-md-4">
-                <label for="txbLowStockThreshold" class="form-label">更改預警值</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="txbLowStockThreshold" min="1" />
-                    <button id="btnSetLowStock" type="button" class="btn btn-outline-primary">設定</button>
-                </div>
-            </div>
-            <div class="row">
-                <span id="labSearchStork" class="col-12 col-sm-12 text-center text-success"></span>
-            </div>
         </div>
     </div>
 

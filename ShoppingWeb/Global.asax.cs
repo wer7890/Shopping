@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Timers;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
@@ -22,38 +23,50 @@ namespace ShoppingWeb
                 defaults: new { id = RouteParameter.Optional },  //預設值
                 constraints: new { folder = "Controller" }   //條件約束
             );
-            GetLowStockData();
+
+            GetLowStockData(null, null);
+            Timer t = new Timer(60000)  //創建Timer，時間間隔1分鐘
+            {
+                AutoReset = true  //一直執行(true)
+            };
+            t.Elapsed += new ElapsedEventHandler(GetLowStockData);  //到達時間的时候執行事件
+            t.Start();  //啟動計時器
         }
 
-        public object GetLowStockData()
+        /// <summary>
+        /// 得到商品低於警戒值的資料
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void GetLowStockData(object sender, ElapsedEventArgs e)
         {
-            try
+            if (Controller.BaseController.IsEditStock)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(connectionString))
+                try
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getLowStock", con))
+                    string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand("pro_sw_getLowStock", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            con.Open();
 
-                        cmd.Parameters.Add(new SqlParameter("@threshold", 100));
+                            SqlDataReader reader = cmd.ExecuteReader();
+                            DataTable dt = new DataTable();
+                            dt.Load(reader);
 
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-
-                        Controller.BaseController.stockInsufficient = ConvertDataTableToJson(dt);
-                        return ConvertDataTableToJson(dt);
+                            Controller.BaseController.stockInsufficient = ConvertDataTableToJson(dt);
+                            Controller.BaseController.IsEditStock = false;
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error("後端" + ex.Message);
-                return (int)DatabaseOperationResult.Error;
-            }
+                catch (Exception ex)
+                {
+                    Logger logger = LogManager.GetCurrentClassLogger();
+                    logger.Error("後端" + ex.Message);
+                }
+            }            
         }
 
         /// <summary>
