@@ -159,7 +159,7 @@
     <Compile Include="App_Data\Enums\Roles.cs" />
     <Compile Include="App_Data\ActionAttribute\Member\EditMemberStatusDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Member\EditMemberLevelDto.cs" />
-    <Compile Include="App_Data\ActionAttribute\Product\RemoveProductDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Product\DelProductDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\SetSessionProductIdDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\EditProductStatusDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\DelUserInfoDto.cs" />

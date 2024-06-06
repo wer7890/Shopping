@@ -248,7 +248,7 @@ function DeleteProduct(productId) {
     if (yes == true) {
         $.ajax({
             type: "POST",
-            url: "/api/Controller/product/RemoveProduct",
+            url: "/api/Controller/product/DelProduct",
             data: JSON.stringify({ productId: productId }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

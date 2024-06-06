@@ -135,8 +135,8 @@ namespace ShoppingWeb.Controller
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("RemoveProduct")]
-        public int RemoveProduct([FromBody] RemoveProductDto dto)
+        [Route("DelProduct")]
+        public int DelProduct([FromBody] DelProductDto dto)
         {
             try
             {
@@ -232,7 +232,6 @@ namespace ShoppingWeb.Controller
         public int SetSessionProductId([FromBody] SetSessionProductIdDto dto)
         {
             HttpContext.Current.Session["productId"] = dto.ProductId;
-            string a = HttpContext.Current.Session["productId"].ToString();
             return (int)DatabaseOperationResult.Success;
         }
 

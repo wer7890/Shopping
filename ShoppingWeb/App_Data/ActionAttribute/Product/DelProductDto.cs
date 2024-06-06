@@ -5,7 +5,7 @@ namespace ShoppingWeb
     /// <summary>
     /// RemoveProduct方法參數驗證
     /// </summary>
-    public class RemoveProductDto
+    public class DelProductDto
     {
         /// <summary>
         /// 商品ID
