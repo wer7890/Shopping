@@ -16,8 +16,8 @@ $(document).ready(function () {
     $("#labSearchProduct").hide();
     $("#lowStockProductsDiv").hide();
     ProductDataReady();
+    SearchAllData(1, pageSize);
     SetBtnLowProduct();
-    SearchAllData(1, pageSize);    
     setInterval(function () {
         SetBtnLowProduct();
     }, 30000); 
