@@ -12,7 +12,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/api/Controller/user/RegisterNewUser",  // 這裡指定後端方法的位置
+            url: "/api/Controller/user/AddUser",  // 這裡指定後端方法的位置
             data: JSON.stringify({ account: account, pwd: pwd, roles: roles }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

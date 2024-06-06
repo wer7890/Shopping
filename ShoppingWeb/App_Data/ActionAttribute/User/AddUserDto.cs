@@ -2,7 +2,7 @@
 
 namespace ShoppingWeb
 {
-    public class RegisterNewUserDto
+    public class AddUserDto
     {
         /// <summary>
         /// 帳號

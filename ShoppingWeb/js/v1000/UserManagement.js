@@ -30,7 +30,7 @@ $(document).ready(function () {
     $(document).on("change", ".f_roles", function () {
         let userId = $(this).data('id');
         let roles = $(this).val();
-        ToggleUserRoles(userId, roles);
+        EditUserRoles(userId, roles);
     });
 
 });
@@ -119,7 +119,7 @@ function DeleteUser(userId) {
     if (yes == true) {
         $.ajax({
             type: "POST",
-            url: "/api/Controller/user/RemoveUserInfo",
+            url: "/api/Controller/user/DelUserInfo",
             data: JSON.stringify({ userId: userId }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -190,10 +190,10 @@ function EditUser(userId) {
 }
 
 //更改管理員身分
-function ToggleUserRoles(userId, roles) {
+function EditUserRoles(userId, roles) {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/user/ToggleUserRoles",
+        url: "/api/Controller/user/EditUserRoles",
         data: JSON.stringify({ userId: userId, roles: roles }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

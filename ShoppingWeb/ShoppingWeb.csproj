@@ -161,10 +161,10 @@
     <Compile Include="App_Data\ActionAttribute\Product\RemoveProductDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\SetSessionProductIdDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\ToggleProductStatusDto.cs" />
-    <Compile Include="App_Data\ActionAttribute\User\RemoveUserInfoDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\DelUserInfoDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\SetSessionSelectUserIdDto.cs" />
-    <Compile Include="App_Data\ActionAttribute\User\ToggleUserRolesDto.cs" />
-    <Compile Include="App_Data\ActionAttribute\User\RegisterNewUserDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\EditUserRolesDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\AddUserDto.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Filters\LoginFilter.cs" />
     <Compile Include="Filters\RolesFilter.cs" />

@@ -20,8 +20,8 @@ namespace ShoppingWeb.Controller
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("RemoveUserInfo")]
-        public int RemoveUserInfo([FromBody] RemoveUserInfoDto dto)
+        [Route("DelUserInfo")]
+        public int DelUserInfo([FromBody] DelUserInfoDto dto)
         {
             try
             {
@@ -116,8 +116,8 @@ namespace ShoppingWeb.Controller
         /// <param name="roles"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ToggleUserRoles")]
-        public int ToggleUserRoles([FromBody] ToggleUserRolesDto dto)
+        [Route("EditUserRoles")]
+        public int EditUserRoles([FromBody] EditRolesDto dto)
         {
             try
             {
@@ -154,8 +154,8 @@ namespace ShoppingWeb.Controller
         /// <param name="roles"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ToggleUserRoles")]
-        public int RegisterNewUser([FromBody] RegisterNewUserDto dto)
+        [Route("AddUser")]
+        public int AddUser([FromBody] AddUserDto dto)
         {
             try
             {
