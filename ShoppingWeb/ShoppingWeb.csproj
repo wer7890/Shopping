@@ -152,6 +152,7 @@
     <Compile Include="App_Data\ActionAttribute\User\GetAllUserDataDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\EditUserDto.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\LoginUserDto.cs" />
     <Compile Include="Controller\MemberController.cs" />
     <Compile Include="Controller\OrderController.cs" />
     <Compile Include="Controller\ProductController.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="App_Data\ActionAttribute\User\SetSessionSelectUserIdDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\EditUserRolesDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\AddUserDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\SetLanguageDto.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Filters\LoginFilter.cs" />
     <Compile Include="Filters\RolesFilter.cs" />

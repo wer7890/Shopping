@@ -1,18 +1,18 @@
-﻿using Newtonsoft.Json.Linq;
-using NLog;
+﻿using NLog;
+using ShoppingWeb.Filters;
 using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 
 namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/login")]
+    [ValidationFilter]
     public class LoginController : ApiController
     {
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
@@ -25,14 +25,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("LoginUser")]
-        public int LoginUser([FromBody] JObject obj)
+        public int LoginUser([FromBody] LoginUserDto dto)
         {
-
-            if (!LoginSpecialChar(obj["account"].ToString(), obj["pwd"].ToString()))
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -41,8 +35,8 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@account", obj["account"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(obj["pwd"].ToString())));
+                        cmd.Parameters.Add(new SqlParameter("@account", dto.Account));
+                        cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(dto.Pwd)));
                         cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
                         cmd.Parameters.Add(new SqlParameter("@userId", SqlDbType.Int));
                         cmd.Parameters["@userId"].Direction = ParameterDirection.Output;
@@ -57,7 +51,7 @@ namespace ShoppingWeb.Controller
                             {
                                 UserId = (int)cmd.Parameters["@userId"].Value,
                                 Roles = (int)cmd.Parameters["@roles"].Value,
-                                Account = obj["account"].ToString()
+                                Account = dto.Account
                             };
                             HttpContext.Current.Session["userInfo"] = user;
 
@@ -77,33 +71,18 @@ namespace ShoppingWeb.Controller
         }
 
         /// <summary>
-        /// 判斷輸入值
-        /// </summary>
-        /// <param name="account"></param>
-        /// <param name="pwd"></param>
-        /// <returns></returns>
-        [NonAction]
-        public bool LoginSpecialChar(string account, string pwd)
-        {
-            bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
-            bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
-
-            return (cheackAccount && cheackPwd);
-        }
-
-        /// <summary>
         /// 按下中英文按鈕時，Cookies["language"]紀錄該語言
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("SetLanguage")]
-        public bool SetLanguage([FromBody] JObject obj)
+        public bool SetLanguage([FromBody] SetLanguageDto dto)
         {
 
             if (HttpContext.Current.Request.Cookies["language"] != null)
             {
-                HttpContext.Current.Response.Cookies["language"].Value = obj["language"].ToString();
+                HttpContext.Current.Response.Cookies["language"].Value = dto.Language;
                 HttpContext.Current.Response.Cookies["language"].Expires = DateTime.Now.AddDays(30);
             }
 
