@@ -13,11 +13,11 @@ let beforePagesTotal = 1;
 
 $(document).ready(function () {
     // 初始化
-    SetBtnLowProduct();
-    ProductDataReady();
-    SearchAllData(1, pageSize);
     $("#labSearchProduct").hide();
     $("#lowStockProductsDiv").hide();
+    ProductDataReady();
+    SetBtnLowProduct();
+    SearchAllData(1, pageSize);    
     setInterval(function () {
         SetBtnLowProduct();
     }, 30000); 
