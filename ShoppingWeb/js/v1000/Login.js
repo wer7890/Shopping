@@ -76,7 +76,8 @@ function IsSpecialChar(account, pwd) {
 //切換語言
 function ChangeLanguage(language) {
 
-    if (!JudgeLanguage(language)) {
+    if (typeof language === 'undefined') {
+        $("#labLogin").text("undefined");
         return
     }
 
@@ -93,14 +94,4 @@ function ChangeLanguage(language) {
             $("#labLogin").text(langFont["ajaxError"]);
         }
     });
-}
-
-//ChangeLanguage參數判斷
-function JudgeLanguage(language) {
-    if (typeof language === 'undefined') {
-        $("#labLogin").text("undefined");
-        return false;
-    }
-
-    return true;
 }
