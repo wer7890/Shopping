@@ -71,6 +71,9 @@ function SearchAllData(pageNumber, pageSize) {
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchProduct").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 102:
                     $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
@@ -147,6 +150,9 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchProduct").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 101:
                     $("#productTableDiv").css('display', 'none');
                     $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
@@ -217,6 +223,9 @@ function ToggleProductStatus(productId) {
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchProduct").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 100:
                     $("#labSearchProduct").text(langFont["editSuccessful"]).show().delay(3000).fadeOut();
                     break;
@@ -253,6 +262,9 @@ function DeleteProduct(productId) {
                         alert(langFont["accessDenied"]);
                         parent.location.reload();
                         break;
+                    case 2:
+                        $("#labSearchProduct").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                        break;
                     case 100:
                         window.location.reload();
                         break;
@@ -287,6 +299,9 @@ function EditProduct(productId) {
                 case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
+                    break;
+                case 2:
+                    $("#labSearchProduct").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
                 case 100:
                     window.location.href = "EditProduct.aspx";

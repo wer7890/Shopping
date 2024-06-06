@@ -213,7 +213,7 @@ function SearchAllData(pageNumber, pageSize) {
 function ToggleMemberStatus(memberId) {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/member/ToggleProductStatus",
+        url: "/api/Controller/member/ToggleMemberStatus",
         data: JSON.stringify({ memberId: memberId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

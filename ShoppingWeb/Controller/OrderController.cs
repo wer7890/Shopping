@@ -12,6 +12,7 @@ namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/order")]
     [RolesFilter((int)Roles.Member)]
+    [ValidationFilter]
     public class OrderController : BaseController
     {
         /// <summary>
@@ -20,14 +21,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllOrderData")]
-        public object GetAllOrderData([FromBody] GetAllOrderDataAttribute order)
+        public object GetAllOrderData([FromBody] GetAllOrderDataAttribute attribute)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -36,9 +31,9 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", order.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", order.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", order.BeforePagesTotal));
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", attribute.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", attribute.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", attribute.BeforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
@@ -48,7 +43,7 @@ namespace ShoppingWeb.Controller
                         da.Fill(ds); //結果存放至DataTable
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / order.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                        int totalPages = (int)Math.Ceiling((double)totalCount / attribute.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                         object[] resultArr = new object[2];
 
@@ -82,14 +77,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetOrderDetailsData")]
-        public object GetOrderDetailsData([FromBody] GetOrderDetailsDataAttribute order)
+        public object GetOrderDetailsData([FromBody] GetOrderDetailsDataAttribute attribute)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -98,7 +87,7 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@orderId", order.OrderId));
+                        cmd.Parameters.Add(new SqlParameter("@orderId", attribute.OrderId));
                         int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
                         cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -128,14 +117,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditOrder")]
-        public int EditOrder([FromBody] EditOrderAttribute order)
+        public int EditOrder([FromBody] EditOrderAttribute attribute)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -144,10 +127,10 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@orderId", order.OrderId));
-                        cmd.Parameters.Add(new SqlParameter("@orderStatus", order.OrderStatusNum));
-                        cmd.Parameters.Add(new SqlParameter("@deliveryStatus", order.DeliveryStatusNum));
-                        cmd.Parameters.Add(new SqlParameter("@deliveryMethod", order.DeliveryMethodNum));
+                        cmd.Parameters.Add(new SqlParameter("@orderId", attribute.OrderId));
+                        cmd.Parameters.Add(new SqlParameter("@orderStatus", attribute.OrderStatusNum));
+                        cmd.Parameters.Add(new SqlParameter("@deliveryStatus", attribute.DeliveryStatusNum));
+                        cmd.Parameters.Add(new SqlParameter("@deliveryMethod", attribute.DeliveryMethodNum));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -178,14 +161,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetOrderData")]
-        public object GetOrderData([FromBody] GetOrderDataAttribute order)
+        public object GetOrderData([FromBody] GetOrderDataAttribute attribute)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -194,10 +171,10 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@deliveryStatusNum", order.DeliveryStatusNum));
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", order.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", order.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", order.BeforePagesTotal));
+                        cmd.Parameters.Add(new SqlParameter("@deliveryStatusNum", attribute.DeliveryStatusNum));
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", attribute.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", attribute.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", attribute.BeforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
@@ -207,7 +184,7 @@ namespace ShoppingWeb.Controller
                         da.Fill(ds);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / order.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                        int totalPages = (int)Math.Ceiling((double)totalCount / attribute.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                         object[] resultArr = new object[2];
 
@@ -248,14 +225,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetReturnOrderData")]
-        public object GetReturnOrderData([FromBody] GetAllOrderDataAttribute order)
+        public object GetReturnOrderData([FromBody] GetAllOrderDataAttribute attribute)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -264,9 +235,9 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", order.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", order.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", order.BeforePagesTotal));
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", attribute.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", attribute.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", attribute.BeforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
@@ -276,7 +247,7 @@ namespace ShoppingWeb.Controller
                         da.Fill(ds);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / order.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                        int totalPages = (int)Math.Ceiling((double)totalCount / attribute.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                         object[] resultArr = new object[2];
 
@@ -316,13 +287,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditReturnOrder")]
-        public int EditReturnOrder([FromBody] EditReturnOrderAttribute order)
+        public int EditReturnOrder([FromBody] EditReturnOrderAttribute attribute)
         {
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -331,8 +297,8 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@orderId", order.OrderId));
-                        cmd.Parameters.Add(new SqlParameter("@boolReturn", order.BoolReturn));
+                        cmd.Parameters.Add(new SqlParameter("@orderId", attribute.OrderId));
+                        cmd.Parameters.Add(new SqlParameter("@boolReturn", attribute.BoolReturn));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 

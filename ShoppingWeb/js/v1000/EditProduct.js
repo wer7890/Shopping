@@ -16,6 +16,9 @@
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labRenewProduct").text(langFont["inputError"]);
+                    break;
                 case 102:
                     $("#labRenewProduct").text(langFont["errorLog"]);
                     break;
@@ -91,6 +94,7 @@
                 }
             },
             error: function (error) {
+                console.error(error);
                 $("#labRenewProduct").text(langFont["ajaxError"]);
             }
         });

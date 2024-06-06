@@ -57,13 +57,13 @@
             <div class="row mx-auto col-12 col-md-7 mt-3">
                 <div class="col-12 col-md-3 mt-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" checked/>
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="true" checked/>
                         <label class="form-check-label" for="flexRadioDefault1">
                             <%= Resources.Resource.addStock %>
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="0" />
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="false" />
                         <label class="form-check-label" for="flexRadioDefault2">
                             <%= Resources.Resource.reduceStock %>
                         </label>

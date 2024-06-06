@@ -10,6 +10,7 @@ namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/member")]
     [RolesFilter((int)Roles.Member)]
+    [ValidationFilter]
     public class MemberController : BaseController
     {
         /// <summary>
@@ -18,14 +19,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllMemberData")]
-        public object GetAllMemberData([FromBody] GetAllMemberDataAttribute member)
+        public object GetAllMemberData([FromBody] GetAllMemberDataAttribute attribute)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -34,9 +29,9 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", member.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", member.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", member.BeforePagesTotal));
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", attribute.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", attribute.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", attribute.BeforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -44,7 +39,7 @@ namespace ShoppingWeb.Controller
                         dt.Load(reader);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / member.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                        int totalPages = (int)Math.Ceiling((double)totalCount / attribute.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                         var result = new
                         {
@@ -71,14 +66,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductStatus")]
-        public int ToggleProductStatus([FromBody] ToggleProductStatusAttribute member)
+        public int ToggleMemberStatus([FromBody] ToggleMemberStatusAttribute attribute)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -87,7 +76,7 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@memberId", member.MemberId));
+                        cmd.Parameters.Add(new SqlParameter("@memberId", attribute.MemberId));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -112,14 +101,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleMemberLevel")]
-        public int ToggleMemberLevel([FromBody] ToggleMemberLevelAttribute member)
+        public int ToggleMemberLevel([FromBody] ToggleMemberLevelAttribute attribute)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -128,8 +111,8 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@memberId", member.MemberId));
-                        cmd.Parameters.Add(new SqlParameter("@level", member.Level));
+                        cmd.Parameters.Add(new SqlParameter("@memberId", attribute.MemberId));
+                        cmd.Parameters.Add(new SqlParameter("@level", attribute.Level));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -151,14 +134,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("AddMember")]
-        public int AddMember([FromBody] AddMemberAttribute member)
+        public int AddMember([FromBody] AddMemberAttribute attribute)
         {
-            
-            if (!ModelState.IsValid)
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -167,13 +144,13 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@account", member.Account));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", member.Pwd));
-                        cmd.Parameters.Add(new SqlParameter("@name", member.Name));
-                        cmd.Parameters.Add(new SqlParameter("@birthday", DateTime.Parse(member.Birthday)));
-                        cmd.Parameters.Add(new SqlParameter("@phone", member.Phone));
-                        cmd.Parameters.Add(new SqlParameter("@email", member.Email));
-                        cmd.Parameters.Add(new SqlParameter("@address", member.Address));
+                        cmd.Parameters.Add(new SqlParameter("@account", attribute.Account));
+                        cmd.Parameters.Add(new SqlParameter("@pwd", attribute.Pwd));
+                        cmd.Parameters.Add(new SqlParameter("@name", attribute.Name));
+                        cmd.Parameters.Add(new SqlParameter("@birthday", DateTime.Parse(attribute.Birthday)));
+                        cmd.Parameters.Add(new SqlParameter("@phone", attribute.Phone));
+                        cmd.Parameters.Add(new SqlParameter("@email", attribute.Email));
+                        cmd.Parameters.Add(new SqlParameter("@address", attribute.Address));
 
                         int result = (int)cmd.ExecuteScalar();
 

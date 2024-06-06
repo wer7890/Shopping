@@ -29,7 +29,7 @@ namespace ShoppingWeb
     /// <summary>
     /// ToggleProductStatus方法參數驗證
     /// </summary>
-    public class ToggleProductStatusAttribute
+    public class ToggleMemberStatusAttribute
     {
         /// <summary>
         /// 會員ID
