@@ -131,6 +131,12 @@ function GetRandomEmail() {
 
 //全部會員資料
 function SearchAllData(pageNumber, pageSize) {
+
+    if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof beforePagesTotal === 'undefined') {
+        $("#labSearchMember").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         url: '/api/Controller/member/GetAllMemberData',
         type: 'POST',
@@ -211,6 +217,12 @@ function SearchAllData(pageNumber, pageSize) {
 
 //按下是否啟用，更改資料庫 
 function EditMemberStatus(memberId) {
+
+    if (typeof memberId === 'undefined') {
+        $("#labSearchMember").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/api/Controller/member/EditMemberStatus",
@@ -248,6 +260,12 @@ function EditMemberStatus(memberId) {
 
 //更改會員等級
 function EditMemberLevel(memberId, level) {
+
+    if (typeof memberId === 'undefined' || typeof level === 'undefined') {
+        $("#labSearchMember").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/api/Controller/member/EditMemberLevel",

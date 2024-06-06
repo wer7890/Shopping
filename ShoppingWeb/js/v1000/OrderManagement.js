@@ -89,6 +89,12 @@ $(document).ready(function () {
 
 //全部訂單資料
 function SearchAllData(pageNumber, pageSize) {
+
+    if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof beforePagesTotal === 'undefined') {
+        $("#labSearchOrder").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         url: '/api/Controller/order/GetAllOrderData',
         type: 'POST',
@@ -224,6 +230,12 @@ function ShowEditOrder(element, orderId, orderStatusNum, deliveryStatusNum, deli
 
 // 上方狀態按鈕點擊觸發事件
 function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
+
+    if (typeof deliveryStatusNum === 'undefined' || typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof beforePagesTotal === 'undefined') {
+        $("#labSearchOrder").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         url: '/api/Controller/order/GetOrderData',
         data: JSON.stringify({ deliveryStatusNum: deliveryStatusNum, pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
@@ -332,6 +344,12 @@ function OrderHtml(orderData, deliveryStatusCountData) {
 
 // 顯示訂單詳細內容
 function ShowOrderDetail(orderId) {
+
+    if (typeof orderId === 'undefined') {
+        $("#labSearchOrder").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         url: '/api/Controller/order/GetOrderDetailsData',
         data: JSON.stringify({ orderId: orderId }),
@@ -444,6 +462,12 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
 
 // 點擊上方退貨申請按鈕事件
 function ShowReturnOrder(pageNumber, pageSize) {
+
+    if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof beforePagesTotal === 'undefined') {
+        $("#labSearchOrder").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         url: '/api/Controller/order/GetReturnOrderData',
         type: 'POST',
@@ -504,6 +528,12 @@ function ShowReturnOrder(pageNumber, pageSize) {
 
 // 同意或拒絕退款申請後，更改訂單狀態和配送狀態
 function EditReturnOrder(orderId, boolReturn) {
+
+    if (typeof orderId === 'undefined' || typeof boolReturn === 'undefined') {
+        $("#labSearchOrder").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         url: '/api/Controller/order/EditReturnOrder',
         data: JSON.stringify({ orderId: orderId, boolReturn: boolReturn }),

@@ -56,6 +56,12 @@ $(document).ready(function () {
 
 //全部商品資料
 function SearchAllData(pageNumber, pageSize) {
+
+    if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof beforePagesTotal === 'undefined') {
+        $("#labSearchProduct").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         url: '/api/Controller/product/GetAllProductData',
         type: 'POST',
@@ -134,6 +140,12 @@ function SearchAllData(pageNumber, pageSize) {
 
 //搜尋商品資料
 function SearchProduct(productCategory, productName, checkAllMinorCategories, checkAllBrand, pageNumber, pageSize) {
+
+    if (typeof productCategory === 'undefined' || typeof productName === 'undefined' || typeof checkAllMinorCategories === 'undefined' || typeof checkAllBrand === 'undefined' || typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof beforePagesTotal === 'undefined') {
+        $("#labSearchProduct").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         url: '/api/Controller/product/GetProductData',
         data: JSON.stringify({ productCategory: productCategory, productName: productName, checkAllMinorCategories: checkAllMinorCategories, checkAllBrand: checkAllBrand, pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
@@ -207,6 +219,12 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
 
 //按下是否開放開關，更改資料庫
 function EditProductStatus(productId) {
+
+    if (typeof productId === 'undefined') {
+        $("#labSearchProduct").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/api/Controller/product/EditProductStatus",
@@ -244,6 +262,12 @@ function EditProductStatus(productId) {
 
 //刪除
 function DeleteProduct(productId) {
+
+    if (typeof productId === 'undefined') {
+        $("#labSearchProduct").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     let yes = confirm(langFont["confirmEditProduct"]);
     if (yes == true) {
         $.ajax({
@@ -284,6 +308,12 @@ function DeleteProduct(productId) {
 
 //編輯
 function EditProduct(productId) {
+
+    if (typeof productId === 'undefined') {
+        $("#labSearchProduct").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/api/Controller/product/SetSessionProductId",

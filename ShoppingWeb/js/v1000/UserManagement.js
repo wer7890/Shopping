@@ -37,6 +37,12 @@ $(document).ready(function () {
 
 //全部管理員資料
 function SearchAllData(pageNumber, pageSize) {
+
+    if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof beforePagesTotal === 'undefined') {
+        $("#labSearchUser").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         url: '/api/Controller/user/GetAllUserData',
         type: 'POST',
@@ -115,6 +121,12 @@ function SearchAllData(pageNumber, pageSize) {
 
 //刪除
 function DeleteUser(userId) {
+
+    if (typeof userId === 'undefined') {
+        $("#labSearchUser").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     let yes = confirm(langFont["delConfirmation"]);
     if (yes == true) {
         $.ajax({
@@ -156,6 +168,12 @@ function DeleteUser(userId) {
 
 //編輯
 function EditUser(userId) {
+
+    if (typeof userId === 'undefined') {
+        $("#labSearchUser").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/api/Controller/user/SetSessionSelectUserId",
@@ -191,6 +209,12 @@ function EditUser(userId) {
 
 //更改管理員身分
 function EditUserRoles(userId, roles) {
+
+    if (typeof userId === 'undefined' || typeof roles === 'undefined') {
+        $("#labSearchUser").text("undefined").show().delay(3000).fadeOut();
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/api/Controller/user/EditUserRoles",
