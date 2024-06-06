@@ -19,7 +19,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllMemberData")]
-        public object GetAllMemberData([FromBody] GetAllMemberDataAttribute attribute)
+        public object GetAllMemberData([FromBody] GetAllMemberData attribute)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductStatus")]
-        public int ToggleMemberStatus([FromBody] ToggleMemberStatusAttribute attribute)
+        public int ToggleMemberStatus([FromBody] ToggleMemberStatus attribute)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleMemberLevel")]
-        public int ToggleMemberLevel([FromBody] ToggleMemberLevelAttribute attribute)
+        public int ToggleMemberLevel([FromBody] ToggleMemberLevel attribute)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("AddMember")]
-        public int AddMember([FromBody] AddMemberAttribute attribute)
+        public int AddMember([FromBody] AddMember attribute)
         {
             try
             {

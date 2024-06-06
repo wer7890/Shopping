@@ -24,7 +24,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllProductData")]
-        public object GetAllProductData([FromBody] GetAllProductDataAttribute attribute)
+        public object GetAllProductData([FromBody] GetAllProductData attribute)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetProductData")]
-        public object GetProductData([FromBody] GetProductDataAttribute attribute)
+        public object GetProductData([FromBody] GetProductData attribute)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("RemoveProduct")]
-        public int RemoveProduct([FromBody] RemoveProductAttribute attribute)
+        public int RemoveProduct([FromBody] RemoveProduct attribute)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductStatus")]
-        public int ToggleProductStatus([FromBody] ToggleProductStatusAttribute attribute)
+        public int ToggleProductStatus([FromBody] ToggleProductStatus attribute)
         {
             try
             {
@@ -230,7 +230,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("SetSessionProductId")]
-        public int SetSessionProductId([FromBody] SetSessionProductIdAttribute attribute)
+        public int SetSessionProductId([FromBody] SetSessionProductId attribute)
         {
             HttpContext.Current.Session["productId"] = attribute.ProductId;
             string a = HttpContext.Current.Session["productId"].ToString();
@@ -477,7 +477,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditProduct")]
-        public int EditProduct([FromBody] EditProductAttribute attribute)
+        public int EditProduct([FromBody] EditProduct attribute)
         {
             try
             {

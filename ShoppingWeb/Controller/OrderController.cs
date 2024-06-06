@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using NLog;
+﻿using NLog;
 using ShoppingWeb.Filters;
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 
@@ -21,7 +19,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllOrderData")]
-        public object GetAllOrderData([FromBody] GetAllOrderDataAttribute attribute)
+        public object GetAllOrderData([FromBody] GetAllOrderData attribute)
         {
             try
             {
@@ -77,7 +75,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetOrderDetailsData")]
-        public object GetOrderDetailsData([FromBody] GetOrderDetailsDataAttribute attribute)
+        public object GetOrderDetailsData([FromBody] GetOrderDetailsData attribute)
         {
             try
             {
@@ -117,7 +115,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditOrder")]
-        public int EditOrder([FromBody] EditOrderAttribute attribute)
+        public int EditOrder([FromBody] EditOrder attribute)
         {
             try
             {
@@ -161,7 +159,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetOrderData")]
-        public object GetOrderData([FromBody] GetOrderDataAttribute attribute)
+        public object GetOrderData([FromBody] GetOrderData attribute)
         {
             try
             {
@@ -225,7 +223,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetReturnOrderData")]
-        public object GetReturnOrderData([FromBody] GetAllOrderDataAttribute attribute)
+        public object GetReturnOrderData([FromBody] GetReturnOrderData attribute)
         {
             try
             {
@@ -287,7 +285,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditReturnOrder")]
-        public int EditReturnOrder([FromBody] EditReturnOrderAttribute attribute)
+        public int EditReturnOrder([FromBody] EditReturnOrder attribute)
         {
             try
             {

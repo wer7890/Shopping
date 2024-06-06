@@ -137,15 +137,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_Data\ActionAttribute\Member\AddMember.cs" />
     <Compile Include="Controller\BaseController.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member\GetAllMemberData.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\EditOrder.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\EditReturnOrder.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\GetAllOrderData.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\GetOrderData.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\GetOrderDetailsData.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\GetReturnOrderData.cs" />
     <Compile Include="Controller\LoginController.cs" />
-    <Compile Include="App_Data\ActionAttribute\Member.cs" />
     <Compile Include="Controller\MemberController.cs" />
-    <Compile Include="App_Data\ActionAttribute\Order.cs" />
     <Compile Include="Controller\OrderController.cs" />
     <Compile Include="App_Data\ActionAttribute\Product.cs" />
     <Compile Include="Controller\ProductController.cs" />
     <Compile Include="App_Data\Enums\Roles.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member\ToggleMemberStatus.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member\ToggleMemberLevel.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Filters\LoginFilter.cs" />
     <Compile Include="Filters\RolesFilter.cs" />
@@ -249,7 +257,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\ActionAttribute\Member\" />
     <Folder Include="Images\" />
     <Folder Include="Logs\" />
     <Folder Include="Models\" />
