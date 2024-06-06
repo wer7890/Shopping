@@ -139,9 +139,9 @@
     </Compile>
     <Compile Include="Controller\BaseController.cs" />
     <Compile Include="Controller\LoginController.cs" />
-    <Compile Include="App_Data\Member.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member.cs" />
     <Compile Include="Controller\MemberController.cs" />
-    <Compile Include="App_Data\Order.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order.cs" />
     <Compile Include="Controller\OrderController.cs" />
     <Compile Include="Controller\ProductController.cs" />
     <Compile Include="App_Data\Enums\Roles.cs" />

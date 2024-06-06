@@ -20,7 +20,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllOrderData")]
-        public object GetAllOrderData([FromBody] GetAllOrderDataRegex order)
+        public object GetAllOrderData([FromBody] GetAllOrderDataAttribute order)
         {
 
             if (!ModelState.IsValid)
@@ -82,7 +82,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetOrderDetailsData")]
-        public object GetOrderDetailsData([FromBody] GetOrderDetailsDataRegex order)
+        public object GetOrderDetailsData([FromBody] GetOrderDetailsDataAttribute order)
         {
 
             if (!ModelState.IsValid)
@@ -128,7 +128,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditOrder")]
-        public int EditOrder([FromBody] EditOrderRegex order)
+        public int EditOrder([FromBody] EditOrderAttribute order)
         {
 
             if (!ModelState.IsValid)
@@ -178,7 +178,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetOrderData")]
-        public object GetOrderData([FromBody] GetOrderDataRegex order)
+        public object GetOrderData([FromBody] GetOrderDataAttribute order)
         {
 
             if (!ModelState.IsValid)
@@ -248,7 +248,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetReturnOrderData")]
-        public object GetReturnOrderData([FromBody] GetAllOrderDataRegex order)
+        public object GetReturnOrderData([FromBody] GetAllOrderDataAttribute order)
         {
 
             if (!ModelState.IsValid)
@@ -316,7 +316,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditReturnOrder")]
-        public int EditReturnOrder([FromBody] EditReturnOrderRegex order)
+        public int EditReturnOrder([FromBody] EditReturnOrderAttribute order)
         {
             if (!ModelState.IsValid)
             {

@@ -5,7 +5,7 @@ namespace ShoppingWeb
     /// <summary>
     /// GetAllOrderData和GetReturnOrderData方法參數驗證
     /// </summary>
-    public class GetAllOrderDataRegex
+    public class GetAllOrderDataAttribute
     {
         /// <summary>
         /// 現在頁數
@@ -29,7 +29,7 @@ namespace ShoppingWeb
     /// <summary>
     /// GetOrderDetailsData方法參數驗證
     /// </summary>
-    public class GetOrderDetailsDataRegex
+    public class GetOrderDetailsDataAttribute
     {
         /// <summary>
         /// 訂單ID
@@ -41,7 +41,7 @@ namespace ShoppingWeb
     /// <summary>
     /// EditOrder方法參數驗證
     /// </summary>
-    public class EditOrderRegex
+    public class EditOrderAttribute
     {
         /// <summary>
         /// 訂單ID
@@ -71,7 +71,7 @@ namespace ShoppingWeb
     /// <summary>
     /// GetOrderData方法參數驗證
     /// </summary>
-    public class GetOrderDataRegex
+    public class GetOrderDataAttribute
     {
         /// <summary>
         /// 配送狀態
@@ -101,7 +101,7 @@ namespace ShoppingWeb
     /// <summary>
     /// EditReturnOrder方法參數驗證
     /// </summary>
-    public class EditReturnOrderRegex
+    public class EditReturnOrderAttribute
     {
         /// <summary>
         /// 訂單ID

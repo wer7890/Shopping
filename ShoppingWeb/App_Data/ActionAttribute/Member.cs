@@ -5,7 +5,7 @@ namespace ShoppingWeb
     /// <summary>
     /// GetAllMemberData方法參數驗證
     /// </summary>
-    public class GetAllMemberDataRegex
+    public class GetAllMemberDataAttribute
     {
         /// <summary>
         /// 現在頁數
@@ -29,7 +29,7 @@ namespace ShoppingWeb
     /// <summary>
     /// ToggleProductStatus方法參數驗證
     /// </summary>
-    public class ToggleProductStatusRegex
+    public class ToggleProductStatusAttribute
     {
         /// <summary>
         /// 會員ID
@@ -41,7 +41,7 @@ namespace ShoppingWeb
     /// <summary>
     /// ToggleMemberLevel方法參數驗證
     /// </summary>
-    public class ToggleMemberLevelRegex 
+    public class ToggleMemberLevelAttribute
     {
         /// <summary>
         /// 會員ID
@@ -60,7 +60,7 @@ namespace ShoppingWeb
     /// <summary>
     /// AddMember方法參數驗證
     /// </summary>
-    public class AddMemberRegex
+    public class AddMemberAttribute
     {
         /// <summary>
         /// 帳號

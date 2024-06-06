@@ -18,7 +18,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllMemberData")]
-        public object GetAllMemberData([FromBody] GetAllMemberDataRegex member)
+        public object GetAllMemberData([FromBody] GetAllMemberDataAttribute member)
         {
 
             if (!ModelState.IsValid)
@@ -71,7 +71,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductStatus")]
-        public int ToggleProductStatus([FromBody] ToggleProductStatusRegex member)
+        public int ToggleProductStatus([FromBody] ToggleProductStatusAttribute member)
         {
 
             if (!ModelState.IsValid)
@@ -112,7 +112,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleMemberLevel")]
-        public int ToggleMemberLevel([FromBody] ToggleMemberLevelRegex member)
+        public int ToggleMemberLevel([FromBody] ToggleMemberLevelAttribute member)
         {
 
             if (!ModelState.IsValid)
@@ -151,7 +151,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("AddMember")]
-        public int AddMember([FromBody] AddMemberRegex member)
+        public int AddMember([FromBody] AddMemberAttribute member)
         {
             
             if (!ModelState.IsValid)
