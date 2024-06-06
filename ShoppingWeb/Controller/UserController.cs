@@ -21,7 +21,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("RemoveUserInfo")]
-        public int RemoveUserInfo([FromBody] JObject obj)
+        public int RemoveUserInfo([FromBody] RemoveUserInfoDto dto)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", obj["userId"].ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@userId", dto.UserId));
 
                         int r = (int)cmd.ExecuteScalar();
 
@@ -54,9 +54,9 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("SetSessionSelectUserId")]
-        public int SetSessionSelectUserId([FromBody] JObject obj)
+        public int SetSessionSelectUserId([FromBody] SetSessionSelectUserIdDto dto)
         {
-            HttpContext.Current.Session["selectUserId"] = obj["userId"].ToString();  //存儲資料到 Session 變數
+            HttpContext.Current.Session["selectUserId"] = dto.UserId;  //存儲資料到 Session 變數
             return (int)DatabaseOperationResult.Success;
         }
 
@@ -68,7 +68,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("SetSessionSelectUserId")]
-        public object GetAllUserData([FromBody] JObject obj)
+        public object GetAllUserData([FromBody] GetAllUserDataDto dto)
         {
             try
             {
@@ -78,9 +78,9 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", obj["pageNumber"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", obj["pageSize"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", obj["beforePagesTotal"].ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
@@ -89,7 +89,7 @@ namespace ShoppingWeb.Controller
                         dt.Load(reader);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / (int)obj["pageSize"]);  // 計算總頁數，Math.Ceiling向上進位取整數
+                        int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                         var result = new
                         {
@@ -117,7 +117,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleUserRoles")]
-        public int ToggleUserRoles([FromBody] JObject obj)
+        public int ToggleUserRoles([FromBody] ToggleUserRolesDto dto)
         {
             try
             {
@@ -127,8 +127,8 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", obj["userId"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@roles", obj["roles"].ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@userId", dto.UserId));
+                        cmd.Parameters.Add(new SqlParameter("@roles", dto.Roles));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -155,14 +155,8 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleUserRoles")]
-        public int RegisterNewUser([FromBody] JObject obj)
+        public int RegisterNewUser([FromBody] RegisterNewUserDto dto)
         {
-
-            if (!AddUserSpecialChar(obj["account"].ToString(), obj["pwd"].ToString(), obj["roles"].ToString()))
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -171,9 +165,9 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@account", obj["account"].ToString()));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(obj["pwd"].ToString())));
-                        cmd.Parameters.Add(new SqlParameter("@roles", obj["roles"].ToString()));
+                        cmd.Parameters.Add(new SqlParameter("@account", dto.Account));
+                        cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(dto.Pwd)));
+                        cmd.Parameters.Add(new SqlParameter("@roles", dto.Roles));
 
                         int result = (int)cmd.ExecuteScalar();
 
@@ -189,23 +183,6 @@ namespace ShoppingWeb.Controller
             }
         }
 
-        /// <summary>
-        /// 判斷輸入值
-        /// </summary>
-        /// <param name="account"></param>
-        /// <param name="pwd"></param>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        [NonAction]
-        public bool AddUserSpecialChar(string account, string pwd, string roles)
-        {
-            bool cheackAccount = Regex.IsMatch(account, @"^[A-Za-z0-9]{6,16}$");
-            bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
-            bool cheackRoles = Regex.IsMatch(roles, @"^[0-9]{1,2}$");
-
-            return cheackAccount && cheackPwd && cheackRoles;
-        }
-
 
         /// <summary>
         /// 設定跳轉道編輯帳號頁面時，input裡面的預設值
@@ -217,7 +194,7 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
+                string sessionUserId = HttpContext.Current.Session["selectUserId"].ToString();
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -261,17 +238,11 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditUser")]
-        public int EditUser([FromBody] JObject obj)
+        public int EditUser([FromBody] EditUserDto dto)
         {
-
-            if (!EditUserSpecialChar(obj["pwd"].ToString()))
-            {
-                return (int)UserStatus.InputError;
-            }
-
             try
             {
-                string sessionUserId = HttpContext.Current.Session["selectUserId"] as string;
+                string sessionUserId = HttpContext.Current.Session["selectUserId"].ToString();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_editPwd", con))
@@ -280,7 +251,7 @@ namespace ShoppingWeb.Controller
                         con.Open();
 
                         cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(obj["pwd"].ToString())));
+                        cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(dto.Pwd)));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -295,20 +266,5 @@ namespace ShoppingWeb.Controller
                 return (int)DatabaseOperationResult.Error;
             }
         }
-
-        /// <summary>
-        /// 判斷輸入值
-        /// </summary>
-        /// <param name="pwd"></param>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        [NonAction]
-        public bool EditUserSpecialChar(string pwd)
-        {
-            bool cheackPwd = Regex.IsMatch(pwd, @"^[A-Za-z0-9]{6,16}$");
-
-            return cheackPwd;
-        }
-
     }
 }

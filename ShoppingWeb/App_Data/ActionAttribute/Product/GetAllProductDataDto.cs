@@ -5,7 +5,7 @@ namespace ShoppingWeb
     /// <summary>
     /// GetAllMemberData方法參數驗證
     /// </summary>
-    public class GetAllProductData
+    public class GetAllProductDataDto
     {
         /// <summary>
         /// 現在頁數

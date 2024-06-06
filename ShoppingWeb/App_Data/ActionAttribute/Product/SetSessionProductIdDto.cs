@@ -3,14 +3,14 @@
 namespace ShoppingWeb
 {
     /// <summary>
-    /// ToggleProductStatus方法參數驗證
+    /// SetSessionProductId方法參數驗證
     /// </summary>
-    public class ToggleMemberStatus
+    public class SetSessionProductIdDto
     {
         /// <summary>
-        /// 會員ID
+        /// 商品ID
         /// </summary>
         [Required]
-        public int MemberId { get; set; }
+        public int ProductId { get; set; }
     }
 }

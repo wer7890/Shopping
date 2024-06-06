@@ -2,10 +2,7 @@
 
 namespace ShoppingWeb
 {
-    /// <summary>
-    /// GetAllOrderData和GetReturnOrderData方法參數驗證
-    /// </summary>
-    public class GetAllOrderData
+    public class GetAllUserDataDto
     {
         /// <summary>
         /// 現在頁數

@@ -6,7 +6,7 @@ namespace ShoppingWeb
     /// <summary>
     /// ToggleMemberLevel方法參數驗證
     /// </summary>
-    public class ToggleMemberLevel
+    public class ToggleMemberLevelDto
     {
         /// <summary>
         /// 會員ID

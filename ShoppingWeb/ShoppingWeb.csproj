@@ -137,23 +137,34 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_Data\ActionAttribute\Member\AddMember.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member\AddMemberDto.cs" />
     <Compile Include="Controller\BaseController.cs" />
-    <Compile Include="App_Data\ActionAttribute\Member\GetAllMemberData.cs" />
-    <Compile Include="App_Data\ActionAttribute\Order\EditOrder.cs" />
-    <Compile Include="App_Data\ActionAttribute\Order\EditReturnOrder.cs" />
-    <Compile Include="App_Data\ActionAttribute\Order\GetAllOrderData.cs" />
-    <Compile Include="App_Data\ActionAttribute\Order\GetOrderData.cs" />
-    <Compile Include="App_Data\ActionAttribute\Order\GetOrderDetailsData.cs" />
-    <Compile Include="App_Data\ActionAttribute\Order\GetReturnOrderData.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member\GetAllMemberDataDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\EditOrderDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\EditReturnOrderDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\GetAllOrderDataDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\GetOrderDataDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\GetOrderDetailsDataDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Order\GetReturnOrderDataDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Product\EditProductDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Product\GetAllProductDataDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Product\GetProductDataDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\GetAllUserDataDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\EditUserDto.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\MemberController.cs" />
     <Compile Include="Controller\OrderController.cs" />
-    <Compile Include="App_Data\ActionAttribute\Product.cs" />
     <Compile Include="Controller\ProductController.cs" />
     <Compile Include="App_Data\Enums\Roles.cs" />
-    <Compile Include="App_Data\ActionAttribute\Member\ToggleMemberStatus.cs" />
-    <Compile Include="App_Data\ActionAttribute\Member\ToggleMemberLevel.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member\ToggleMemberStatusDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member\ToggleMemberLevelDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Product\RemoveProductDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Product\SetSessionProductIdDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Product\ToggleProductStatusDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\RemoveUserInfoDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\SetSessionSelectUserIdDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\ToggleUserRolesDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\User\RegisterNewUserDto.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Filters\LoginFilter.cs" />
     <Compile Include="Filters\RolesFilter.cs" />

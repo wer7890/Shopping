@@ -5,7 +5,7 @@ namespace ShoppingWeb
     /// <summary>
     /// GetProductData方法參數驗證
     /// </summary>
-    public class GetProductData
+    public class GetProductDataDto
     {
         /// <summary>
         /// 商品類型

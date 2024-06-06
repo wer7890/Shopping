@@ -13,7 +13,6 @@ namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/product")]
     [RolesFilter((int)Roles.Product)]
-    [ValidationFilter]
     public class ProductController : BaseController
     {
         private string pubguid = "";
@@ -24,7 +23,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllProductData")]
-        public object GetAllProductData([FromBody] GetAllProductData attribute)
+        public object GetAllProductData([FromBody] GetAllProductDataDto dto)
         {
             try
             {
@@ -34,9 +33,9 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@PageNumber", attribute.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@PageSize", attribute.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", attribute.BeforePagesTotal));
+                        cmd.Parameters.Add(new SqlParameter("@PageNumber", dto.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@PageSize", dto.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
                         int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
                         cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
@@ -47,7 +46,7 @@ namespace ShoppingWeb.Controller
                         dt.Load(reader);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / attribute.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                        int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                         var result = new
                         {
@@ -76,7 +75,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetProductData")]
-        public object GetProductData([FromBody] GetProductData attribute)
+        public object GetProductData([FromBody] GetProductDataDto dto)
         {
             try
             {
@@ -86,13 +85,13 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@category", attribute.ProductCategory));
-                        cmd.Parameters.Add(new SqlParameter("@name", attribute.ProductName));
-                        cmd.Parameters.Add(new SqlParameter("@allMinorCategories", attribute.CheckAllMinorCategories));
-                        cmd.Parameters.Add(new SqlParameter("@allBrand", attribute.CheckAllBrand));
-                        cmd.Parameters.Add(new SqlParameter("@PageNumber", attribute.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@PageSize", attribute.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", attribute.BeforePagesTotal));
+                        cmd.Parameters.Add(new SqlParameter("@category", dto.ProductCategory));
+                        cmd.Parameters.Add(new SqlParameter("@name", dto.ProductName));
+                        cmd.Parameters.Add(new SqlParameter("@allMinorCategories", dto.CheckAllMinorCategories));
+                        cmd.Parameters.Add(new SqlParameter("@allBrand", dto.CheckAllBrand));
+                        cmd.Parameters.Add(new SqlParameter("@PageNumber", dto.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@PageSize", dto.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
                         int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
                         cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
@@ -103,7 +102,7 @@ namespace ShoppingWeb.Controller
                         dt.Load(reader);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / attribute.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                        int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                         if (totalCount > 0)
                         {
@@ -137,7 +136,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("RemoveProduct")]
-        public int RemoveProduct([FromBody] RemoveProduct attribute)
+        public int RemoveProduct([FromBody] RemoveProductDto dto)
         {
             try
             {
@@ -147,7 +146,7 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@productId", attribute.ProductId));
+                        cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
 
                         //設定預存程序輸出參數的名稱與資料類型
                         cmd.Parameters.Add(new SqlParameter("@deletedProductImg", SqlDbType.NVarChar, 50));
@@ -188,7 +187,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductStatus")]
-        public int ToggleProductStatus([FromBody] ToggleProductStatus attribute)
+        public int ToggleProductStatus([FromBody] ToggleProductStatusDto dto)
         {
             try
             {
@@ -198,7 +197,7 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@productId", attribute.ProductId));
+                        cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -230,9 +229,9 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("SetSessionProductId")]
-        public int SetSessionProductId([FromBody] SetSessionProductId attribute)
+        public int SetSessionProductId([FromBody] SetSessionProductIdDto dto)
         {
-            HttpContext.Current.Session["productId"] = attribute.ProductId;
+            HttpContext.Current.Session["productId"] = dto.ProductId;
             string a = HttpContext.Current.Session["productId"].ToString();
             return (int)DatabaseOperationResult.Success;
         }
@@ -477,7 +476,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditProduct")]
-        public int EditProduct([FromBody] EditProduct attribute)
+        public int EditProduct([FromBody] EditProductDto dto)
         {
             try
             {
@@ -490,12 +489,12 @@ namespace ShoppingWeb.Controller
                         con.Open();
 
                         cmd.Parameters.Add(new SqlParameter("@productId", sessionProductId));
-                        cmd.Parameters.Add(new SqlParameter("@price", attribute.ProductPrice));
-                        cmd.Parameters.Add(new SqlParameter("@stock", attribute.ProductStock));
-                        cmd.Parameters.Add(new SqlParameter("@introduce", attribute.ProductIntroduce));
-                        cmd.Parameters.Add(new SqlParameter("@introduceEN", attribute.ProductIntroduceEN));
-                        cmd.Parameters.Add(new SqlParameter("@warningValue", attribute.ProductStockWarning));
-                        cmd.Parameters.Add(new SqlParameter("@checkStoct", attribute.ProductCheckStock));
+                        cmd.Parameters.Add(new SqlParameter("@price", dto.ProductPrice));
+                        cmd.Parameters.Add(new SqlParameter("@stock", dto.ProductStock));
+                        cmd.Parameters.Add(new SqlParameter("@introduce", dto.ProductIntroduce));
+                        cmd.Parameters.Add(new SqlParameter("@introduceEN", dto.ProductIntroduceEN));
+                        cmd.Parameters.Add(new SqlParameter("@warningValue", dto.ProductStockWarning));
+                        cmd.Parameters.Add(new SqlParameter("@checkStoct", dto.ProductCheckStock));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 

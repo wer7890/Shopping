@@ -10,7 +10,6 @@ namespace ShoppingWeb.Controller
 {
     [RoutePrefix("/api/Controller/member")]
     [RolesFilter((int)Roles.Member)]
-    [ValidationFilter]
     public class MemberController : BaseController
     {
         /// <summary>
@@ -19,7 +18,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllMemberData")]
-        public object GetAllMemberData([FromBody] GetAllMemberData attribute)
+        public object GetAllMemberData([FromBody] GetAllMemberDataDto dto)
         {
             try
             {
@@ -29,9 +28,9 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", attribute.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", attribute.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", attribute.BeforePagesTotal));
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
                         cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
                         cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -39,7 +38,7 @@ namespace ShoppingWeb.Controller
                         dt.Load(reader);
 
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / attribute.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                        int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
                         var result = new
                         {
@@ -66,7 +65,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductStatus")]
-        public int ToggleMemberStatus([FromBody] ToggleMemberStatus attribute)
+        public int ToggleMemberStatus([FromBody] ToggleMemberStatusDto dto)
         {
             try
             {
@@ -76,7 +75,7 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@memberId", attribute.MemberId));
+                        cmd.Parameters.Add(new SqlParameter("@memberId", dto.MemberId));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -101,7 +100,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleMemberLevel")]
-        public int ToggleMemberLevel([FromBody] ToggleMemberLevel attribute)
+        public int ToggleMemberLevel([FromBody] ToggleMemberLevelDto dto)
         {
             try
             {
@@ -111,8 +110,8 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@memberId", attribute.MemberId));
-                        cmd.Parameters.Add(new SqlParameter("@level", attribute.Level));
+                        cmd.Parameters.Add(new SqlParameter("@memberId", dto.MemberId));
+                        cmd.Parameters.Add(new SqlParameter("@level", dto.Level));
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
@@ -134,7 +133,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("AddMember")]
-        public int AddMember([FromBody] AddMember attribute)
+        public int AddMember([FromBody] AddMemberDto dto)
         {
             try
             {
@@ -144,13 +143,13 @@ namespace ShoppingWeb.Controller
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@account", attribute.Account));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", attribute.Pwd));
-                        cmd.Parameters.Add(new SqlParameter("@name", attribute.Name));
-                        cmd.Parameters.Add(new SqlParameter("@birthday", DateTime.Parse(attribute.Birthday)));
-                        cmd.Parameters.Add(new SqlParameter("@phone", attribute.Phone));
-                        cmd.Parameters.Add(new SqlParameter("@email", attribute.Email));
-                        cmd.Parameters.Add(new SqlParameter("@address", attribute.Address));
+                        cmd.Parameters.Add(new SqlParameter("@account", dto.Account));
+                        cmd.Parameters.Add(new SqlParameter("@pwd", dto.Pwd));
+                        cmd.Parameters.Add(new SqlParameter("@name", dto.Name));
+                        cmd.Parameters.Add(new SqlParameter("@birthday", DateTime.Parse(dto.Birthday)));
+                        cmd.Parameters.Add(new SqlParameter("@phone", dto.Phone));
+                        cmd.Parameters.Add(new SqlParameter("@email", dto.Email));
+                        cmd.Parameters.Add(new SqlParameter("@address", dto.Address));
 
                         int result = (int)cmd.ExecuteScalar();
 

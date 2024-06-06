@@ -52,6 +52,9 @@ function SearchAllData(pageNumber, pageSize) {
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchUser").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 102:
                     $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
@@ -130,6 +133,9 @@ function DeleteUser(userId) {
                         alert(langFont["accessDenied"]);
                         parent.location.reload();
                         break;
+                    case 2:
+                        $("#labSearchUser").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                        break;
                     case 100:
                         // 刪除成功後，刷新當前頁面並刷新表格
                         window.location.reload();
@@ -166,6 +172,9 @@ function EditUser(userId) {
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
+                case 2:
+                    $("#labSearchUser").text(langFont["inputError"]).show().delay(3000).fadeOut();
+                    break;
                 case 100:
                     window.location.href = "EditUser.aspx";
                     break;
@@ -197,6 +206,9 @@ function ToggleUserRoles(userId, roles) {
                 case 1:
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
+                    break;
+                case 2:
+                    $("#labSearchUser").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
                 case 100:
                     $("#labSearchUser").text(langFont["changeSuccessful"]).show().delay(3000).fadeOut();

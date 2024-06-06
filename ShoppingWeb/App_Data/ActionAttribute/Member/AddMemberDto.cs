@@ -5,7 +5,7 @@ namespace ShoppingWeb
     /// <summary>
     /// AddMember方法參數驗證
     /// </summary>
-    public class AddMember
+    public class AddMemberDto
     {
         /// <summary>
         /// 帳號

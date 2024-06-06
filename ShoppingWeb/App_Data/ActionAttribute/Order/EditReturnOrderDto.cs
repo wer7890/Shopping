@@ -5,7 +5,7 @@ namespace ShoppingWeb
     /// <summary>
     /// EditReturnOrder方法參數驗證
     /// </summary>
-    public class EditReturnOrder
+    public class EditReturnOrderDto
     {
         /// <summary>
         /// 訂單ID

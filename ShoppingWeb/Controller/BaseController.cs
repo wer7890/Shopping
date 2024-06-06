@@ -11,6 +11,7 @@ using System.Web.Http;
 namespace ShoppingWeb.Controller
 {
     [LoginFilter]
+    [ValidationFilter]
     public class BaseController : ApiController
     {
         public static object stockInsufficient = null;

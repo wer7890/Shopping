@@ -3,9 +3,9 @@
 namespace ShoppingWeb
 {
     /// <summary>
-    /// EditOrder方法參數驗證
+    /// GetAllOrderData和GetReturnOrderData方法參數驗證
     /// </summary>
-    public class GetReturnOrderData
+    public class GetAllOrderDataDto
     {
         /// <summary>
         /// 現在頁數

@@ -3,16 +3,10 @@
 namespace ShoppingWeb
 {
     /// <summary>
-    /// GetOrderData方法參數驗證
+    /// EditOrder方法參數驗證
     /// </summary>
-    public class GetOrderData
+    public class GetReturnOrderDataDto
     {
-        /// <summary>
-        /// 配送狀態
-        /// </summary>
-        [Required]
-        public int DeliveryStatusNum { get; set; }
-
         /// <summary>
         /// 現在頁數
         /// </summary>

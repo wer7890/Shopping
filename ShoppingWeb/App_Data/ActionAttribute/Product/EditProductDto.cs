@@ -5,7 +5,7 @@ namespace ShoppingWeb
     /// <summary>
     /// EditProduct方法參數驗證
     /// </summary>
-    public class EditProduct
+    public class EditProductDto
     {
         /// <summary>
         /// 商品價格
