@@ -3,9 +3,9 @@
 namespace ShoppingWeb
 {
     /// <summary>
-    /// ToggleProductStatus方法參數驗證
+    /// EditMemberStatusDto方法參數驗證
     /// </summary>
-    public class ToggleMemberStatusDto
+    public class EditMemberStatusDto
     {
         /// <summary>
         /// 會員ID

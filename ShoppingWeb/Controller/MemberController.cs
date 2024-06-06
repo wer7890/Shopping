@@ -64,8 +64,8 @@ namespace ShoppingWeb.Controller
         /// <param name="memberId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ToggleProductStatus")]
-        public int ToggleMemberStatus([FromBody] ToggleMemberStatusDto dto)
+        [Route("EditMemberStatus")]
+        public int EditMemberStatus([FromBody] EditMemberStatusDto dto)
         {
             try
             {
@@ -99,8 +99,8 @@ namespace ShoppingWeb.Controller
         /// <param name="level"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ToggleMemberLevel")]
-        public int ToggleMemberLevel([FromBody] ToggleMemberLevelDto dto)
+        [Route("EditMemberLevel")]
+        public int EditMemberLevel([FromBody] EditMemberLevelDto dto)
         {
             try
             {

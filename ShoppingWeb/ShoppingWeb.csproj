@@ -156,8 +156,8 @@
     <Compile Include="Controller\OrderController.cs" />
     <Compile Include="Controller\ProductController.cs" />
     <Compile Include="App_Data\Enums\Roles.cs" />
-    <Compile Include="App_Data\ActionAttribute\Member\ToggleMemberStatusDto.cs" />
-    <Compile Include="App_Data\ActionAttribute\Member\ToggleMemberLevelDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member\EditMemberStatusDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Member\EditMemberLevelDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\RemoveProductDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\SetSessionProductIdDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\ToggleProductStatusDto.cs" />

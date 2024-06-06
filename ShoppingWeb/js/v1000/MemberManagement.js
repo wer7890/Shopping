@@ -48,14 +48,14 @@ $(document).ready(function () {
     //是否停權
     $(document).on("change", ".toggle-switch", function () {
         let memberId = $(this).data('id');
-        ToggleMemberStatus(memberId);
+        EditMemberStatus(memberId);
     });
 
     //更改等級
     $(document).on("change", ".f_level", function () {
         let memberId = $(this).data('id');
         let level = $(this).val();
-        ToggleMemberLevel(memberId, level);
+        EditMemberLevel(memberId, level);
     });
 
 })
@@ -210,10 +210,10 @@ function SearchAllData(pageNumber, pageSize) {
 }
 
 //按下是否啟用，更改資料庫 
-function ToggleMemberStatus(memberId) {
+function EditMemberStatus(memberId) {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/member/ToggleMemberStatus",
+        url: "/api/Controller/member/EditMemberStatus",
         data: JSON.stringify({ memberId: memberId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -247,10 +247,10 @@ function ToggleMemberStatus(memberId) {
 }
 
 //更改會員等級
-function ToggleMemberLevel(memberId, level) {
+function EditMemberLevel(memberId, level) {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/member/ToggleMemberLevel",
+        url: "/api/Controller/member/EditMemberLevel",
         data: JSON.stringify({ memberId: memberId, level: level }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
