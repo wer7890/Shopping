@@ -187,7 +187,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductStatus")]
-        public int ToggleProductStatus([FromBody] ToggleProductStatusDto dto)
+        public int EditProductStatus([FromBody] EditProductStatusDto dto)
         {
             try
             {

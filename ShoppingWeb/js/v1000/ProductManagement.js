@@ -40,7 +40,7 @@ $(document).ready(function () {
     // 商品是否開放開關
     $(document).on("change", ".toggle-switch", function () {
         let productId = $(this).data('id');
-        ToggleProductStatus(productId);
+        EditProductStatus(productId);
     });
 
     // 新增商品按鈕點擊事件
@@ -206,10 +206,10 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
 }
 
 //按下是否開放開關，更改資料庫
-function ToggleProductStatus(productId) {
+function EditProductStatus(productId) {
     $.ajax({
         type: "POST",
-        url: "/api/Controller/product/ToggleProductStatus",
+        url: "/api/Controller/product/EditProductStatus",
         data: JSON.stringify({ productId: productId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
