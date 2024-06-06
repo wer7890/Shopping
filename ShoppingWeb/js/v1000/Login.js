@@ -75,6 +75,11 @@ function IsSpecialChar(account, pwd) {
 
 //切換語言
 function ChangeLanguage(language) {
+
+    if (!JudgeLanguage(language)) {
+        return
+    }
+
     $.ajax({
         type: "POST",
         url: "/api/Controller/login/SetLanguage",
@@ -90,4 +95,12 @@ function ChangeLanguage(language) {
     });
 }
 
+//ChangeLanguage參數判斷
+function JudgeLanguage(language) {
+    if (typeof language === 'undefined') {
+        $("#labLogin").text("undefined");
+        return false;
+    }
 
+    return true;
+}

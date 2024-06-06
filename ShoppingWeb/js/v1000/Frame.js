@@ -75,6 +75,11 @@ function GetUserPermission() {
 
 //切換語言
 function ChangeLanguage(language) {
+
+    if (!JudgeLanguage(language)) {
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/api/Controller/login/SetLanguage",
@@ -89,4 +94,14 @@ function ChangeLanguage(language) {
             $("#labUserAccount").text(langFont["ajaxError"]);
         }
     });
+}
+
+//ChangeLanguage參數判斷
+function JudgeLanguage(language) {
+    if (typeof language === 'undefined') {
+        $("#labUserAccount").text("undefined");
+        return false;
+    }
+
+    return true;
 }
