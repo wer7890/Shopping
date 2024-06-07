@@ -133,7 +133,7 @@ namespace ShoppingWeb.Controller
 
                         if (rowsAffected > 0)
                         {
-                            StockInsufficientCache.SetIsEditStock(true);
+                            StockInsufficientCacheFactory.UpdateIsStockEdited(true);
                             return (int)DatabaseOperationResult.Success;
                         }
                         else
