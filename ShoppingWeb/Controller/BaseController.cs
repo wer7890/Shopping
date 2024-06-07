@@ -14,8 +14,6 @@ namespace ShoppingWeb.Controller
     [ValidationFilter]
     public class BaseController : ApiController
     {
-        public static object stockInsufficient = null;
-        public static bool IsEditStock = true;
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
         public BaseController()

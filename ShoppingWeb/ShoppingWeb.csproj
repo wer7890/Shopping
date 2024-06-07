@@ -167,6 +167,7 @@
     <Compile Include="App_Data\ActionAttribute\User\EditUserRolesDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\AddUserDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\SetLanguageDto.cs" />
+    <Compile Include="App_Data\StockInsufficientCache.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Filters\LoginFilter.cs" />
     <Compile Include="Filters\RolesFilter.cs" />

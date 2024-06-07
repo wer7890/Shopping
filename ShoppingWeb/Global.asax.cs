@@ -40,7 +40,7 @@ namespace ShoppingWeb
         /// <param name="e"></param>
         public void GetLowStockData(object sender, ElapsedEventArgs e)
         {
-            if (Controller.BaseController.IsEditStock)
+            if (StockInsufficientCache.IsEditStock)
             {
                 try
                 {
@@ -56,8 +56,8 @@ namespace ShoppingWeb
                             DataTable dt = new DataTable();
                             dt.Load(reader);
 
-                            Controller.BaseController.stockInsufficient = ConvertDataTableToJson(dt);
-                            Controller.BaseController.IsEditStock = false;
+                            StockInsufficientCache.SetStockInsufficient(ConvertDataTableToJson(dt));
+                            StockInsufficientCache.SetIsEditStock(false);
                         }
                     }
                 }
