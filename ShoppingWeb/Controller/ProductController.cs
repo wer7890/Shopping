@@ -161,7 +161,7 @@ namespace ShoppingWeb.Controller
                         {
                             string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
                             File.Delete(imagePath);
-                            StockInsufficientCacheFactory.UpdateIsStockEdited(true);
+                            StockInsufficientCache.SetIsEditStock(true);
                             return (int)DatabaseOperationResult.Success;
                         }
                         else
@@ -203,7 +203,7 @@ namespace ShoppingWeb.Controller
 
                         if (rowsAffected > 0)
                         {
-                            StockInsufficientCacheFactory.UpdateIsStockEdited(true);
+                            StockInsufficientCache.SetIsEditStock(true);
                             return (int)DatabaseOperationResult.Success;
                         }
                         else
@@ -243,7 +243,7 @@ namespace ShoppingWeb.Controller
         [Route("GetDefaultLowStock")]
         public object GetDefaultLowStock()
         {
-            return StockInsufficientCacheFactory.GetStockInsufficient();
+            return StockInsufficientCache.StockInsufficient;
         }
 
         /// <summary>
@@ -356,7 +356,7 @@ namespace ShoppingWeb.Controller
                             return (int)DatabaseOperationResult.Failure;
                         }
 
-                        StockInsufficientCacheFactory.UpdateIsStockEdited(true);
+                        StockInsufficientCache.SetIsEditStock(true);
                         return (int)DatabaseOperationResult.Success;
                     }
                 }
@@ -499,7 +499,7 @@ namespace ShoppingWeb.Controller
 
                         if (rowsAffected > 0)
                         {
-                            StockInsufficientCacheFactory.UpdateIsStockEdited(true);
+                            StockInsufficientCache.SetIsEditStock(true);
                             return (int)DatabaseOperationResult.Success;
                         }
                         else

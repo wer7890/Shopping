@@ -56,14 +56,8 @@ namespace ShoppingWeb
                             DataTable dt = new DataTable();
                             dt.Load(reader);
 
-                            //StockInsufficientCache.SetStockInsufficient(ConvertDataTableToJson(dt));
-                            //StockInsufficientCache.SetIsEditStock(false);
-
-                            // 更新庫存不足信息
-                            StockInsufficientCacheFactory.UpdateStockInsufficient(ConvertDataTableToJson(dt));
-
-                            // 更新是否更改過庫存量
-                            StockInsufficientCacheFactory.UpdateIsStockEdited(false);
+                            StockInsufficientCache.SetStockInsufficient(ConvertDataTableToJson(dt));
+                            StockInsufficientCache.SetIsEditStock(false);
                         }
                     }
                 }

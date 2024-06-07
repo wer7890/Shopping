@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ShoppingWeb
+﻿namespace ShoppingWeb
 {
     public class StockInsufficientCache
     {
         private static string _stockInsufficient = string.Empty;  //設成空字串
         private static bool _isEditStock = true;
-
-        // 私有構造函數，防止直接實例化
-        private StockInsufficientCache() { }
 
         /// <summary>
         /// 庫存量不足的商品資訊
@@ -47,29 +39,6 @@ namespace ShoppingWeb
         public static void SetIsEditStock(bool value)
         {
             _isEditStock = value;
-        }
-    }
-
-    public class StockInsufficientCacheFactory
-    {
-        public static string GetStockInsufficient()
-        {
-            return StockInsufficientCache.StockInsufficient;
-        }
-
-        public static bool GetIsStockEdited()
-        {
-            return StockInsufficientCache.IsEditStock;
-        }
-
-        public static void UpdateStockInsufficient(string value)
-        {
-            StockInsufficientCache.SetStockInsufficient(value);
-        }
-
-        public static void UpdateIsStockEdited(bool value)
-        {
-            StockInsufficientCache.SetIsEditStock(value);
         }
     }
 }
