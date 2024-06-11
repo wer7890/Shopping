@@ -6,8 +6,8 @@
         url: "/api/Controller/user/GetUserDataForEdit",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (data) {
-            switch (data) {
+        success: function (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -21,9 +21,9 @@
                     break;
                 default:
                     // 直接設定 input 元素的值
-                    $("#labUserId").text(data.UserId);
-                    $("#labAccount").text(data.Account);
-                    switch (data.Roles) {
+                    $("#labUserId").text(response.Data.UserId);
+                    $("#labAccount").text(response.Data.Account);
+                    switch (response.Data.Roles) {
                         case 1:
                             $("#labUserRoles").text(langFont["superAdmin"]);
                             break;
@@ -60,7 +60,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response) {
+                switch (response.Msg) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";

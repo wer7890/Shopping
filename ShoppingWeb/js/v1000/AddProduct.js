@@ -61,7 +61,7 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    switch (response) {
+                    switch (response.Msg) {
                         case 0:
                             alert(langFont["duplicateLogin"]);
                             window.parent.location.href = "Login.aspx";

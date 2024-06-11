@@ -23,7 +23,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllProductData")]
-        public object GetAllProductData([FromBody] GetAllProductDataDto dto)
+        public ApiResponse GetAllProductData([FromBody] GetAllProductDataDto dto)
         {
             try
             {
@@ -54,7 +54,11 @@ namespace ShoppingWeb.Controller
                             TotalPages = totalPages
                         };
 
-                        return result;
+                        return new ApiResponse
+                        {
+                            Data = result,
+                            Msg = (int)DatabaseOperationResult.Success
+                        };
                     }
                 }
             }
@@ -62,7 +66,11 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
             }
         }
 
@@ -75,7 +83,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetProductData")]
-        public object GetProductData([FromBody] GetProductDataDto dto)
+        public ApiResponse GetProductData([FromBody] GetProductDataDto dto)
         {
             try
             {
@@ -111,11 +119,20 @@ namespace ShoppingWeb.Controller
                                 Data = ConvertDataTableToJson(dt),
                                 TotalPages = totalPages
                             };
-                            return result;
+
+                            return new ApiResponse
+                            {
+                                Data = result,
+                                Msg = (int)DatabaseOperationResult.Success
+                            };
                         }
                         else
                         {
-                            return (int)DatabaseOperationResult.Failure;
+                            return new ApiResponse
+                            {
+                                Data = null,
+                                Msg = (int)DatabaseOperationResult.Failure
+                            };
                         }
 
                     }
@@ -125,7 +142,11 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
             }
         }
 
@@ -136,7 +157,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("DelProduct")]
-        public int DelProduct([FromBody] DelProductDto dto)
+        public ApiResponse DelProduct([FromBody] DelProductDto dto)
         {
             try
             {
@@ -162,11 +183,19 @@ namespace ShoppingWeb.Controller
                             string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
                             File.Delete(imagePath);
                             StockInsufficientCache.SetIsEditStock(true);
-                            return (int)DatabaseOperationResult.Success;
+                            return new ApiResponse
+                            {
+                                Data = null,
+                                Msg = (int)DatabaseOperationResult.Success
+                            };
                         }
                         else
                         {
-                            return (int)DatabaseOperationResult.Failure;
+                            return new ApiResponse
+                            {
+                                Data = null,
+                                Msg = (int)DatabaseOperationResult.Failure
+                            };
                         }
 
                     }
@@ -176,7 +205,11 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
             }
         }
 
@@ -187,7 +220,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("ToggleProductStatus")]
-        public int EditProductStatus([FromBody] EditProductStatusDto dto)
+        public ApiResponse EditProductStatus([FromBody] EditProductStatusDto dto)
         {
             try
             {
@@ -204,11 +237,19 @@ namespace ShoppingWeb.Controller
                         if (rowsAffected > 0)
                         {
                             StockInsufficientCache.SetIsEditStock(true);
-                            return (int)DatabaseOperationResult.Success;
+                            return new ApiResponse
+                            {
+                                Data = null,
+                                Msg = (int)DatabaseOperationResult.Success
+                            };
                         }
                         else
                         {
-                            return (int)DatabaseOperationResult.Failure;
+                            return new ApiResponse
+                            {
+                                Data = null,
+                                Msg = (int)DatabaseOperationResult.Failure
+                            };
                         }
 
                     }
@@ -218,7 +259,11 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
             }
         }
 
@@ -229,10 +274,14 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("SetSessionProductId")]
-        public int SetSessionProductId([FromBody] SetSessionProductIdDto dto)
+        public ApiResponse SetSessionProductId([FromBody] SetSessionProductIdDto dto)
         {
             HttpContext.Current.Session["productId"] = dto.ProductId;
-            return (int)DatabaseOperationResult.Success;
+            return new ApiResponse
+            {
+                Data = null,
+                Msg = (int)DatabaseOperationResult.Success
+            };
         }
 
         /// <summary>
@@ -241,9 +290,13 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetDefaultLowStock")]
-        public object GetDefaultLowStock()
+        public ApiResponse GetDefaultLowStock()
         {
-            return StockInsufficientCache.StockInsufficient;
+            return new ApiResponse
+            {
+                Data = StockInsufficientCache.StockInsufficient,
+                Msg = (int)DatabaseOperationResult.Success
+            };
         }
 
         /// <summary>
@@ -252,7 +305,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("UploadProduct")]
-        public int UploadProduct()
+        public ApiResponse UploadProduct()
         {
             //檢查ProductImg資料夾是否存在，如果不存在就建立資料夾
             string checkTargetFolderPath = HttpContext.Current.Server.MapPath("~/ProductImg/");
@@ -278,7 +331,11 @@ namespace ShoppingWeb.Controller
 
                     if (File.Exists(Path.Combine(targetFolderPath, fileName)))  // 檢查檔案是否已存在於目標資料夾中
                     {
-                        return (int)UserStatus.InputError;
+                        return new ApiResponse
+                        {
+                            Data = null,
+                            Msg = (int)UserStatus.InputError
+                        };
                     }
                     else
                     {
@@ -293,19 +350,27 @@ namespace ShoppingWeb.Controller
                         string productIntroduceEN = HttpContext.Current.Request.Form["productIntroduceEN"];
                         string productStockWarning = HttpContext.Current.Request.Form["productStockWarning"];
 
-                        int result = AddProduct(productName, productNameEN, productCategory, productPrice, productStock, productIsOpen, productIntroduce, productIntroduceEN, productStockWarning);
+                        ApiResponse result = AddProduct(productName, productNameEN, productCategory, productPrice, productStock, productIsOpen, productIntroduce, productIntroduceEN, productStockWarning);
 
                         return result;
                     }
                 }
                 else
                 {
-                    return (int)UserStatus.InputError;
+                    return new ApiResponse
+                    {
+                        Data = null,
+                        Msg = (int)UserStatus.InputError
+                    };
                 }
             }
             else
             {
-                return (int)UserStatus.InputError;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)UserStatus.InputError
+                };
             }
         }
 
@@ -320,12 +385,16 @@ namespace ShoppingWeb.Controller
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
         [NonAction]
-        public int AddProduct(string productName, string productNameEN, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce, string productIntroduceEN, string productStockWarning)
+        public ApiResponse AddProduct(string productName, string productNameEN, string productCategory, string productPrice, string productStock, string productIsOpen, string productIntroduce, string productIntroduceEN, string productStockWarning)
         {
 
             if (!AddProductSpecialChar(productName, productNameEN, productCategory, productIsOpen, productIntroduce, productIntroduceEN, productPrice, productStock, productStockWarning))
             {
-                return (int)UserStatus.InputError;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)UserStatus.InputError
+                };
             }
 
             try
@@ -353,11 +422,19 @@ namespace ShoppingWeb.Controller
                         {
                             string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + pubguid);
                             File.Delete(imagePath);
-                            return (int)DatabaseOperationResult.Failure;
+                            return new ApiResponse
+                            {
+                                Data = null,
+                                Msg = (int)DatabaseOperationResult.Failure
+                            };
                         }
 
                         StockInsufficientCache.SetIsEditStock(true);
-                        return (int)DatabaseOperationResult.Success;
+                        return new ApiResponse
+                        {
+                            Data = null,
+                            Msg = (int)DatabaseOperationResult.Success
+                        };
                     }
                 }
             }
@@ -367,7 +444,11 @@ namespace ShoppingWeb.Controller
                 File.Delete(imagePath);
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
             }
         }
 
@@ -416,7 +497,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetProductDataForEdit")]
-        public object GetProductDataForEdit()
+        public ApiResponse GetProductDataForEdit()
         {
             try
             {
@@ -452,7 +533,11 @@ namespace ShoppingWeb.Controller
                                 ProductStockWarning = dt.Rows[0]["f_warningValue"]
                             };
 
-                            return productObject;
+                            return new ApiResponse
+                            {
+                                Data = productObject,
+                                Msg = (int)DatabaseOperationResult.Success
+                            };
                         }
                     }
                 }
@@ -461,7 +546,11 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
             }
 
         }
@@ -475,7 +564,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditProduct")]
-        public int EditProduct([FromBody] EditProductDto dto)
+        public ApiResponse EditProduct([FromBody] EditProductDto dto)
         {
             try
             {
@@ -500,11 +589,19 @@ namespace ShoppingWeb.Controller
                         if (rowsAffected > 0)
                         {
                             StockInsufficientCache.SetIsEditStock(true);
-                            return (int)DatabaseOperationResult.Success;
+                            return new ApiResponse
+                            {
+                                Data = null,
+                                Msg = (int)DatabaseOperationResult.Success
+                            };
                         }
                         else
                         {
-                            return (int)DatabaseOperationResult.Failure;
+                            return new ApiResponse
+                            {
+                                Data = null,
+                                Msg = (int)DatabaseOperationResult.Failure
+                            };
                         }
                     }
                 }
@@ -513,7 +610,11 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
             }
         }
 

@@ -68,7 +68,7 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -85,9 +85,9 @@ function SearchAllData(pageNumber, pageSize) {
                     break;
                 default:
                     // 處理成功取得資料的情況
-                    let data = JSON.parse(response.Data); // 解析 JSON 資料為 JavaScript 物件
+                    let data = JSON.parse(response.Data.Data); // 解析 JSON 資料為 JavaScript 物件
                     let tableBody = $('#tableBody');
-                    pagesTotal = response.TotalPages;
+                    pagesTotal = response.Data.TotalPages;
 
                     // 清空表格內容
                     tableBody.empty();
@@ -153,7 +153,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -175,9 +175,9 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     break;
                 default:
                     $("#productTableDiv").css('display', 'block');
-                    let data = JSON.parse(response.Data);
+                    let data = JSON.parse(response.Data.Data);
                     let tableBody = $('#tableBody');
-                    pagesTotal = response.TotalPages;
+                    pagesTotal = response.Data.TotalPages;
 
                     tableBody.empty();
 
@@ -232,7 +232,7 @@ function EditProductStatus(productId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -277,7 +277,7 @@ function DeleteProduct(productId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response) {
+                switch (response.Msg) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -321,7 +321,7 @@ function EditProduct(productId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -355,7 +355,7 @@ function GetDefaultLowStock() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            let stockInsufficient = JSON.parse(response);
+            let stockInsufficient = JSON.parse(response.Data);
             let lowStockTableBody = $('#lowStockTableBody');
             lowStockTableBody.empty(); // 清空表格內容
             $("#lowStockProductsDiv").show(); // 顯示庫存不足的商品區域
@@ -393,7 +393,7 @@ function SetBtnLowProduct() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            let stockInsufficient = JSON.parse(response);
+            let stockInsufficient = JSON.parse(response.Data);
 
             if (stockInsufficient.length > 0) {
                 $("#btnLowProduct").removeClass("btn-outline-primary").addClass("btn-danger");

@@ -44,9 +44,9 @@ function GetUserPermission() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            userAccount = response.Account
+            userAccount = response.Data.Account
             $('#labUserAccount').text($('#labUserAccount').text() + userAccount);
-            switch (response.Roles) {
+            switch (response.Data.Roles) {
                 case 1:
                     break;
                 case 2:
