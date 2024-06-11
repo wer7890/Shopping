@@ -355,7 +355,8 @@ function GetDefaultLowStock() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            let stockInsufficient = JSON.parse(response.Data);
+            let stockInsufficient = JSON.parse(response.Data.Data);
+            let language = response.Data.Language;
             let lowStockTableBody = $('#lowStockTableBody');
             lowStockTableBody.empty(); // 清空表格內容
             $("#lowStockProductsDiv").show(); // 顯示庫存不足的商品區域
@@ -364,9 +365,10 @@ function GetDefaultLowStock() {
                 $("#lowStockTable").show();
 
                 $.each(stockInsufficient, function (index, item) {
+                    let name = (language === "TW") ? item.f_nameTW : item.f_nameEN;
                     let row = '<tr>' +
                         '<td>' + item.f_id + '</td>' +
-                        '<td>' + item.f_nameTW + '</td>' +
+                        '<td>' + name + '</td>' +
                         '<td>' + item.f_stock + '</td>' +
                         '<td>' + item.f_warningValue + '</td>' +
                         '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' ' + (item.f_stock === 0 ? 'disabled' : '') + ' data-id="' + item.f_id + '"></div></td>' +
@@ -393,7 +395,7 @@ function SetBtnLowProduct() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            let stockInsufficient = JSON.parse(response.Data);
+            let stockInsufficient = JSON.parse(response.Data.Data);
 
             if (stockInsufficient.length > 0) {
                 $("#btnLowProduct").removeClass("btn-outline-primary").addClass("btn-danger");

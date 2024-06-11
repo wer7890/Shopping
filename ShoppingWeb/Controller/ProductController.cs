@@ -292,9 +292,15 @@ namespace ShoppingWeb.Controller
         [Route("GetDefaultLowStock")]
         public ApiResponse GetDefaultLowStock()
         {
-            return new ApiResponse
+            var result = new
             {
                 Data = StockInsufficientCache.StockInsufficient,
+                Language = HttpContext.Current.Request.Cookies["language"].Value
+            };
+
+            return new ApiResponse
+            {
+                Data = result,
                 Msg = (int)DatabaseOperationResult.Success
             };
         }
