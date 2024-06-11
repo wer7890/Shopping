@@ -6,7 +6,7 @@
         private static bool _isEditStock = true;
 
         /// <summary>
-        /// 庫存量不足的商品資訊
+        /// 獲取庫存量不足的商品資訊（只讀）
         /// </summary>
         public static string StockInsufficient
         {
@@ -15,7 +15,7 @@
         }
 
         /// <summary>
-        /// 是否更改過庫存量
+        /// 獲取是否更改過庫存量的狀態（只讀）
         /// </summary>
         public static bool IsEditStock
         {

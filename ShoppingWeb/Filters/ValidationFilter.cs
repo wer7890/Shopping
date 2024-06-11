@@ -23,14 +23,22 @@ namespace ShoppingWeb.Filters
 
                 if (!actionContext.ModelState.IsValid)
                 {
-                    actionContext.Response = actionContext.Request.CreateResponse((int)UserStatus.InputError);
+                    actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                    {
+                        Data = null,
+                        Msg = (int)UserStatus.InputError
+                    });
                 }
             }
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex);
-                actionContext.Response = actionContext.Request.CreateResponse((int)DatabaseOperationResult.Error);
+                actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                });
             }
         }
     }

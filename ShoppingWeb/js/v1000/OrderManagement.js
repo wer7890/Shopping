@@ -101,7 +101,7 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -120,9 +120,9 @@ function SearchAllData(pageNumber, pageSize) {
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = 0;
                     $("#orderSure").remove();
-                    let orderData = JSON.parse(response.Data[0]);
-                    let deliveryStatusCountData = JSON.parse(response.Data[1]);
-                    pagesTotal = response.TotalPages;
+                    let orderData = JSON.parse(response.Data.Data[0]);
+                    let deliveryStatusCountData = JSON.parse(response.Data.Data[1]);
+                    pagesTotal = response.Data.TotalPages;
                     OrderHtml(orderData, deliveryStatusCountData);
 
                     if (!paginationInitialized) {
@@ -243,7 +243,7 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -267,9 +267,9 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = deliveryStatusNum;
                     $("#orderSure").remove();
-                    let orderData = JSON.parse(response.Data[0]);
-                    let deliveryStatusCountData = JSON.parse(response.Data[1]);
-                    pagesTotal = response.TotalPages;
+                    let orderData = JSON.parse(response.Data.Data[0]);
+                    let deliveryStatusCountData = JSON.parse(response.Data.Data[1]);
+                    pagesTotal = response.Data.TotalPages;
                     isReturn = false;
 
                     OrderHtml(orderData, deliveryStatusCountData);
@@ -357,7 +357,7 @@ function ShowOrderDetail(orderId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -375,7 +375,7 @@ function ShowOrderDetail(orderId) {
                 default:
                     selectedOrderId = orderId;
 
-                    let data = JSON.parse(response);
+                    let data = JSON.parse(response.Data);
                     let detailElement = $("#box");
 
                     //明細
@@ -425,7 +425,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -439,7 +439,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     break;
                 case 100:
                 case 101:
-                    let temp = (response === 100) ? langFont["editSuccessful"] : langFont["editOrderFailed"];
+                    let temp = (response.Msg === 100) ? langFont["editSuccessful"] : langFont["editOrderFailed"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     if (deliveryStatusValue === 0) {
                         SearchAllData(1, pageSize);
@@ -475,7 +475,7 @@ function ShowReturnOrder(pageNumber, pageSize) {
         dataType: "json",
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -498,9 +498,9 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 default:
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = 7;
-                    let orderData = JSON.parse(response.Data[0]);
-                    let deliveryStatusCountData = JSON.parse(response.Data[1]);
-                    pagesTotal = response.TotalPages;
+                    let orderData = JSON.parse(response.Data.Data[0]);
+                    let deliveryStatusCountData = JSON.parse(response.Data.Data[1]);
+                    pagesTotal = response.Data.TotalPages;
                     isReturn = true;
 
                     $("#orderSure").remove();
@@ -540,7 +540,7 @@ function EditReturnOrder(orderId, boolReturn) {
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -554,14 +554,13 @@ function EditReturnOrder(orderId, boolReturn) {
                     break;
                 case 100:
                 case 101:
-                    let temp = (response === 100) ? langFont["editSuccessful"] : langFont["editFail"];
+                    let temp = (response.Msg === 100) ? langFont["editSuccessful"] : langFont["editFail"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     paginationInitialized = false;
                     ShowReturnOrder(1, pageSize);
                     break;
                 default:
                     $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-
             }
         },
         error: function (error) {

@@ -16,7 +16,7 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response) {
+                switch (response.Msg) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -143,7 +143,7 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -159,10 +159,10 @@ function SearchAllData(pageNumber, pageSize) {
                     $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
                 default:
-                    let data = JSON.parse(response.Data);
+                    let data = JSON.parse(response.Data.Data);
                     let tableBody = $('#tableBody');
 
-                    pagesTotal = response.TotalPages;
+                    pagesTotal = response.Data.TotalPages;
 
                     tableBody.empty();
 
@@ -230,7 +230,7 @@ function EditMemberStatus(memberId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -273,7 +273,7 @@ function EditMemberLevel(memberId, level) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response) {
+            switch (response.Msg) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";

@@ -30,14 +30,22 @@ namespace ShoppingWeb.Filters
 
                 if (!(((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 1 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == _roles))
                 {
-                    actionContext.Response = actionContext.Request.CreateResponse((int)UserStatus.AccessDenied);
+                    actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                    {
+                        Data = null,
+                        Msg = (int)UserStatus.AccessDenied
+                    });
                 }
             }
             catch (Exception ex)
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex);
-                actionContext.Response = actionContext.Request.CreateResponse((int)DatabaseOperationResult.Error);
+                actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                });
             }
         }
     }

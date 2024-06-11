@@ -18,7 +18,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllMemberData")]
-        public object GetAllMemberData([FromBody] GetAllMemberDataDto dto)
+        public ApiResponse GetAllMemberData([FromBody] GetAllMemberDataDto dto)
         {
             try
             {
@@ -46,7 +46,12 @@ namespace ShoppingWeb.Controller
                             TotalPages = totalPages
                         };
 
-                        return result;
+                        return new ApiResponse
+                        {
+                            Data = result,
+                            Msg = (int)DatabaseOperationResult.Success
+                        };
+
                     }
                 }
             }
@@ -54,7 +59,11 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
             }
         }
 
@@ -65,7 +74,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditMemberStatus")]
-        public int EditMemberStatus([FromBody] EditMemberStatusDto dto)
+        public ApiResponse EditMemberStatus([FromBody] EditMemberStatusDto dto)
         {
             try
             {
@@ -79,7 +88,11 @@ namespace ShoppingWeb.Controller
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
+                        return new ApiResponse
+                        {
+                            Data = null,
+                            Msg = rowsAffected > 0 ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure
+                        };
 
                     }
                 }
@@ -88,7 +101,11 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
             }
         }
 
@@ -100,7 +117,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditMemberLevel")]
-        public int EditMemberLevel([FromBody] EditMemberLevelDto dto)
+        public ApiResponse EditMemberLevel([FromBody] EditMemberLevelDto dto)
         {
             try
             {
@@ -115,7 +132,11 @@ namespace ShoppingWeb.Controller
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return (rowsAffected > 0) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
+                        return new ApiResponse
+                        {
+                            Data = null,
+                            Msg = rowsAffected > 0 ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure
+                        };
                     }
                 }
             }
@@ -123,7 +144,12 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
+
             }
         }
 
@@ -133,7 +159,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("AddMember")]
-        public int AddMember([FromBody] AddMemberDto dto)
+        public ApiResponse AddMember([FromBody] AddMemberDto dto)
         {
             try
             {
@@ -153,7 +179,11 @@ namespace ShoppingWeb.Controller
 
                         int result = (int)cmd.ExecuteScalar();
 
-                        return (result == 1) ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure;
+                        return new ApiResponse
+                        {
+                            Data = null,
+                            Msg = result == 1 ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure
+                        };
                     }
                 }
             }
@@ -161,7 +191,12 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return (int)DatabaseOperationResult.Error;
+                return new ApiResponse
+                {
+                    Data = null,
+                    Msg = (int)DatabaseOperationResult.Error
+                };
+
             }
         }
 

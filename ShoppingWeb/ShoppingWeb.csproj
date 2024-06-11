@@ -138,6 +138,7 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Data\ActionAttribute\Member\AddMemberDto.cs" />
+    <Compile Include="App_Data\ApiResponse.cs" />
     <Compile Include="Controller\BaseController.cs" />
     <Compile Include="App_Data\ActionAttribute\Member\GetAllMemberDataDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Order\EditOrderDto.cs" />
