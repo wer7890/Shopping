@@ -11,6 +11,7 @@ namespace ShoppingWeb
         /// 商品ID
         /// </summary>
         [Required]
+        [Range(1, int.MaxValue)]
         public int ProductId { get; set; }
     }
 }

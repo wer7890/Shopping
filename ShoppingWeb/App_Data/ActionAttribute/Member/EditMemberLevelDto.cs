@@ -12,13 +12,14 @@ namespace ShoppingWeb
         /// 會員ID
         /// </summary>
         [Required]
+        [Range(1, int.MaxValue)]
         public int MemberId { get; set; }
 
         /// <summary>
         /// 等級
         /// </summary>
         [Required]
-        [RegularExpression(@"^\d{1,3}$", ErrorMessage = "Level Error")]
+        [Range(0, 3)]
         public int Level { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace ShoppingWeb
         /// 身分
         /// </summary>
         [Required]
+        [Range(1, 3)]
         public int Roles { get; set; }
     }
 }
