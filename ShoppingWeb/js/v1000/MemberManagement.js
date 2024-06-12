@@ -155,10 +155,7 @@ function SearchAllData(pageNumber, pageSize) {
                 case 2:
                     $("#labSearchMember").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
-                case 102:
-                    $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-                    break;
-                default:
+                case 100:
                     let data = response.MemberDataList;
                     let tableBody = $('#tableBody');
 
@@ -207,6 +204,9 @@ function SearchAllData(pageNumber, pageSize) {
                     }
 
                     beforePagesTotal = pagesTotal;
+                    break;
+                default:
+                    $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {

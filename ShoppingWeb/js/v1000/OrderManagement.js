@@ -113,10 +113,7 @@ function SearchAllData(pageNumber, pageSize) {
                 case 2:
                     $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
-                case 102:
-                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-                    break;
-                default:
+                case 100:
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = 0;
                     $("#orderSure").remove();
@@ -144,6 +141,9 @@ function SearchAllData(pageNumber, pageSize) {
                     }
 
                     beforePagesTotal = pagesTotal;
+                    break;
+                default:
+                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
@@ -257,15 +257,7 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                 case 2:
                     $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
-                case 101:
-                    $('#ulPagination, #paginationInfo').empty();
-                    $("#orderTableDiv").css('display', 'none');
-                    $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
-                    break;
-                case 102:
-                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-                    break;
-                default:
+                case 100:
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = deliveryStatusNum;
                     $("#orderSure").remove();
@@ -288,6 +280,14 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                     }
 
                     beforePagesTotal = pagesTotal;
+                    break;
+                case 101:
+                    $('#ulPagination, #paginationInfo').empty();
+                    $("#orderTableDiv").css('display', 'none');
+                    $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
+                    break;
+                default:
+                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
@@ -371,10 +371,7 @@ function ShowOrderDetail(orderId) {
                 case 2:
                     $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
-                case 102:
-                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-                    break;
-                default:
+                case 100:
                     selectedOrderId = orderId;
 
                     let data = response.OrderDetailList;
@@ -405,6 +402,9 @@ function ShowOrderDetail(orderId) {
                     detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">' + langFont["closure"] + '</button></div>';
                     detailElement.prepend(detailHtml);
                     $("#overlay").fadeIn(300);
+                    break;
+                default:
+                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
@@ -489,15 +489,7 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 case 2:
                     $("#labSearchOrder").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
-                case 101:
-                    $("#orderTableDiv").css('display', 'none');
-                    $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
-                    $('#ulPagination, #paginationInfo').empty();
-                    break;
-                case 102:
-                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-                    break;
-                default:
+                case 100:
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = 7;
                     let orderData = response.OrderList;
@@ -520,6 +512,14 @@ function ShowReturnOrder(pageNumber, pageSize) {
                     }
 
                     beforePagesTotal = pagesTotal;
+                    break;
+                case 101:
+                    $("#orderTableDiv").css('display', 'none');
+                    $("#labSearchOrder").text(langFont["noData"]).show().delay(3000).fadeOut();
+                    $('#ulPagination, #paginationInfo').empty();
+                    break;
+                default:
+                    $("#labSearchOrder").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
