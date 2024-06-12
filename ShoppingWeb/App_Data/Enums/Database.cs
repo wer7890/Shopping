@@ -1,7 +1,7 @@
 ﻿namespace ShoppingWeb
 {
     /// <summary>
-    /// 操作資料庫的結果
+    /// 操作的結果
     /// </summary>
     public enum DatabaseOperationResult
     {

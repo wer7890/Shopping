@@ -17,10 +17,6 @@ $(document).ready(function () {
     $("#lowStockProductsDiv").hide();
     ProductDataReady();
     SearchAllData(1, pageSize);
-    SetBtnLowProduct();
-    setInterval(function () {
-        SetBtnLowProduct();
-    }, 30000); 
     
     // 搜尋按鈕點擊事件
     $("#btnSearchProduct").click(function () {
@@ -121,6 +117,12 @@ function SearchAllData(pageNumber, pageSize) {
                             }
                         });
                         paginationInitialized = true;
+
+                        SetBtnLowProduct();
+                        setInterval(function () {
+                            SetBtnLowProduct();
+                        }, 30000);
+
                     } else if (beforePagesTotal !== pagesTotal) {
                         alert("資料頁數變動");
                         page.Update(pagesTotal);
