@@ -307,7 +307,7 @@ namespace ShoppingWeb.Controller
 
                         return new BaseResponse
                         {
-                            Status = rowsAffected > 0 ? DatabaseOperationResult.Success : DatabaseOperationResult.Failure
+                            Status = (rowsAffected > 0) ? DatabaseOperationResult.Success : DatabaseOperationResult.Failure
                         };
                     }
                 }

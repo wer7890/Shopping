@@ -30,10 +30,9 @@ namespace ShoppingWeb.Filters
 
                 if (!(((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 1 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == _roles))
                 {
-                    actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                    actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                     {
-                        Data = null,
-                        Msg = (int)UserStatus.AccessDenied
+                        Status = DatabaseOperationResult.AccessDenied
                     });
                 }
             }
@@ -41,10 +40,9 @@ namespace ShoppingWeb.Filters
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex);
-                actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                 {
-                    Data = null,
-                    Msg = (int)DatabaseOperationResult.Error
+                    Status = DatabaseOperationResult.Error
                 });
             }
         }

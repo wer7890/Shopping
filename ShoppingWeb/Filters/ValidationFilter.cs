@@ -23,10 +23,9 @@ namespace ShoppingWeb.Filters
 
                 if (!actionContext.ModelState.IsValid)
                 {
-                    actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                    actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                     {
-                        Data = null,
-                        Msg = (int)UserStatus.InputError
+                        Status = DatabaseOperationResult.InputError
                     });
                 }
             }
@@ -34,10 +33,9 @@ namespace ShoppingWeb.Filters
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex);
-                actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                 {
-                    Data = null,
-                    Msg = (int)DatabaseOperationResult.Error
+                    Status = DatabaseOperationResult.Error
                 });
             }
         }

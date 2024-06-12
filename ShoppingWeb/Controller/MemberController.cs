@@ -1,5 +1,6 @@
 ﻿using NLog;
 using ShoppingWeb.Filters;
+using ShoppingWeb.Response.Member;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -18,7 +19,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetAllMemberData")]
-        public ApiResponse GetAllMemberData([FromBody] GetAllMemberDataDto dto)
+        public GetAllMemberDataResponse GetAllMemberData([FromBody] GetAllMemberDataDto dto)
         {
             try
             {
@@ -40,18 +41,11 @@ namespace ShoppingWeb.Controller
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
                         int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
-                        var result = new
-                        {
-                            Data = ConvertDataTableToJson(dt),
-                            TotalPages = totalPages
-                        };
+                        GetAllMemberDataResponse result = GetAllMemberDataResponse.GetInstance(dt);
+                        result.TotalPages = totalPages;
+                        result.Status = DatabaseOperationResult.Success;
 
-                        return new ApiResponse
-                        {
-                            Data = result,
-                            Msg = (int)DatabaseOperationResult.Success
-                        };
-
+                        return result;
                     }
                 }
             }
@@ -59,10 +53,9 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new ApiResponse
+                return new GetAllMemberDataResponse
                 {
-                    Data = null,
-                    Msg = (int)DatabaseOperationResult.Error
+                    Status = DatabaseOperationResult.Error
                 };
             }
         }
@@ -74,7 +67,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditMemberStatus")]
-        public ApiResponse EditMemberStatus([FromBody] EditMemberStatusDto dto)
+        public BaseResponse EditMemberStatus([FromBody] EditMemberStatusDto dto)
         {
             try
             {
@@ -88,10 +81,9 @@ namespace ShoppingWeb.Controller
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return new ApiResponse
+                        return new BaseResponse
                         {
-                            Data = null,
-                            Msg = rowsAffected > 0 ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure
+                            Status = (rowsAffected > 0) ? DatabaseOperationResult.Success : DatabaseOperationResult.Failure
                         };
 
                     }
@@ -101,10 +93,9 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new ApiResponse
+                return new BaseResponse
                 {
-                    Data = null,
-                    Msg = (int)DatabaseOperationResult.Error
+                    Status = DatabaseOperationResult.Error
                 };
             }
         }
@@ -117,7 +108,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("EditMemberLevel")]
-        public ApiResponse EditMemberLevel([FromBody] EditMemberLevelDto dto)
+        public BaseResponse EditMemberLevel([FromBody] EditMemberLevelDto dto)
         {
             try
             {
@@ -132,10 +123,9 @@ namespace ShoppingWeb.Controller
 
                         int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return new ApiResponse
+                        return new BaseResponse
                         {
-                            Data = null,
-                            Msg = rowsAffected > 0 ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure
+                            Status = (rowsAffected > 0) ? DatabaseOperationResult.Success : DatabaseOperationResult.Failure
                         };
                     }
                 }
@@ -144,10 +134,9 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new ApiResponse
+                return new BaseResponse
                 {
-                    Data = null,
-                    Msg = (int)DatabaseOperationResult.Error
+                    Status = DatabaseOperationResult.Error
                 };
 
             }
@@ -159,7 +148,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("AddMember")]
-        public ApiResponse AddMember([FromBody] AddMemberDto dto)
+        public BaseResponse AddMember([FromBody] AddMemberDto dto)
         {
             try
             {
@@ -179,10 +168,9 @@ namespace ShoppingWeb.Controller
 
                         int result = (int)cmd.ExecuteScalar();
 
-                        return new ApiResponse
+                        return new BaseResponse
                         {
-                            Data = null,
-                            Msg = result == 1 ? (int)DatabaseOperationResult.Success : (int)DatabaseOperationResult.Failure
+                            Status = (result == 1) ? DatabaseOperationResult.Success : DatabaseOperationResult.Failure
                         };
                     }
                 }
@@ -191,10 +179,9 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new ApiResponse
+                return new BaseResponse
                 {
-                    Data = null,
-                    Msg = (int)DatabaseOperationResult.Error
+                    Status = DatabaseOperationResult.Error
                 };
 
             }

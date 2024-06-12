@@ -41,10 +41,9 @@ namespace ShoppingWeb.Filters
                         if (result == 0)
                         {
                             HttpContext.Current.Session["userInfo"] = null;
-                            actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                            actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                             {
-                                Data = null,
-                                Msg = (int)UserStatus.DuplicateLogin
+                                Status = DatabaseOperationResult.DuplicateLogin
                             });
                         }
                     }
@@ -55,10 +54,9 @@ namespace ShoppingWeb.Filters
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex);
-                actionContext.Response = actionContext.Request.CreateResponse(new ApiResponse
+                actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                 {
-                    Data = null,
-                    Msg = (int)DatabaseOperationResult.Error
+                    Status = DatabaseOperationResult.Error
                 });
             }
         }

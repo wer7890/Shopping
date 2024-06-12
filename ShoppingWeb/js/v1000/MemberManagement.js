@@ -16,7 +16,7 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.Msg) {
+                switch (response.Status) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -143,7 +143,7 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -159,31 +159,31 @@ function SearchAllData(pageNumber, pageSize) {
                     $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
                     break;
                 default:
-                    let data = JSON.parse(response.Data.Data);
+                    let data = response.MemberDataList;
                     let tableBody = $('#tableBody');
 
-                    pagesTotal = response.Data.TotalPages;
+                    pagesTotal = response.TotalPages;
 
                     tableBody.empty();
 
                     $.each(data, function (index, item) {
                         let row = '<tr>' +
-                            '<td>' + item.f_id + '</td>' +
-                            '<td>' + item.f_account + '</td>' +
-                            '<td>' + item.f_pwd + '</td>' +
-                            '<td>' + item.f_name + '</td>' +
+                            '<td>' + item.Id + '</td>' +
+                            '<td>' + item.Account + '</td>' +
+                            '<td>' + item.Pwd + '</td>' +
+                            '<td>' + item.Name + '</td>' +
                             '<td>' +
-                            '<select class="form-select form-select-sm f_level" data-id="' + item.f_id + '">' +
-                            '<option value="0"' + (item.f_level == '0' ? ' selected' : '') + '>' + langFont["level0"] + '</option>' +
-                            '<option value="1"' + (item.f_level == '1' ? ' selected' : '') + '>' + langFont["level1"] + '</option>' +
-                            '<option value="2"' + (item.f_level == '2' ? ' selected' : '') + '>' + langFont["level2"] + '</option>' +
-                            '<option value="3"' + (item.f_level == '3' ? ' selected' : '') + '>' + langFont["level3"] + '</option>' +
+                            '<select class="form-select form-select-sm f_level" data-id="' + item.Id + '">' +
+                            '<option value="0"' + (item.Level == '0' ? ' selected' : '') + '>' + langFont["level0"] + '</option>' +
+                            '<option value="1"' + (item.Level == '1' ? ' selected' : '') + '>' + langFont["level1"] + '</option>' +
+                            '<option value="2"' + (item.Level == '2' ? ' selected' : '') + '>' + langFont["level2"] + '</option>' +
+                            '<option value="3"' + (item.Level == '3' ? ' selected' : '') + '>' + langFont["level3"] + '</option>' +
                             '</select>' +
                             '</td>' +
-                            '<td>' + item.f_phoneNumber + '</td>' +
-                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_accountStatus ? 'checked' : '') + ' data-id="' + item.f_id + '"></div></td>' +
-                            '<td>' + item.f_amount + '</td>' +
-                            '<td>' + item.f_totalSpent + '</td>' +
+                            '<td>' + item.PhoneNumber + '</td>' +
+                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.Id + '" class="toggle-switch form-check-input" ' + (item.AccountStatus ? 'checked' : '') + ' data-id="' + item.Id + '"></div></td>' +
+                            '<td>' + item.Amount + '</td>' +
+                            '<td>' + item.TotalSpent + '</td>' +
                             '</tr>';
 
                         tableBody.append(row);
@@ -230,7 +230,7 @@ function EditMemberStatus(memberId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -273,7 +273,7 @@ function EditMemberLevel(memberId, level) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
