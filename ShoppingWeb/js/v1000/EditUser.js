@@ -7,7 +7,7 @@
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -16,14 +16,11 @@
                     alert(langFont["accessDenied"]);
                     parent.location.reload();
                     break;
-                case 102:
-                    $("#labRenewUser").text(langFont["errorLog"]);
-                    break;
-                default:
+                case 100:
                     // 直接設定 input 元素的值
-                    $("#labUserId").text(response.Data.UserId);
-                    $("#labAccount").text(response.Data.Account);
-                    switch (response.Data.Roles) {
+                    $("#labUserId").text(response.UserDataList[0].Id);
+                    $("#labAccount").text(response.UserDataList[0].Account);
+                    switch (response.UserDataList[0].Roles) {
                         case 1:
                             $("#labUserRoles").text(langFont["superAdmin"]);
                             break;
@@ -37,6 +34,9 @@
                             $("#labUserRoles").text(langFont["mistake"]);
                             break;
                     }
+                    break;
+                default:
+                    $("#labRenewUser").text(langFont["errorLog"]);
             }
         },
         error: function (error) {
@@ -60,7 +60,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.Msg) {
+                switch (response.Status) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";

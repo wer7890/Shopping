@@ -49,7 +49,7 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -61,15 +61,12 @@ function SearchAllData(pageNumber, pageSize) {
                 case 2:
                     $("#labSearchUser").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
-                case 102:
-                    $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-                    break;
-                default:
+                case 100:
                     // 處理成功取得資料的情況
-                    let data = JSON.parse(response.Data.Data); // 解析 JSON 資料為 JavaScript 物件
+                    let data = response.UserDataList;
                     let tableBody = $('#tableBody');
 
-                    pagesTotal = response.Data.TotalPages;
+                    pagesTotal = response.TotalPages;
 
                     // 清空表格內容
                     tableBody.empty();
@@ -77,17 +74,17 @@ function SearchAllData(pageNumber, pageSize) {
                     // 動態生成表格內容
                     $.each(data, function (index, item) {
                         let row = '<tr>' +
-                            '<td>' + item.f_id + '</td>' +
-                            '<td>' + item.f_account + '</td>' +
+                            '<td>' + item.Id + '</td>' +
+                            '<td>' + item.Account + '</td>' +
                             '<td>' +
-                            '<select class="form-select form-select-sm f_roles" data-id="' + item.f_id + '">' +
-                            '<option value="1"' + (item.f_roles == '1' ? ' selected' : '') + '>' + langFont["superAdmin"] + '</option>' +
-                            '<option value="2"' + (item.f_roles == '2' ? ' selected' : '') + '>' + langFont["memberAdmin"] + '</option>' +
-                            '<option value="3"' + (item.f_roles == '3' ? ' selected' : '') + '>' + langFont["productAdmin"] + '</option>' +
+                            '<select class="form-select form-select-sm f_roles" data-id="' + item.Id + '">' +
+                            '<option value="1"' + (item.Roles == '1' ? ' selected' : '') + '>' + langFont["superAdmin"] + '</option>' +
+                            '<option value="2"' + (item.Roles == '2' ? ' selected' : '') + '>' + langFont["memberAdmin"] + '</option>' +
+                            '<option value="3"' + (item.Roles == '3' ? ' selected' : '') + '>' + langFont["productAdmin"] + '</option>' +
                             '</select>' +
                             '</td>' +
-                            '<td><button class="btn btn-primary" onclick="EditUser(' + item.f_id + ')">' + langFont["edit"] + '</button></td>' +
-                            '<td><button class="btn btn-danger" onclick="DeleteUser(' + item.f_id + ')">' + langFont["del"] + '</button></td>' +
+                            '<td><button class="btn btn-primary" onclick="EditUser(' + item.Id + ')">' + langFont["edit"] + '</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="DeleteUser(' + item.Id + ')">' + langFont["del"] + '</button></td>' +
                             '</tr>';
 
                         tableBody.append(row);
@@ -111,6 +108,9 @@ function SearchAllData(pageNumber, pageSize) {
                     }
 
                     beforePagesTotal = pagesTotal;
+                    break;
+                default:
+                    $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
@@ -136,7 +136,7 @@ function DeleteUser(userId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.Msg) {
+                switch (response.Status) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -181,7 +181,7 @@ function EditUser(userId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -222,7 +222,7 @@ function EditUserRoles(userId, roles) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";

@@ -183,6 +183,8 @@
     <Compile Include="Response\Order\GetOrderDataResponse.cs" />
     <Compile Include="Response\Order\GetOrderDetailsDataResponse.cs" />
     <Compile Include="Response\Order\GetReturnOrderDataResponse.cs" />
+    <Compile Include="Response\User\GetAllUserDataResponse.cs" />
+    <Compile Include="Response\User\GetUserDataForEditResponse.cs" />
     <Compile Include="Web\AddProduct.aspx.cs">
       <DependentUpon>AddProduct.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -282,7 +284,6 @@
     <Folder Include="Logs\" />
     <Folder Include="Models\" />
     <Folder Include="ProductImg\" />
-    <Folder Include="Response\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Resource.resx">
