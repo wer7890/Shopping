@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Web;
 
-namespace ShoppingWeb.Response.Member
+namespace ShoppingWeb.Response.Order
 {
-    public class GetAllOrderDataResponse : BaseResponse
+    public class GetOrderDataResponse : BaseResponse
     {
-        public static GetAllOrderDataResponse GetInstance(DataSet ds)
+        public static GetOrderDataResponse GetInstance(DataSet ds)
         {
             if (ds.Tables.Count < 2)
             {
                 throw new Exception("資料表數量錯誤!");
             }
 
-            return new GetAllOrderDataResponse()
+            return new GetOrderDataResponse()
             {
                 OrderList = ds.Tables[0].AsEnumerable().Select(dr => new OrderData()
                 {

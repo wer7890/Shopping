@@ -2,7 +2,7 @@
 using System.Data;
 using System.Linq;
 
-namespace ShoppingWeb.Response.Member
+namespace ShoppingWeb.Response.Order
 {
     public class GetOrderDetailsDataResponse : BaseResponse
     {
