@@ -183,6 +183,10 @@
     <Compile Include="Response\Order\GetOrderDataResponse.cs" />
     <Compile Include="Response\Order\GetOrderDetailsDataResponse.cs" />
     <Compile Include="Response\Order\GetReturnOrderDataResponse.cs" />
+    <Compile Include="Response\Product\GetAllProductDataResponse.cs" />
+    <Compile Include="Response\Product\GetDefaultLowStockResponse.cs" />
+    <Compile Include="Response\Product\GetProductDataForEditResponse.cs" />
+    <Compile Include="Response\Product\GetProductDataResponse.cs" />
     <Compile Include="Response\User\GetAllUserDataResponse.cs" />
     <Compile Include="Response\User\GetUserDataForEditResponse.cs" />
     <Compile Include="Web\AddProduct.aspx.cs">

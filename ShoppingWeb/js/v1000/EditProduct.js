@@ -7,7 +7,7 @@
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -19,24 +19,25 @@
                 case 2:
                     $("#labRenewProduct").text(langFont["inputError"]);
                     break;
-                case 102:
-                    $("#labRenewProduct").text(langFont["errorLog"]);
+                case 100:
+                    // 直接設定 input 元素的值
+                    $("#labProductId").text(response.ProductDataList[0].Id);
+                    $("#labProductCreatedOn").text(response.ProductDataList[0].CreatedTime);
+                    $("#labProductOwner").text(response.ProductDataList[0].CreatedUser);
+                    $("#labProductName").text(response.ProductDataList[0].NameTW);
+                    $("#labProductNameEN").text(response.ProductDataList[0].NameEN);
+                    $("#labProductCategory").text(CategoryCodeToText(response.ProductDataList[0].Category.toString()));
+                    $("#labProductStock").text(response.ProductDataList[0].Stock);
+                    $("#imgProduct").attr("src", "/ProductImg/" + response.ProductDataList[0].Img);
+                    $("#txbProductPrice").val(response.ProductDataList[0].Price);
+                    $("#txbProductIntroduce").val(response.ProductDataList[0].IntroduceTW);
+                    $("#txbProductIntroduceEN").val(response.ProductDataList[0].IntroduceEN);
+                    $("#txbProductStockWarning").val(response.ProductDataList[0].WarningValue);
+                    dbStock = response.ProductDataList[0].Stock;
                     break;
                 default:
-                    // 直接設定 input 元素的值
-                    $("#labProductId").text(response.Data.ProductId);
-                    $("#labProductCreatedOn").text(response.Data.ProductCreatedOn);
-                    $("#labProductOwner").text(response.Data.ProductOwner);
-                    $("#labProductName").text(response.Data.ProductName);
-                    $("#labProductNameEN").text(response.Data.ProductNameEN);
-                    $("#labProductCategory").text(CategoryCodeToText(response.Data.ProductCategory.toString()));
-                    $("#labProductStock").text(response.Data.ProductStock);
-                    $("#imgProduct").attr("src", "/ProductImg/" + response.Data.ProductImg);
-                    $("#txbProductPrice").val(response.Data.ProductPrice);
-                    $("#txbProductIntroduce").val(response.Data.ProductIntroduce);
-                    $("#txbProductIntroduceEN").val(response.Data.ProductIntroduceEN);
-                    $("#txbProductStockWarning").val(response.Data.ProductStockWarning);
-                    dbStock = response.Data.ProductStock;
+                    $("#labRenewProduct").text(langFont["errorLog"]);
+                    break;
             }
         },
         error: function (error) {
@@ -70,7 +71,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.Msg) {
+                switch (response.Status) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";

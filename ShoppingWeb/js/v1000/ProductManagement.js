@@ -68,7 +68,7 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -80,14 +80,11 @@ function SearchAllData(pageNumber, pageSize) {
                 case 2:
                     $("#labSearchProduct").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
-                case 102:
-                    $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-                    break;
-                default:
+                case 100:
                     // 處理成功取得資料的情況
-                    let data = JSON.parse(response.Data.Data); // 解析 JSON 資料為 JavaScript 物件
+                    let data = response.ProductDataList
                     let tableBody = $('#tableBody');
-                    pagesTotal = response.Data.TotalPages;
+                    pagesTotal = response.TotalPages;
 
                     // 清空表格內容
                     tableBody.empty();
@@ -95,22 +92,22 @@ function SearchAllData(pageNumber, pageSize) {
                     // 動態生成表格內容
                     $.each(data, function (index, item) {
                         let row = '<tr>' +
-                            '<td>' + item.f_id + '</td>' +
-                            '<td>' + item.f_name + '</td>' +
-                            '<td>' + CategoryCodeToText(item.f_category.toString()) + '</td>' +
-                            '<td>' + item.f_price + '</td>' +
-                            '<td>' + item.f_stock + '</td>' +
-                            '<td>' + item.f_warningValue + '</td>' +
-                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' ' + (item.f_stock === 0 ? 'disabled' : '') + ' data-id="' + item.f_id + '"></div></td>' +
-                            '<td>' + item.f_introduce + '</td>' +
-                            '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="' + langFont["img"] + '"></td>' +
-                            '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
-                            '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">' + langFont["delOne"] + '</button></td>' +
+                            '<td>' + item.Id + '</td>' +
+                            '<td>' + item.Name + '</td>' +
+                            '<td>' + CategoryCodeToText(item.Category.toString()) + '</td>' +
+                            '<td>' + item.Price + '</td>' +
+                            '<td>' + item.Stock + '</td>' +
+                            '<td>' + item.WarningValue + '</td>' +
+                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.Id + '" class="toggle-switch form-check-input" ' + (item.IsOpen ? 'checked' : '') + ' ' + (item.Stock === 0 ? 'disabled' : '') + ' data-id="' + item.Id + '"></div></td>' +
+                            '<td>' + item.Introduce + '</td>' +
+                            '<td><img src="/ProductImg/' + item.Img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="' + langFont["img"] + '"></td>' +
+                            '<td><button class="btn btn-primary" onclick="EditProduct(' + item.Id + ')">' + langFont["editOne"] + '</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.Id + ')">' + langFont["delOne"] + '</button></td>' +
                             '</tr>';
 
                         tableBody.append(row);
                     });
-                    
+
                     if (!paginationInitialized) {
                         page = new Pagination({
                             id: 'pagination',
@@ -130,6 +127,9 @@ function SearchAllData(pageNumber, pageSize) {
                     }
 
                     beforePagesTotal = pagesTotal;
+                    break;
+                default:
+                    $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
@@ -153,7 +153,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -165,35 +165,27 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                 case 2:
                     $("#labSearchProduct").text(langFont["inputError"]).show().delay(3000).fadeOut();
                     break;
-                case 101:
-                    $("#productTableDiv").css('display', 'none');
-                    $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
-                    $('#ulPagination').empty();
-                    break;
-                case 102:
-                    $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
-                    break;
-                default:
+                case 100:
                     $("#productTableDiv").css('display', 'block');
-                    let data = JSON.parse(response.Data.Data);
+                    let data = response.ProductDataList;
                     let tableBody = $('#tableBody');
-                    pagesTotal = response.Data.TotalPages;
+                    pagesTotal = response.TotalPages;
 
                     tableBody.empty();
 
                     $.each(data, function (index, item) {
                         let row = '<tr>' +
-                            '<td>' + item.f_id + '</td>' +
-                            '<td>' + item.f_name + '</td>' +
-                            '<td>' + CategoryCodeToText(item.f_category.toString()) + '</td>' +
-                            '<td>' + item.f_price + '</td>' +
-                            '<td>' + item.f_stock + '</td>' +
-                            '<td>' + item.f_warningValue + '</td>' +
-                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.f_id + '" class="toggle-switch form-check-input" ' + (item.f_isOpen ? 'checked' : '') + ' ' + (item.f_stock === 0 ? 'disabled' : '') + ' data-id="' + item.f_id + '"></div></td>' +
-                            '<td>' + item.f_introduce + '</td>' +
-                            '<td><img src="/ProductImg/' + item.f_img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
-                            '<td><button class="btn btn-primary" onclick="EditProduct(' + item.f_id + ')">' + langFont["editOne"] + '</button></td>' +
-                            '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.f_id + ')">' + langFont["delOne"] + '</button></td>' +
+                            '<td>' + item.Id + '</td>' +
+                            '<td>' + item.Name + '</td>' +
+                            '<td>' + CategoryCodeToText(item.Category.toString()) + '</td>' +
+                            '<td>' + item.Price + '</td>' +
+                            '<td>' + item.Stock + '</td>' +
+                            '<td>' + item.WarningValue + '</td>' +
+                            '<td><div class="form-check form-switch"><input type="checkbox" id="toggle' + item.Id + '" class="toggle-switch form-check-input" ' + (item.IsOpen ? 'checked' : '') + ' ' + (item.Stock === 0 ? 'disabled' : '') + ' data-id="' + item.Id + '"></div></td>' +
+                            '<td>' + item.Introduce + '</td>' +
+                            '<td><img src="/ProductImg/' + item.Img + '" class="img-fluid img-thumbnail" width="80px" height="80px" alt="商品圖片"></td>' +
+                            '<td><button class="btn btn-primary" onclick="EditProduct(' + item.Id + ')">' + langFont["editOne"] + '</button></td>' +
+                            '<td><button class="btn btn-danger" onclick="DeleteProduct(' + item.Id + ')">' + langFont["delOne"] + '</button></td>' +
                             '</tr>';
                         tableBody.append(row);
                     });
@@ -209,6 +201,14 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
                     }
 
                     beforePagesTotal = pagesTotal;
+                    break;
+                case 101:
+                    $("#productTableDiv").css('display', 'none');
+                    $("#labSearchProduct").text(langFont["noData"]).show().delay(3000).fadeOut();
+                    $('#ulPagination').empty();
+                    break;
+                default:
+                    $("#labSearchProduct").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
         },
         error: function (error) {
@@ -232,7 +232,7 @@ function EditProductStatus(productId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -277,7 +277,7 @@ function DeleteProduct(productId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.Msg) {
+                switch (response.Status) {
                     case 0:
                         alert(langFont["duplicateLogin"]);
                         window.parent.location.href = "Login.aspx";
@@ -321,7 +321,7 @@ function EditProduct(productId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -355,8 +355,8 @@ function GetDefaultLowStock() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            let stockInsufficient = JSON.parse(response.Data.Data);
-            let language = response.Data.Language;
+            let stockInsufficient = JSON.parse(response.StockInsufficient);
+            language = response.Language;
             let lowStockTableBody = $('#lowStockTableBody');
             lowStockTableBody.empty(); // 清空表格內容
             $("#lowStockProductsDiv").show(); // 顯示庫存不足的商品區域
@@ -395,7 +395,7 @@ function SetBtnLowProduct() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            let stockInsufficient = JSON.parse(response.Data.Data);
+            let stockInsufficient = JSON.parse(response.StockInsufficient);
 
             if (stockInsufficient.length > 0) {
                 $("#btnLowProduct").removeClass("btn-outline-primary").addClass("btn-danger");
