@@ -1,5 +1,6 @@
 ﻿using NLog;
 using ShoppingWeb.Filters;
+using ShoppingWeb.Response;
 using System;
 using System.Configuration;
 using System.Data;
@@ -25,7 +26,7 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("LoginUser")]
-        public ApiResponse LoginUser([FromBody] LoginUserDto dto)
+        public BaseResponse LoginUser([FromBody] LoginUserDto dto)
         {
             try
             {
@@ -55,17 +56,15 @@ namespace ShoppingWeb.Controller
                             };
                             HttpContext.Current.Session["userInfo"] = user;
 
-                            return new ApiResponse
+                            return new BaseResponse
                             {
-                                Data = null,
-                                Msg = (int)DatabaseOperationResult.Success
+                                Status = DatabaseOperationResult.Success
                             };
                         }
 
-                        return new ApiResponse
+                        return new BaseResponse
                         {
-                            Data = null,
-                            Msg = (int)DatabaseOperationResult.Failure
+                            Status = DatabaseOperationResult.Failure
                         };
                     }
                 }
@@ -74,10 +73,9 @@ namespace ShoppingWeb.Controller
             {
                 Logger logger = LogManager.GetCurrentClassLogger();
                 logger.Error(ex);
-                return new ApiResponse
+                return new BaseResponse
                 {
-                    Data = null,
-                    Msg = (int)DatabaseOperationResult.Error
+                    Status = DatabaseOperationResult.Error
                 };
             }
         }
@@ -89,20 +87,13 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("SetLanguage")]
-        public ApiResponse SetLanguage([FromBody] SetLanguageDto dto)
+        public void SetLanguage([FromBody] SetLanguageDto dto)
         {
-
             if (HttpContext.Current.Request.Cookies["language"] != null)
             {
                 HttpContext.Current.Response.Cookies["language"].Value = dto.Language;
                 HttpContext.Current.Response.Cookies["language"].Expires = DateTime.Now.AddDays(30);
             }
-
-            return new ApiResponse
-            {
-                Data = null,
-                Msg = (int)DatabaseOperationResult.Success
-            };
         }
 
         /// <summary>
@@ -129,18 +120,13 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetUserPermission")]
-        public ApiResponse GetUserPermission()
+        public GetUserPermissionResponse GetUserPermission()
         {
-            var result = new
+            return new GetUserPermissionResponse
             {
                 Account = ((UserInfo)HttpContext.Current.Session["userInfo"]).Account,
                 Roles = ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles,
-            };
-
-            return new ApiResponse
-            {
-                Data = result,
-                Msg = (int)DatabaseOperationResult.Success
+                Status = DatabaseOperationResult.Success
             };
         }
 
@@ -150,14 +136,9 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("DeleteSession")]
-        public ApiResponse DeleteSession()
+        public void DeleteSession()
         {
             HttpContext.Current.Session["userInfo"] = null;
-            return new ApiResponse
-            {
-                Data = null,
-                Msg = (int)DatabaseOperationResult.Success
-            };
         }
     }
 }

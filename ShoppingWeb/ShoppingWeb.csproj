@@ -178,6 +178,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response\BaseResponse.cs" />
+    <Compile Include="Response\Login\GetUserPermissionResponse.cs" />
     <Compile Include="Response\Member\GetAllMemberDataResponse.cs" />
     <Compile Include="Response\Order\GetAllOrderDataResponse.cs" />
     <Compile Include="Response\Order\GetOrderDataResponse.cs" />

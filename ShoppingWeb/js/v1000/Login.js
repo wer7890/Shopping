@@ -23,7 +23,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                switch (response.Msg) {
+                switch (response.Status) {
                     case 2:
                         $("#labLogin").text(langFont["loginFormat"]);
                         break;
