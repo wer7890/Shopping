@@ -3,7 +3,7 @@
     /// <summary>
     /// 操作的結果
     /// </summary>
-    public enum DatabaseOperationResult
+    public enum ActionResult
     {
         /// <summary>
         /// 重複登入

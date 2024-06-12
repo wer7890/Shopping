@@ -44,7 +44,7 @@ namespace ShoppingWeb.Filters
                             HttpContext.Current.Session["userInfo"] = null;
                             actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                             {
-                                Status = DatabaseOperationResult.DuplicateLogin
+                                Status = ActionResult.DuplicateLogin
                             });
                         }
                     }
@@ -57,7 +57,7 @@ namespace ShoppingWeb.Filters
                 logger.Error(ex);
                 actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 });
             }
         }

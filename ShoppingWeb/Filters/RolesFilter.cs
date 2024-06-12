@@ -33,7 +33,7 @@ namespace ShoppingWeb.Filters
                 {
                     actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                     {
-                        Status = DatabaseOperationResult.AccessDenied
+                        Status = ActionResult.AccessDenied
                     });
                 }
             }
@@ -43,7 +43,7 @@ namespace ShoppingWeb.Filters
                 logger.Error(ex);
                 actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 });
             }
         }

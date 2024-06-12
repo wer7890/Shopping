@@ -50,7 +50,7 @@ namespace ShoppingWeb.Controller
 
                         GetAllProductDataResponse result = GetAllProductDataResponse.GetInstance(dt);
                         result.TotalPages = totalPages;
-                        result.Status = DatabaseOperationResult.Success;
+                        result.Status = ActionResult.Success;
 
                         return result;
                     }
@@ -62,7 +62,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new GetAllProductDataResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
         }
@@ -109,7 +109,7 @@ namespace ShoppingWeb.Controller
                         {
                             GetProductDataResponse result = GetProductDataResponse.GetInstance(dt);
                             result.TotalPages = totalPages;
-                            result.Status = DatabaseOperationResult.Success;
+                            result.Status = ActionResult.Success;
 
                             return result;
                         }
@@ -117,7 +117,7 @@ namespace ShoppingWeb.Controller
                         {
                             return new GetProductDataResponse
                             {
-                                Status = DatabaseOperationResult.Failure
+                                Status = ActionResult.Failure
                             };
                         }
 
@@ -130,7 +130,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new GetProductDataResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
         }
@@ -170,14 +170,14 @@ namespace ShoppingWeb.Controller
                             StockInsufficientCache.SetIsEditStock(true);
                             return new BaseResponse
                             {
-                                Status = DatabaseOperationResult.Success
+                                Status = ActionResult.Success
                             };
                         }
                         else
                         {
                             return new BaseResponse
                             {
-                                Status = DatabaseOperationResult.Failure
+                                Status = ActionResult.Failure
                             };
                         }
 
@@ -190,7 +190,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
         }
@@ -221,14 +221,14 @@ namespace ShoppingWeb.Controller
                             StockInsufficientCache.SetIsEditStock(true);
                             return new BaseResponse
                             {
-                                Status = DatabaseOperationResult.Success
+                                Status = ActionResult.Success
                             };
                         }
                         else
                         {
                             return new BaseResponse
                             {
-                                Status = DatabaseOperationResult.Failure
+                                Status = ActionResult.Failure
                             };
                         }
 
@@ -241,7 +241,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
         }
@@ -258,7 +258,7 @@ namespace ShoppingWeb.Controller
             HttpContext.Current.Session["productId"] = dto.ProductId;
             return new BaseResponse
             {
-                Status = DatabaseOperationResult.Success
+                Status = ActionResult.Success
             };
         }
 
@@ -274,7 +274,7 @@ namespace ShoppingWeb.Controller
             {
                 StockInsufficient = StockInsufficientCache.StockInsufficient,
                 Language = HttpContext.Current.Request.Cookies["language"].Value,
-                Status = DatabaseOperationResult.Success
+                Status = ActionResult.Success
             };
         }
 
@@ -312,7 +312,7 @@ namespace ShoppingWeb.Controller
                     {
                         return new BaseResponse
                         {
-                            Status = DatabaseOperationResult.InputError
+                            Status = ActionResult.InputError
                         };
                     }
                     else
@@ -337,7 +337,7 @@ namespace ShoppingWeb.Controller
                 {
                     return new BaseResponse
                     {
-                        Status = DatabaseOperationResult.InputError
+                        Status = ActionResult.InputError
                     };
                 }
             }
@@ -345,7 +345,7 @@ namespace ShoppingWeb.Controller
             {
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.InputError
+                    Status = ActionResult.InputError
                 };
             }
         }
@@ -368,7 +368,7 @@ namespace ShoppingWeb.Controller
             {
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.InputError
+                    Status = ActionResult.InputError
                 };
             }
 
@@ -399,14 +399,14 @@ namespace ShoppingWeb.Controller
                             File.Delete(imagePath);
                             return new BaseResponse
                             {
-                                Status = DatabaseOperationResult.InputError
+                                Status = ActionResult.InputError
                             };
                         }
 
                         StockInsufficientCache.SetIsEditStock(true);
                         return new BaseResponse
                         {
-                            Status = DatabaseOperationResult.Success
+                            Status = ActionResult.Success
                         };
                     }
                 }
@@ -419,7 +419,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
         }
@@ -490,7 +490,7 @@ namespace ShoppingWeb.Controller
                             dt.Load(reader);
 
                             GetProductDataForEditResponse result = GetProductDataForEditResponse.GetInstance(dt);
-                            result.Status = DatabaseOperationResult.Success;
+                            result.Status = ActionResult.Success;
 
                             return result;
                         }
@@ -503,7 +503,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new GetProductDataForEditResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
 
@@ -545,14 +545,14 @@ namespace ShoppingWeb.Controller
                             StockInsufficientCache.SetIsEditStock(true);
                             return new BaseResponse
                             {
-                                Status = DatabaseOperationResult.Success
+                                Status = ActionResult.Success
                             };
                         }
                         else
                         {
                             return new BaseResponse
                             {
-                                Status = DatabaseOperationResult.Failure
+                                Status = ActionResult.Failure
                             };
                         }
                     }
@@ -564,7 +564,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
         }

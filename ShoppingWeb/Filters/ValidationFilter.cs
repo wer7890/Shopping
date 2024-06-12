@@ -25,7 +25,7 @@ namespace ShoppingWeb.Filters
                 {
                     actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                     {
-                        Status = DatabaseOperationResult.InputError
+                        Status = ActionResult.InputError
                     });
                 }
             }
@@ -35,7 +35,7 @@ namespace ShoppingWeb.Filters
                 logger.Error(ex);
                 actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 });
             }
         }

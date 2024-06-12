@@ -43,7 +43,7 @@ namespace ShoppingWeb.Controller
 
                         GetAllMemberDataResponse result = GetAllMemberDataResponse.GetInstance(dt);
                         result.TotalPages = totalPages;
-                        result.Status = DatabaseOperationResult.Success;
+                        result.Status = ActionResult.Success;
 
                         return result;
                     }
@@ -55,7 +55,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new GetAllMemberDataResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
         }
@@ -83,7 +83,7 @@ namespace ShoppingWeb.Controller
 
                         return new BaseResponse
                         {
-                            Status = (rowsAffected > 0) ? DatabaseOperationResult.Success : DatabaseOperationResult.Failure
+                            Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
                         };
 
                     }
@@ -95,7 +95,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
         }
@@ -125,7 +125,7 @@ namespace ShoppingWeb.Controller
 
                         return new BaseResponse
                         {
-                            Status = (rowsAffected > 0) ? DatabaseOperationResult.Success : DatabaseOperationResult.Failure
+                            Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
                         };
                     }
                 }
@@ -136,7 +136,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
 
             }
@@ -170,7 +170,7 @@ namespace ShoppingWeb.Controller
 
                         return new BaseResponse
                         {
-                            Status = (result == 1) ? DatabaseOperationResult.Success : DatabaseOperationResult.Failure
+                            Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
                         };
                     }
                 }
@@ -181,7 +181,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
 
             }

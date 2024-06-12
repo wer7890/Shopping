@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Data\Enums\Language.cs" />
-    <Compile Include="App_Data\Enums\Database.cs" />
+    <Compile Include="App_Data\Enums\ActionResult.cs" />
     <Compile Include="App_Data\UserInfo.cs" />
     <Compile Include="App_Data\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>

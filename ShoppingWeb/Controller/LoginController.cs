@@ -58,13 +58,13 @@ namespace ShoppingWeb.Controller
 
                             return new BaseResponse
                             {
-                                Status = DatabaseOperationResult.Success
+                                Status = ActionResult.Success
                             };
                         }
 
                         return new BaseResponse
                         {
-                            Status = DatabaseOperationResult.Failure
+                            Status = ActionResult.Failure
                         };
                     }
                 }
@@ -75,7 +75,7 @@ namespace ShoppingWeb.Controller
                 logger.Error(ex);
                 return new BaseResponse
                 {
-                    Status = DatabaseOperationResult.Error
+                    Status = ActionResult.Error
                 };
             }
         }
@@ -126,7 +126,7 @@ namespace ShoppingWeb.Controller
             {
                 Account = ((UserInfo)HttpContext.Current.Session["userInfo"]).Account,
                 Roles = ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles,
-                Status = DatabaseOperationResult.Success
+                Status = ActionResult.Success
             };
         }
 
