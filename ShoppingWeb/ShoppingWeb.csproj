@@ -282,6 +282,7 @@
     <Folder Include="Logs\" />
     <Folder Include="Models\" />
     <Folder Include="ProductImg\" />
+    <Folder Include="Response\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Resource.resx">

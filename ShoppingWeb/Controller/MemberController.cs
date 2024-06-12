@@ -1,6 +1,6 @@
 ﻿using NLog;
 using ShoppingWeb.Filters;
-using ShoppingWeb.Response.Member;
+using ShoppingWeb.Response;
 using System;
 using System.Data;
 using System.Data.SqlClient;

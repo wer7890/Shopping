@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 
-namespace ShoppingWeb.Response.Order
+namespace ShoppingWeb.Response
 {
     public class GetOrderDataResponse : BaseResponse
     {

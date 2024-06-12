@@ -1,4 +1,4 @@
-﻿namespace ShoppingWeb
+﻿namespace ShoppingWeb.Response
 {
     public class BaseResponse
     {

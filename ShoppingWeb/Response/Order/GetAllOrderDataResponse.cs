@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 
-namespace ShoppingWeb.Response.Order
+namespace ShoppingWeb.Response
 {
     public class GetAllOrderDataResponse : BaseResponse
     {
