@@ -121,7 +121,6 @@ D:\Code\ShoppingWeb\ShoppingWeb\bin\NLog.dll
 D:\Code\ShoppingWeb\ShoppingWeb\bin\Newtonsoft.Json.xml
 D:\Code\ShoppingWeb\ShoppingWeb\bin\NLog.xml
 D:\Code\ShoppingWeb\ShoppingWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Code\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.csprojAssemblyReference.cache
 D:\Code\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.csproj.CoreCompileInputs.cache
 D:\Code\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.csproj.CopyComplete
 D:\Code\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.dll
@@ -135,3 +134,4 @@ D:\Code\ShoppingWeb\ShoppingWeb\bin\System.Web.Http.WebHost.xml
 D:\Code\ShoppingWeb\ShoppingWeb\bin\zh-Hans\System.Net.Http.Formatting.resources.dll
 D:\Code\ShoppingWeb\ShoppingWeb\bin\zh-Hans\System.Web.Http.resources.dll
 D:\Code\ShoppingWeb\ShoppingWeb\bin\zh-Hans\System.Web.Http.WebHost.resources.dll
+D:\Code\ShoppingWeb\ShoppingWeb\obj\Debug\ShoppingWeb.csprojAssemblyReference.cache

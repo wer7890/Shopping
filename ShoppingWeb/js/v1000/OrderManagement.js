@@ -101,7 +101,7 @@ function SearchAllData(pageNumber, pageSize) {
         contentType: 'application/json',
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -120,9 +120,11 @@ function SearchAllData(pageNumber, pageSize) {
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = 0;
                     $("#orderSure").remove();
-                    let orderData = JSON.parse(response.Data.Data[0]);
-                    let deliveryStatusCountData = JSON.parse(response.Data.Data[1]);
-                    pagesTotal = response.Data.TotalPages;
+
+                    let orderData = response.OrderList;
+                    let deliveryStatusCountData = response.StatusList;
+                    pagesTotal = response.TotalPages;
+
                     OrderHtml(orderData, deliveryStatusCountData);
 
                     if (!paginationInitialized) {
@@ -243,7 +245,7 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -267,9 +269,9 @@ function ShowOrder(deliveryStatusNum, pageNumber, pageSize) {
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = deliveryStatusNum;
                     $("#orderSure").remove();
-                    let orderData = JSON.parse(response.Data.Data[0]);
-                    let deliveryStatusCountData = JSON.parse(response.Data.Data[1]);
-                    pagesTotal = response.Data.TotalPages;
+                    let orderData = response.OrderList;
+                    let deliveryStatusCountData = response.StatusList;
+                    pagesTotal = response.TotalPages;
                     isReturn = false;
 
                     OrderHtml(orderData, deliveryStatusCountData);
@@ -301,23 +303,23 @@ function OrderHtml(orderData, deliveryStatusCountData) {
     tableBody.empty();
     let row = "";
     $.each(orderData, function (index, item) {
-        row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.f_id + '\', \'' + item.f_orderStatus + '\', \'' + item.f_deliveryStatus + '\', \'' + item.f_deliveryMethod + '\')">' +
-            '<td>' + item.f_id + '</td>' +
-            '<td>' + item.f_account + '</td>' +
-            '<td>' + item.f_createdTime + '</td>' +
+        row += '<tr class="px-3" data-bs-toggle="collapse" data-bs-target="#collapse_' + index + '" onclick="ShowEditOrder(this, \'' + item.Id + '\', \'' + item.OrderStatus + '\', \'' + item.DeliveryStatus + '\', \'' + item.DeliveryMethod + '\')">' +
+            '<td>' + item.Id + '</td>' +
+            '<td>' + item.Account + '</td>' +
+            '<td>' + item.CreatedTime + '</td>' +
             '<td>' +
-            '<span class="px-3 py-1 rounded ' + orderStatus[item.f_orderStatus].color + ' ' + orderStatus[item.f_orderStatus].text + '">' + orderStatus[item.f_orderStatus].name + '</span>' +
+            '<span class="px-3 py-1 rounded ' + orderStatus[item.OrderStatus].color + ' ' + orderStatus[item.OrderStatus].text + '">' + orderStatus[item.OrderStatus].name + '</span>' +
             '</td>' +
             '<td>' +
-            '<span class="px-3 py-1 rounded ' + deliveryStatus[item.f_deliveryStatus].color + ' ' + deliveryStatus[item.f_deliveryStatus].text + '">' + deliveryStatus[item.f_deliveryStatus].name + '</span>' +
+            '<span class="px-3 py-1 rounded ' + deliveryStatus[item.DeliveryStatus].color + ' ' + deliveryStatus[item.DeliveryStatus].text + '">' + deliveryStatus[item.DeliveryStatus].name + '</span>' +
             '</td>' +
-            '<td>' + deliveryMethod[item.f_deliveryMethod] + '</td>' +
-            '<td>NT$' + item.f_total + '</td>';
+            '<td>' + deliveryMethod[item.DeliveryMethod] + '</td>' +
+            '<td>NT$' + item.Total + '</td>';
 
         if (deliveryStatusValue === 7) {
             row += '<td><div class="d-flex justify-content-between">' +
-                '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.f_id + ', true)">' + langFont["yes"] + '</button>' +
-                '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.f_id + ', false)">' + langFont["no"] + '</button>' +
+                '<button type="button" class="btn btn-outline-primary btn-sm" onclick="EditReturnOrder(' + item.Id + ', true)">' + langFont["yes"] + '</button>' +
+                '<button type="button" class="btn btn-outline-danger btn-sm" onclick="EditReturnOrder(' + item.Id + ', false)">' + langFont["no"] + '</button>' +
                 '</div></td>' +
                 '</tr>';
         } else {
@@ -331,14 +333,14 @@ function OrderHtml(orderData, deliveryStatusCountData) {
     tableBody.append(row);
     $(".btnSpan").remove();
     $.each(deliveryStatusCountData, function (index, item) {
-        $("#btnDeliveryStatus_0").append('<span class="btnSpan">(' + item.statusAll + ')</span>');
-        $("#btnDeliveryStatus_1").append('<span class="btnSpan">(' + item.status1 + ')</span>');
-        $("#btnDeliveryStatus_2").append('<span class="btnSpan">(' + item.status2 + ')</span>');
-        $("#btnDeliveryStatus_3").append('<span class="btnSpan">(' + item.status3 + ')</span>');
-        $("#btnDeliveryStatus_4").append('<span class="btnSpan">(' + item.status4 + ')</span>');
-        $("#btnDeliveryStatus_5").append('<span class="btnSpan">(' + item.status5 + ')</span>');
-        $("#btnDeliveryStatus_6").append('<span class="btnSpan">(' + item.status6 + ')</span>');
-        $("#btnDeliveryStatus_7").append('<span class="btnSpan">(' + item.orderStatus2 + ')</span>');
+        $("#btnDeliveryStatus_0").append('<span class="btnSpan">(' + item.All + ')</span>');
+        $("#btnDeliveryStatus_1").append('<span class="btnSpan">(' + item.Shipping + ')</span>');
+        $("#btnDeliveryStatus_2").append('<span class="btnSpan">(' + item.Shipped + ')</span>');
+        $("#btnDeliveryStatus_3").append('<span class="btnSpan">(' + item.Arrived + ')</span>');
+        $("#btnDeliveryStatus_4").append('<span class="btnSpan">(' + item.Received + ')</span>');
+        $("#btnDeliveryStatus_5").append('<span class="btnSpan">(' + item.Returning + ')</span>');
+        $("#btnDeliveryStatus_6").append('<span class="btnSpan">(' + item.Returned + ')</span>');
+        $("#btnDeliveryStatus_7").append('<span class="btnSpan">(' + item.Return + ')</span>');
     });
 }
 
@@ -357,7 +359,7 @@ function ShowOrderDetail(orderId) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -375,7 +377,7 @@ function ShowOrderDetail(orderId) {
                 default:
                     selectedOrderId = orderId;
 
-                    let data = JSON.parse(response.Data);
+                    let data = response.OrderDetailList;
                     let detailElement = $("#box");
 
                     //明細
@@ -393,11 +395,11 @@ function ShowOrderDetail(orderId) {
 
                     $.each(data, function (index, item) {
                         detailHtml += '<tr>' +
-                            '<td>' + item.f_productName + '</td>' +
-                            '<td>' + item.f_productPrice + '</td>' +
-                            '<td>' + CategoryCodeToText(item.f_productCategory.toString()) + '</td>' +
-                            '<td>' + item.f_quantity + '</td>' +
-                            '<td>' + item.f_subtotal + '</td>' +
+                            '<td>' + item.ProductName + '</td>' +
+                            '<td>' + item.ProductPrice + '</td>' +
+                            '<td>' + CategoryCodeToText(item.ProductCategory.toString()) + '</td>' +
+                            '<td>' + item.Quantity + '</td>' +
+                            '<td>' + item.Subtotal + '</td>' +
                             '</tr>';
                     });
                     detailHtml += '</tbody></table><div class="w-100 d-flex justify-content-center"><button id="btnCloseOrderDetail" class="btn btn-outline-primary">' + langFont["closure"] + '</button></div>';
@@ -425,7 +427,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -439,7 +441,7 @@ function EditOrderData(orderId, orderStatusNum, deliveryStatusNum, deliveryMetho
                     break;
                 case 100:
                 case 101:
-                    let temp = (response.Msg === 100) ? langFont["editSuccessful"] : langFont["editOrderFailed"];
+                    let temp = (response.Status === 100) ? langFont["editSuccessful"] : langFont["editOrderFailed"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     if (deliveryStatusValue === 0) {
                         SearchAllData(1, pageSize);
@@ -475,7 +477,7 @@ function ShowReturnOrder(pageNumber, pageSize) {
         dataType: "json",
         data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: beforePagesTotal }),
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -498,9 +500,9 @@ function ShowReturnOrder(pageNumber, pageSize) {
                 default:
                     $("#orderTableDiv").css('display', 'block');
                     deliveryStatusValue = 7;
-                    let orderData = JSON.parse(response.Data.Data[0]);
-                    let deliveryStatusCountData = JSON.parse(response.Data.Data[1]);
-                    pagesTotal = response.Data.TotalPages;
+                    let orderData = response.OrderList;
+                    let deliveryStatusCountData = response.StatusList;
+                    pagesTotal = response.TotalPages;
                     isReturn = true;
 
                     $("#orderSure").remove();
@@ -540,7 +542,7 @@ function EditReturnOrder(orderId, boolReturn) {
         type: 'POST',
         contentType: 'application/json',
         success: function (response) {
-            switch (response.Msg) {
+            switch (response.Status) {
                 case 0:
                     alert(langFont["duplicateLogin"]);
                     window.parent.location.href = "Login.aspx";
@@ -554,7 +556,7 @@ function EditReturnOrder(orderId, boolReturn) {
                     break;
                 case 100:
                 case 101:
-                    let temp = (response.Msg === 100) ? langFont["editSuccessful"] : langFont["editFail"];
+                    let temp = (response.Status === 100) ? langFont["editSuccessful"] : langFont["editFail"];
                     $("#labSearchOrder").text(temp).show().delay(3000).fadeOut();
                     paginationInitialized = false;
                     ShowReturnOrder(1, pageSize);
