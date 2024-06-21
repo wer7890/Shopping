@@ -20,10 +20,6 @@
         /// </summary>
         InputError = 2,
 
-        /// <summary>
-        /// 權限驗證異常
-        /// </summary>
-        validationException = 3,
 
         /// <summary>
         /// 更改成功
