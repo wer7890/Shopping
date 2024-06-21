@@ -6,7 +6,6 @@
             pwd: '',
             rememberAccount: false,  //是否勾選記住帳號
             message: '',
-            lang: 'TW'
         };
     },
     mounted() {
@@ -34,10 +33,11 @@
                             this.message = this.$t('message.loginFormat');
                             break;
                         case 100:
+                            //如果有勾選記住帳號，就紀錄cookie["account"]，反之則清除
                             if (this.rememberAccount) {
-                                document.cookie = 'account=' + this.account + '; max-age=2592000; path=/';
+                                document.cookie = 'account=' + this.account + '; max-age=2592000; path=/';  //30天到期，path=/該cookie整個網站都是可看見的
                             } else {
-                                document.cookie = 'account=0; max-age=0; path=/';
+                                document.cookie = 'account=0; max-age=0; path=/';  //馬上過期   
                             }
                             window.location.href = "Frame.aspx";
                             break;
@@ -74,24 +74,11 @@
                 this.message = "undefined";
                 return;
             }
-            
-            $.ajax({
-                type: "POST",
-                url: "/api/Controller/login/SetLanguage",
-                data: JSON.stringify({ language: language }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: (response) => {
-                    this.$i18n.locale = language;
-                    //parent.location.reload();
-                },
-                error: (error) => {
-                    this.message = this.$t('message.ajaxError');
-                }
-            });
+            this.$i18n.locale = language;
+            document.cookie = 'language=' + language + '; max-age=2592000; path=/';
         },
         getAccountCookie(name) {
-            var cookies = document.cookie.split(';');
+            let cookies = document.cookie.split(';');
 
             for (var i = 0; i < cookies.length; i++) {
                 var cookie = cookies[i].trim();
