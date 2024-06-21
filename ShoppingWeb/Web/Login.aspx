@@ -68,7 +68,7 @@
 
     <div id="app"></div>
 
-    
+
     <script src="/js/<%= jsVersion %>/Store.js"></script>
     <script src="/js/<%= jsVersion %>/Login.js"></script>
 </body>

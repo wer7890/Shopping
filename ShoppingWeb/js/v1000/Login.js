@@ -1,6 +1,6 @@
 ﻿Vue.component('login-form', {
     i18n,
-    data: function() {
+    data() {
         return {
             account: '',
             pwd: '',
@@ -8,7 +8,7 @@
             message: '',
         };
     },
-    mounted() {
+    mounted() {  //掛載後
         let accountValue = this.getAccountCookie("account");
         if (accountValue) {
             this.account = accountValue;

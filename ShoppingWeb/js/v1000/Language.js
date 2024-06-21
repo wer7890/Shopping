@@ -36,7 +36,7 @@ const messages = {
 let i18n = new VueI18n({
     locale: GetLanguageCookie("language"), // 默認語言
     messages, // 語言包
-});;
+});
 
 //取得指定的Cookie
 function GetLanguageCookie(name) {
