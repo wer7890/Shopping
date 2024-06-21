@@ -1,0 +1,6 @@
+D:\Code6\ShoppingWeb\ShoppingWeb.DB\bin\Debug\ShoppingWeb.DB.dacpac
+D:\Code6\ShoppingWeb\ShoppingWeb.DB\obj\Debug\ShoppingWeb.DB.sqlprojAssemblyReference.cache
+D:\Code6\ShoppingWeb\ShoppingWeb.DB\obj\Debug\ShoppingWeb.DB.dll
+D:\Code6\ShoppingWeb\ShoppingWeb.DB\obj\Debug\ShoppingWeb.DB.pdb
+D:\Code6\ShoppingWeb\ShoppingWeb.DB\bin\Debug\ShoppingWeb.DB.dll
+D:\Code6\ShoppingWeb\ShoppingWeb.DB\bin\Debug\ShoppingWeb.DB.pdb

@@ -1,0 +1,62 @@
+﻿** 突出显示
+     将重新生成的表
+       无
+     将删除的聚集索引
+       无
+     将创建的聚集索引
+       无
+     可能的数据问题
+       无
+
+** 用户操作
+     创建
+       [SH_USER] (用户)
+       角色成员资格: <未命名> (角色成员资格)
+       角色成员资格: <未命名> (角色成员资格)
+       角色成员资格: <未命名> (角色成员资格)
+       [dbo].[t_member] (表)
+       [dbo].[t_order] (表)
+       [dbo].[t_orderDetails] (表)
+       [dbo].[t_product] (表)
+       [dbo].[t_totalSpent] (表)
+       [dbo].[t_userInfo] (表)
+       [dbo].[t_wallet] (表)
+       [dbo].[t_walletChanges] (表)
+       [dbo].[DF_t_member_f_level] (默认约束)
+       [dbo].[DF_t_member_f_accountStatus] (默认约束)
+       [dbo].[DF_t_member_f_createdTime] (默认约束)
+       [dbo].[DF_t_order_f_orderStatus] (默认约束)
+       [dbo].[DF_t_order_f_deliveryStatus] (默认约束)
+       [dbo].[DF_t_order_f_createdTime] (默认约束)
+       [dbo].[DF_t_product_f_createdTime] (默认约束)
+       [dbo].[DF_t_totalSpent_f_totalSpent] (默认约束)
+       [dbo].[DF_t_wallet_f_amount] (默认约束)
+       [dbo].[DF_t_walletChanges_f_createdTime] (默认约束)
+       [dbo].[pro_sw_addMemberData] (过程)
+       [dbo].[pro_sw_addProductData] (过程)
+       [dbo].[pro_sw_addUserData] (过程)
+       [dbo].[pro_sw_delProductData] (过程)
+       [dbo].[pro_sw_delUserData] (过程)
+       [dbo].[pro_sw_editMemberLevel] (过程)
+       [dbo].[pro_sw_editMemberStatus] (过程)
+       [dbo].[pro_sw_editOrderData] (过程)
+       [dbo].[pro_sw_editProductData] (过程)
+       [dbo].[pro_sw_editProductStatus] (过程)
+       [dbo].[pro_sw_editPwd] (过程)
+       [dbo].[pro_sw_editReturnOrder] (过程)
+       [dbo].[pro_sw_editRoles] (过程)
+       [dbo].[pro_sw_getAllMemberData] (过程)
+       [dbo].[pro_sw_getAllOrderData] (过程)
+       [dbo].[pro_sw_getAllProductData] (过程)
+       [dbo].[pro_sw_getAllUserData] (过程)
+       [dbo].[pro_sw_getLowStock] (过程)
+       [dbo].[pro_sw_getOrderData] (过程)
+       [dbo].[pro_sw_getOrderDetailsData] (过程)
+       [dbo].[pro_sw_getProductData] (过程)
+       [dbo].[pro_sw_getPwdAndEditSessionId] (过程)
+       [dbo].[pro_sw_getReturnOrderData] (过程)
+       [dbo].[pro_sw_getSearchProductData] (过程)
+       [dbo].[pro_sw_getSessionId] (过程)
+       [dbo].[pro_sw_getUserData] (过程)
+
+** 支持操作

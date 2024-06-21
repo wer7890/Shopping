@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>ShoppingWeb.DB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{d3b44320-61db-465f-9fc7-91d84f44c412}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>ShoppingWeb.DB</RootNamespace>
+    <AssemblyName>ShoppingWeb.DB</AssemblyName>
+    <ModelCollation>2052,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Chinese_PRC_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\t_product.sql" />
+    <Build Include="dbo\Tables\t_walletChanges.sql" />
+    <Build Include="dbo\Tables\t_totalSpent.sql" />
+    <Build Include="dbo\Tables\t_wallet.sql" />
+    <Build Include="dbo\Tables\t_userInfo.sql" />
+    <Build Include="dbo\Tables\t_member.sql" />
+    <Build Include="dbo\Tables\t_order.sql" />
+    <Build Include="dbo\Tables\t_orderDetails.sql" />
+    <Build Include="Security\SH_USER.sql" />
+    <Build Include="Security\SH_USER_1.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getPwdAndEditSessionId.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getSessionId.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_addUserData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_editOrderData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_delUserData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getAllUserData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_editRoles.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getUserData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_editPwd.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getAllProductData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getSearchProductData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_delProductData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_editProductStatus.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getProductData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_editProductData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_addProductData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getOrderData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getReturnOrderData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_editReturnOrder.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_addMemberData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getAllMemberData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_editMemberStatus.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_editMemberLevel.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getAllOrderData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getOrderDetailsData.sql" />
+    <Build Include="dbo\Stored Procedures\pro_sw_getLowStock.sql" />
+  </ItemGroup>
+</Project>
