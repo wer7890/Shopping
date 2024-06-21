@@ -106,6 +106,8 @@
     <Content Include="js\v1000\Login.js" />
     <Content Include="js\v1000\EditProduct.js" />
     <Content Include="js\v1000\ProductManagement.js" />
+    <Content Include="js\v1000\vue.js" />
+    <Content Include="js\v1000\vue.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web\AddProduct.aspx" />
     <Content Include="Web\AddUser.aspx" />
