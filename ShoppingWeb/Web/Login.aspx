@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ShoppingWeb.Web.Login"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ShoppingWeb.Web.Login" %>
 
 <!DOCTYPE html>
 
@@ -11,17 +11,19 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
+    <script src="/js/<%= jsVersion %>/vue.js"></script>
+    <script src="/js/<%= jsVersion %>/vue-i18n.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
     <script src="/js/<%= jsVersion %>/SetNLog.js"></script>
-    <script src="/js/<%= jsVersion %>/Login.js"></script>
-
+    <%--<script src="/js/<%= jsVersion %>/Login2.js"></script>--%>
 </head>
 <body>
-    <div class="container">
+    <%--<div class="container">
         <div class="row">
             <h1 class="text-center mt-3"><%= Resources.Resource.titleLogin %></h1>
         </div>
         <hr />
+
         <div class="row mx-auto col-12 col-md-5">
             <div class="form-group">
                 <label for="txbAccount" class="control-label"><%= Resources.Resource.account %>:</label>
@@ -55,11 +57,18 @@
             </div>
         </div>
         <br />
+
+
         <div class="row">
             <label id="labLogin" class="col-12 col-sm-12 text-center text-success"></label>
         </div>
 
-    </div>
+    </div>--%>
 
+    <div id="app"></div>
+
+    
+    <script src="/js/<%= jsVersion %>/Store.js"></script>
+    <script src="/js/<%= jsVersion %>/Login.js"></script>
 </body>
 </html>
