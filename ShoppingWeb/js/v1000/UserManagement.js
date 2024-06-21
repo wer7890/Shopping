@@ -109,6 +109,9 @@ function SearchAllData(pageNumber, pageSize) {
 
                     beforePagesTotal = pagesTotal;
                     break;
+                case 101:
+                    $("#labSearchUser").text(langFont["noData"]).show().delay(3000).fadeOut();
+                    break;
                 default:
                     $("#labSearchUser").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }

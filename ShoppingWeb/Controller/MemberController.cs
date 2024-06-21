@@ -41,11 +41,21 @@ namespace ShoppingWeb.Controller
                         int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
                         int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
-                        GetAllMemberDataResponse result = GetAllMemberDataResponse.GetInstance(dt);
-                        result.TotalPages = totalPages;
-                        result.Status = ActionResult.Success;
+                        if (totalCount > 0)
+                        {
+                            GetAllMemberDataResponse result = GetAllMemberDataResponse.GetInstance(dt);
+                            result.TotalPages = totalPages;
+                            result.Status = ActionResult.Success;
 
-                        return result;
+                            return result;
+                        }
+                        else
+                        {
+                            return new GetAllMemberDataResponse
+                            {
+                                Status = ActionResult.Failure
+                            };
+                        }
                     }
                 }
             }

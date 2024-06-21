@@ -205,6 +205,9 @@ function SearchAllData(pageNumber, pageSize) {
 
                     beforePagesTotal = pagesTotal;
                     break;
+                case 101:
+                    $("#labSearchMember").text(langFont["noData"]).show().delay(3000).fadeOut();
+                    break;
                 default:
                     $("#labSearchMember").text(langFont["errorLog"]).show().delay(3000).fadeOut();
             }
