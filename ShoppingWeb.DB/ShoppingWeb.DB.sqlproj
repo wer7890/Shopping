@@ -102,4 +102,7 @@
     <Build Include="dbo\Stored Procedures\pro_sw_getOrderDetailsData.sql" />
     <Build Include="dbo\Stored Procedures\pro_sw_getLowStock.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="AddAdminstrator.sql" />
+  </ItemGroup>
 </Project>
