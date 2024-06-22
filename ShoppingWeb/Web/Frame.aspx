@@ -22,6 +22,8 @@
     <script src="/js/<%= jsVersion %>/sw/components/frame/OrderComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/ProductComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/UserComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/AddUserComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/EditUserComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/FrameComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/MenuComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/App.js"></script>

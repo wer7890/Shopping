@@ -24,5 +24,7 @@
         'member-component': memberComponent,
         'order-component': orderComponent,
         'product-component': productComponent,
+        'add-user-component': addUserComponent,
+        'edit-user-component': editUserComponent,
     }
 };

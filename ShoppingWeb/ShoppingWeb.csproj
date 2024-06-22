@@ -103,7 +103,9 @@
     <Content Include="js\v1000\ProductCategories.js" />
     <Content Include="js\v1000\SetNLog.js" />
     <Content Include="js\v1000\sw\components\FrameComponent.js" />
+    <Content Include="js\v1000\sw\components\frame\AddUserComponent.js" />
     <Content Include="js\v1000\sw\components\frame\DefaultComponent.js" />
+    <Content Include="js\v1000\sw\components\frame\EditUserComponent.js" />
     <Content Include="js\v1000\sw\components\frame\MemberComponent.js" />
     <Content Include="js\v1000\sw\components\frame\OrderComponent.js" />
     <Content Include="js\v1000\sw\components\frame\ProductComponent.js" />

@@ -6,7 +6,7 @@
                     <h2 class="text-center">${langFont['titleUser']}</h2>
                 </div>
                 <div class="col-2 d-flex justify-content-center">
-                    <button id="btnAddUser" type="submit" class="btn btn-outline-primary btn-sm">${langFont['addUser']}</button>
+                    <button @click="AddUser" type="submit" class="btn btn-outline-primary btn-sm">${langFont['addUser']}</button>
                 </div>
             </div>
             <br />
@@ -35,7 +35,7 @@
                                     <option v-for="data in rolesArray" :ket="data.value" :value="data.value">{{ data.name }}</option>
                                 </select>
                             </td>
-                            <td><button class="btn btn-primary">${langFont['edit']}</button></td>
+                            <td><button @click="EditUser(data.Id)" class="btn btn-primary">${langFont['edit']}</button></td>
                             <td><button @click="DeleteUser(data.Id)" class="btn btn-danger">${langFont['del']}</button></td>
                         </tr>
                     </tbody>
@@ -204,6 +204,17 @@
                     self.message = langFont["ajaxError"];
                 }
             });
+        },
+
+        //更改至管理員(先去拿該會員資料，在把該會員資料帶進去)
+        EditUser: function (userId) {
+            console.log(userId);
+            this.$bus.$emit('change-page-name', 'edit-user-component');
+        },
+
+        //跳轉至管理員
+        AddUser: function () {
+            this.$bus.$emit('change-page-name', 'add-user-component');
         }
     },
     mounted: function () {
