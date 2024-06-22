@@ -93,8 +93,8 @@
     <Content Include="js\v1000\AddUser.js" />
     <Content Include="js\v1000\EditUser.js" />
     <Content Include="js\v1000\Frame.js" />
+    <Content Include="js\v1000\Frame3.js" />
     <Content Include="js\v1000\jquery-3.7.1.min.js" />
-    <Content Include="js\v1000\Language.js" />
     <Content Include="js\v1000\language\Language_EN.js" />
     <Content Include="js\v1000\language\Language_TW.js" />
     <Content Include="js\v1000\Login.js" />

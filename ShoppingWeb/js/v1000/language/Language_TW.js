@@ -153,6 +153,12 @@
 
     'validationException': '權限驗證異常',
     'lowStock': '庫存量小於100',
+
+    'titleLogin': '登入頁面',
+    'txbAccount': '請輸入帳號',
+    'txbPassword': '請輸入密碼',
+    'rememberAccount': '記住帳號',
+    'btnLogin': '登入',
 };
 
 // 商品大分類

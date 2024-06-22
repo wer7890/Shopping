@@ -1,112 +1,22 @@
 ﻿Vue.component('login-form', {
-    i18n,
-    data() {
-        return {
-            account: '',
-            pwd: '',
-            rememberAccount: false,  //是否勾選記住帳號
-            message: '',
-        };
-    },
-    mounted() {  //掛載後
-        let accountValue = this.getAccountCookie("account");
-        if (accountValue) {
-            this.account = accountValue;
-            this.rememberAccount = true;
-        }
-    },
-    methods: {
-        login() {
-            if (!this.isSpecialChar(this.account, this.pwd)) {
-                return;
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/api/Controller/login/LoginUser",
-                data: JSON.stringify({ account: this.account, pwd: this.pwd }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: (response) => {
-                    switch (response.Status) {
-                        case 2:
-                            this.message = this.$t('message.loginFormat');
-                            break;
-                        case 100:
-                            //如果有勾選記住帳號，就紀錄cookie["account"]，反之則清除
-                            if (this.rememberAccount) {
-                                document.cookie = 'account=' + this.account + '; max-age=2592000; path=/';  //30天到期，path=/該cookie整個網站都是可看見的
-                            } else {
-                                document.cookie = 'account=0; max-age=0; path=/';  //馬上過期   
-                            }
-                            window.location.href = "Frame.aspx";
-                            break;
-                        case 101:
-                            this.message = this.$t('message.loginFailed');
-                            break;
-                        default:
-                            this.message = this.$t('message.errorLog');
-                    }
-                },
-                error: function (error) {
-                    this.message = this.$t('message.ajaxError');
-                }
-            });
-        },
-        isSpecialChar(account, pwd) {
-            if (typeof account === 'undefined' || typeof pwd === 'undefined') {
-                this.message = "undefined";
-                return false;
-            }
-
-            let regex = /^[A-Za-z0-9]{6,16}$/;
-            let accountValid = regex.test(account);
-            let pwdValid = regex.test(pwd);
-
-            if (!accountValid || !pwdValid) {
-                this.message = this.$t('message.loginFormat');
-            }
-
-            return accountValid && pwdValid;
-        },
-        changeLanguage(language) {
-            if (typeof language === 'undefined') {
-                this.message = "undefined";
-                return;
-            }
-            this.$i18n.locale = language;
-            document.cookie = 'language=' + language + '; max-age=2592000; path=/';
-        },
-        getAccountCookie(name) {
-            let cookies = document.cookie.split(';');
-
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                if (cookie.startsWith(name + '=')) {
-                    return cookie.substring(name.length + 1);
-                }
-            }
-            return null;
-        }
-    },
     template: `
         <div class="container">
             <div class="row">
-                <h1 class="text-center mt-3">{{ $t('message.titleLogin') }}</h1>
+                <h1 class="text-center mt-3">${langFont['titleLogin']}</h1>
             </div>
             <hr />
             <div class="row mx-auto col-12 col-md-5">
                 <div class="form-group">
-                    <label for="txbAccount" class="control-label">{{ $t('message.account') }}:</label>
+                    <label for="txbAccount" class="control-label">${langFont['account']}:</label>
                     <div>
-                        <input type="text" id="txbAccount" class="form-control mt-2" v-model="account" :placeholder="$t('message.txbAccount')" />
+                        <input type="text" id="txbAccount" class="form-control mt-2" v-model="account" placeholder="${langFont['txbAccount']}" />
                     </div>
                 </div>
                 <br />
                 <div class="form-group mt-3">
-                    <label for="txbPassword" class="control-label">{{ $t('message.pwd') }}:</label>
+                    <label for="txbPassword" class="control-label">${langFont['pwd']}:</label>
                     <div>
-                        <input type="password" id="txbPassword" class="form-control mt-2" v-model="pwd" :placeholder="$t('message.txbPassword')" />
+                        <input type="password" id="txbPassword" class="form-control mt-2" v-model="pwd" placeholder="${langFont['txbPassword']}" />
                     </div>
                 </div>
                 <br />
@@ -114,10 +24,10 @@
                     <div class="form-check ms-4 mb-2">
                         <input class="form-check-input" type="checkbox" v-model="rememberAccount" id="flexCheckDefault" />
                         <label class="form-check-label" for="flexCheckDefault">
-                            {{ $t('message.rememberAccount') }}
+                            ${langFont['rememberAccount']}
                         </label>
                     </div>
-                    <button @click="login" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6">{{ $t('message.btnLogin') }}</button>
+                    <button @click="login" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6">${langFont['btnLogin']}</button>
                 </div>
                 <div class="row justify-content-center align-self-center mt-5">
                     <button @click="changeLanguage('TW')" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm">中文</button>
@@ -129,10 +39,101 @@
                 <label id="labLogin" class="col-12 col-sm-12 text-center text-success">{{ message }}</label>
             </div>
         </div>
-    `
+    `,
+    data: function() {
+        return {
+            account: '',
+            pwd: '',
+            rememberAccount: false,  //是否勾選記住帳號
+            message: '',
+        };
+    },
+    methods: {
+        login: function() {  //登入
+            if (!this.isSpecialChar(this.account, this.pwd)) {
+                return;
+            }
+
+            var self = this;
+
+            $.ajax({
+                type: "POST",
+                url: "/api/Controller/login/LoginUser",
+                data: JSON.stringify({ account: this.account, pwd: this.pwd }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Status) {
+                        case 2:
+                            self.message = langFont['loginFormat'];
+                            break;
+                        case 100:
+                            //如果有勾選記住帳號，就紀錄cookie["account"]，反之則清除
+                            if (self.rememberAccount) {
+                                document.cookie = 'account=' + self.account + '; max-age=2592000; path=/';  //30天到期，path=/該cookie整個網站都是可看見的
+                            } else {
+                                document.cookie = 'account=0; max-age=0; path=/';  //馬上過期   
+                            }
+                            window.location.href = "Frame.aspx";
+                            break;
+                        case 101:
+                            self.message = langFont['loginFailed'];
+                            break;
+                        default:
+                            self.message = langFont['errorLog'];
+                    }
+                },
+                error: function (error) {
+                    self.message = langFont['ajaxError'];
+                }
+            });
+        },
+        isSpecialChar: function(account, pwd) {  //輸入值判斷
+            if (typeof account === 'undefined' || typeof pwd === 'undefined') {
+                this.message = "undefined";
+                return false;
+            }
+
+            var regex = /^[A-Za-z0-9]{6,16}$/;
+            var accountValid = regex.test(account);
+            var pwdValid = regex.test(pwd);
+
+            if (!accountValid || !pwdValid) {
+                this.message = langFont['loginFormat'];
+            }
+
+            return accountValid && pwdValid;
+        },
+        changeLanguage: function(language) {  //切換語言
+            if (typeof language === 'undefined') {
+                this.message = "undefined";
+                return;
+            }
+            document.cookie = 'language=' + language + '; max-age=2592000; path=/';
+            parent.location.reload();
+        },
+        getCookie: function(name) {  //取的cookie 
+            var cookies = document.cookie.split(';');
+
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return null;
+        }
+    },
+    mounted() {  //掛載後
+        var accountValue = this.getCookie("account");
+        if (accountValue) {
+            this.account = accountValue;
+            this.rememberAccount = true;
+        }
+    },
 });
 
-let vm = new Vue({
+var vm = new Vue({
     el: '#app',
     template: `
         <div>

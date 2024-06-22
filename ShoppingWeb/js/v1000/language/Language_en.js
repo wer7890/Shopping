@@ -153,6 +153,12 @@
 
     'validationException': 'Permission verification exception',
     'lowStock': 'Stock quantity is less than 100',
+
+    'titleLogin': 'Login Page',
+    'txbAccount': 'Please enter account',
+    'txbPassword': 'Please enter password',
+    'rememberAccount': 'Remember account',
+    'btnLogin': 'Login',
 };
 
 // 商品大分類
