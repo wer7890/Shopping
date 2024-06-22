@@ -11,3 +11,5 @@ ShoppingWeb/css/*
 # 忽略js資料夾下的檔案，但不要忽略js資料夾本身和該資料夾下的v1000檔案
 ShoppingWeb/js/*
 !ShoppingWeb/js/v1000/
+ShoppingWeb.DB/ShoppingWeb.DB.dbmdl
+ShoppingWeb.DB/ShoppingWeb.DB.jfm

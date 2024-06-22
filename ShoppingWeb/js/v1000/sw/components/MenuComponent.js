@@ -1,56 +1,5 @@
-﻿// 預設頁面
-Vue.component('default', {
-    name: 'default',
+﻿var menuComponent = {
     template: `
-        <div class="container mt-2">
-            <h2 class="text-center">${langFont['title1Default']}</h2>
-        </div>
-    `
-});
-
-// 帳號頁面
-Vue.component('user-management', {
-    name: 'default',
-    template: `
-        <div class="container mt-2">
-            user
-        </div>
-    `
-});
-
-// 會員頁面
-Vue.component('member-management', {
-    name: 'default',
-    template: `
-        <div class="container mt-2">
-            member
-        </div>
-    `
-});
-
-// 訂單頁面
-Vue.component('order-management', {
-    name: 'default',
-    template: `
-        <div class="container mt-2">
-            order
-        </div>
-    `
-});
-
-// 商品頁面
-Vue.component('product-management', {
-    name: 'default',
-    template: `
-        <div class="container mt-2">
-            product
-        </div>
-    `
-});
-
-Vue.component('main-page', {
-    template: `
-        <div class="row mt-2">
             <div class="col-12 col-md-2">
                 <div class="list-group">
                     <a v-for="item in menuArr" :key="item.id" @click="changePageName(item.name)" href="javascript:void(0);" class="list-group-item list-group-item-action">{{ item.title }}</a>
@@ -65,29 +14,22 @@ Vue.component('main-page', {
                     <button @click="changeLanguage('TW')" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm">中文</button>
                     <button @click="changeLanguage('EN')" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm">English</button>
                 </div>
-            </div>
-
-            <div class="col-12 col-md-10">
-                <component :is='pageName'></component>
-            </div>
-        </div>    
-    `,
+            </div>    `,
     data: function () {
         return {
             message: '',
             isShow: true,
             menuArr: [
-                { id: 0, title: langFont['adminSystem'], name: 'user-management' },
-                { id: 1, title: langFont['memberSystem'], name: 'member-management' },
-                { id: 2, title: langFont['orderSystem'], name: 'order-management' },
-                { id: 3, title: langFont['productSystem'], name: 'product-management' },
+                { id: 0, title: langFont['adminSystem'], name: 'user-component' },
+                { id: 1, title: langFont['memberSystem'], name: 'member-component' },
+                { id: 2, title: langFont['orderSystem'], name: 'order-component' },
+                { id: 3, title: langFont['productSystem'], name: 'product-component' },
             ],
-            pageName: 'default',
         }
     },
     methods: {
         changePageName: function (name) {  //變更頁面
-            this.pageName = name;
+            this.$bus.$emit("change-page-name", name);
         },
         signOut: function () {  //登出
             var self = this;
@@ -134,7 +76,7 @@ Vue.component('main-page', {
                 error: function (error) {
                     self.message = langFont["ajaxError"];
                 }
-            });      
+            });
         },
         changeLanguage: function (language) {  //切換語言
             if (typeof language === 'undefined') {
@@ -145,16 +87,7 @@ Vue.component('main-page', {
             parent.location.reload();
         },
     },
-    mounted() {  //掛載後
+    mounted: function () {  //掛載後
         this.getUserPermission();
     },
-});
-
-var vm = new Vue({
-    el: '#app',
-    template: `
-        <div class="container mt-5">
-            <main-page></main-page>
-        </div>
-    `,
-});
+};

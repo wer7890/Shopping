@@ -1,4 +1,5 @@
-﻿Vue.component('login-form', {
+﻿var vm = new Vue({
+    el: '#app',
     template: `
         <div class="container">
             <div class="row">
@@ -40,7 +41,7 @@
             </div>
         </div>
     `,
-    data: function() {
+    data: function () {
         return {
             account: '',
             pwd: '',
@@ -49,7 +50,7 @@
         };
     },
     methods: {
-        login: function() {  //登入
+        login: function () {  //登入
             if (!this.isSpecialChar(this.account, this.pwd)) {
                 return;
             }
@@ -88,7 +89,7 @@
                 }
             });
         },
-        isSpecialChar: function(account, pwd) {  //輸入值判斷
+        isSpecialChar: function (account, pwd) {  //輸入值判斷
             if (typeof account === 'undefined' || typeof pwd === 'undefined') {
                 this.message = "undefined";
                 return false;
@@ -104,7 +105,7 @@
 
             return accountValid && pwdValid;
         },
-        changeLanguage: function(language) {  //切換語言
+        changeLanguage: function (language) {  //切換語言
             if (typeof language === 'undefined') {
                 this.message = "undefined";
                 return;
@@ -112,7 +113,7 @@
             document.cookie = 'language=' + language + '; max-age=2592000; path=/';
             parent.location.reload();
         },
-        getCookie: function(name) {  //取的cookie 
+        getCookie: function (name) {  //取的cookie 
             var cookies = document.cookie.split(';');
 
             for (var i = 0; i < cookies.length; i++) {
@@ -124,20 +125,11 @@
             return null;
         }
     },
-    mounted() {  //掛載後
+    mounted: function () {  //掛載後
         var accountValue = this.getCookie("account");
         if (accountValue) {
             this.account = accountValue;
             this.rememberAccount = true;
         }
     },
-});
-
-var vm = new Vue({
-    el: '#app',
-    template: `
-        <div>
-            <login-form></login-form>    
-        </div>
-    `
 });

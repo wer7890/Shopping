@@ -17,6 +17,13 @@
 <body>
     <div id="app"></div>
 
-    <script src="/js/<%= jsVersion %>/Frame.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/DefaultComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/MemberComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/OrderComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/ProductComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/UserComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/FrameComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/MenuComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/App.js"></script>
 </body>
 </html>
