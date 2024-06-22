@@ -102,7 +102,6 @@
     <Content Include="js\v1000\Pagination.js" />
     <Content Include="js\v1000\ProductCategories.js" />
     <Content Include="js\v1000\SetNLog.js" />
-    <Content Include="js\v1000\Store.js" />
     <Content Include="js\v1000\sw\components\FrameComponent.js" />
     <Content Include="js\v1000\sw\components\frame\DefaultComponent.js" />
     <Content Include="js\v1000\sw\components\frame\MemberComponent.js" />

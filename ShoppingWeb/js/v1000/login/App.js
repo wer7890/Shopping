@@ -28,11 +28,11 @@
                             ${langFont['rememberAccount']}
                         </label>
                     </div>
-                    <button @click="login" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6">${langFont['btnLogin']}</button>
+                    <button @click="Login" class="btn btn-outline-primary btn-lg col-md-offset-3 col-md-6">${langFont['btnLogin']}</button>
                 </div>
                 <div class="row justify-content-center align-self-center mt-5">
-                    <button @click="changeLanguage('TW')" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm">中文</button>
-                    <button @click="changeLanguage('EN')" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm">English</button>
+                    <button @click="ChangeLanguage('TW')" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm">中文</button>
+                    <button @click="ChangeLanguage('EN')" class="btn btn-outline-secondary btn-lg col-md-offset-3 col-md-2 fs-6 btn-sm">English</button>
                 </div>
             </div>
             <br />
@@ -50,8 +50,9 @@
         };
     },
     methods: {
-        login: function () {  //登入
-            if (!this.isSpecialChar(this.account, this.pwd)) {
+        //登入
+        Login: function () {  
+            if (!this.IsSpecialChar(this.account, this.pwd)) {
                 return;
             }
 
@@ -89,7 +90,9 @@
                 }
             });
         },
-        isSpecialChar: function (account, pwd) {  //輸入值判斷
+
+        //輸入值判斷
+        IsSpecialChar: function (account, pwd) {  
             if (typeof account === 'undefined' || typeof pwd === 'undefined') {
                 this.message = "undefined";
                 return false;
@@ -105,7 +108,9 @@
 
             return accountValid && pwdValid;
         },
-        changeLanguage: function (language) {  //切換語言
+
+        //切換語言
+        ChangeLanguage: function (language) {  
             if (typeof language === 'undefined') {
                 this.message = "undefined";
                 return;
@@ -113,7 +118,9 @@
             document.cookie = 'language=' + language + '; max-age=2592000; path=/';
             parent.location.reload();
         },
-        getCookie: function (name) {  //取的cookie 
+
+        //取的cookie 
+        GetCookie: function (name) {  
             var cookies = document.cookie.split(';');
 
             for (var i = 0; i < cookies.length; i++) {
@@ -126,7 +133,7 @@
         }
     },
     mounted: function () {  //掛載後
-        var accountValue = this.getCookie("account");
+        var accountValue = this.GetCookie("account");
         if (accountValue) {
             this.account = accountValue;
             this.rememberAccount = true;

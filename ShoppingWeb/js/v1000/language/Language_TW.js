@@ -24,6 +24,7 @@
     'duplicateLogin': '重複登入，已被登出',
     'accessDenied': '權限不足',
     'delConfirmation': '確定要刪除該用戶嗎',
+    'delSuccessful': '刪除成功',
     'delFailed': '刪除失敗',
     'editFailed': '編輯失敗',
     'errorLog': '發生發生內部錯誤，請看日誌',

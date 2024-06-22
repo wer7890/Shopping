@@ -2,17 +2,17 @@
     template: `
             <div class="col-12 col-md-2">
                 <div class="list-group">
-                    <a v-for="item in menuArr" :key="item.id" @click="changePageName(item.name)" href="javascript:void(0);" class="list-group-item list-group-item-action">{{ item.title }}</a>
+                    <a v-for="item in menuArr" :key="item.id" @click="ChangePageName(item.name)" href="javascript:void(0);" class="list-group-item list-group-item-action">{{ item.title }}</a>
                 </div>
                 <div class="row mt-2">
                     <label class="fs-5 text-center align-middle mt-2">${langFont['account']} : {{ message }}</label>
                     <br />
-                    <button @click="signOut" class="btn btn-outline-dark mt-3">${langFont['signOut']}</button>
+                    <button @click="SignOut" class="btn btn-outline-dark mt-3">${langFont['signOut']}</button>
                 </div>
 
                 <div class="row justify-content-center align-self-center mt-5">
-                    <button @click="changeLanguage('TW')" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm">中文</button>
-                    <button @click="changeLanguage('EN')" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm">English</button>
+                    <button @click="ChangeLanguage('TW')" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm">中文</button>
+                    <button @click="ChangeLanguage('EN')" class="btn btn-outline-secondary btn-lg col fs-6 btn-sm">English</button>
                 </div>
             </div>    `,
     data: function () {
@@ -28,10 +28,13 @@
         }
     },
     methods: {
-        changePageName: function (name) {  //變更頁面
+        //變更頁面
+        ChangePageName: function (name) {  
             this.$bus.$emit("change-page-name", name);
         },
-        signOut: function () {  //登出
+
+        //登出
+        SignOut: function () {  
             var self = this;
 
             $.ajax({
@@ -47,7 +50,9 @@
                 }
             });
         },
-        getUserPermission: function () {  //取得帳號和身分
+
+        //取得帳號和身分
+        GetUserPermission: function () {  
             var self = this;
 
             $.ajax({
@@ -78,7 +83,9 @@
                 }
             });
         },
-        changeLanguage: function (language) {  //切換語言
+
+        //切換語言
+        ChangeLanguage: function (language) {
             if (typeof language === 'undefined') {
                 this.message = "undefined";
                 return;
@@ -88,6 +95,6 @@
         },
     },
     mounted: function () {  //掛載後
-        this.getUserPermission();
+        this.GetUserPermission();
     },
 };

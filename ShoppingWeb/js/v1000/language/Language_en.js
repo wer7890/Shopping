@@ -24,6 +24,7 @@
     'duplicateLogin': 'Duplicate login detected, logged out',
     'accessDenied': 'Insufficient permissions',
     'delConfirmation': 'Are you sure you want to delete this user?',
+    'delSuccessful': 'Deletion successful',
     'delFailed': 'Deletion failed',
     'editFailed': 'Edit failed',
     'errorLog': 'An internal error occurred, please see the log',

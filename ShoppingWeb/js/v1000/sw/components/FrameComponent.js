@@ -10,12 +10,13 @@
         }
     },
     methods: {
-        showPage: function (val) {
+        //顯示選擇的頁面
+        ShowPage: function (val) {
             this.pageName = val;
         }
     },
     created: function () {
-        this.$bus.$on("change-page-name", this.showPage)
+        this.$bus.$on("change-page-name", this.ShowPage)
     },
     components: {
         'default-component': defaultComponent,
