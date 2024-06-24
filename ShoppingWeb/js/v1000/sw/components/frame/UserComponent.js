@@ -67,7 +67,7 @@
     },
     methods: {
         //搜尋全部管理員資料
-        SearchAllUserData: function (pageNumber, pageSize) {
+        GetAllUserData: function (pageNumber, pageSize) {
             if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof this.beforePagesTotal === 'undefined') {
                 this.message = "undefined";
                 return;
@@ -123,7 +123,7 @@
 
         //點選分按按鈕
         ChoosePagination: function (pageIndex, pageSize) {
-            this.SearchAllUserData(pageIndex, pageSize);
+            this.GetAllUserData(pageIndex, pageSize);
         },
 
         //刪除刪除管理員
@@ -158,7 +158,7 @@
                                 break;
                             case 100:
                                 // 刪除成功後，重新讀取資料
-                                self.SearchAllUserData(1, self.pageSize);
+                                self.GetAllUserData(1, self.pageSize);
                                 self.message = langFont["delSuccessful"];
                                 break;
                             case 101:
@@ -287,7 +287,7 @@
         this.$bus.$on('choose-pagination', this.ChoosePagination);
     },
     mounted: function () {  //掛載後
-        this.SearchAllUserData(1, this.pageSize);
+        this.GetAllUserData(1, this.pageSize);
     },
     beforeDestroy: function () {  //銷毀前
         this.$bus.$off('choose-pagination', this.ChoosePagination);
