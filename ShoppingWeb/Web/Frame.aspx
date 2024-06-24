@@ -19,6 +19,7 @@
 <body>
     <div id="app"></div>
 
+    <script src="/js/<%= jsVersion %>/sw/components/frame/components/PaginationComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/DefaultComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/MemberComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/OrderComponent.js"></script>

@@ -108,6 +108,7 @@
     <Content Include="js\v1000\sw\components\frame\EditUserComponent.js" />
     <Content Include="js\v1000\sw\components\frame\MemberComponent.js" />
     <Content Include="js\v1000\sw\components\frame\OrderComponent.js" />
+    <Content Include="js\v1000\sw\components\frame\components\PaginationComponent.js" />
     <Content Include="js\v1000\sw\components\frame\ProductComponent.js" />
     <Content Include="js\v1000\sw\components\frame\UserComponent.js" />
     <Content Include="js\v1000\sw\components\MenuComponent.js" />

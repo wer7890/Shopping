@@ -42,9 +42,7 @@
                 </table>
             </div>
 
-            <div id="pagination">
-                <!-- 分頁內容 -->
-            </div>
+            <pagination-component></pagination-component>
 
             <div class="row">
                 <span class="col-12 col-sm-12 text-center text-success">{{ message }}</span>
@@ -59,16 +57,16 @@
                 { value: 3, name: langFont['productAdmin'] },
             ],
             message: '',
+            dataArray: '',
             pageSize: 5,
             pagesTotal: null,
-            page: null,
             beforePagesTotal: 1,
-            dataArray: '',
+            createPage: false,
         }
     },
     methods: {
-        //搜尋資料
-        SearchAllData: function (pageNumber, pageSize) {
+        //搜尋全部管理員資料
+        SearchAllUserData: function (pageNumber, pageSize) {
             if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof this.beforePagesTotal === 'undefined') {
                 this.message = "undefined";
                 return;
@@ -98,6 +96,16 @@
                             // 處理成功取得資料的情況
                             self.dataArray = response.UserDataList;
                             self.pagesTotal = response.TotalPages;
+
+                            if (!self.createPage) {
+                                self.$bus.$emit('set-pagination', self.pageSize, self.pagesTotal);
+                                self.createPage = true;
+                            } else if (self.beforePagesTotal !== self.pagesTotal) {
+                                alert(langFont['pageUpdata']);
+                                self.$bus.$emit('updata-pagination', self.pagesTotal);
+                            }
+
+                            self.beforePagesTotal = self.pagesTotal;
                             break;
                         case 101:
                             self.message = langFont["noData"];
@@ -112,8 +120,9 @@
             });
         },
 
-        SetPagination: function () {
-            
+        //點選分按按鈕
+        ChoosePagination: function (pageIndex, pageSize) {
+            this.SearchAllUserData(pageIndex, pageSize);
         },
 
         //刪除刪除管理員
@@ -148,7 +157,7 @@
                                 break;
                             case 100:
                                 // 刪除成功後，重新讀取資料
-                                self.SearchAllData(1, self.pageSize);
+                                self.SearchAllUserData(1, self.pageSize);
                                 self.message = langFont["delSuccessful"];
                                 break;
                             case 101:
@@ -209,7 +218,7 @@
             });
         },
 
-        //更改至管理員(先去拿該會員資料，在把該會員資料帶進去)
+        //跳轉更改管理員組件(先去拿該會員資料，在把該會員資料帶進去)
         SetEditUser: function (userId) {
             if (typeof userId === 'undefined') {
                 this.message = "undefined";
@@ -251,12 +260,18 @@
             });
         },
 
-        //跳轉至管理員
+        //跳轉至新增管理員組件
         AddUser: function () {
             this.$bus.$emit('change-page-name', 'add-user-component');
         }
     },
-    mounted: function () {
-        this.SearchAllData(1, this.pageSize);
+    created: function () {  //創建後
+        this.$bus.$on('choose-pagination', this.ChoosePagination);
+    },
+    mounted: function () {  //掛載後
+        this.SearchAllUserData(1, this.pageSize);
+    },
+    components: {
+        'pagination-component': paginationComponent,
     }
 };
