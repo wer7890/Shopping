@@ -20,7 +20,7 @@
     created: function () {
         this.$bus.$on('change-page-name', this.ShowPage)
     },
-    beforeDestroy() {  //組件銷毀前，移除該監聽
+    beforeDestroy: function () {  //組件銷毀前，移除該監聽
         this.$bus.$off('change-page-name', this.ShowPage);
     },
     components: {

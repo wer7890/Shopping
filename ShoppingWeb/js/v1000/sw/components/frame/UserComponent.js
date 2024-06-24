@@ -289,7 +289,7 @@
     mounted: function () {  //掛載後
         this.SearchAllUserData(1, this.pageSize);
     },
-    beforeDestroy() {  //銷毀前
+    beforeDestroy: function () {  //銷毀前
         this.$bus.$off('choose-pagination', this.ChoosePagination);
     },
     components: {
