@@ -1,8 +1,6 @@
 ﻿var paginationComponent = {
     template: `
-        <div id="pagination">
-            <!-- 分頁內容 -->
-        </div>
+        <div id="pagination"></div>
     `,
     data: function () {
         return {
