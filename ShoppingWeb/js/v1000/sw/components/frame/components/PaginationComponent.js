@@ -31,7 +31,11 @@
         }
     },
     created: function () {
-        this.$bus.$on("set-pagination", this.SetPagination);
-        this.$bus.$on("updata-pagination", this.UpdataPagination);
+        this.$bus.$on('set-pagination', this.SetPagination);
+        this.$bus.$on('updata-pagination', this.UpdataPagination);
+    },
+    beforeDestroy() {  //銷毀前
+        this.$bus.$off('set-pagination', this.SetPagination);
+        this.$bus.$off('updata-pagination', this.UpdataPagination);
     },
 }

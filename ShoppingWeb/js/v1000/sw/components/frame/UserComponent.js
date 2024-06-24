@@ -14,16 +14,7 @@
                 <table id="myTable" class="table table-striped table-hover ">
                     <thead>
                         <tr>
-                            <th>
-                                <button type="button" class="btn btn-light btn-sm">${langFont['userId']}</button></th>
-                            <th>
-                                <button type="button" class="btn btn-light btn-sm">${langFont['account']}</button></th>
-                            <th>
-                                <button type="button" class="btn btn-light btn-sm">${langFont['roles']}</button></th>
-                            <th>
-                                <button type="button" class="btn btn-light btn-sm" disabled>${langFont['edit']}</button></th>
-                            <th>
-                                <button type="button" class="btn btn-light btn-sm" disabled>${langFont['del']}</button></th>
+                            <th v-for="data in tableTheadData" :key="data.id">{{ data.name }}</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -51,6 +42,15 @@
     `,
     data: function () {
         return {
+            //table的thead中的資料
+            tableTheadData: [
+                { id: 1, name: langFont['userId'] },
+                { id: 2, name: langFont['account'] },
+                { id: 3, name: langFont['roles'] },
+                { id: 4, name: langFont['edit'] },
+                { id: 5, name: langFont['del'] },
+            ],
+            //table的tbody中的資料下拉選單
             rolesArray: [
                 { value: 1, name: langFont['superAdmin'] },
                 { value: 2, name: langFont['memberAdmin'] },
@@ -270,6 +270,9 @@
     },
     mounted: function () {  //掛載後
         this.SearchAllUserData(1, this.pageSize);
+    },
+    beforeDestroy() {  //銷毀前
+        this.$bus.$off('choose-pagination', this.ChoosePagination);
     },
     components: {
         'pagination-component': paginationComponent,
