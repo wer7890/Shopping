@@ -11,10 +11,10 @@
             </div>
             <br />
             <div class="row">
-                <table id="myTable" class="table table-striped table-hover ">
+                <table class="table table-striped table-hover ">
                     <thead>
                         <tr>
-                            <th v-for="data in tableTheadData" :key="data.id">{{ data.name }}</th>
+                            <th @click="TableDataSort()" v-for="data in tableTheadData" :key="data.id">{{ data.name }}</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -58,6 +58,7 @@
             ],
             message: '',
             dataArray: '',
+            sortRise: false,  //升序
             pageSize: 5,
             pagesTotal: null,
             beforePagesTotal: 1,
@@ -263,7 +264,24 @@
         //跳轉至新增管理員組件
         AddUser: function () {
             this.$bus.$emit('change-page-name', 'add-user-component');
-        }
+        },
+
+        //排序
+        TableDataSort: function () {
+            if (this.sortRise) {
+                this.dataArray.sort(function (a, b) {
+                    return a.Id - b.Id;
+                });
+
+                this.sortRise = !this.sortRise;
+            } else {
+                this.dataArray.sort(function (a, b) {
+                    return b.Id - a.Id;
+                });
+
+                this.sortRise = !this.sortRise;
+            }
+        },
     },
     created: function () {  //創建後
         this.$bus.$on('choose-pagination', this.ChoosePagination);
