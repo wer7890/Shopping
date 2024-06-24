@@ -32,7 +32,7 @@
                     </tbody>
                 </table>
             </div>
-
+            
             <pagination-component></pagination-component>
 
             <div class="row">
@@ -42,6 +42,7 @@
     `,
     data: function () {
         return {
+            message: '',
             //table的thead中的資料
             tableTheadData: [
                 { id: 1, name: langFont['userId'] },
@@ -56,7 +57,6 @@
                 { value: 2, name: langFont['memberAdmin'] },
                 { value: 3, name: langFont['productAdmin'] },
             ],
-            message: '',
             dataArray: '',
             sortRise: false,  //升序
             pageSize: 5,
