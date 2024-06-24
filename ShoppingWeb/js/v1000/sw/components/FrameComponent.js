@@ -1,7 +1,9 @@
 ﻿var frameComponent = {
     template: `
         <div class="col-12 col-md-10">
-            <component :is='pageName'></component>
+            <keep-alive>
+                <component :is='pageName'></component>
+            </keep-alive>
         </div>
     `,
     data: function () {

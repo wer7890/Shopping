@@ -35,7 +35,7 @@
                                     <option v-for="data in rolesArray" :ket="data.value" :value="data.value">{{ data.name }}</option>
                                 </select>
                             </td>
-                            <td><button @click="EditUser(data.Id)" class="btn btn-primary">${langFont['edit']}</button></td>
+                            <td><button @click="SetEditUser(data.Id)" class="btn btn-primary">${langFont['edit']}</button></td>
                             <td><button @click="DeleteUser(data.Id)" class="btn btn-danger">${langFont['del']}</button></td>
                         </tr>
                     </tbody>
@@ -98,7 +98,6 @@
                             // 處理成功取得資料的情況
                             self.dataArray = response.UserDataList;
                             self.pagesTotal = response.TotalPages;
-
                             break;
                         case 101:
                             self.message = langFont["noData"];
@@ -111,6 +110,10 @@
                     self.message = langFont["ajaxError"];
                 }
             });
+        },
+
+        SetPagination: function () {
+            
         },
 
         //刪除刪除管理員
@@ -207,9 +210,45 @@
         },
 
         //更改至管理員(先去拿該會員資料，在把該會員資料帶進去)
-        EditUser: function (userId) {
-            console.log(userId);
-            this.$bus.$emit('change-page-name', 'edit-user-component');
+        SetEditUser: function (userId) {
+            if (typeof userId === 'undefined') {
+                this.message = "undefined";
+                return;
+            }
+
+            var self = this;
+
+            $.ajax({
+                type: "POST",
+                url: "/api/Controller/user/SetSessionSelectUserId",
+                data: JSON.stringify({ userId: userId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Status) {
+                        case 0:
+                            alert(langFont["duplicateLogin"]);
+                            window.parent.location.href = "Login.aspx";
+                            break;
+                        case 1:
+                            alert(langFont["accessDenied"]);
+                            parent.location.reload();
+                            break;
+                        case 2:
+                            self.message = langFont["inputError"];
+                            break;
+                        case 100:
+                            self.$bus.$emit('change-page-name', 'edit-user-component');
+                            break;
+                        default:
+                            alert(langFont["editFailed"]);
+                            break;
+                    }
+                },
+                error: function (error) {
+                    self.message = langFont["ajaxError"];
+                }
+            });
         },
 
         //跳轉至管理員

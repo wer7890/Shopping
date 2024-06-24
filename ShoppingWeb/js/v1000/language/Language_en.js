@@ -154,6 +154,7 @@
 
     'validationException': 'Permission verification exception',
     'lowStock': 'Stock quantity is less than 100',
+    'pageUpdata': 'Changes in the number of data pages',
 
     'titleLogin': 'Login Page',
     'txbAccount': 'Please enter account',

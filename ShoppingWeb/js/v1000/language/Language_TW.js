@@ -154,6 +154,7 @@
 
     'validationException': '權限驗證異常',
     'lowStock': '庫存量小於100',
+    'pageUpdata': '資料頁數變動',
 
     'titleLogin': '登入頁面',
     'txbAccount': '請輸入帳號',

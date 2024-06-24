@@ -8,10 +8,12 @@
     <title>後臺管理</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/Pagination.css" />
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
     <script src="/js/<%= jsVersion %>/vue.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
+    <script src="/js/<%= jsVersion %>/Pagination.js"></script>
     <script src="/js/<%= jsVersion %>/SetNLog.js"></script>
 </head>
 <body>
