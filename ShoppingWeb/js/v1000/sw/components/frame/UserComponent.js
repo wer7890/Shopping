@@ -10,27 +10,21 @@
                 </div>
             </div>
             <br />
+            
             <div class="row">
-                <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr>
-                            <th @click="TableDataSort" v-for="data in tableTheadData" :key="data.id">{{ data.name }}</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <tr v-for="data in dataArray" :key="data.Id">
-                            <td>{{ data.Id }}</td>
-                            <td>{{ data.Account }}</td>
-                            <td>
-                                <select v-model="data.Roles" @change="EditUserRoles(data.Id, data.Roles)" class="form-select form-select-sm f_roles">
-                                    <option v-for="data in rolesArray" :ket="data.value" :value="data.value">{{ data.name }}</option>
-                                </select>
-                            </td>
-                            <td><button @click="SetEditUser(data.Id)" class="btn btn-primary">${langFont['edit']}</button></td>
-                            <td><button @click="DeleteUser(data.Id)" class="btn btn-danger">${langFont['del']}</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <table-component :tableTheadData="tableTheadData" :dataArray="dataArray">
+                    <template v-slot:table-row="{ data }">
+                        <td>{{ data.Id }}</td>
+                        <td>{{ data.Account }}</td>
+                        <td>
+                            <select v-model="data.Roles" @change="EditUserRoles(data.Id, data.Roles)" class="form-select form-select-sm f_roles">
+                                <option v-for="role in rolesArray" :key="role.value" :value="role.value">{{ role.name }}</option>
+                            </select>
+                        </td>
+                        <td><button @click="SetEditUser(data.Id)" class="btn btn-primary">${langFont['edit']}</button></td>
+                        <td><button @click="DeleteUser(data.Id)" class="btn btn-danger">${langFont['del']}</button></td>
+                    </template>
+                 </table-component>
             </div>
             
             <pagination-component></pagination-component>
@@ -39,6 +33,7 @@
                 <span class="col-12 col-sm-12 text-center text-success">{{ message }}</span>
             </div>
         </div>
+            
     `,
     data: function () {
         return {
@@ -285,14 +280,17 @@
     },
     created: function () {  //創建後
         this.$bus.$on('choose-pagination', this.ChoosePagination);
+        this.$bus.$on('table-data-sort', this.TableDataSort);
     },
     mounted: function () {  //掛載後
         this.GetAllUserData(1, this.pageSize);
     },
     beforeDestroy: function () {  //銷毀前
         this.$bus.$off('choose-pagination', this.ChoosePagination);
+        this.$bus.$off('table-data-sort', this.TableDataSort);
     },
     components: {
         'pagination-component': paginationComponent,
+        'table-component': tableComponent,
     }
 };
