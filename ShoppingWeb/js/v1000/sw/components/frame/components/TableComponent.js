@@ -13,7 +13,16 @@
             </tbody>
         </table>
     `,
-    props: ['tableTheadData', 'dataArray'],
+    props: {
+        tableTheadData: {
+            type: Array,
+            required: true
+        },
+        dataArray: {
+            type: [Array, String],
+            required: true
+        }
+    },
     methods: {
         TableDataSort: function () {
             this.$bus.$emit('table-data-sort');
