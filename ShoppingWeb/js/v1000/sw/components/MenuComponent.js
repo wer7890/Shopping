@@ -31,7 +31,7 @@
     methods: {
         //變更頁面
         ChangePageName: function (name) {  
-            this.$bus.$emit("change-page-name", name);
+            this.$bus.$emit("Frame:Change", name);
         },
 
         //登出

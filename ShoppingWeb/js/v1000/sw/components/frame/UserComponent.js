@@ -93,11 +93,11 @@
                             self.pagesTotal = response.TotalPages;
 
                             if (!self.createPage) {
-                                self.$bus.$emit('set-pagination', self.pageSize, self.pagesTotal);
+                                self.$bus.$emit('Pagination:Set', self.pageSize, self.pagesTotal);
                                 self.createPage = true;
                             } else if (self.beforePagesTotal !== self.pagesTotal) {
                                 alert(langFont['pageUpdata']);
-                                self.$bus.$emit('updata-pagination', self.pagesTotal);
+                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
                             }
 
                             self.beforePagesTotal = self.pagesTotal;
@@ -243,7 +243,7 @@
                             self.message = langFont["inputError"];
                             break;
                         case 100:
-                            self.$bus.$emit('change-page-name', 'edit-user-component');
+                            self.$bus.$emit('Frame:Change', 'edit-user-component');
                             break;
                         default:
                             alert(langFont["editFailed"]);
@@ -258,7 +258,7 @@
 
         //跳轉至新增管理員組件
         AddUser: function () {
-            this.$bus.$emit('change-page-name', 'add-user-component');
+            this.$bus.$emit('Frame:Change', 'add-user-component');
         },
 
         //排序
@@ -279,15 +279,15 @@
         },
     },
     created: function () {  //創建後
-        this.$bus.$on('choose-pagination', this.ChoosePagination);
-        this.$bus.$on('table-data-sort', this.TableDataSort);
+        this.$bus.$on('Pagination:Choose', this.ChoosePagination);
+        this.$bus.$on('Table:Sort', this.TableDataSort);
     },
     mounted: function () {  //掛載後
         this.GetAllUserData(1, this.pageSize);
     },
     beforeDestroy: function () {  //銷毀前
-        this.$bus.$off('choose-pagination', this.ChoosePagination);
-        this.$bus.$off('table-data-sort', this.TableDataSort);
+        this.$bus.$off('Pagination:Choose', this.ChoosePagination);
+        this.$bus.$off('Table:Sort', this.TableDataSort);
     },
     components: {
         'pagination-component': PaginationComponent,

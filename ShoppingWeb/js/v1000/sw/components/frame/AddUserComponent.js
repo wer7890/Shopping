@@ -70,7 +70,7 @@
                             break;
                         case 100:
                             alert(langFont["addSuccessful"]);
-                            self.$bus.$emit('change-page-name', 'user-component');
+                            self.$bus.$emit('Frame:Change', 'user-component');
                             break;
                         case 101:
                             self.message = langFont["duplicateAccount"];

@@ -19,7 +19,7 @@
                 showGoInput: true,
                 showPagesTotal: true,
                 callback: function (pageIndex) {
-                    self.$bus.$emit("choose-pagination", pageIndex + 1, pageSize);
+                    self.$bus.$emit("Pagination:Choose", pageIndex + 1, pageSize);
                 }
             });
         },
@@ -29,11 +29,11 @@
         }
     },
     created: function () {
-        this.$bus.$on('set-pagination', this.SetPagination);
-        this.$bus.$on('updata-pagination', this.UpdataPagination);
+        this.$bus.$on('Pagination:Set', this.SetPagination);
+        this.$bus.$on('Pagination:Updata', this.UpdataPagination);
     },
     beforeDestroy: function () {  //銷毀前
-        this.$bus.$off('set-pagination', this.SetPagination);
-        this.$bus.$off('updata-pagination', this.UpdataPagination);
+        this.$bus.$off('Pagination:Set', this.SetPagination);
+        this.$bus.$off('Pagination:Updata', this.UpdataPagination);
     },
 }

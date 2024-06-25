@@ -25,7 +25,7 @@
     },
     methods: {
         TableDataSort: function () {
-            this.$bus.$emit('table-data-sort');
+            this.$bus.$emit('Table:Sort');
         }
     },
 }

@@ -14,7 +14,7 @@
             </div>
 
             <div class="row">
-                <span v-text="message" class="col-12 col-sm-12 text-center text-success">{{ message }}</span>
+                <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
             </div>
 
             <div id="overlay">

@@ -108,11 +108,11 @@
                             self.pagesTotal = response.TotalPages;
 
                             if (!self.createPage) {
-                                self.$bus.$emit('set-pagination', self.pageSize, self.pagesTotal);
+                                self.$bus.$emit('Pagination:Set', self.pageSize, self.pagesTotal);
                                 self.createPage = true;
                             } else if (self.beforePagesTotal !== self.pagesTotal) {
                                 alert(langFont['pageUpdata']);
-                                self.$bus.$emit('updata-pagination', self.pagesTotal);
+                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
                             }
 
                             self.beforePagesTotal = self.pagesTotal;
@@ -327,13 +327,13 @@
         }
     },
     created: function () {  //創建後
-        this.$bus.$on('choose-pagination', this.ChoosePagination);
+        this.$bus.$on('Pagination:Choose', this.ChoosePagination);
     },
     mounted: function () {  //掛載後
         this.GetAllMemberData(1, this.pageSize);
     },
     beforeDestroy: function () {  //銷毀前
-        this.$bus.$off('choose-pagination', this.ChoosePagination);
+        this.$bus.$off('Pagination:Choose', this.ChoosePagination);
     },
     components: {
         'pagination-component': PaginationComponent,
