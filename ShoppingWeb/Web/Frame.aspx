@@ -9,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;," />
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/OrderManagement.css" />
+    <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/Mask.css" />
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/Pagination.css" />
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
@@ -20,6 +21,8 @@
 <body>
     <div id="app"></div>
 
+    <script src="/js/<%= jsVersion %>/sw/components/frame/User/AddUserComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/User/EditUserComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/components/TableComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/components/PaginationComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/DefaultComponent.js"></script>
@@ -27,8 +30,6 @@
     <script src="/js/<%= jsVersion %>/sw/components/frame/OrderComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/ProductComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/UserComponent.js"></script>
-    <script src="/js/<%= jsVersion %>/sw/components/frame/AddUserComponent.js"></script>
-    <script src="/js/<%= jsVersion %>/sw/components/frame/EditUserComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/FrameComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/MenuComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/App.js"></script>

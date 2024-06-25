@@ -14,14 +14,22 @@
                 </div>
                 <div class="mx-auto mt-3 col-12 col-md-7 mt-2">
                     <label for="ddlRoles" class="form-label">${langFont['roles']}</label>
-                    <select v-model="roles" class="form-select form-select-sm f_roles">
+                    <select v-model="roles" class="form-select">
                         <option v-for="data in rolesArray" :ket="data.value" :value="data.value" v-text="data.name">{{ data.name }}</option>
                     </select>
                 </div>
-            
-                <button @click="AddUser" class="btn btn-outline-primary mx-auto mt-4 col-12 col-md-6">${langFont['addUser']}</button>
             </div>
+
+            <div class="row">
+                <button @click="AddUser" class="btn btn-outline-primary mx-auto mt-5 col-12 col-md-6">${langFont['addUser']}</button>
+            </div>
+
+            <div class="row">
+                <button @click="Closure" class="btn btn-outline-secondary mx-auto mt-4 col-12 col-md-6">${langFont['closure']}</button>
+            </div>
+
             <br />
+
             <div class="row">
                 <label v-text="message" class="col-12 col-sm-12 text-center text-success"></label>
             </div>
@@ -70,7 +78,7 @@
                             break;
                         case 100:
                             alert(langFont["addSuccessful"]);
-                            self.$bus.$emit('Frame:Change', 'user-component');
+                            self.Closure();
                             break;
                         case 101:
                             self.message = langFont["duplicateAccount"];
@@ -102,7 +110,12 @@
             }
 
             return accountValid && pwdValid;
-        }
+        },
+
+        //關閉
+        Closure: function () {
+            this.$bus.$emit('AddUser:Closure');
+        },
     },
 
 }

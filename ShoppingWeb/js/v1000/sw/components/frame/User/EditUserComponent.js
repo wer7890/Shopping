@@ -21,8 +21,16 @@
                     <input v-model="pwd" type="password" id="txbPwd" class="form-control" />
                 </div>
 
-                <button @click="EditUser" class="btn btn-outline-primary mx-auto mt-3 col-12 col-md-6">${langFont['edit']}</button>
             </div>
+
+            <div class="row">
+                <button @click="EditUser" class="btn btn-outline-primary mx-auto mt-5 col-12 col-md-6">${langFont['edit']}</button>
+            </div>
+
+            <div class="row">
+                <button @click="Closure" class="btn btn-outline-secondary mx-auto mt-4 col-12 col-md-6">${langFont['closure']}</button>
+            </div>
+
             <br />
             <div class="row">
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
@@ -117,7 +125,7 @@
                             break;
                         case 100:
                             alert(langFont["editSuccessful"]);
-                            self.$bus.$emit('Frame:Change', 'user-component');
+                            self.Closure();
                             break;
                         case 101:
                             self.message = langFont["editFail"];
@@ -149,7 +157,12 @@
             }
 
             return pwdValid;
-        }
+        },
+
+        //關閉
+        Closure: function () {
+            this.$bus.$emit('EditUser:Closure');
+        },
     },
     mounted: function () {  //掛載後
         this.GetEditUserData();

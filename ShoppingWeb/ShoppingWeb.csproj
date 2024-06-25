@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\v1000\bootstrap.min.css" />
+    <Content Include="css\v1000\Mask.css" />
     <Content Include="css\v1000\OrderManagement.css" />
     <Content Include="css\v1000\Pagination.css" />
     <Content Include="Global.asax" />
@@ -103,10 +104,10 @@
     <Content Include="js\v1000\ProductCategories.js" />
     <Content Include="js\v1000\SetNLog.js" />
     <Content Include="js\v1000\sw\components\FrameComponent.js" />
-    <Content Include="js\v1000\sw\components\frame\AddUserComponent.js" />
+    <Content Include="js\v1000\sw\components\frame\User\AddUserComponent.js" />
     <Content Include="js\v1000\sw\components\frame\components\TableComponent.js" />
     <Content Include="js\v1000\sw\components\frame\DefaultComponent.js" />
-    <Content Include="js\v1000\sw\components\frame\EditUserComponent.js" />
+    <Content Include="js\v1000\sw\components\frame\User\EditUserComponent.js" />
     <Content Include="js\v1000\sw\components\frame\MemberComponent.js" />
     <Content Include="js\v1000\sw\components\frame\OrderComponent.js" />
     <Content Include="js\v1000\sw\components\frame\components\PaginationComponent.js" />
@@ -297,7 +298,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
-    <Folder Include="js\v1000\sw\components\frame\User\" />
     <Folder Include="Logs\" />
     <Folder Include="Models\" />
     <Folder Include="ProductImg\" />
