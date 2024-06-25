@@ -37,7 +37,7 @@
             </div>
             <br />
             <div class="row">
-                <label id="labLogin" class="col-12 col-sm-12 text-center text-success">{{ message }}</label>
+                <label v-text="message" class="col-12 col-sm-12 text-center text-success"></label>
             </div>
         </div>
     `,

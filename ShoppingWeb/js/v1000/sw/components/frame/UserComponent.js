@@ -14,11 +14,11 @@
             <div class="row">
                 <table-component :tableTheadData="tableTheadData" :dataArray="dataArray">
                     <template v-slot:table-row="{ data }">
-                        <td>{{ data.Id }}</td>
-                        <td>{{ data.Account }}</td>
+                        <td v-text="data.Id"></td>
+                        <td v-text="data.Account"></td>
                         <td>
                             <select v-model="data.Roles" @change="EditUserRoles(data.Id, data.Roles)" class="form-select form-select-sm f_roles">
-                                <option v-for="role in rolesArray" :key="role.value" :value="role.value">{{ role.name }}</option>
+                                <option v-for="role in rolesArray" :key="role.value" :value="role.value" v-text="role.name"></option>
                             </select>
                         </td>
                         <td><button @click="SetEditUser(data.Id)" class="btn btn-primary">${langFont['edit']}</button></td>
@@ -30,7 +30,7 @@
             <pagination-component></pagination-component>
 
             <div class="row">
-                <span class="col-12 col-sm-12 text-center text-success">{{ message }}</span>
+                <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
             </div>
         </div>
     `,

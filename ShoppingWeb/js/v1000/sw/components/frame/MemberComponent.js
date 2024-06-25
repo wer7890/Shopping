@@ -14,23 +14,23 @@
             <div class="row">
                 <table-component :tableTheadData="tableTheadData" :dataArray="dataArray">
                     <template v-slot:table-row="{ data }">
-                        <td>{{ data.Id }}</td>
-                            <td>{{ data.Account }}</td>
-                            <td>{{ data.Pwd }}</td>
-                            <td>{{ data.Name }}</td>
-                            <td>
-                                <select v-model="data.Level" @change="EditMemberLevel(data.Id, data.Level)" class="form-select form-select-sm f_roles">
-                                    <option v-for="data in levelArray" :key="data.value" :value="data.value">{{ data.name }}</option>
-                                </select>
-                            </td>
-                            <td>{{ data.PhoneNumber }}</td>
-                            <td>
-                                <div class="form-check form-switch">
-                                    <input v-model="data.AccountStatus" @change="EditMemberStatus(data.Id)" type="checkbox" class="toggle-switch form-check-input">
-                                </div>
-                            </td>
-                            <td>{{ data.Amount }}</td>
-                            <td>{{ data.TotalSpent }}</td>
+                        <td v-text="data.Id"></td>
+                        <td v-text="data.Account"></td>
+                        <td v-text="data.Pwd"></td>
+                        <td v-text="data.Name"></td>
+                        <td>
+                            <select v-model="data.Level" @change="EditMemberLevel(data.Id, data.Level)" class="form-select form-select-sm f_roles">
+                                <option v-for="data in levelArray" :key="data.value" :value="data.value" v-text="data.name"></option>
+                            </select>
+                        </td>
+                        <td v-text="data.PhoneNumber"></td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input v-model="data.AccountStatus" @change="EditMemberStatus(data.Id)" type="checkbox" class="toggle-switch form-check-input">
+                            </div>
+                        </td>
+                        <td v-text="data.Amount"></td>
+                        <td v-text="data.TotalSpent"></td>
                     </template>
                  </table-component>
             </div>
@@ -38,7 +38,7 @@
             <pagination-component></pagination-component>
 
             <div class="row">
-                <span class="col-12 col-sm-12 text-center text-success">{{ message }}</span>
+                <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
             </div>
         </div>
     `,

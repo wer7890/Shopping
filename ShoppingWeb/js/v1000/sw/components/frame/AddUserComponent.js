@@ -15,7 +15,7 @@
                 <div class="mx-auto mt-3 col-12 col-md-7 mt-2">
                     <label for="ddlRoles" class="form-label">${langFont['roles']}</label>
                     <select v-model="roles" class="form-select form-select-sm f_roles">
-                        <option v-for="data in rolesArray" :ket="data.value" :value="data.value">{{ data.name }}</option>
+                        <option v-for="data in rolesArray" :ket="data.value" :value="data.value" v-text="data.name">{{ data.name }}</option>
                     </select>
                 </div>
             
@@ -23,7 +23,7 @@
             </div>
             <br />
             <div class="row">
-                <label class="col-12 col-sm-12 text-center text-success">{{ message }}</label>
+                <label v-text="message" class="col-12 col-sm-12 text-center text-success"></label>
             </div>
         </div>
     `,

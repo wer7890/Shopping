@@ -5,7 +5,7 @@
             <br />
             <div class="row">
                 <div class="btn-group me-2" role="group" aria-label="First group">
-                    <button @click="ShowOrder" v-for="data in btnArrayData" :key="data.id" type="button" class="btn btn-outline-secondary btnHand">{{ data.name }}</button>
+                    <button @click="ShowOrder" v-for="data in btnArrayData" :key="data.id" v-text="data.name" type="button" class="btn btn-outline-secondary btnHand"></button>
                 </div>
             </div>
             <br />
@@ -14,7 +14,7 @@
             </div>
 
             <div class="row">
-                <span class="col-12 col-sm-12 text-center text-success">{{ message }}</span>
+                <span v-text="message" class="col-12 col-sm-12 text-center text-success">{{ message }}</span>
             </div>
 
             <div id="overlay">

@@ -2,10 +2,10 @@
     template: `
             <div class="col-12 col-md-2">
                 <div class="list-group">
-                    <a v-for="item in menuArr" :key="item.id" @click="ChangePageName(item.name)" href="javascript:void(0);" class="list-group-item list-group-item-action">{{ item.title }}</a>
+                    <a v-for="item in menuArr" :key="item.id" @click="ChangePageName(item.name)" v-text="item.title" href="javascript:void(0);" class="list-group-item list-group-item-action"></a>
                 </div>
                 <div class="row mt-2">
-                    <label class="fs-5 text-center align-middle mt-2">${langFont['account']} : {{ message }}</label>
+                    <label v-text="fullMessage" class="fs-5 text-center align-middle mt-2"></label>
                     <br />
                     <button @click="SignOut" class="btn btn-outline-dark mt-3">${langFont['signOut']}</button>
                 </div>
@@ -18,6 +18,7 @@
     data: function () {
         return {
             message: '',
+            accountStr: langFont['account'],
             isShow: true,
             menuArr: [
                 { id: 0, title: langFont['adminSystem'], name: 'user-component' },
@@ -93,6 +94,11 @@
             document.cookie = 'language=' + language + '; max-age=2592000; path=/';
             parent.location.reload();
         },
+    },
+    computed: {
+        fullMessage: function () {
+            return this.accountStr + ':  ' + this.message;
+        }
     },
     mounted: function () {  //掛載後
         this.GetUserPermission();

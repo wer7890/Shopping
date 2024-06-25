@@ -6,15 +6,15 @@
             <div class="row">
                 <div class="mx-auto col-12 col-md-7 mt-2">
                     <span class="text-dark fs-6">${langFont['userId']} : </span>
-                    <span class="fs-6">{{ userId }}</span>
+                    <span class="fs-6" v-text="userId"></span>
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-3">
                     <span class="text-dark fs-6">${langFont['account']} : </span>
-                    <span class="fs-6">{{ account }}</span>
+                    <span class="fs-6" v-text="account"></span>
                 </div>
                 <div class="mx-auto mt-3 col-12 col-md-7 mt-3">
                     <span class="text-dark fs-6">${langFont['roles']} : </span>
-                    <span class="fs-6">{{ roles }}</span>
+                    <span class="fs-6" v-text="roles"></span>
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-3">
                     <label for="txbPwd" class="form-label">${langFont['pwd']}</label>
@@ -25,7 +25,7 @@
             </div>
             <br />
             <div class="row">
-                <span class="col-12 col-sm-12 text-center text-success">{{ message }}</span>
+                <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
             </div>
         </div>
     `,
