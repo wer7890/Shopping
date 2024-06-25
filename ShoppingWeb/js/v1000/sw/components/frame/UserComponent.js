@@ -70,7 +70,7 @@
         }
     },
     methods: {
-        //搜尋全部管理員資料
+        //全部管理員資料
         GetAllUserData: function (pageNumber, pageSize) {
             if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof this.beforePagesTotal === 'undefined') {
                 this.message = "undefined";
@@ -103,11 +103,11 @@
                             self.pagesTotal = response.TotalPages;
 
                             if (!self.createPage) {
-                                self.$bus.$emit('Pagination:Set', self.pageSize, self.pagesTotal);
+                                self.$bus.$emit('User:PaginationSet', self.pageSize, self.pagesTotal);
                                 self.createPage = true;
                             } else if (self.beforePagesTotal !== self.pagesTotal) {
                                 alert(langFont['pageUpdata']);
-                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
+                                self.$bus.$emit('User:PaginationUpdata', self.pagesTotal);
                             }
 
                             self.beforePagesTotal = self.pagesTotal;
@@ -164,6 +164,7 @@
                             case 100:
                                 // 刪除成功後，重新讀取資料
                                 self.GetAllUserData(1, self.pageSize);
+                                self.$bus.$emit('User:PaginationUpdata', self.pagesTotal);
                                 self.message = langFont["delSuccessful"];
                                 break;
                             case 101:
@@ -224,7 +225,7 @@
             });
         },
 
-        //跳轉更改管理員組件(先去拿該會員資料，在把該會員資料帶進去)
+        //跳轉更改管理員組件
         SetEditUser: function (userId) {
             if (typeof userId === 'undefined') {
                 this.message = "undefined";
@@ -271,7 +272,6 @@
         AddUser: function () {
             this.showMask = true;
             this.pageName = 'add-user-component';
-            //this.$bus.$emit('Frame:Change', 'add-user-component');
         },
 
         //排序

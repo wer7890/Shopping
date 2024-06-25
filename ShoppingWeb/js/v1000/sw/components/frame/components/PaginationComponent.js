@@ -29,11 +29,15 @@
         }
     },
     created: function () {
-        this.$bus.$on('Pagination:Set', this.SetPagination);
-        this.$bus.$on('Pagination:Updata', this.UpdataPagination);
+        this.$bus.$on('User:PaginationSet', this.SetPagination);
+        this.$bus.$on('User:PaginationUpdata', this.UpdataPagination);
+        this.$bus.$on('Member:PaginationSet', this.SetPagination);
+        this.$bus.$on('Member:PaginationUpdata', this.UpdataPagination);
     },
     beforeDestroy: function () {  //銷毀前
-        this.$bus.$off('Pagination:Set', this.SetPagination);
-        this.$bus.$off('Pagination:Updata', this.UpdataPagination);
+        this.$bus.$off('User:PaginationSet', this.SetPagination);
+        this.$bus.$off('User:PaginationUpdata', this.UpdataPagination);
+        this.$bus.$off('Member:PaginationSet', this.SetPagination);
+        this.$bus.$off('Member:PaginationUpdata', this.UpdataPagination);
     },
 }
