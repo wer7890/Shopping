@@ -12,7 +12,7 @@
             <br />
 
             <div class="row">
-                <table-component :tableTheadData="tableTheadData" :dataArray="dataArray">
+                <table-component :theadData="theadData" :dataArray="dataArray">
                     <template v-slot:table-row="{ data }">
                         <td v-text="data.Id"></td>
                         <td v-text="data.Account"></td>
@@ -46,7 +46,7 @@
         return {
             message: '',
             //table的thead中的資料
-            tableTheadData: [
+            theadData: [
                 { id: 1, name: langFont['id'] },
                 { id: 2, name: langFont['account'] },
                 { id: 3, name: langFont['pwd'] },

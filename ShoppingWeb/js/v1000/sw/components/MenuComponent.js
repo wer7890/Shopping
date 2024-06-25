@@ -2,7 +2,7 @@
     template: `
             <div class="col-12 col-md-2">
                 <div class="list-group">
-                    <a v-for="item in menuArr" :key="item.id" @click="ChangePageName(item.name)" v-text="item.title" href="javascript:void(0);" class="list-group-item list-group-item-action"></a>
+                    <a v-for="item in menuArr" :key="item.id" @click="ChangePage(item.name)" v-text="item.title" href="javascript:void(0);" class="list-group-item list-group-item-action"></a>
                 </div>
                 <div class="row mt-2">
                     <label v-text="fullMessage" class="fs-5 text-center align-middle mt-2"></label>
@@ -30,7 +30,7 @@
     },
     methods: {
         //變更頁面
-        ChangePageName: function (name) {  
+        ChangePage: function (name) {  
             this.$bus.$emit("Frame:Change", name);
         },
 

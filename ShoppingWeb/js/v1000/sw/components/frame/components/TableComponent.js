@@ -3,7 +3,7 @@
         <table class="table table-striped table-hover ">
             <thead>
                 <tr>
-                    <th @click="TableDataSort" v-for="data in tableTheadData" :key="data.id" v-text="data.name"></th>
+                    <th @click="Sort" v-for="data in theadData" :key="data.id" v-text="data.name"></th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -14,7 +14,7 @@
         </table>
     `,
     props: {
-        tableTheadData: {
+        theadData: {
             type: Array,
             required: true
         },
@@ -24,7 +24,7 @@
         }
     },
     methods: {
-        TableDataSort: function () {
+        Sort: function () {
             this.$bus.$emit('Table:Sort');
         }
     },
