@@ -1,6 +1,6 @@
 ﻿var AddUserComponent = {
     template: `
-        <div class="container">
+        <div class="container mt-5">
             <h2 class="text-center">${langFont['titleAddUser']}</h2>
             <br />
             <div class="row">
