@@ -118,6 +118,7 @@
 
         //點選分按按鈕
         ChoosePagination: function (pageIndex, pageSize) {
+            this.message = '';
             this.GetAllUserData(pageIndex, pageSize);
         },
 

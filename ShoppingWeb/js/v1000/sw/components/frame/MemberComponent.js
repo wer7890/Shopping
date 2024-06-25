@@ -133,6 +133,7 @@
 
         //點選分按按鈕
         ChoosePagination: function (pageIndex, pageSize) {
+            this.message = '';
             this.GetAllMemberData(pageIndex, pageSize);
         },
 
@@ -175,7 +176,7 @@
             });
         },
 
-        //該改會員等級
+        //更改會員等級
         EditMemberLevel: function (memberId, level) {
             if (typeof memberId === 'undefined' || typeof level === 'undefined') {
                 this.message = "undefined";
@@ -330,6 +331,9 @@
     },
     mounted: function () {  //掛載後
         this.GetAllMemberData(1, this.pageSize);
+    },
+    beforeDestroy: function () {  //銷毀前
+        this.$bus.$off('choose-pagination', this.ChoosePagination);
     },
     components: {
         'pagination-component': paginationComponent,
