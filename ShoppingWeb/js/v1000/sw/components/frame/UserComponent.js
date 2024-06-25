@@ -33,7 +33,6 @@
                 <span class="col-12 col-sm-12 text-center text-success">{{ message }}</span>
             </div>
         </div>
-            
     `,
     data: function () {
         return {
