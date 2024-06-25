@@ -11,7 +11,7 @@ var vm = new Vue({
         </div>
     `,
     components: {
-        'menu-component': menuComponent,
-        'frame-component': frameComponent,
+        'menu-component': MenuComponent,
+        'frame-component': FrameComponent,
     }
 });

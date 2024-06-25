@@ -1,4 +1,4 @@
-﻿var memberComponent = {
+﻿var MemberComponent = {
     template: `
         <div class="w-auto mx-3">
             <div class="row">
@@ -336,7 +336,7 @@
         this.$bus.$off('choose-pagination', this.ChoosePagination);
     },
     components: {
-        'pagination-component': paginationComponent,
-        'table-component': tableComponent,
+        'pagination-component': PaginationComponent,
+        'table-component': TableComponent,
     }
 };

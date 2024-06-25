@@ -1,4 +1,4 @@
-﻿var paginationComponent = {
+﻿var PaginationComponent = {
     template: `
         <div id="pagination"></div>
     `,

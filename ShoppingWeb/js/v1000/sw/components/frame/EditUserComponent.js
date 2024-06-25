@@ -1,4 +1,4 @@
-﻿var editUserComponent = {
+﻿var EditUserComponent = {
     template: `
         <div class="container">
             <h2 class="text-center">${langFont['titleEditUser']}</h2>

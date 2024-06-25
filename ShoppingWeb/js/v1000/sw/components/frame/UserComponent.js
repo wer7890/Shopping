@@ -1,4 +1,4 @@
-﻿var userComponent = {
+﻿var UserComponent = {
     template: `
         <div class="container">
             <div class="row">
@@ -290,7 +290,7 @@
         this.$bus.$off('table-data-sort', this.TableDataSort);
     },
     components: {
-        'pagination-component': paginationComponent,
-        'table-component': tableComponent,
+        'pagination-component': PaginationComponent,
+        'table-component': TableComponent,
     }
 };

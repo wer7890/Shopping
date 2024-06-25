@@ -1,4 +1,4 @@
-﻿var tableComponent = {
+﻿var TableComponent = {
     template: `
         <table class="table table-striped table-hover ">
             <thead>
