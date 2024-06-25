@@ -297,6 +297,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
+    <Folder Include="js\v1000\sw\components\frame\User\" />
     <Folder Include="Logs\" />
     <Folder Include="Models\" />
     <Folder Include="ProductImg\" />
