@@ -9,8 +9,11 @@
                 </div>
             </div>
             <br />
+
             <div class="row" id="orderTableDiv">
-                  
+                  <table-component :theadData="theadData" :dataArray="dataArray">
+                    
+                 </table-component>
             </div>
 
             <div class="row">
@@ -36,26 +39,36 @@
                 { id: 7, name: langFont['return'] },
             ],
             //table的thead中的資料
-            tableTheadData: [
-                { id: 1, name: langFont['userId'] },
-                { id: 2, name: langFont['account'] },
-                { id: 3, name: langFont['roles'] },
-                { id: 4, name: langFont['edit'] },
-                { id: 5, name: langFont['del'] },
+            theadData: [
+                { id: 1, name: langFont['orderId'] },
+                { id: 2, name: langFont['serialNumber'] },
+                { id: 3, name: langFont['createdTime'] },
+                { id: 4, name: langFont['orderStatus'] },
+                { id: 5, name: langFont['deliveryStatus'] },
+                { id: 6, name: langFont['deliveryMethod'] },
+                { id: 7, name: langFont['total'] },
             ],
             dataArray: '',
+
+            pageSize: 5,
+            pagesTotal: null,
+            beforePagesTotal: 1,
+            createPage: false,
         }
     },
     methods: {
+        GetAllOrderData: function (pageNumber, pageSize) {
+            console.log("GetAllOrderData");
+        },
         ShowOrder: function () {
-
-        }
+            console.log("ShowOrder");
+        },
     },
     created: function () {  //創建後
 
     },
     mounted: function () {  //掛載後
-        
+        this.GetAllOrderData(1, this.pageSize);
     },
     beforeDestroy: function () {  //銷毀前
         
