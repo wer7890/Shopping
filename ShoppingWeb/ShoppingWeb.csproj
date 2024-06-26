@@ -86,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\v1000\bootstrap.min.css" />
-    <Content Include="css\v1000\Mask.css" />
+    <Content Include="css\v1000\PopupWindow.css" />
     <Content Include="css\v1000\OrderManagement.css" />
     <Content Include="css\v1000\Pagination.css" />
     <Content Include="Global.asax" />
@@ -104,6 +104,7 @@
     <Content Include="js\v1000\ProductCategories.js" />
     <Content Include="js\v1000\SetNLog.js" />
     <Content Include="js\v1000\sw\components\FrameComponent.js" />
+    <Content Include="js\v1000\sw\components\frame\components\PopupWindowComponent.js" />
     <Content Include="js\v1000\sw\components\frame\User\AddUserComponent.js" />
     <Content Include="js\v1000\sw\components\frame\components\TableComponent.js" />
     <Content Include="js\v1000\sw\components\frame\DefaultComponent.js" />

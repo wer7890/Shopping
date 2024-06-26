@@ -32,12 +32,11 @@
             <div class="row">
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
             </div>
-
-            <div id="outerMask" v-if="showMask">
-                <div id="innerMask">
-                    <component :is='pageName'></component>
-                </div>
-            </div>
+            
+            <popup-window-component>
+                <component :is='pageName'></component>
+            </popup-window-component>
+            
         </div>
     `,
     data: function () {
@@ -65,8 +64,7 @@
             beforePagesTotal: 1,
             createPage: false,
 
-            showMask: false,
-            pageName: '',
+            pageName: ''
         }
     },
     methods: {
@@ -254,8 +252,8 @@
                             self.message = langFont["inputError"];
                             break;
                         case 100:
-                            self.showMask = true;
                             self.pageName = 'edit-user-component';
+                            self.$bus.$emit('User:ShowEditUser');
                             break;
                         default:
                             alert(langFont["editFailed"]);
@@ -270,8 +268,8 @@
 
         //跳轉至新增管理員組件
         AddUser: function () {
-            this.showMask = true;
             this.pageName = 'add-user-component';
+            this.$bus.$emit('User:ShowAddUser');
         },
 
         //排序
@@ -291,16 +289,10 @@
             }
         },
 
-        //關閉遮罩
-        ClosureMask: function () {
-            this.showMask = false;
-        },
     },
     created: function () {  //創建後
         this.$bus.$on('Pagination:Choose', this.ChoosePagination);
         this.$bus.$on('Table:Sort', this.TableDataSort);
-        this.$bus.$on('AddUser:Closure', this.ClosureMask);
-        this.$bus.$on('EditUser:Closure', this.ClosureMask);
     },
     mounted: function () {  //掛載後
         this.GetAllUserData(1, this.pageSize);
@@ -308,13 +300,12 @@
     beforeDestroy: function () {  //銷毀前
         this.$bus.$off('Pagination:Choose', this.ChoosePagination);
         this.$bus.$off('Table:Sort', this.TableDataSort);
-        this.$bus.$off('AddUser:Closure', this.ClosureMask);
-        this.$bus.$off('EditUser:Closure', this.ClosureMask);
     },
     components: {
         'pagination-component': PaginationComponent,
         'table-component': TableComponent,
         'add-user-component': AddUserComponent,
         'edit-user-component': EditUserComponent,
+        'popup-window-component': PopupWindowComponent,
     }
 };

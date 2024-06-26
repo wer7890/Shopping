@@ -1,4 +1,4 @@
-﻿#outerMask {
+﻿.outerMask {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,12 +8,13 @@
     z-index: 99;
 }
 
-#innerMask {
+.innerMask {
     position: fixed;
     top: 0;
     left: 30%;
     width: 40%;
     height: 100%;
+    border: thick double darkslategrey;
     background-color: white; /* 純白色背景 */
     z-index: 98;
 }

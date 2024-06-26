@@ -8,23 +8,23 @@
             <hr />
             <div class="row mx-auto col-12 col-md-5">
                 <div class="form-group">
-                    <label for="txbAccount" class="control-label">${langFont['account']}:</label>
+                    <label class="control-label">${langFont['account']}:</label>
                     <div>
-                        <input type="text" id="txbAccount" class="form-control mt-2" v-model="account" placeholder="${langFont['txbAccount']}" />
+                        <input type="text" class="form-control mt-2" v-model="account" placeholder="${langFont['txbAccount']}" />
                     </div>
                 </div>
                 <br />
                 <div class="form-group mt-3">
-                    <label for="txbPassword" class="control-label">${langFont['pwd']}:</label>
+                    <label class="control-label">${langFont['pwd']}:</label>
                     <div>
-                        <input type="password" id="txbPassword" class="form-control mt-2" v-model="pwd" placeholder="${langFont['txbPassword']}" />
+                        <input type="password" class="form-control mt-2" v-model="pwd" placeholder="${langFont['txbPassword']}" />
                     </div>
                 </div>
                 <br />
                 <div class="row justify-content-center align-self-center mt-3">
                     <div class="form-check ms-4 mb-2">
-                        <input class="form-check-input" type="checkbox" v-model="rememberAccount" id="flexCheckDefault" />
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" v-model="rememberAccount" />
+                        <label class="form-check-label">
                             ${langFont['rememberAccount']}
                         </label>
                     </div>

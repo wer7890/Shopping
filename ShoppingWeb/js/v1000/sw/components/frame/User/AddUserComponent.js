@@ -5,15 +5,15 @@
             <br />
             <div class="row">
                 <div class="mx-auto col-12 col-md-7 mt-2">
-                    <label for="txbAccount" class="form-label">${langFont['account']}</label>
+                    <label class="form-label">${langFont['account']}</label>
                     <input v-model="account" type="text" id="txbAccount" class="form-control" />
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-2">
-                    <label for="txbPwd" class="form-label">${langFont['pwd']}</label>
+                    <label class="form-label">${langFont['pwd']}</label>
                     <input v-model="pwd" type="password" id="txbPwd" class="form-control" />
                 </div>
                 <div class="mx-auto mt-3 col-12 col-md-7 mt-2">
-                    <label for="ddlRoles" class="form-label">${langFont['roles']}</label>
+                    <label class="form-label">${langFont['roles']}</label>
                     <select v-model="roles" class="form-select">
                         <option v-for="data in rolesArray" :ket="data.value" :value="data.value" v-text="data.name">{{ data.name }}</option>
                     </select>
@@ -22,10 +22,6 @@
 
             <div class="row">
                 <button @click="AddUser" class="btn btn-outline-primary mx-auto mt-5 col-12 col-md-6">${langFont['addUser']}</button>
-            </div>
-
-            <div class="row">
-                <button @click="Closure" class="btn btn-outline-secondary mx-auto mt-4 col-12 col-md-6">${langFont['closure']}</button>
             </div>
 
             <br />
@@ -78,7 +74,6 @@
                             break;
                         case 100:
                             alert(langFont["addSuccessful"]);
-                            self.Closure();
                             break;
                         case 101:
                             self.message = langFont["duplicateAccount"];
@@ -110,11 +105,6 @@
             }
 
             return accountValid && pwdValid;
-        },
-
-        //關閉
-        Closure: function () {
-            this.$bus.$emit('AddUser:Closure');
         },
     },
 
