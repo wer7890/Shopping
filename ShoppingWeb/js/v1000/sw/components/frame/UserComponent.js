@@ -68,6 +68,14 @@
 
         }
     },
+    watch: {
+        message: function () {
+            var self = this;
+            setTimeout(function () {
+                self.message = '';
+            }, 3000);
+        }
+    },
     methods: {
         //全部管理員資料
         GetAllUserData: function (pageNumber, pageSize) {

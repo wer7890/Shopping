@@ -320,6 +320,14 @@
             return this.RandomSequence(this.RandomInt(4, 10), opt) + this.RandomSequence(1, this.emailSuffix);
         }
     },
+    watch: {
+        message: function () {
+            var self = this;
+            setTimeout(function () {
+                self.message = '';
+            }, 3000);
+        }
+    },
     mounted: function () {  //掛載後
         this.GetAllMemberData(1, this.pageSize);
     },

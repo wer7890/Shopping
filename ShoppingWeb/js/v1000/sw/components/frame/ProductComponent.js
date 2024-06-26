@@ -133,6 +133,14 @@
             createPage: false,
         }
     },
+    watch: {
+        message: function () {
+            var self = this;
+            setTimeout(function () {
+                self.message = '';
+            }, 3000);
+        }
+    },
     methods: {
         //全部商品資料
         GetAllProductData: function (pageNumber, pageSize) {

@@ -49,6 +49,14 @@
             message: '',
         };
     },
+    watch: {
+        message: function () {
+            var self = this;
+            setTimeout(function () {
+                self.message = '';
+            }, 3000);
+        }
+    },
     methods: {
         //登入
         Login: function () {  
