@@ -131,12 +131,6 @@
             });
         },
 
-        //點選分按按鈕
-        ChoosePagination: function (pageIndex, pageSize) {
-            this.message = '';
-            this.GetAllMemberData(pageIndex, pageSize);
-        },
-
         //新增會員
         AddMember: function () {
             var self = this;
@@ -326,12 +320,8 @@
             return this.RandomSequence(this.RandomInt(4, 10), opt) + this.RandomSequence(1, this.emailSuffix);
         }
     },
-    created: function () {  //創建後
-    },
     mounted: function () {  //掛載後
         this.GetAllMemberData(1, this.pageSize);
-    },
-    beforeDestroy: function () {  //銷毀前
     },
     components: {
         'pagination-component': PaginationComponent,

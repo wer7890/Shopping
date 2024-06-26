@@ -124,12 +124,6 @@
             });
         },
 
-        //點選分按按鈕
-        ChoosePagination: function (pageIndex, pageSize) {
-            this.message = '';
-            this.GetAllUserData(pageIndex, pageSize);
-        },
-
         //刪除刪除管理員
         DeleteUser: function (userId) {
             if (typeof userId === 'undefined') {
@@ -289,12 +283,8 @@
         },
 
     },
-    created: function () {  //創建後
-    },
     mounted: function () {  //掛載後
         this.GetAllUserData(1, this.pageSize);
-    },
-    beforeDestroy: function () {  //銷毀前
     },
     components: {
         'pagination-component': PaginationComponent,

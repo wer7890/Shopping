@@ -140,7 +140,7 @@
                 this.message = 'undefined';
                 return;
             }
-
+            
             var self = this;
 
             $.ajax({
@@ -190,20 +190,9 @@
             });
         },
 
-        //點選分按按鈕
-        ChoosePagination: function (pageIndex, pageSize) {
-            this.message = '';
-            this.GetAllProductData(pageIndex, pageSize);
-        },
-
-    },
-    created: function () {  //創建後
     },
     mounted: function () {  //掛載後
         this.GetAllProductData(1, this.pageSize);
-    },
-    beforeDestroy: function () {  //銷毀前
-        
     },
     components: {
         'pagination-component': PaginationComponent,
