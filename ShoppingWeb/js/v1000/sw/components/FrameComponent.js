@@ -16,10 +16,10 @@
         }
     },
     created: function () {
-        this.$bus.$on('Menu:Change', this.ShowPage);
+        this.$bus.$on('Frame:Change', this.ShowPage);
     },
     beforeDestroy: function () {  //組件銷毀前，移除該監聽
-        this.$bus.$off('Menu:Change', this.ShowPage);
+        this.$bus.$off('Frame:Change', this.ShowPage);
     },
     components: {
         'default-component': DefaultComponent,

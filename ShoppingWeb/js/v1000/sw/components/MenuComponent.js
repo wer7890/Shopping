@@ -31,7 +31,7 @@
     methods: {
         //變更頁面
         ChangePage: function (name) {  
-            this.$bus.$emit("Menu:Change", name);
+            this.$bus.$emit("Frame:Change", name);
         },
 
         //登出
