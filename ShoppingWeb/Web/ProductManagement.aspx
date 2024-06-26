@@ -18,9 +18,6 @@
 </head>
 <body>
     <div class="w-auto mx-3" id="allProductDiv">
-        <div class="col-10 d-flex justify-content-center">
-                <h2 class="text-center"><%= Resources.Resource.titleUser %></h2>
-         </div>
         <h2 class="text-center"><%= Resources.Resource.product %></h2>
         <br />
         <div class="row mx-auto col-12 mb-3">

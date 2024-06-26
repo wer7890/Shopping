@@ -33,11 +33,15 @@
         this.$bus.$on('User:PaginationUpdata', this.UpdataPagination);
         this.$bus.$on('Member:PaginationSet', this.SetPagination);
         this.$bus.$on('Member:PaginationUpdata', this.UpdataPagination);
+        this.$bus.$on('Product:PaginationSet', this.SetPagination);
+        this.$bus.$on('Product:PaginationUpdata', this.UpdataPagination);
     },
     beforeDestroy: function () {  //銷毀前
         this.$bus.$off('User:PaginationSet', this.SetPagination);
         this.$bus.$off('User:PaginationUpdata', this.UpdataPagination);
         this.$bus.$off('Member:PaginationSet', this.SetPagination);
         this.$bus.$off('Member:PaginationUpdata', this.UpdataPagination);
+        this.$bus.$off('Product:PaginationSet', this.SetPagination);
+        this.$bus.$off('Product:PaginationUpdata', this.UpdataPagination);
     },
 }

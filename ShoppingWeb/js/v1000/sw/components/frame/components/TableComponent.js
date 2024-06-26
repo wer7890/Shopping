@@ -1,6 +1,6 @@
 ﻿var TableComponent = {
     template: `
-        <table class="table table-striped table-hover ">
+        <table class="table table-striped table-hover table-bordered ">
             <thead>
                 <tr>
                     <th @click="Sort" v-for="data in theadData" :key="data.id" v-text="data.name"></th>
