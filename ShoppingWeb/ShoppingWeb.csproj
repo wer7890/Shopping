@@ -104,7 +104,7 @@
     <Content Include="js\v1000\ProductCategories.js" />
     <Content Include="js\v1000\SetNLog.js" />
     <Content Include="js\v1000\sw\components\FrameComponent.js" />
-    <Content Include="js\v1000\sw\components\frame\components\PopupWindowComponent.js" />
+    <Content Include="js\v1000\sw\components\frame\components\PopWindowComponent.js" />
     <Content Include="js\v1000\sw\components\frame\User\AddUserComponent.js" />
     <Content Include="js\v1000\sw\components\frame\components\TableComponent.js" />
     <Content Include="js\v1000\sw\components\frame\DefaultComponent.js" />

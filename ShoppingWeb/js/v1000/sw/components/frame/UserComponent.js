@@ -33,11 +33,11 @@
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
             </div>
             
-            <popup-window-component>
+            <pop-window-component>
                 <template v-slot:content="{ page }">
                     <component :is="page"></component>
                 </template>
-            </popup-window-component>
+            </pop-window-component>
             
         </div>
     `,
@@ -299,6 +299,6 @@
         'table-component': TableComponent,
         'add-user-component': AddUserComponent,
         'edit-user-component': EditUserComponent,
-        'popup-window-component': PopupWindowComponent,
+        'pop-window-component': PopWindowComponent,
     }
 };
