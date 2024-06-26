@@ -35,7 +35,7 @@
                  </table-component>
             </div>
 
-            <pagination-component></pagination-component>
+            <pagination-component @Choose="GetAllMemberData"></pagination-component>
 
             <div class="row">
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
@@ -327,13 +327,11 @@
         }
     },
     created: function () {  //創建後
-        this.$bus.$on('Pagination:Choose', this.ChoosePagination);
     },
     mounted: function () {  //掛載後
         this.GetAllMemberData(1, this.pageSize);
     },
     beforeDestroy: function () {  //銷毀前
-        this.$bus.$off('Pagination:Choose', this.ChoosePagination);
     },
     components: {
         'pagination-component': PaginationComponent,

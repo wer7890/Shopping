@@ -1,11 +1,11 @@
 ﻿var PopupWindowComponent = {
     template: `
-        <div class="outerMask" v-if="showMask">
+        <div class="outerMask" v-if="show">
             <div class="innerMask">
-                <slot name="content" :pageName="pageName"></slot>
+                <slot name="content" :page="page"></slot>
                 <div class="container">
                     <div class="row">
-                        <button @click="Closure" class="btn btn-outline-secondary mx-auto mt-4 col-12 col-md-6">${langFont['closure']}</button>
+                        <button @click="Clear" class="btn btn-outline-secondary mx-auto mt-4 col-12 col-md-6">${langFont['closure']}</button>
                     </div>
                 </div>
             </div>
@@ -13,25 +13,27 @@
     `,
     data: function () {
         return {
-            showMask: false,
-            pageName: '',
+            show: false,
+            page: '',
         }
     },
     methods: {
-        Show: function (val) {
-            this.pageName = val;
-            this.showMask = true;
+        Set: function (val) {
+            if (val) {
+                this.page = val;
+                this.show = true;
+            } 
         },
-        Closure: function () {
-            this.pageName = '';
-            this.showMask = false;
-        }
+        Clear: function () {
+            this.page = '';
+            this.show = false;
+        },
     },
     created: function () {  
-        this.$bus.$on('PopupWindow:Show', this.Show);
+        this.$bus.$on('PopupWindow:Set', this.Set);
     },
     beforeDestroy: function () {  
-        this.$bus.$off('PopupWindow:Show', this.Show);
+        this.$bus.$off('PopupWindow:Set', this.Set);
     },
     components: {
         'add-user-component': AddUserComponent,

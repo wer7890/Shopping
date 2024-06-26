@@ -55,7 +55,7 @@
                  </table-component>
             </div>
 
-            <pagination-component></pagination-component>
+            <pagination-component @Choose="GetAllProductData"></pagination-component>
         </div>
     `,
     data: function () {
@@ -198,7 +198,6 @@
 
     },
     created: function () {  //創建後
-        this.$bus.$on('Pagination:Choose', this.ChoosePagination);
     },
     mounted: function () {  //掛載後
         this.GetAllProductData(1, this.pageSize);

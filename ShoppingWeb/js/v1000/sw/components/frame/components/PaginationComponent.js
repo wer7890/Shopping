@@ -19,7 +19,7 @@
                 showGoInput: true,
                 showPagesTotal: true,
                 callback: function (pageIndex) {
-                    self.$bus.$emit("Pagination:Choose", pageIndex + 1, pageSize);
+                    self.$emit("Choose", pageIndex + 1, pageSize);
                 }
             });
         },

@@ -27,15 +27,15 @@
                  </table-component>
             </div>
             
-            <pagination-component></pagination-component>
+            <pagination-component @Choose="GetAllUserData"></pagination-component>
 
             <div class="row">
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
             </div>
             
             <popup-window-component>
-                <template v-slot:content="{ pageName }">
-                    <component :is="pageName"></component>
+                <template v-slot:content="{ page }">
+                    <component :is="page"></component>
                 </template>
             </popup-window-component>
             
@@ -253,7 +253,7 @@
                             self.message = langFont["inputError"];
                             break;
                         case 100:
-                            self.$bus.$emit('PopupWindow:Show', 'edit-user-component');
+                            self.$bus.$emit('PopupWindow:Set', 'edit-user-component');
                             break;
                         default:
                             alert(langFont["editFailed"]);
@@ -268,7 +268,7 @@
 
         //跳轉至新增管理員組件
         AddUser: function () {
-            this.$bus.$emit('PopupWindow:Show', 'add-user-component');
+            this.$bus.$emit('PopupWindow:Set', 'add-user-component');
         },
 
         //排序
@@ -290,14 +290,12 @@
 
     },
     created: function () {  //創建後
-        this.$bus.$on('Pagination:Choose', this.ChoosePagination);
         this.$bus.$on('Table:Sort', this.TableDataSort);
     },
     mounted: function () {  //掛載後
         this.GetAllUserData(1, this.pageSize);
     },
     beforeDestroy: function () {  //銷毀前
-        this.$bus.$off('Pagination:Choose', this.ChoosePagination);
         this.$bus.$off('Table:Sort', this.TableDataSort);
     },
     components: {
