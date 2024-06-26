@@ -167,11 +167,11 @@
                             self.pagesTotal = response.TotalPages;
 
                             if (!self.createPage) {
-                                self.$bus.$emit('Product:PaginationSet', self.pageSize, self.pagesTotal);
+                                self.$bus.$emit('Pagination:Set', self.pageSize, self.pagesTotal);
                                 self.createPage = true;
                             } else if (self.beforePagesTotal !== self.pagesTotal) {
                                 alert(langFont['pageUpdata']);
-                                self.$bus.$emit('Product:PaginationUpdata', self.pagesTotal);
+                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
                             }
 
                             self.beforePagesTotal = self.pagesTotal;

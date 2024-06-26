@@ -34,7 +34,9 @@
             </div>
             
             <popup-window-component>
-                <component :is='pageName'></component>
+                <template v-slot:content="{ pageName }">
+                    <component :is="pageName"></component>
+                </template>
             </popup-window-component>
             
         </div>
@@ -64,7 +66,6 @@
             beforePagesTotal: 1,
             createPage: false,
 
-            pageName: ''
         }
     },
     methods: {
@@ -101,11 +102,11 @@
                             self.pagesTotal = response.TotalPages;
 
                             if (!self.createPage) {
-                                self.$bus.$emit('User:PaginationSet', self.pageSize, self.pagesTotal);
+                                self.$bus.$emit('Pagination:Set', self.pageSize, self.pagesTotal);
                                 self.createPage = true;
                             } else if (self.beforePagesTotal !== self.pagesTotal) {
                                 alert(langFont['pageUpdata']);
-                                self.$bus.$emit('User:PaginationUpdata', self.pagesTotal);
+                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
                             }
 
                             self.beforePagesTotal = self.pagesTotal;
@@ -162,7 +163,7 @@
                             case 100:
                                 // 刪除成功後，重新讀取資料
                                 self.GetAllUserData(1, self.pageSize);
-                                self.$bus.$emit('User:PaginationUpdata', self.pagesTotal);
+                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
                                 self.message = langFont["delSuccessful"];
                                 break;
                             case 101:
@@ -252,8 +253,7 @@
                             self.message = langFont["inputError"];
                             break;
                         case 100:
-                            self.pageName = 'edit-user-component';
-                            self.$bus.$emit('User:ShowEditUser');
+                            self.$bus.$emit('PopupWindow:Show', 'edit-user-component');
                             break;
                         default:
                             alert(langFont["editFailed"]);
@@ -268,8 +268,7 @@
 
         //跳轉至新增管理員組件
         AddUser: function () {
-            this.pageName = 'add-user-component';
-            this.$bus.$emit('User:ShowAddUser');
+            this.$bus.$emit('PopupWindow:Show', 'add-user-component');
         },
 
         //排序
