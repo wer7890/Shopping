@@ -12,7 +12,7 @@
             <br />
             
             <div class="row">
-                <table-component :theadData="theadData" :dataArray="dataArray">
+                <table-component :theadData="theadData" :dataArray="dataArray" @Sort="TableDataSort">
                     <template v-slot:table-row="{ data }">
                         <td v-text="data.Id"></td>
                         <td v-text="data.Account"></td>
@@ -290,13 +290,11 @@
 
     },
     created: function () {  //創建後
-        this.$bus.$on('Table:Sort', this.TableDataSort);
     },
     mounted: function () {  //掛載後
         this.GetAllUserData(1, this.pageSize);
     },
     beforeDestroy: function () {  //銷毀前
-        this.$bus.$off('Table:Sort', this.TableDataSort);
     },
     components: {
         'pagination-component': PaginationComponent,
