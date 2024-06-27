@@ -55,7 +55,7 @@
                  </table-component>
             </div>
 
-            <pagination-component @Choose="GetAllProductData"></pagination-component>
+            <pagination-component @Choose="GetAllProductData" :size="pageSize" :total="pagesTotal"></pagination-component>
         </div>
     `,
     data: function () {
@@ -130,7 +130,6 @@
             pageSize: 3,
             pagesTotal: null,
             beforePagesTotal: 1,
-            createPage: false,
         }
     },
     watch: {
@@ -173,17 +172,7 @@
                         case 100:
                             self.dataArray = response.ProductDataList;
                             self.pagesTotal = response.TotalPages;
-
-                            if (!self.createPage) {
-                                self.$bus.$emit('Pagination:Set', self.pageSize, self.pagesTotal);
-                                self.createPage = true;
-                            } else if (self.beforePagesTotal !== self.pagesTotal) {
-                                alert(langFont['pageUpdata']);
-                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
-                            }
-
                             self.beforePagesTotal = self.pagesTotal;
-
                             break;
                         case 101:
                             self.message = langFont["noData"];

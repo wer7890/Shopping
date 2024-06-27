@@ -35,7 +35,7 @@
                  </table-component>
             </div>
 
-            <pagination-component @Choose="GetAllMemberData"></pagination-component>
+            <pagination-component @Choose="GetAllMemberData" :size="pageSize" :total="pagesTotal"></pagination-component>
 
             <div class="row">
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
@@ -68,7 +68,6 @@
             pageSize: 5,
             pagesTotal: null,
             beforePagesTotal: 1,
-            createPage: false,
             numeric: "0123456789",
             lowerCase: "abcdefghijklmnopqrstuvwxyz",
             upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -106,17 +105,7 @@
                         case 100:
                             self.dataArray = response.MemberDataList;
                             self.pagesTotal = response.TotalPages;
-
-                            if (!self.createPage) {
-                                self.$bus.$emit('Pagination:Set', self.pageSize, self.pagesTotal);
-                                self.createPage = true;
-                            } else if (self.beforePagesTotal !== self.pagesTotal) {
-                                alert(langFont['pageUpdata']);
-                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
-                            }
-
                             self.beforePagesTotal = self.pagesTotal;
-
                             break;
                         case 101:
                             self.message = langFont["noData"];

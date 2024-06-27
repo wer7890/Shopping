@@ -2,38 +2,35 @@
     template: `
         <div id="pagination"></div>
     `,
+    props: {
+        size: Number,
+        total: Number
+    },
     data: function () {
         return {
             page: '',
+            initial: true
         }
     },
-    methods: {
-        SetPagination: function (pageSize, pagesTotal) {
-            var self = this;
-            
-            this.page = new Pagination({
-                id: 'pagination',
-                total: pagesTotal,
-                showButtons: 5,
-                showFirstLastButtons: true,
-                showGoInput: true,
-                showPagesTotal: true,
-                callback: function (pageIndex) {
-                    self.$emit("Choose", pageIndex + 1, pageSize);
-                }
-            });
-        },
+    watch: {
+        total: function () {
+            this.initial ? this.initial = false : alert(langFont['pageUpdata']);
+            this.page.Update(this.total);
+        }
+    },
+    mounted: function () {
+        var self = this;
 
-        UpdataPagination: function (pagesTotal){
-            this.page.Update(pagesTotal);
-        }
-    },
-    created: function () {
-        this.$bus.$on('Pagination:Set', this.SetPagination);
-        this.$bus.$on('Pagination:Updata', this.UpdataPagination);
-    },
-    beforeDestroy: function () {  //銷毀前
-        this.$bus.$off('Pagination:Set', this.SetPagination);
-        this.$bus.$off('Pagination:Updata', this.UpdataPagination);
+        this.page = new Pagination({
+            id: 'pagination',
+            total: this.total,
+            showButtons: 5,
+            showFirstLastButtons: true,
+            showGoInput: true,
+            showPagesTotal: true,
+            callback: function (pageIndex) {
+                self.$emit("Choose", pageIndex + 1, self.size);
+            }
+        });
     },
 }

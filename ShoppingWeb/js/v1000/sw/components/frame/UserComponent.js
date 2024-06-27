@@ -27,7 +27,7 @@
                  </table-component>
             </div>
             
-            <pagination-component @Choose="GetAllUserData"></pagination-component>
+            <pagination-component @Choose="GetAllUserData" :size="pageSize" :total="pagesTotal"></pagination-component>
 
             <div class="row">
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
@@ -64,7 +64,6 @@
             pageSize: 5,
             pagesTotal: null,
             beforePagesTotal: 1,
-            createPage: false,
 
         }
     },
@@ -108,15 +107,6 @@
                             // 處理成功取得資料的情況
                             self.dataArray = response.UserDataList;
                             self.pagesTotal = response.TotalPages;
-
-                            if (!self.createPage) {
-                                self.$bus.$emit('Pagination:Set', self.pageSize, self.pagesTotal);
-                                self.createPage = true;
-                            } else if (self.beforePagesTotal !== self.pagesTotal) {
-                                alert(langFont['pageUpdata']);
-                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
-                            }
-
                             self.beforePagesTotal = self.pagesTotal;
                             break;
                         case 101:
