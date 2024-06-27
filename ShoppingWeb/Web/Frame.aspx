@@ -21,6 +21,8 @@
 <body>
     <div id="app"></div>
 
+    <script src="/js/<%= jsVersion %>/sw/components/frame/Product/AddProductComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/Product/EditProductComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/User/AddUserComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/User/EditUserComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/components/TableComponent.js"></script>

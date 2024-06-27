@@ -50,7 +50,7 @@ $(document).ready(function () {
     });
 });
 
-//全部商品資料
+//全部商品資料 k
 function SearchAllData(pageNumber, pageSize) {
 
     if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof beforePagesTotal === 'undefined') {
@@ -143,7 +143,7 @@ function SearchAllData(pageNumber, pageSize) {
     });
 }
 
-//搜尋商品資料
+//搜尋商品資料 k
 function SearchProduct(productCategory, productName, checkAllMinorCategories, checkAllBrand, pageNumber, pageSize) {
 
     if (typeof productCategory === 'undefined' || typeof productName === 'undefined' || typeof checkAllMinorCategories === 'undefined' || typeof checkAllBrand === 'undefined' || typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof beforePagesTotal === 'undefined') {
@@ -222,7 +222,7 @@ function SearchProduct(productCategory, productName, checkAllMinorCategories, ch
     });
 }
 
-//按下是否開放開關，更改資料庫
+//按下是否開放開關，更改資料庫 k
 function EditProductStatus(productId) {
 
     if (typeof productId === 'undefined') {

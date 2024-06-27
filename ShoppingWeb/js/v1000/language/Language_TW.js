@@ -135,7 +135,7 @@
     'categories': '類型',
     'price': '價格',
     'stock': '庫存',
-    'warningValue': '預警值',
+    'warningValue': '預警',
     'open': '開啟',
     'introduce': '描述',
     'img': '圖片',

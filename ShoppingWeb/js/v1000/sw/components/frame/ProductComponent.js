@@ -24,13 +24,13 @@
                 </div>
                 <div class="col-2 px-0">
                     <label class="form-label">${langFont['productNameSelect']}</label>
-                    <input type="text" class="form-control" placeholder="${langFont['productNameSelect']}" />
+                    <input v-model="productName" type="text" class="form-control" placeholder="${langFont['productNameSelect']}" />
                 </div>
                 <div class="col px-0 d-flex justify-content-center align-items-end">
-                    <button type="submit" class="btn btn-outline-primary">${langFont['select']}</button>
+                    <button @click="SearchProduct(1, pageSize)" type="submit" class="btn btn-outline-primary">${langFont['select']}</button>
                 </div>
                 <div class="col px-0 d-flex justify-content-center align-items-end">
-                    <button type="submit" class="btn btn-outline-primary">${langFont['addProduct']}</button>
+                    <button @click="AddProduct" type="submit" class="btn btn-outline-primary">${langFont['addProduct']}</button>
                 </div>
                 <div class="col px-0 d-flex justify-content-center align-items-end">
                     <button type="submit" class="btn btn-outline-primary">${langFont['stockWarn']}</button>
@@ -46,33 +46,51 @@
                         <td v-text="data.Price"></td>
                         <td v-text="data.Stock"></td>
                         <td v-text="data.WarningValue"></td>
-                        <td v-text="data.IsOpen"></td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input v-model="data.IsOpen" @change="EditProductStatus(data.Id)" type="checkbox" class="toggle-switch form-check-input">
+                            </div>
+                        </td>
                         <td v-text="data.Introduce"></td>
-                        <td v-text="data.Img"></td>
-                        <td><button class="btn btn-primary">${langFont['editOne']}</button></td>
-                        <td><button class="btn btn-danger">${langFont['delOne']}</button></td>
+                        <td><img :src="imgSrc + data.Img" class="img-fluid img-thumbnail" width="200px" height="200px" alt="${langFont['img']}"></td>
+                        <td><button @click="EditProduct(data.Id)" class="btn btn-primary">${langFont['editOne']}</button></td>
+                        <td><button @click="DeleteProduct(data.Id)" class="btn btn-danger">${langFont['delOne']}</button></td>
                     </template>
                  </table-component>
             </div>
 
             <pagination-component @Choose="GetAllProductData" :size="pageSize" :total="pagesTotal"></pagination-component>
+
+            <div class="row">
+                <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
+            </div>
+
+
+
+            <pop-window-component>
+                <template v-slot:content="{ page }">
+                    <component :is="page"></component>
+                </template>
+            </pop-window-component>
         </div>
     `,
     data: function () {
         return {
             message: '',
-            mainCategoryNum: '00',
-            smallCategoryNum: '00',
-            brandNum: '00',
+            imgSrc: '/ProductImg/',
+            mainCategoryNum: '0',  //所選取的大分類
+            smallCategoryNum: '00', //所選取的小分類
+            brandNum: '00',         //所選取的品牌
+            productName: '',        //輸入的商品名稱
             mainCategories: [
-                { id: 1, value: '00', name: langFont['selectMajorCategories'] },
+                { id: 1, value: '0', name: langFont['selectMajorCategories'] },
                 { id: 2, value: '10', name: langFont['hats'] },
                 { id: 3, value: '11', name: langFont['tops'] },
                 { id: 4, value: '12', name: langFont['outerwear'] },
                 { id: 5, value: '13', name: langFont['bottoms'] },
             ],
             smallCategories: {
-                '00': [
+                '0': [
                     { id: 1, value: '00', name: langFont['chooseType'] },
                 ],
                 '10': [
@@ -167,7 +185,6 @@
                             break;
                         case 2:
                             self.message = langFont["inputError"];
-                            $("#labSearchProduct").text(langFont["inputError"]).show().delay(3000).fadeOut();
                             break;
                         case 100:
                             self.dataArray = response.ProductDataList;
@@ -187,6 +204,185 @@
             });
         },
 
+        //搜尋商品
+        SearchProduct: function (pageNumber, pageSize) {
+            var productNum = this.mainCategoryNum + this.smallCategoryNum + this.brandNum
+            var self = this;
+
+            $.ajax({
+                url: '/api/Controller/product/GetProductData',
+                data: JSON.stringify({ productCategory: productNum, productName: this.productName, checkAllMinorCategories: (this.smallCategoryNum == '00'), checkAllBrand: (this.brandNum === '00'), pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: this.beforePagesTotal }),
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Status) {
+                        case 0:
+                            alert(langFont["duplicateLogin"]);
+                            window.parent.location.href = "Login.aspx";
+                            break;
+                        case 1:
+                            alert(langFont["accessDenied"]);
+                            parent.location.reload();
+                            break;
+                        case 2:
+                            self.message = langFont["inputError"];
+                            break;
+                        case 100:
+                            self.dataArray = response.ProductDataList;
+                            self.pagesTotal = response.TotalPages;
+                            self.beforePagesTotal = self.pagesTotal;
+                            break;
+                        case 101:
+                            self.message = langFont["noData"];
+                            break;
+                        default:
+                            self.message = langFont["errorLog"];
+                    }
+                },
+                error: function (error) {
+                    self.message = langFont["ajaxError"];
+                }
+            });
+        },
+
+        //更改商品狀態
+        EditProductStatus: function (productId) {
+            if (typeof productId === 'undefined') {
+                this.message = 'undefined';
+                return;
+            }
+
+            var self = this;
+
+            $.ajax({
+                type: "POST",
+                url: "/api/Controller/product/EditProductStatus",
+                data: JSON.stringify({ productId: productId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Status) {
+                        case 0:
+                            alert(langFont["duplicateLogin"]);
+                            window.parent.location.href = "Login.aspx";
+                            break;
+                        case 1:
+                            alert(langFont["accessDenied"]);
+                            parent.location.reload();
+                            break;
+                        case 2:
+                            self.message = langFont["inputError"];
+                            break;
+                        case 100:
+                            self.message = langFont["editSuccessful"];
+                            break;
+                        case 101:
+                            self.message = langFont["editFail"];
+                            break;
+                        default:
+                            self.message = langFont["errorLog"];
+                    }
+                },
+                error: function (error) {
+                    self.message = langFont["ajaxError"];
+                }
+            });
+        },
+
+        //刪除
+        DeleteProduct: function (productId) {
+            if (typeof productId === 'undefined') {
+                this.message = 'undefined';
+                return;
+            }
+
+            var self = this;
+            let yes = confirm(langFont["confirmEditProduct"]);
+            if (yes == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/Controller/product/DelProduct",
+                    data: JSON.stringify({ productId: productId }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        switch (response.Status) {
+                            case 0:
+                                alert(langFont["duplicateLogin"]);
+                                window.parent.location.href = "Login.aspx";
+                                break;
+                            case 1:
+                                alert(langFont["accessDenied"]);
+                                parent.location.reload();
+                                break;
+                            case 2:
+                                self.message = langFont["inputError"];
+                                break;
+                            case 100:
+                                //window.location.reload();
+                                self.message = langFont["delSuccessful"];
+                                break;
+                            case 101:
+                                self.message = langFont["delFailed"];
+                                break;
+                            default:
+                                self.message = langFont["errorLog"];
+                        }
+                    },
+                    error: function (error) {
+                        self.message = langFont["ajaxError"];
+                    }
+                });
+            }
+        },
+
+        //跳轉更改商品組件
+        EditProduct: function (productId) {
+            if (typeof productId === 'undefined') {
+                this.message = 'undefined';
+                return;
+            }
+
+            var self = this;
+
+            $.ajax({
+                type: "POST",
+                url: "/api/Controller/product/SetSessionProductId",
+                data: JSON.stringify({ productId: productId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    switch (response.Status) {
+                        case 0:
+                            alert(langFont["duplicateLogin"]);
+                            window.parent.location.href = "Login.aspx";
+                            break;
+                        case 1:
+                            alert(langFont["accessDenied"]);
+                            parent.location.reload();
+                            break;
+                        case 2:
+                            self.message = langFont["inputError"];
+                            break;
+                        case 100:
+                            self.$bus.$emit('PopWindow:Set', 'edit-product-component');
+                            break;
+                        default:
+                            alert(langFont["editFailed"]);
+                            break;
+                    }
+                },
+                error: function (error) {
+                    self.message = langFont["ajaxError"];
+                }
+            });
+        },
+
+        //跳轉至新增商品組件
+        AddProduct: function () {
+            this.$bus.$emit('PopWindow:Set', 'add-product-component');
+        }
     },
     mounted: function () {  //掛載後
         this.GetAllProductData(1, this.pageSize);
@@ -194,5 +390,8 @@
     components: {
         'pagination-component': PaginationComponent,
         'table-component': TableComponent,
+        'add-product-component': AddProductComponent,
+        'edit-product-component': EditProductComponent,
+        'pop-window-component': PopWindowComponent,
     }
 };

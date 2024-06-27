@@ -9,12 +9,12 @@
     data: function () {
         return {
             page: '',
-            initial: true
+            //initial: true
         }
     },
     watch: {
         total: function () {
-            this.initial ? this.initial = false : alert(langFont['pageUpdata']);
+            //this.initial ? this.initial = false : alert(langFont['pageUpdata']);
             this.page.Update(this.total);
         }
     },
