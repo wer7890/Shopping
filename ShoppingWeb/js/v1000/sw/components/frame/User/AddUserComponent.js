@@ -44,6 +44,14 @@
             roles: 1,
         }
     },
+    watch: {
+        message: function () {
+            var self = this;
+            setTimeout(function () {
+                self.message = '';
+            }, 3000);
+        }
+    },
     methods: {
         //新增管理員
         AddUser: function () {

@@ -42,6 +42,14 @@
             pwd:'',
         }
     },
+    watch: {
+        message: function () {
+            var self = this;
+            setTimeout(function () {
+                self.message = '';
+            }, 3000);
+        }
+    },
     methods: {
         //預設所選擇管理員的資料
         GetEditUserData: function () {

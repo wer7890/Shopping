@@ -240,7 +240,7 @@
                             self.message = langFont["inputError"];
                             break;
                         case 100:
-                            self.$bus.$emit('PopupWindow:Set', 'edit-user-component');
+                            self.$bus.$emit('PopWindow:Set', 'edit-user-component');
                             break;
                         default:
                             alert(langFont["editFailed"]);
@@ -255,7 +255,7 @@
 
         //跳轉至新增管理員組件
         AddUser: function () {
-            this.$bus.$emit('PopupWindow:Set', 'add-user-component');
+            this.$bus.$emit('PopWindow:Set', 'add-user-component');
         },
 
         //排序

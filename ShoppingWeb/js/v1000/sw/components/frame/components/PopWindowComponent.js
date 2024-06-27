@@ -30,10 +30,10 @@
         },
     },
     created: function () {  
-        this.$bus.$on('PopupWindow:Set', this.Set);
+        this.$bus.$on('PopWindow:Set', this.Set);
     },
     beforeDestroy: function () {  
-        this.$bus.$off('PopupWindow:Set', this.Set);
+        this.$bus.$off('PopWindow:Set', this.Set);
     },
     components: {
         'add-user-component': AddUserComponent,
