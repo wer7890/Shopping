@@ -123,8 +123,8 @@
     'productId': '商品ID',
     'createdTime': '建立時間',
     'createdUser': '建立者ID',
-    'addStock': '增加庫存量',
-    'reduceStock': '減少庫存量',
+    'addStock': '增加庫存',
+    'reduceStock': '減少庫存',
     'stockIimit': '庫存量不能小於0',
 
     'product': '商品',

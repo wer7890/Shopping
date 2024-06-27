@@ -145,7 +145,7 @@
             ],
             dataArray: '',
 
-            pageSize: 3,
+            pageSize: 4,
             pagesTotal: null,
             beforePagesTotal: 1,
         }
