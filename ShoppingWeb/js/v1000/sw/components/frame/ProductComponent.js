@@ -42,7 +42,7 @@
                     <template v-slot:table-row="{ data }">
                         <td v-text="data.Id"></td>
                         <td v-text="data.Name"></td>
-                        <td v-text="data.Category"></td>
+                        <td v-text="CategoryCodeToText(data.Category.toString())"></td>
                         <td v-text="data.Price"></td>
                         <td v-text="data.Stock"></td>
                         <td v-text="data.WarningValue"></td>
@@ -382,6 +382,22 @@
         //跳轉至新增商品組件
         AddProduct: function () {
             this.$bus.$emit('PopWindow:Set', 'add-product-component');
+        },
+
+        //把類型代號轉成文字
+        CategoryCodeToText: function (category) {
+            var dbMajorCategories = this.mainCategories.find(function (item) {
+                return item.value == category.substring(0, 2);
+            });
+            var dbMinorCategories = this.smallCategories[category.substring(0, 2)].find(function (item) {
+                return item.value === category.substring(2, 4);
+            });
+            var dbBrand = this.brand.find(function (item) {
+                return item.value === category.substring(4, 6);
+            });
+
+            var result = dbMajorCategories.name + '-' + dbMinorCategories.name + '-' + dbBrand.name;
+            return result;
         }
     },
     mounted: function () {  //掛載後
