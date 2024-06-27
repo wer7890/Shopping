@@ -14,18 +14,18 @@
         </table>
     `,
     props: {
-        theadData: {
-            type: Array,
-            required: true
-        },
-        dataArray: {
-            type: [Array, String],
-            required: true
+        theadData: Array,
+        dataArray: [Array, String],
+    },
+    data: function () {
+        return {
+            sortBol: false, //升序
         }
     },
     methods: {
         Sort: function () {
-            this.$emit('Sort');
+            this.$emit('Sort', this.sortBol);
+            this.sortBol = !this.sortBol;
         }
     },
 }

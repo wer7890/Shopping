@@ -59,12 +59,10 @@
                 { value: 3, name: langFont['productAdmin'] },
             ],
             dataArray: '',
-            sortRise: false,  //升序
 
             pageSize: 5,
             pagesTotal: null,
             beforePagesTotal: 1,
-
         }
     },
     watch: {
@@ -130,7 +128,6 @@
             }
 
             var self = this;
-
             var yes = confirm(langFont["delConfirmation"]);
             if (yes == true) {
                 $.ajax({
@@ -154,8 +151,6 @@
                                 break;
                             case 100:
                                 // 刪除成功後，重新讀取資料
-                                self.GetAllUserData(1, self.pageSize);
-                                self.$bus.$emit('Pagination:Updata', self.pagesTotal);
                                 self.message = langFont["delSuccessful"];
                                 break;
                             case 101:
@@ -264,19 +259,15 @@
         },
 
         //排序
-        TableDataSort: function () {
-            if (this.sortRise) {
+        TableDataSort: function (sortBol) {
+            if (sortBol) {
                 this.dataArray.sort(function (a, b) {
                     return a.Id - b.Id;
                 });
-
-                this.sortRise = !this.sortRise;
             } else {
                 this.dataArray.sort(function (a, b) {
                     return b.Id - a.Id;
                 });
-
-                this.sortRise = !this.sortRise;
             }
         },
 
