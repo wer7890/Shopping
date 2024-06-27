@@ -77,7 +77,7 @@
     methods: {
         //搜尋全部管理員資料
         GetAllMemberData: function (pageNumber, pageSize) {
-            if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof this.beforePagesTotal === 'undefined') {
+            if (!pageNumber || !pageSize || !this.beforePagesTotal) {
                 this.message = "undefined";
                 return;
             }
@@ -161,7 +161,7 @@
 
         //更改會員等級
         EditMemberLevel: function (memberId, level) {
-            if (typeof memberId === 'undefined' || typeof level === 'undefined') {
+            if (!memberId || !level) {
                 this.message = "undefined";
                 return;
             }
@@ -205,7 +205,7 @@
 
         //更改會員狀態
         EditMemberStatus: function (memberId) {
-            if (typeof memberId === 'undefined') {
+            if (!memberId) {
                 this.message = "undefined";
                 return;
             }

@@ -98,7 +98,7 @@
 
         //判斷特殊字元和長度
         IsSpecialChar: function () {
-            if (typeof this.account === 'undefined' || typeof this.pwd === 'undefined' || typeof this.roles === 'undefined') {
+            if (!this.account || !this.pwd || !this.roles) {
                 this.message = 'undefined';
                 return false;
             }

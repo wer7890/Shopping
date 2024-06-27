@@ -101,7 +101,7 @@
 
         //輸入值判斷
         IsSpecialChar: function (account, pwd) {  
-            if (typeof account === 'undefined' || typeof pwd === 'undefined') {
+            if (!account || !pwd) {
                 this.message = "undefined";
                 return false;
             }
@@ -119,7 +119,7 @@
 
         //切換語言
         ChangeLanguage: function (language) {  
-            if (typeof language === 'undefined') {
+            if (!language) {
                 this.message = "undefined";
                 return;
             }

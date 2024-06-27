@@ -60,8 +60,6 @@
                         <input v-model="stock" type="number" class="form-control" />
                     </div>
                 </div>
-
-
             
                 <div class="mx-auto col-12 col-md-7 mt-3">
                     <label for="txbProductStockWarning" class="form-label i18n" data-key="productPrice">${langFont['warningValue']}</label>

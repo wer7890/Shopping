@@ -146,7 +146,7 @@
 
         //判斷輸入值
         IsSpecialChar: function () {
-            if (typeof this.pwd === 'undefined') {
+            if (!this.pwd) {
                 this.message = "undefined";
                 return false;
             }

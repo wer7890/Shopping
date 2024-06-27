@@ -76,7 +76,7 @@
     methods: {
         //全部管理員資料
         GetAllUserData: function (pageNumber, pageSize) {
-            if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof this.beforePagesTotal === 'undefined') {
+            if (!pageNumber || !pageSize || !this.beforePagesTotal) {
                 this.message = "undefined";
                 return;
             }
@@ -122,7 +122,7 @@
 
         //刪除刪除管理員
         DeleteUser: function (userId) {
-            if (typeof userId === 'undefined') {
+            if (!userId) {
                 this.message = "undefined";
                 return;
             }
@@ -169,7 +169,7 @@
 
         //更改管理員身分
         EditUserRoles: function (userId, roles) {
-            if (typeof userId === 'undefined' || typeof roles === 'undefined') {
+            if (!userId || !roles) {
                 this.message = "undefined";
                 return;
             }
@@ -213,7 +213,7 @@
 
         //跳轉更改管理員組件
         SetEditUser: function (userId) {
-            if (typeof userId === 'undefined') {
+            if (!userId) {
                 this.message = "undefined";
                 return;
             }

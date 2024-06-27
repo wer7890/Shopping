@@ -265,7 +265,7 @@ function EditProductStatus(productId) {
     });
 }
 
-//刪除
+//刪除 k
 function DeleteProduct(productId) {
 
     if (typeof productId === 'undefined') {
@@ -311,7 +311,7 @@ function DeleteProduct(productId) {
     }
 }
 
-//編輯
+//編輯 k
 function EditProduct(productId) {
 
     if (typeof productId === 'undefined') {

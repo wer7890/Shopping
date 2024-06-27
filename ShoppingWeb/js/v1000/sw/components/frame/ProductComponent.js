@@ -48,7 +48,7 @@
                         <td v-text="data.WarningValue"></td>
                         <td>
                             <div class="form-check form-switch">
-                                <input v-model="data.IsOpen" @change="EditProductStatus(data.Id)" type="checkbox" class="toggle-switch form-check-input">
+                                <input v-model="data.IsOpen" @change="EditProductStatus(data.Id)" type="checkbox" class="toggle-switch form-check-input" :disabled="data.Stock <= 0">
                             </div>
                         </td>
                         <td v-text="data.Introduce"></td>
@@ -64,7 +64,6 @@
             <div class="row">
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
             </div>
-
 
 
             <pop-window-component>
@@ -161,7 +160,7 @@
     methods: {
         //全部商品資料
         GetAllProductData: function (pageNumber, pageSize) {
-            if (typeof pageNumber === 'undefined' || typeof pageSize === 'undefined' || typeof this.beforePagesTotal === 'undefined') {
+            if (!pageNumber || !pageSize || !this.beforePagesTotal) {
                 this.message = 'undefined';
                 return;
             }
@@ -248,7 +247,7 @@
 
         //更改商品狀態
         EditProductStatus: function (productId) {
-            if (typeof productId === 'undefined') {
+            if (!productId) {
                 this.message = 'undefined';
                 return;
             }
@@ -292,7 +291,7 @@
 
         //刪除
         DeleteProduct: function (productId) {
-            if (typeof productId === 'undefined') {
+            if (!productId) {
                 this.message = 'undefined';
                 return;
             }
@@ -339,7 +338,7 @@
 
         //跳轉更改商品組件
         EditProduct: function (productId) {
-            if (typeof productId === 'undefined') {
+            if (!productId) {
                 this.message = 'undefined';
                 return;
             }
