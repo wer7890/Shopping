@@ -99,7 +99,7 @@
         //判斷特殊字元和長度
         IsSpecialChar: function () {
             if (!this.account || !this.pwd || !this.roles) {
-                this.message = 'undefined';
+                this.message = langFont["inputError"];
                 return false;
             }
 

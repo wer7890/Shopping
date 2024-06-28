@@ -87,8 +87,8 @@
 
         //切換語言
         ChangeLanguage: function (language) {
-            if (typeof language === 'undefined') {
-                this.message = "undefined";
+            if (!language) {
+                this.message = langFont["inputError"];
                 return;
             }
             document.cookie = 'language=' + language + '; max-age=2592000; path=/';

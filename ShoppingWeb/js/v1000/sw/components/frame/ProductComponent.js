@@ -161,7 +161,7 @@
         //全部商品資料
         GetAllProductData: function (pageNumber, pageSize) {
             if (!pageNumber || !pageSize || !this.beforePagesTotal) {
-                this.message = 'undefined';
+                this.message = langFont["inputError"];
                 return;
             }
             
@@ -248,7 +248,7 @@
         //更改商品狀態
         EditProductStatus: function (productId) {
             if (!productId) {
-                this.message = 'undefined';
+                this.message = langFont["inputError"];
                 return;
             }
 
@@ -292,7 +292,7 @@
         //刪除
         DeleteProduct: function (productId) {
             if (!productId) {
-                this.message = 'undefined';
+                this.message = langFont["inputError"];
                 return;
             }
 
@@ -339,7 +339,7 @@
         //跳轉更改商品組件
         EditProduct: function (productId) {
             if (!productId) {
-                this.message = 'undefined';
+                this.message = langFont["inputError"];
                 return;
             }
 

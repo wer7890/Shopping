@@ -147,7 +147,7 @@
         //判斷輸入值
         IsSpecialChar: function () {
             if (!this.pwd) {
-                this.message = "undefined";
+                this.message = langFont["inputError"];
                 return false;
             }
 

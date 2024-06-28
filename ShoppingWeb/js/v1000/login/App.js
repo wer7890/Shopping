@@ -60,7 +60,7 @@
     methods: {
         //登入
         Login: function () {  
-            if (!this.IsSpecialChar(this.account, this.pwd)) {
+            if (!this.IsSpecialChar()) {
                 return;
             }
 
@@ -101,14 +101,14 @@
 
         //輸入值判斷
         IsSpecialChar: function (account, pwd) {  
-            if (!account || !pwd) {
-                this.message = "undefined";
+            if (!this.account || !this.pwd) {
+                this.message = langFont["inputError"];
                 return false;
             }
 
             var regex = /^[A-Za-z0-9]{6,16}$/;
-            var accountValid = regex.test(account);
-            var pwdValid = regex.test(pwd);
+            var accountValid = regex.test(this.account);
+            var pwdValid = regex.test(this.pwd);
 
             if (!accountValid || !pwdValid) {
                 this.message = langFont['loginFormat'];
@@ -120,7 +120,7 @@
         //切換語言
         ChangeLanguage: function (language) {  
             if (!language) {
-                this.message = "undefined";
+                this.message = langFont["inputError"];
                 return;
             }
             document.cookie = 'language=' + language + '; max-age=2592000; path=/';

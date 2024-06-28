@@ -245,7 +245,7 @@
         //判斷輸入值
         IsSpecialChar: function () {
             if (!this.introduceTW || !this.introduceEN || !this.price || !this.stock || !this.warningValue) {
-                this.message = 'undefined';
+                this.message = langFont["inputError"];
                 return false;
             }
 

@@ -78,7 +78,7 @@
         //搜尋全部管理員資料
         GetAllMemberData: function (pageNumber, pageSize) {
             if (!pageNumber || !pageSize || !this.beforePagesTotal) {
-                this.message = "undefined";
+                this.message = langFont["inputError"];
                 return;
             }
 
@@ -162,7 +162,7 @@
         //更改會員等級
         EditMemberLevel: function (memberId, level) {
             if (!memberId || !level) {
-                this.message = "undefined";
+                this.message = langFont["inputError"];
                 return;
             }
 
@@ -206,7 +206,7 @@
         //更改會員狀態
         EditMemberStatus: function (memberId) {
             if (!memberId) {
-                this.message = "undefined";
+                this.message = langFont["inputError"];
                 return;
             }
 
