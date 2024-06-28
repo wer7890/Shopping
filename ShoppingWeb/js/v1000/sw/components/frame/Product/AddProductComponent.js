@@ -51,7 +51,7 @@
                     <input v-model="warning" type="number" class="form-control" />
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-1">
-                    <label for="productIsOpen" class="form-label">${langFont['isOpen']}</label>
+                    <label class="form-label">${langFont['isOpen']}</label>
                     <select v-model="isOpen" class="form-select">
                         <option value="0">${langFont['no']}</option>
                         <option value="1">${langFont['yes']}</option>
@@ -87,7 +87,7 @@
             ],
             smallCategories: {
                 '0': [
-                    { id: 1, value: '00', name: langFont['chooseType'] },
+                    { id: 1, value: '0', name: langFont['chooseType'] },
                 ],
                 '10': [
                     { id: 2, value: '01', name: langFont['other'] },
@@ -122,7 +122,7 @@
                 { id: 6, value: '04', name: langFont['puma'] },
             ],
             mainCategoryNum: '0',  //所選取的大分類
-            smallCategoryNum: '00', //所選取的小分類
+            smallCategoryNum: '0', //所選取的小分類
             brandNum: '01',         //所選取的品牌
             nameTW: '',
             nameEN: '',
