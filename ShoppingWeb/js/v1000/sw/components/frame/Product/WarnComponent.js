@@ -105,6 +105,7 @@
                             break;
                         case 100:
                             self.message = langFont["editSuccessful"];
+                            self.$emit('Updata');
                             break;
                         case 101:
                             self.message = langFont["editFail"];
