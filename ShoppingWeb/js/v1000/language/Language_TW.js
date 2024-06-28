@@ -154,7 +154,7 @@
     'page': '頁',
 
     'validationException': '權限驗證異常',
-    'lowStock': '庫存量小於100',
+    'lowStock': '庫存量小於100的商品',
     'pageUpdata': '資料頁數變動',
 
     'titleLogin': '登入頁面',

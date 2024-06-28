@@ -33,7 +33,7 @@
                     <button @click="AddProduct" type="submit" class="btn btn-outline-primary">${langFont['addProduct']}</button>
                 </div>
                 <div class="col px-0 d-flex justify-content-center align-items-end">
-                    <button type="submit" class="btn btn-outline-primary">${langFont['stockWarn']}</button>
+                    <button @click="StockWarn" type="submit" :class="stockWarnBtn">${langFont['stockWarn']}</button>
                 </div>
             </div>
 
@@ -77,6 +77,7 @@
         return {
             message: '',
             imgSrc: '/ProductImg/',
+            stockWarnBtn: 'btn btn-outline-primary',
             mainCategoryNum: '0',  //所選取的大分類
             smallCategoryNum: '00', //所選取的小分類
             brandNum: '00',         //所選取的品牌
@@ -397,16 +398,50 @@
 
             var result = dbMajorCategories.name + '-' + dbMinorCategories.name + '-' + dbBrand.name;
             return result;
+        },
+
+        //設定庫存預警按鈕顏色
+        SetStockWarnBtn: function () {
+            var self = this;
+            $.ajax({
+                type: "POST",
+                url: "/api/Controller/product/GetDefaultLowStock",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var stockInsufficient = JSON.parse(response.StockInsufficient);
+
+                    if (stockInsufficient.length > 0) {
+                        self.stockWarnBtn = 'btn btn-danger';
+                    } else {
+                        self.stockWarnBtn = 'btn btn-outline-primary';
+                    }
+                },
+                error: function (error) {
+                    self.message = langFont["ajaxError"];
+                }
+            });
+        },
+
+        //跳轉至庫存預警組件
+        StockWarn: function () {
+            this.$bus.$emit('PopWindow:Set', 'warn-component');
         }
     },
     mounted: function () {  //掛載後
         this.GetAllProductData(1, this.pageSize);
+        this.SetStockWarnBtn();
+        var self = this;
+        setInterval(function () {
+            self.SetStockWarnBtn();
+        }, 30000);
     },
     components: {
         'pagination-component': PaginationComponent,
         'table-component': TableComponent,
         'add-product-component': AddProductComponent,
         'edit-product-component': EditProductComponent,
+        'warn-component': WarnComponent,
         'pop-window-component': PopWindowComponent,
     }
 };

@@ -36,7 +36,6 @@
         this.$bus.$off('PopWindow:Set', this.Set);
     },
     components: {
-        'add-user-component': AddUserComponent,
-        'edit-user-component': EditUserComponent,
+        
     }
 }

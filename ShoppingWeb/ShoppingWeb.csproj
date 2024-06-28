@@ -107,6 +107,7 @@
     <Content Include="js\v1000\sw\components\frame\components\PopWindowComponent.js" />
     <Content Include="js\v1000\sw\components\frame\Product\AddProductComponent.js" />
     <Content Include="js\v1000\sw\components\frame\Product\EditProductComponent.js" />
+    <Content Include="js\v1000\sw\components\frame\Product\WarnComponent.js" />
     <Content Include="js\v1000\sw\components\frame\User\AddUserComponent.js" />
     <Content Include="js\v1000\sw\components\frame\components\TableComponent.js" />
     <Content Include="js\v1000\sw\components\frame\DefaultComponent.js" />
