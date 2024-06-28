@@ -10,7 +10,7 @@
 
 .innerMask {
     position: fixed;
-    overflow: scroll;
+    overflow-y: scroll;
     top: 0;
     left: 25%;
     width: 50%;

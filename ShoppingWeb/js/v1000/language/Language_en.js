@@ -242,12 +242,12 @@ let brand = {
 }
 
 // 訂單狀態
-let orderStatus = {
-    "1": { name: "Paid", color: "bg-white", text: "text-dark" },
-    "2": { name: "Return", color: "bg-success", text: "text-white" },
-    "3": { name: "Refunding", color: "bg-warning", text: "text-white" },
-    "4": { name: "Refunded", color: "bg-white", text: "text-dark" }
-};
+//let orderStatus = {
+//    "1": { name: "Paid", color: "bg-white", text: "text-dark" },
+//    "2": { name: "Return", color: "bg-success", text: "text-white" },
+//    "3": { name: "Refunding", color: "bg-warning", text: "text-white" },
+//    "4": { name: "Refunded", color: "bg-white", text: "text-dark" }
+//};
 
 // 配送狀態
 let deliveryStatus = {

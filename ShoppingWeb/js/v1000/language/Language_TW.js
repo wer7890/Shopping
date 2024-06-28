@@ -242,12 +242,12 @@ let brand = {
 
 
 // 訂單狀態
-let orderStatus = {
-    "1": { name: "已付款", color: "bg-white", text: "text-dark" },
-    "2": { name: "申請退貨", color: "bg-success", text: "text-white" },
-    "3": { name: "退款中", color: "bg-warning", text: "text-white" },
-    "4": { name: "已退款", color: "bg-white", text: "text-dark" }
-};
+//let orderStatus = {
+//    "1": { name: "已付款", color: "bg-white", text: "text-dark" },
+//    "2": { name: "申請退貨", color: "bg-success", text: "text-white" },
+//    "3": { name: "退款中", color: "bg-warning", text: "text-white" },
+//    "4": { name: "已退款", color: "bg-white", text: "text-dark" }
+//};
 
 // 配送狀態
 let deliveryStatus = {
