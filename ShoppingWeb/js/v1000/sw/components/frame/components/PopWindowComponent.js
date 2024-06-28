@@ -35,7 +35,4 @@
     beforeDestroy: function () {  
         this.$bus.$off('PopWindow:Set', this.Set);
     },
-    components: {
-        
-    }
 }

@@ -154,7 +154,7 @@
     'page': 'page',
 
     'validationException': 'Permission verification exception',
-    'lowStock': 'Stock quantity is less than 100',
+    'lowStock': 'Items with less than 100 items in stock',
     'pageUpdata': 'Changes in the number of data pages',
 
     'titleLogin': 'Login Page',
