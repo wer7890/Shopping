@@ -64,6 +64,7 @@
         }
     },
     methods: {
+        //全部訂單資料
         GetAllOrderData: function (pageNumber, pageSize) {
             if (!pageNumber || !pageSize || !this.beforePagesTotal) {
                 this.message = langFont["inputError"];
@@ -107,6 +108,8 @@
                 }
             });
         },
+
+        //所選擇狀態的訂單資料
         GetOrderData: function (deliveryStatusNum, pageNumber = 1, pageSize = this.pageSize) {
             var self = this;
 
@@ -146,6 +149,7 @@
                 }
             });
         },
+
     },
     mounted: function () {  //掛載後
         this.GetAllOrderData(1, this.pageSize);
