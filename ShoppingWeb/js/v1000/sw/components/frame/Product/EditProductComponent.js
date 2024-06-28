@@ -26,14 +26,14 @@
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-2">
                     <span class="text-dark fs-6">${langFont['productType']} : </span>
-                    <span v-text="CategoryCodeToText(dbData.Category.toString())" class="fs-6"></span>
+                    <span v-text="CategoryCodeToText(dbData.Category)" class="fs-6"></span>
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-2">
                     <span class="text-dark fs-6">${langFont['productStock']} : </span>
                     <span v-text="dbData.Stock" class="fs-6"></span>
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-3">
-                    <img :src="imgSrc + dbData.Img" class="img-fluid img-thumbnail w-25 i18n" alt="img" />
+                    <img :src="imgSrc" class="img-fluid img-thumbnail w-25" alt="${langFont['img']}" />
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-3">
                     <label class="form-label">${langFont['productPrice']}</label>
@@ -62,15 +62,15 @@
                 </div>
             
                 <div class="mx-auto col-12 col-md-7 mt-3">
-                    <label for="txbProductStockWarning" class="form-label i18n" data-key="productPrice">${langFont['warningValue']}</label>
+                    <label class="form-label i18n" data-key="productPrice">${langFont['warningValue']}</label>
                     <input v-model="warningValue" type="number" class="form-control" />
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-4">
-                    <label for="txbProductIntroduce" class="form-label">${langFont['productIntroduceTW']}</label>
+                    <label class="form-label">${langFont['productIntroduceTW']}</label>
                     <textarea v-model="introduceTW" rows="3" class="form-control"></textarea>
                 </div>
                 <div class="mx-auto col-12 col-md-7 mt-4">
-                    <label for="txbProductIntroduceEN" class="form-label">${langFont['productIntroduceEN']}</label>
+                    <label class="form-label">${langFont['productIntroduceEN']}</label>
                     <textarea v-model="introduceEN" rows="3" class="form-control"></textarea>
                 </div>
 
@@ -85,8 +85,8 @@
     data: function () {
         return {
             message: '',
-            imgSrc: '/ProductImg/',
             dbData: '',
+            imgSrc: '',
             stockChange: true,
             stock: '',
             price: '',
@@ -151,6 +151,7 @@
             }, 3000);
         },
         dbData: function () {
+            this.imgSrc = '/ProductImg/' + this.dbData.Img;
             this.price = this.dbData.Price;
             this.warningValue = this.dbData.WarningValue;
             this.introduceTW = this.dbData.IntroduceTW;
@@ -268,18 +269,22 @@
 
         //把類型代號轉成文字
         CategoryCodeToText: function (category) {
-            var dbMajorCategories = this.mainCategories.find(function (item) {
-                return item.value == category.substring(0, 2);
-            });
-            var dbMinorCategories = this.smallCategories[category.substring(0, 2)].find(function (item) {
-                return item.value === category.substring(2, 4);
-            });
-            var dbBrand = this.brand.find(function (item) {
-                return item.value === category.substring(4, 6);
-            });
+            if (category) {
+                category = category.toString();
+                var dbMajorCategories = this.mainCategories.find(function (item) {
+                    return item.value == category.substring(0, 2);
+                });
+                var dbMinorCategories = this.smallCategories[category.substring(0, 2)].find(function (item) {
+                    return item.value === category.substring(2, 4);
+                });
+                var dbBrand = this.brand.find(function (item) {
+                    return item.value === category.substring(4, 6);
+                });
 
-            var result = dbMajorCategories.name + '-' + dbMinorCategories.name + '-' + dbBrand.name;
-            return result;
+                var result = dbMajorCategories.name + '-' + dbMinorCategories.name + '-' + dbBrand.name;
+                return result;
+            }
+            return category;
         }
     },
     mounted: function () {  //掛載後
