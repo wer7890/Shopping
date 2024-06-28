@@ -82,6 +82,7 @@
                             break;
                         case 100:
                             alert(langFont["addSuccessful"]);
+                            self.$emit('Updata');
                             break;
                         case 101:
                             self.message = langFont["duplicateAccount"];

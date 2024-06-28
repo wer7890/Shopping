@@ -149,8 +149,8 @@
                                 self.message = langFont["inputError"];
                                 break;
                             case 100:
-                                //window.location.reload();
                                 self.message = langFont["delSuccessful"];
+                                self.$emit('Updata');
                                 break;
                             case 101:
                                 self.message = langFont["delFailed"];

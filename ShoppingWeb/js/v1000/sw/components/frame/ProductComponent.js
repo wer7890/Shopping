@@ -68,7 +68,7 @@
 
             <pop-window-component>
                 <template v-slot:content="{ page }">
-                    <component :is="page"></component>
+                    <component :is="page" @Updata="Updata"></component>
                 </template>
             </pop-window-component>
         </div>
@@ -148,6 +148,7 @@
             pageSize: 4,
             pagesTotal: null,
             beforePagesTotal: 1,
+            pageIndex: 1,
         }
     },
     watch: {
@@ -165,7 +166,8 @@
                 this.message = langFont["inputError"];
                 return;
             }
-            
+
+            this.pageIndex = pageNumber;
             var self = this;
 
             $.ajax({
@@ -320,8 +322,8 @@
                                 self.message = langFont["inputError"];
                                 break;
                             case 100:
-                                //window.location.reload();
                                 self.message = langFont["delSuccessful"];
+                                self.GetAllProductData(self.pageIndex, self.pageSize);
                                 break;
                             case 101:
                                 self.message = langFont["delFailed"];
@@ -426,6 +428,11 @@
         //跳轉至庫存預警組件
         StockWarn: function () {
             this.$bus.$emit('PopWindow:Set', 'warn-component');
+        },
+
+        //更新表格
+        Updata: function () {
+            this.GetAllProductData(this.pageIndex, this.pageSize);
         }
     },
     mounted: function () {  //掛載後

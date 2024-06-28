@@ -228,6 +228,7 @@
                             break;
                         case 100:
                             alert(langFont["editSuccessful"]);
+                            self.$emit('Updata');
                             break;
                         case 101:
                             self.message = langFont["editFail"] + langFont["stockIimit"];

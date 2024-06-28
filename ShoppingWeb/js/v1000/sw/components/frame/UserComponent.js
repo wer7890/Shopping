@@ -35,7 +35,7 @@
             
             <pop-window-component>
                 <template v-slot:content="{ page }">
-                    <component :is="page"></component>
+                    <component :is="page" @Updata="Updata"></component>
                 </template>
             </pop-window-component>
             
@@ -63,6 +63,7 @@
             pageSize: 5,
             pagesTotal: null,
             beforePagesTotal: 1,
+            pageIndex: 1,
         }
     },
     watch: {
@@ -81,6 +82,7 @@
                 return;
             }
 
+            this.pageIndex = pageNumber;
             var self = this;
 
             $.ajax({
@@ -152,6 +154,7 @@
                             case 100:
                                 // 刪除成功後，重新讀取資料
                                 self.message = langFont["delSuccessful"];
+                                self.GetAllUserData(self.pageIndex, self.pageSize);
                                 break;
                             case 101:
                                 alert(langFont["delFailed"]);
@@ -269,6 +272,12 @@
                     return b.Id - a.Id;
                 });
             }
+        },
+
+
+        //更新表格
+        Updata: function () {
+            this.GetAllUserData(this.pageIndex, this.pageSize);
         },
 
     },
