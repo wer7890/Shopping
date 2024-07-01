@@ -95,6 +95,9 @@
                 self.message = '';
             }, 3000);
         },
+        order: function () {
+            this.Set();
+        }
     },
     methods: {
         //更改訂單
@@ -141,7 +144,7 @@
             });
         },
 
-        //一開始下拉選單的預設值
+        //一開始訂單表格中的資料
         GetOrderDetail: function () {
             if (!this.orderId) {
                 this.message = langFont["inputError"];
@@ -180,10 +183,54 @@
                     self.message = langFont["ajaxError"];
                 }
             });
+        },
+
+        //設定下拉選單的選項
+        Set: function () {
+            if (this.order === 1) {
+                this.orderStatus = [
+                    { value: 1, name: langFont['paid'] },
+                    { value: 2, name: langFont['return'] },
+                ];
+                this.deliveryStatus = [
+                    { value: 1, name: langFont['shipping'] },
+                    { value: 2, name: langFont['shipped'] },
+                    { value: 3, name: langFont['arrived'] },
+                    { value: 4, name: langFont['received'] },
+                ];
+                this.delivery = 1;
+            } else if (this.order === 2) {
+                this.orderStatus = [
+                    { value: 2, name: langFont['return'] },
+                ];
+                this.deliveryStatus = [
+                    { value: 4, name: langFont['received'] },
+                ];
+                this.delivery = 4;
+            } else if (this.order === 3) {
+                this.orderStatus = [
+                    { value: 3, name: langFont['refunding'] },
+                    { value: 4, name: langFont['refunded'] },
+                ];
+                this.deliveryStatus = [
+                    { value: 5, name: langFont['returning'] },
+                    { value: 6, name: langFont['returned'] },
+                ];
+                this.delivery = 5;
+            } else if (this.order === 4) {
+                this.orderStatus = [
+                    { value: 4, name: langFont['refunded'] },
+                ];
+                this.deliveryStatus = [
+                    { value: 6, name: langFont['returned'] },
+                ];
+                this.delivery = 6;
+            }
         }
     },
     mounted: function () {  //掛載後
         this.GetOrderDetail();
+        this.Set();
     },
     components: {
         'table-component': TableComponent,

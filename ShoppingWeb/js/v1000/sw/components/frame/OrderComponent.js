@@ -104,7 +104,6 @@
             deliveryStatusNum: '',
             deliveryMethodNum: '',
 
-
             pageSize: 5,
             pagesTotal: null,
             beforePagesTotal: 1,
@@ -209,6 +208,7 @@
                             break;
                         case 100:
                             self.dataArray = response.OrderList;
+                            self.deliveryStatusCountData = response.StatusList;
                             self.pagesTotal = response.TotalPages;
                             self.beforePagesTotal = self.pagesTotal;
                             if (self.isReturn) {
@@ -220,6 +220,7 @@
                             });
                             break;
                         case 101:
+                            self.dataArray = '';
                             self.message = langFont["noData"];
                             break;
                         default:
@@ -276,6 +277,7 @@
                             self.isReturn = true;
                             break;
                         case 101:
+                            self.dataArray = '';
                             self.message = langFont["noData"];
                             break;
                         default:
