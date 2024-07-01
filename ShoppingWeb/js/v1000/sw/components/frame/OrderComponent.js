@@ -24,6 +24,13 @@
                         </td>
                         <td v-text="deliveryMethod[data.DeliveryMethod]"></td>
                         <td v-text="data.Total"></td>
+    
+                        <td v-if="isReturn">
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-primary btn-sm" @click="EditReturnOrder(data.Id, true)">${langFont['yes']}</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" @click="EditReturnOrder(data.Id, false)">${langFont['no']}</button>
+                            </div>
+                        </td>
                     </template>
                 </order-table-component>
             </div>
@@ -81,6 +88,7 @@
                 "3": langFont['home']
             },
             selectedOrderId: '',
+            isReturn: false,
 
             pageSize: 5,
             pagesTotal: null,
@@ -157,6 +165,12 @@
         //所選擇狀態的訂單資料
         GetOrderData: function (deliveryStatusNum, pageNumber = 1, pageSize = this.pageSize) {
             this.selectedOrderId = deliveryStatusNum;
+
+            if (deliveryStatusNum === 7) {
+                this.GetReturnOrderData(pageNumber = 1, pageSize = this.pageSize);
+                return;
+            }
+
             var self = this;
 
             $.ajax({
@@ -182,6 +196,63 @@
                             self.dataArray = response.OrderList;
                             self.pagesTotal = response.TotalPages;
                             self.beforePagesTotal = self.pagesTotal;
+                            self.isReturn = false;
+                            self.theadData = self.theadData.filter(function (item) {
+                                return item.id !== 8;
+                            });
+                            
+                            break;
+                        case 101:
+                            self.message = langFont["noData"];
+                            break;
+                        default:
+                            self.message = langFont["errorLog"];
+                    }
+                },
+                error: function (error) {
+                    self.message = langFont["ajaxError"];
+                }
+            });
+        },
+
+        //點擊上方退貨申請按鈕事件
+        GetReturnOrderData: function (pageNumber, pageSize) {
+            if (!pageNumber || !pageSize || !this.beforePagesTotal) {
+                this.message = langFont["inputError"];
+                return;
+            }
+
+            var self = this;
+
+            $.ajax({
+                url: '/api/Controller/order/GetReturnOrderData',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ pageNumber: pageNumber, pageSize: pageSize, beforePagesTotal: this.beforePagesTotal }),
+                success: function (response) {
+                    switch (response.Status) {
+                        case 0:
+                            alert(langFont["duplicateLogin"]);
+                            window.parent.location.href = "Login.aspx";
+                            break;
+                        case 1:
+                            alert(langFont["accessDenied"]);
+                            parent.location.reload();
+                            break;
+                        case 2:
+                            self.message = langFont["inputError"];
+                            break;
+                        case 100:
+                            self.dataArray = response.OrderList;
+                            self.deliveryStatusCountData = response.StatusList;
+                            self.pagesTotal = response.TotalPages;
+                            self.beforePagesTotal = self.pagesTotal;
+
+                            if (!self.isReturn) {
+                                self.theadData.push({ id: 8, name: langFont['orderSure'] });
+                            }
+                            self.isReturn = true;
                             break;
                         case 101:
                             self.message = langFont["noData"];
@@ -203,7 +274,50 @@
             } else {
                 this.GetAllOrderData(pageNumber, pageSize);
             }
-        }
+        },
+
+        //同意或拒絕退款申請後，更改訂單狀態和配送狀態
+        EditReturnOrder: function (orderId, boolReturn) {
+            if (!orderId) {
+                this.message = langFont["inputError"];
+                return;
+            }
+
+            var self = this;
+
+            $.ajax({
+                url: '/api/Controller/order/EditReturnOrder',
+                data: JSON.stringify({ orderId: orderId, boolReturn: boolReturn }),
+                type: 'POST',
+                contentType: 'application/json',
+                success: function (response) {
+                    switch (response.Status) {
+                        case 0:
+                            alert(langFont["duplicateLogin"]);
+                            window.parent.location.href = "Login.aspx";
+                            break;
+                        case 1:
+                            alert(langFont["accessDenied"]);
+                            parent.location.reload();
+                            break;
+                        case 2:
+                            self.message = langFont["inputError"];
+                            break;
+                        case 100:
+                        case 101:
+                            var temp = (response.Status === 100) ? langFont["editSuccessful"] : langFont["editFail"];
+                            self.message = temp;
+                            self.GetReturnOrderData(1, self.pageSize);
+                            break;
+                        default:
+                            self.message = langFont["errorLog"];
+                    }
+                },
+                error: function (error) {
+                    self.message = langFont["ajaxError"];
+                }
+            });
+        },
 
     },
     mounted: function () {  //掛載後
