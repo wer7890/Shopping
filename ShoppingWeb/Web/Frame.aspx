@@ -24,7 +24,7 @@
     <script src="/js/<%= jsVersion %>/sw/components/frame/components/TableComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/components/PaginationComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/components/PopWindowComponent.js"></script>
-    <script src="/js/<%= jsVersion %>/sw/components/frame/Order/OrderTableComponent.js"></script>
+    <script src="/js/<%= jsVersion %>/sw/components/frame/Order/CheckOrderComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/Product/WarnComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/Product/AddProductComponent.js"></script>
     <script src="/js/<%= jsVersion %>/sw/components/frame/Product/EditProductComponent.js"></script>

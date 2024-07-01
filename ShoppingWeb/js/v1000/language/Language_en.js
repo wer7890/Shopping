@@ -188,6 +188,8 @@
     'supermarket': 'Supermarket pickup',
     'store': 'store to store',
     'home': 'Home delivery',
+    'titleEditOrder': 'Edit Order',
+    'titleOrderDetail': 'Order Detail',
 };
 
 // 商品大分類

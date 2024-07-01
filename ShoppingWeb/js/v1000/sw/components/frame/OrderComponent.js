@@ -11,7 +11,7 @@
             <br />
 
             <div class="row" id="orderTableDiv">
-                <order-table-component :theadData="theadData" :dataArray="dataArray">
+                <table-component :theadData="theadData" :dataArray="dataArray">
                     <template v-slot:table-row="{ data }">
                         <td v-text="data.Id"></td>
                         <td v-text="data.Account"></td>
@@ -31,8 +31,12 @@
                                 <button type="button" class="btn btn-outline-danger btn-sm" @click="EditReturnOrder(data.Id, false)">${langFont['no']}</button>
                             </div>
                         </td>
+
+                        <td v-if="!isReturn">
+                            <button @click="EditOrder(data.Id, data.OrderStatus, data.DeliveryStatus, data.DeliveryMethod)" class="btn btn-primary">${langFont['edit']}</button>
+                        </td>
                     </template>
-                </order-table-component>
+                </table-component>
             </div>
             
             <pagination-component @Choose="GetSelectOrderData" :size="pageSize" :total="pagesTotal"></pagination-component>
@@ -41,6 +45,11 @@
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
             </div>
 
+            <pop-window-component>
+                <template v-slot:content="{ page }">
+                    <component :is="page" @Updata="Updata" :orderId="orderId" :orderStatusNum="orderStatusNum" :deliveryStatusNum="deliveryStatusNum" :deliveryMethodNum="deliveryMethodNum"></component>
+                </template>
+            </pop-window-component>
         </div>
     `,
     data: function () {
@@ -65,6 +74,7 @@
                 { id: 5, name: langFont['deliveryStatus'] },
                 { id: 6, name: langFont['deliveryMethod'] },
                 { id: 7, name: langFont['total'] },
+                { id: 8, name: langFont['edit'] },
             ],
             dataArray: '',
             deliveryStatusCountData: '',
@@ -89,6 +99,11 @@
             },
             selectedOrderId: '',
             isReturn: false,
+            orderId: '',
+            orderStatusNum: '',
+            deliveryStatusNum: '',
+            deliveryMethodNum: '',
+
 
             pageSize: 5,
             pagesTotal: null,
@@ -196,11 +211,13 @@
                             self.dataArray = response.OrderList;
                             self.pagesTotal = response.TotalPages;
                             self.beforePagesTotal = self.pagesTotal;
+                            if (self.isReturn) {
+                                self.theadData.push({ id: 8, name: langFont['edit'] });
+                            }
                             self.isReturn = false;
                             self.theadData = self.theadData.filter(function (item) {
-                                return item.id !== 8;
+                                return item.id !== 9;
                             });
-                            
                             break;
                         case 101:
                             self.message = langFont["noData"];
@@ -250,8 +267,12 @@
                             self.beforePagesTotal = self.pagesTotal;
 
                             if (!self.isReturn) {
-                                self.theadData.push({ id: 8, name: langFont['orderSure'] });
+                                self.theadData.push({ id: 9, name: langFont['orderSure'] });
                             }
+
+                            self.theadData = self.theadData.filter(function (item) {
+                                return item.id !== 8;
+                            });
                             self.isReturn = true;
                             break;
                         case 101:
@@ -319,12 +340,28 @@
             });
         },
 
+        //跳轉至查看訂單組件
+        EditOrder: function (orderId, orderStatusNum, deliveryStatusNum, deliveryMethodNum) {
+            this.orderId = orderId;
+            this.orderStatusNum = orderStatusNum;
+            this.deliveryStatusNum = deliveryStatusNum;
+            this.deliveryMethodNum = deliveryMethodNum;
+            this.$bus.$emit('PopWindow:Set', 'check-order-component');
+        },
+
+        //更新表格
+        Updata: function () {
+            this.GetAllOrderData(1, this.pageSize);
+        }
+
     },
     mounted: function () {  //掛載後
         this.GetAllOrderData(1, this.pageSize);
     },
     components: {
         'pagination-component': PaginationComponent,
-        'order-table-component': OrderTableComponent,
+        'table-component': TableComponent,
+        'pop-window-component': PopWindowComponent,
+        'check-order-component': CheckOrderComponent,
     }
 };

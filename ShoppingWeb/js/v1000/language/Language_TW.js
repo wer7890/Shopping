@@ -188,6 +188,8 @@
     'supermarket': '超商取貨',
     'store': '店到店',
     'home': '宅配',
+    'titleEditOrder': '訂單修改',
+    'titleOrderDetail': '訂單詳情',
 };
 
 // 商品大分類
