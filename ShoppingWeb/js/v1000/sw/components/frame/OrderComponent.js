@@ -28,7 +28,7 @@
                 </order-table-component>
             </div>
             
-            <pagination-component @Choose="GetAllOrderData" :size="pageSize" :total="pagesTotal"></pagination-component>
+            <pagination-component @Choose="GetSelectOrderData" :size="pageSize" :total="pagesTotal"></pagination-component>
         
             <div class="row">
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
@@ -80,6 +80,7 @@
                 "2": langFont['store'],
                 "3": langFont['home']
             },
+            selectedOrderId: '',
 
             pageSize: 5,
             pagesTotal: null,
@@ -88,9 +89,23 @@
         }
     },
     watch: {
+        message: function () {
+            var self = this;
+            setTimeout(function () {
+                self.message = '';
+            }, 3000);
+        },
         dataArray: function () {
-
-        }
+            this.btnArrayData = [
+                { id: 1, name: langFont['shipping'] + '(' + this.deliveryStatusCountData[0].Shipping + ')'},
+                { id: 2, name: langFont['shipped'] + '(' + this.deliveryStatusCountData[0].Shipped + ')' },
+                { id: 3, name: langFont['arrived'] + '(' + this.deliveryStatusCountData[0].Arrived + ')' },
+                { id: 4, name: langFont['received'] + '(' + this.deliveryStatusCountData[0].Received + ')' },
+                { id: 5, name: langFont['returning'] + '(' + this.deliveryStatusCountData[0].Returning + ')' },
+                { id: 6, name: langFont['returned'] + '(' + this.deliveryStatusCountData[0].Returned + ')' },
+                { id: 7, name: langFont['return'] + '(' + this.deliveryStatusCountData[0].Return + ')' },
+            ]
+        },
     },
     methods: {
         //全部訂單資料
@@ -141,6 +156,7 @@
 
         //所選擇狀態的訂單資料
         GetOrderData: function (deliveryStatusNum, pageNumber = 1, pageSize = this.pageSize) {
+            this.selectedOrderId = deliveryStatusNum;
             var self = this;
 
             $.ajax({
@@ -179,6 +195,15 @@
                 }
             });
         },
+
+        //分頁的callback function
+        GetSelectOrderData: function (pageNumber, pageSize) {
+            if (this.selectedOrderId) {
+                this.GetOrderData(this.selectedOrderId, pageNumber, pageSize);
+            } else {
+                this.GetAllOrderData(pageNumber, pageSize);
+            }
+        }
 
     },
     mounted: function () {  //掛載後
