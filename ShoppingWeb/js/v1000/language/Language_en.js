@@ -185,6 +185,9 @@
     'adidas': 'ADIDAS',
     'puma': 'PUMA',
     'stockWarn': 'Stock alert',
+    'supermarket': 'Supermarket pickup',
+    'store': 'store to store',
+    'home': 'Home delivery',
 };
 
 // 商品大分類
@@ -240,28 +243,3 @@ let brand = {
     "04": "ADIDAS",
     "05": "PUMA"
 }
-
-// 訂單狀態
-//let orderStatus = {
-//    "1": { name: "Paid", color: "bg-white", text: "text-dark" },
-//    "2": { name: "Return", color: "bg-success", text: "text-white" },
-//    "3": { name: "Refunding", color: "bg-warning", text: "text-white" },
-//    "4": { name: "Refunded", color: "bg-white", text: "text-dark" }
-//};
-
-// 配送狀態
-let deliveryStatus = {
-    "1": { name: "Shipping", color: "bg-warning", text: "text-white" },
-    "2": { name: "Shipped", color: "bg-success", text: "text-white" },
-    "3": { name: "Arrived", color: "bg-white", text: "text-dark" },
-    "4": { name: "Received", color: "bg-white", text: "text-dark" },
-    "5": { name: "Returning", color: "bg-warning", text: "text-white" },
-    "6": { name: "Returned", color: "bg-white", text: "text-dark" }
-};
-
-// 配送方式
-let deliveryMethod = {
-    "1": "Store Pickup",
-    "2": "Store to Store",
-    "3": "Home Delivery"
-};

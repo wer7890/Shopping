@@ -11,17 +11,21 @@
             <br />
 
             <div class="row" id="orderTableDiv">
-                <table-component :theadData="theadData" :dataArray="dataArray">
+                <order-table-component :theadData="theadData" :dataArray="dataArray">
                     <template v-slot:table-row="{ data }">
                         <td v-text="data.Id"></td>
                         <td v-text="data.Account"></td>
                         <td v-text="data.CreatedTime"></td>
-                        <td v-text="data.OrderStatus"></td>
-                        <td v-text="data.DeliveryStatus"></td>
-                        <td v-text="data.DeliveryMethod"></td>
+                        <td>
+                            <span :class="spanClass + orderStatus[data.OrderStatus].color + ' ' + orderStatus[data.OrderStatus].text" v-text="orderStatus[data.OrderStatus].name"></span>
+                        </td>
+                        <td>
+                            <span :class="spanClass + deliveryStatus[data.DeliveryStatus].color + ' ' + deliveryStatus[data.DeliveryStatus].text" v-text="deliveryStatus[data.DeliveryStatus].name"></span>
+                        </td>
+                        <td v-text="deliveryMethod[data.DeliveryMethod]"></td>
                         <td v-text="data.Total"></td>
                     </template>
-                </table-component>
+                </order-table-component>
             </div>
             
             <pagination-component @Choose="GetAllOrderData" :size="pageSize" :total="pagesTotal"></pagination-component>
@@ -37,7 +41,7 @@
             message: '',
             spanClass: 'px-3 py-1 rounded ',
             btnArrayData: [
-                { id: 1, name: langFont['shipping'] },
+                { id: 1, name: langFont['shipping'],},
                 { id: 2, name: langFont['shipped'] },
                 { id: 3, name: langFont['arrived'] },
                 { id: 4, name: langFont['received'] },
@@ -56,11 +60,36 @@
                 { id: 7, name: langFont['total'] },
             ],
             dataArray: '',
+            deliveryStatusCountData: '',
+            orderStatus: {
+                "1": { name: langFont['paid'], color: "bg-white", text: "text-dark" },
+                "2": { name: langFont['return'], color: "bg-success", text: "text-white" },
+                "3": { name: langFont['refunding'], color: "bg-warning", text: "text-white" },
+                "4": { name: langFont['refunded'], color: "bg-white", text: "text-dark" }
+            },
+            deliveryStatus: {
+                "1": { name: langFont['shipping'], color: "bg-warning", text: "text-white" },
+                "2": { name: langFont['shipped'], color: "bg-success", text: "text-white" },
+                "3": { name: langFont['arrived'], color: "bg-white", text: "text-dark" },
+                "4": { name: langFont['received'], color: "bg-white", text: "text-dark" },
+                "5": { name: langFont['returning'], color: "bg-warning", text: "text-white" },
+                "6": { name: langFont['returned'], color: "bg-white", text: "text-dark" }
+            },
+            deliveryMethod: {
+                "1": langFont['supermarket'],
+                "2": langFont['store'],
+                "3": langFont['home']
+            },
 
             pageSize: 5,
             pagesTotal: null,
             beforePagesTotal: 1,
             createPage: false,
+        }
+    },
+    watch: {
+        dataArray: function () {
+
         }
     },
     methods: {
@@ -93,6 +122,7 @@
                             break;
                         case 100:
                             self.dataArray = response.OrderList;
+                            self.deliveryStatusCountData = response.StatusList;
                             self.pagesTotal = response.TotalPages;
                             self.beforePagesTotal = self.pagesTotal;
                             break;
@@ -156,6 +186,6 @@
     },
     components: {
         'pagination-component': PaginationComponent,
-        'table-component': TableComponent,
+        'order-table-component': OrderTableComponent,
     }
 };
