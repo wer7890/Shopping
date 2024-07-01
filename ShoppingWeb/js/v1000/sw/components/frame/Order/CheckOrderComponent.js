@@ -39,7 +39,7 @@
                     <template v-slot:table-row="{ data }">
                         <td v-text="data.ProductName"></td>
                         <td v-text="data.ProductPrice"></td>
-                        <td v-text="data.ProductCategory"></td>
+                        <td v-text="CategoryCodeToText(data.ProductCategory.toString())"></td>
                         <td v-text="data.Quantity"></td>
                         <td v-text="data.Subtotal"></td>
                     </template>
@@ -86,6 +86,54 @@
             order: this.orderStatusNum,
             delivery: this.deliveryStatusNum,
             method: this.deliveryMethodNum,
+            mainCategories: [
+                { id: 1, value: '0', name: langFont['selectMajorCategories'] },
+                { id: 2, value: '10', name: langFont['hats'] },
+                { id: 3, value: '11', name: langFont['tops'] },
+                { id: 4, value: '12', name: langFont['outerwear'] },
+                { id: 5, value: '13', name: langFont['bottoms'] },
+            ],
+            smallCategories: {
+                '0': [
+                    { id: 1, value: '00', name: langFont['chooseType'] },
+                ],
+                '10': [
+                    { id: 1, value: '00', name: langFont['all'] },
+                    { id: 2, value: '01', name: langFont['other'] },
+                    { id: 3, value: '02', name: langFont['baseballCaps'] },
+                    { id: 4, value: '03', name: langFont['fishermanHats'] },
+                    { id: 5, value: '04', name: langFont['sunHats'] },
+                ],
+                '11': [
+                    { id: 1, value: '00', name: langFont['all'] },
+                    { id: 2, value: '01', name: langFont['other'] },
+                    { id: 3, value: '02', name: langFont['shirts'] },
+                    { id: 4, value: '03', name: langFont['sweaters'] },
+                    { id: 5, value: '04', name: langFont['tShirts'] },
+                ],
+                '12': [
+                    { id: 1, value: '00', name: langFont['all'] },
+                    { id: 2, value: '01', name: langFont['other'] },
+                    { id: 3, value: '02', name: langFont['leatherJackets'] },
+                    { id: 4, value: '03', name: langFont['windbreakers'] },
+                    { id: 5, value: '04', name: langFont['denimJackets'] },
+                ],
+                '13': [
+                    { id: 1, value: '00', name: langFont['all'] },
+                    { id: 2, value: '01', name: langFont['other'] },
+                    { id: 3, value: '02', name: langFont['athleticPants'] },
+                    { id: 4, value: '03', name: langFont['casualPants'] },
+                    { id: 5, value: '04', name: langFont['dressPants'] },
+                ]
+            },
+            brand: [
+                { id: 1, value: '00', name: langFont['all'] },
+                { id: 2, value: '01', name: langFont['other'] },
+                { id: 3, value: '02', name: langFont['nike'] },
+                { id: 4, value: '03', name: langFont['fila'] },
+                { id: 5, value: '04', name: langFont['adidas'] },
+                { id: 6, value: '04', name: langFont['puma'] },
+            ],
         }
     },
     watch: {
@@ -226,7 +274,23 @@
                 ];
                 this.delivery = 6;
             }
-        }
+        },
+
+        //把類型代號轉成文字
+        CategoryCodeToText: function (category) {
+            var dbMajorCategories = this.mainCategories.find(function (item) {
+                return item.value == category.substring(0, 2);
+            });
+            var dbMinorCategories = this.smallCategories[category.substring(0, 2)].find(function (item) {
+                return item.value === category.substring(2, 4);
+            });
+            var dbBrand = this.brand.find(function (item) {
+                return item.value === category.substring(4, 6);
+            });
+
+            var result = dbMajorCategories.name + '-' + dbMinorCategories.name + '-' + dbBrand.name;
+            return result;
+        },
     },
     mounted: function () {  //掛載後
         this.GetOrderDetail();
