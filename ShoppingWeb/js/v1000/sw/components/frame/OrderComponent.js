@@ -225,6 +225,7 @@
                             break;
                         case 101:
                             self.dataArray = '';
+                            self.pagesTotal = 0;
                             self.message = langFont["noData"];
                             break;
                         default:
@@ -282,6 +283,7 @@
                             break;
                         case 101:
                             self.dataArray = '';
+                            self.pagesTotal = 0;
                             self.message = langFont["noData"];
                             break;
                         default:
