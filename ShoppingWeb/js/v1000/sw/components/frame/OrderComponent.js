@@ -5,7 +5,7 @@
             <br />
             <div class="row">
                 <div class="btn-group me-2" role="group" aria-label="First group">
-                    <button @click="GetOrderData(data.id)" v-for="data in btnArrayData" :key="data.id" v-text="data.name" type="button" class="btn btn-outline-secondary btnHand"></button>
+                    <button @click="GetOrderData(data.id)" v-for="data in btnArrayData" :key="data.id" v-text="data.name" type="button" :class="data.style"></button>
                 </div>
             </div>
             <br />
@@ -57,15 +57,14 @@
             message: '',
             spanClass: 'px-3 py-1 rounded ',
             btnArrayData: [
-                { id: 1, name: langFont['shipping'],},
-                { id: 2, name: langFont['shipped'] },
-                { id: 3, name: langFont['arrived'] },
-                { id: 4, name: langFont['received'] },
-                { id: 5, name: langFont['returning'] },
-                { id: 6, name: langFont['returned'] },
-                { id: 7, name: langFont['return'] },
+                { id: 1, name: langFont['shipping'], style: 'btn btn-outline-secondary' },
+                { id: 2, name: langFont['shipped'], style: 'btn btn-outline-secondary' },
+                { id: 3, name: langFont['arrived'], style: 'btn btn-outline-secondary' },
+                { id: 4, name: langFont['received'], style: 'btn btn-outline-secondary' },
+                { id: 5, name: langFont['returning'], style: 'btn btn-outline-secondary' },
+                { id: 6, name: langFont['returned'], style: 'btn btn-outline-secondary' },
+                { id: 7, name: langFont['return'], style: 'btn btn-outline-secondary' },
             ],
-            //table的thead中的資料
             theadData: [
                 { id: 1, name: langFont['orderId'] },
                 { id: 2, name: langFont['serialNumber'] },
@@ -107,7 +106,7 @@
             pageSize: 5,
             pagesTotal: null,
             beforePagesTotal: 1,
-            createPage: false,
+            pageIndex: 1,
         }
     },
     watch: {
@@ -119,14 +118,18 @@
         },
         dataArray: function () {
             this.btnArrayData = [
-                { id: 1, name: langFont['shipping'] + '(' + this.deliveryStatusCountData[0].Shipping + ')'},
-                { id: 2, name: langFont['shipped'] + '(' + this.deliveryStatusCountData[0].Shipped + ')' },
-                { id: 3, name: langFont['arrived'] + '(' + this.deliveryStatusCountData[0].Arrived + ')' },
-                { id: 4, name: langFont['received'] + '(' + this.deliveryStatusCountData[0].Received + ')' },
-                { id: 5, name: langFont['returning'] + '(' + this.deliveryStatusCountData[0].Returning + ')' },
-                { id: 6, name: langFont['returned'] + '(' + this.deliveryStatusCountData[0].Returned + ')' },
-                { id: 7, name: langFont['return'] + '(' + this.deliveryStatusCountData[0].Return + ')' },
-            ]
+                { id: 1, name: langFont['shipping'] + '(' + this.deliveryStatusCountData[0].Shipping + ')', style: 'btn btn-outline-secondary' },
+                { id: 2, name: langFont['shipped'] + '(' + this.deliveryStatusCountData[0].Shipped + ')', style: 'btn btn-outline-secondary' },
+                { id: 3, name: langFont['arrived'] + '(' + this.deliveryStatusCountData[0].Arrived + ')', style: 'btn btn-outline-secondary' },
+                { id: 4, name: langFont['received'] + '(' + this.deliveryStatusCountData[0].Received + ')', style: 'btn btn-outline-secondary' },
+                { id: 5, name: langFont['returning'] + '(' + this.deliveryStatusCountData[0].Returning + ')', style: 'btn btn-outline-secondary' },
+                { id: 6, name: langFont['returned'] + '(' + this.deliveryStatusCountData[0].Returned + ')', style: 'btn btn-outline-secondary' },
+                { id: 7, name: langFont['return'] + '(' + this.deliveryStatusCountData[0].Return + ')', style: 'btn btn-outline-secondary' },
+            ];
+
+            if (this.selectedOrderId) {
+                this.btnArrayData[this.selectedOrderId - 1].style = 'btn btn-secondary';
+            }
         },
     },
     methods: {
@@ -137,6 +140,7 @@
                 return;
             }
 
+            this.pageIndex = pageNumber;
             var self = this;
 
             $.ajax({
@@ -353,7 +357,11 @@
 
         //更新表格
         Updata: function () {
-            this.GetAllOrderData(1, this.pageSize);
+            if (this.selectedOrderId) {
+                this.GetOrderData(this.selectedOrderId, 1, this.pageSize);
+            } else {
+                this.GetAllOrderData(this.pageIndex, this.pageSize);
+            }
         }
 
     },
