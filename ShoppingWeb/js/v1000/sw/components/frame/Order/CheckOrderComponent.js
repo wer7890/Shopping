@@ -1,4 +1,5 @@
 ﻿var CheckOrderComponent = {
+    name: 'CheckOrderComponent',
     template: `
         <div class="container mt-4">
             <h2 class="text-center">${langFont['titleEditOrder']}</h2>

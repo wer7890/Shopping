@@ -1,4 +1,5 @@
 ﻿var PaginationComponent = {
+    name: 'PaginationComponent',
     template: `
         <div v-if="total > 0">
             <div :class="directType ? 'pagination-container-direct' : 'pagination-container'">

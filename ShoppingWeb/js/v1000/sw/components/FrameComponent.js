@@ -1,4 +1,5 @@
 ﻿var FrameComponent = {
+    name: 'FrameComponent',
     template: `
         <div class="col-12 col-md-10">
             <component :is='name'></component>

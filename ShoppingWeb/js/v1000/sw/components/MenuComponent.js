@@ -1,4 +1,5 @@
 ﻿var MenuComponent = {
+    name: 'MenuComponent',
     template: `
             <div class="col-12 col-md-2">
                 <div class="list-group">

@@ -1,16 +1,23 @@
 ﻿// onerror事件
 window.addEventListener('error', function (event) {
-    let time = new Date();
+    var time = new Date();
     AddToErrorQueue("前端錯誤時間: " + time.toLocaleString() + " 訊息: " + event.message + " 位置: " + event.filename + " 行號: " + event.lineno + " 帳號: " + GetAccountCookie("account"));
     event.preventDefault();  //停止事件的默認動作，不會把錯誤印在console上
 });
 
-let errorQueue = [];
+//Vue錯誤攔截
+Vue.config.errorHandler = function (err, vm, info) {
+    var time = new Date();
+    AddToErrorQueue("前端錯誤時間: " + time.toLocaleString() + " 訊息: " + err.message + " 組件名稱: " + vm.$options.name + " 帳號: " + GetAccountCookie("account"));   
+}
+
+
+var errorQueue = [];
 
 $(document).ready(function () {
     setInterval(function () {
         if (errorQueue.length > 0) {
-            let errorsToSend = errorQueue; 
+            var errorsToSend = errorQueue; 
             errorQueue = [];
             $.ajax({
                 type: "POST",

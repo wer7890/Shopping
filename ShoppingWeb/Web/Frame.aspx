@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/css/<%= cssVersion %>/Pagination.css" />
     <script src="/js/<%= jsVersion %>/jquery-3.7.1.min.js"></script>
     <script src="/js/<%= jsVersion %>/bootstrap.bundle.min.js"></script>
-    <script src="/js/<%= jsVersion %>/vue.js"></script>
+    <script src="/js/<%= jsVersion %>/vue.min.js"></script>
     <script src="/js/<%= jsVersion %>/language/Language_<%= cookieLanguage %>.js"></script>
     <script src="/js/<%= jsVersion %>/SetNLog.js"></script>
 </head>

@@ -1,4 +1,5 @@
 ﻿var PopWindowComponent = {
+    name: 'PopWindowComponent',
     template: `
         <div class="outerMask" v-if="show">
             <div class="innerMask">

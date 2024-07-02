@@ -1,4 +1,5 @@
 ﻿var ProductComponent = {
+    name: 'ProductComponent',
     template: `
         <div class="w-auto mx-3" id="allProductDiv">
             <h2 class="text-center">${langFont['product']}</h2>

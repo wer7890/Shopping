@@ -1,4 +1,5 @@
 ﻿var UserComponent = {
+    name: 'UserComponent',
     template: `
         <div class="container">
             <div class="row">
@@ -275,7 +276,6 @@
                 });
             }
         },
-
 
         //更新表格
         Updata: function () {

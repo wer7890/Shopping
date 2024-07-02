@@ -1,4 +1,5 @@
 ﻿var OrderComponent = {
+    name: 'OrderComponent',
     template: `
         <div class="container">
             <h2 class="text-center">${langFont['titleOrder']}</h2>

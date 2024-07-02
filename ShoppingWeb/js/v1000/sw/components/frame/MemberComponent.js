@@ -1,4 +1,5 @@
 ﻿var MemberComponent = {
+    name: 'MemberComponent',
     template: `
         <div class="w-auto mx-3">
             <div class="row">
