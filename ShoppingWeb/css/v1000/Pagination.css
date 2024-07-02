@@ -56,10 +56,11 @@
     color: white;
 }
 
-.pagination-go { 
+.pagination-go {
     display: flex;
-    align-items: center;
-    margin-left: 10px; 
+    align-items: flex-start;
+    margin-left: 10px;
+    margin-top: 4px;
 }
 
 .pagination-go-direct {
@@ -96,7 +97,22 @@
 }
 
 .pagination-total {
+    margin-top: 2px;
     margin-right: 10px;
     color: #007bff;
-    line-height: 42px;
 }
+
+
+/*.pagination-go {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+
+.pagination-total {
+    margin-right: 10px;
+    margin-left: 5px;
+    color: #007bff;
+}*/

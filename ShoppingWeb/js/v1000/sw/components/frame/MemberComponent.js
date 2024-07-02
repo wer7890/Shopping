@@ -321,7 +321,7 @@
         this.GetAllMemberData(1, this.pageSize);
     },
     components: {
-        'pagination-component': PaginationComponent,
+        'pagination-component': PaginationComponent2,
         'table-component': TableComponent,
     }
 };

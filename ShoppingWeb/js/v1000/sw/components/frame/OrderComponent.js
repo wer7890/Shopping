@@ -10,7 +10,7 @@
             </div>
             <br />
 
-            <div class="row" id="orderTableDiv">
+            <div class="row">
                 <table-component :theadData="theadData" :dataArray="dataArray">
                     <template v-slot:table-row="{ data }">
                         <td v-text="data.Id"></td>
@@ -371,7 +371,7 @@
         this.GetAllOrderData(1, this.pageSize);
     },
     components: {
-        'pagination-component': PaginationComponent,
+        'pagination-component': PaginationComponent2,
         'table-component': TableComponent,
         'pop-window-component': PopWindowComponent,
         'check-order-component': CheckOrderComponent,
