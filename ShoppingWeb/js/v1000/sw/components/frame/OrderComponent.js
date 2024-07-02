@@ -373,7 +373,7 @@
         this.GetAllOrderData(1, this.pageSize);
     },
     components: {
-        'pagination-component': PaginationComponent2,
+        'pagination-component': PaginationComponent,
         'table-component': TableComponent,
         'pop-window-component': PopWindowComponent,
         'check-order-component': CheckOrderComponent,

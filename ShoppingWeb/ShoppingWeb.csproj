@@ -104,7 +104,7 @@
     <Content Include="js\v1000\ProductCategories.js" />
     <Content Include="js\v1000\SetNLog.js" />
     <Content Include="js\v1000\sw\components\FrameComponent.js" />
-    <Content Include="js\v1000\sw\components\frame\components\PaginationComponent2.js" />
+    <Content Include="js\v1000\sw\components\frame\components\PaginationComponent.js" />
     <Content Include="js\v1000\sw\components\frame\components\PopWindowComponent.js" />
     <Content Include="js\v1000\sw\components\frame\Order\CheckOrderComponent.js" />
     <Content Include="js\v1000\sw\components\frame\Product\AddProductComponent.js" />
@@ -116,7 +116,7 @@
     <Content Include="js\v1000\sw\components\frame\User\EditUserComponent.js" />
     <Content Include="js\v1000\sw\components\frame\MemberComponent.js" />
     <Content Include="js\v1000\sw\components\frame\OrderComponent.js" />
-    <Content Include="js\v1000\sw\components\frame\components\PaginationComponent.js" />
+    <Content Include="js\v1000\sw\components\frame\components\PaginationComponent3.js" />
     <Content Include="js\v1000\sw\components\frame\ProductComponent.js" />
     <Content Include="js\v1000\sw\components\frame\UserComponent.js" />
     <Content Include="js\v1000\sw\components\MenuComponent.js" />

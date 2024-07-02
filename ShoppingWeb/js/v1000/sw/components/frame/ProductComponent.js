@@ -461,7 +461,7 @@
         }, 30000);
     },
     components: {
-        'pagination-component': PaginationComponent2,
+        'pagination-component': PaginationComponent,
         'table-component': TableComponent,
         'add-product-component': AddProductComponent,
         'edit-product-component': EditProductComponent,

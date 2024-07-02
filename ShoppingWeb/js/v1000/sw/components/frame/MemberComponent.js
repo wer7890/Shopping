@@ -163,7 +163,7 @@
 
         //更改會員等級
         EditMemberLevel: function (memberId, level) {
-            if (!memberId || !level) {
+            if (!memberId) {
                 this.message = langFont["inputError"];
                 return;
             }
@@ -323,7 +323,7 @@
         this.GetAllMemberData(1, this.pageSize);
     },
     components: {
-        'pagination-component': PaginationComponent2,
+        'pagination-component': PaginationComponent,
         'table-component': TableComponent,
     }
 };

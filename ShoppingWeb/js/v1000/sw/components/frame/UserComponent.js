@@ -287,7 +287,7 @@
         this.GetAllUserData(1, this.pageSize);
     },
     components: {
-        'pagination-component': PaginationComponent2,
+        'pagination-component': PaginationComponent,
         'table-component': TableComponent,
         'add-user-component': AddUserComponent,
         'edit-user-component': EditUserComponent,
