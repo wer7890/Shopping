@@ -301,7 +301,7 @@
         //分頁的callback function
         GetSelectOrderData: function (pageNumber, pageSize) {
             if (this.selectedOrderId) {
-                this.GetOrderData(this.selectedOrderId, pageNumber, pageSize);
+                (this.selectedOrderId === 7) ? this.GetReturnOrderData(pageNumber, pageSize) : this.GetOrderData(this.selectedOrderId, pageNumber, pageSize);          
             } else {
                 this.GetAllOrderData(pageNumber, pageSize);
             }
