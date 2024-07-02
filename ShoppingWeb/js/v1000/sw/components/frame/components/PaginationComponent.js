@@ -67,6 +67,10 @@
             if ((this.totalPages > this.showButtons) && (endPage - startPage < 4)) {
                 startPage = startPage - (4 - (endPage - startPage));
             }
+
+            if (this.totalPages <= this.showButtons) {
+                startPage = 1;
+            }
             
             for (var i = startPage; i <= endPage; i++) {
                 pages.push(i);
