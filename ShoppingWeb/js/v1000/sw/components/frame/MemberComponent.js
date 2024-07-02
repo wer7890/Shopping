@@ -66,13 +66,15 @@
                 { value: 3, name: langFont['level3'] },
             ],
             dataArray: '',
-            pageSize: 5,
-            pagesTotal: null,
-            beforePagesTotal: 1,
             numeric: "0123456789",
             lowerCase: "abcdefghijklmnopqrstuvwxyz",
             upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             emailSuffix: ["@hotmail.com", "@yahoo.com", "@gmail.com", "@live.com", "@qq.com"],
+
+            pageSize: 5,
+            pagesTotal: null,
+            beforePagesTotal: 1,
+            pageIndex: 1,
         }
     },
     methods: {
@@ -83,6 +85,7 @@
                 return;
             }
 
+            this.pageIndex = pageNumber;
             var self = this;
 
             $.ajax({
@@ -148,6 +151,7 @@
                             break;
                         case 100:
                             self.message = langFont["addSuccessful"];
+                            self.GetAllMemberData(self.pageIndex, self.pageSize)
                             break;
                         case 101:
                             self.message = langFont["addFailed"];
