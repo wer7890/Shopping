@@ -62,9 +62,15 @@
             var pages = [];
             var startPage = Math.max(1, this.currentPage - Math.floor(this.showButtons / 2));
             var endPage = Math.min(this.totalPages, startPage + this.showButtons - 1);
+
+            if ((this.totalPages > this.showButtons) && (endPage - startPage < 4)) {
+                startPage = startPage - (4 - (endPage - startPage));
+            }
+            
             for (var i = startPage; i <= endPage; i++) {
                 pages.push(i);
             }
+
             return pages;
         }
     },
