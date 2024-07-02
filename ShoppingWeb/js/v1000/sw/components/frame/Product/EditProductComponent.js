@@ -1,6 +1,6 @@
 ﻿var EditProductComponent = {
     template: `
-        <div class="container">
+        <div class="container mt-4">
             <h2 class="text-center">${langFont['editProduct']}</h2>
             <br />
             <div class="row">

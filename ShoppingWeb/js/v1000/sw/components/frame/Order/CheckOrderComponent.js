@@ -1,6 +1,6 @@
 ﻿var CheckOrderComponent = {
     template: `
-        <div class="container mt-5">
+        <div class="container mt-4">
             <h2 class="text-center">${langFont['titleEditOrder']}</h2>
             <div class="row d-flex justify-content-center my-3">
                 <div class="col">

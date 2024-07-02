@@ -2,12 +2,8 @@
     template: `
         <div class="outerMask" v-if="show">
             <div class="innerMask">
+                <button @click="Clear" class="btn btn-outline-secondary mx-auto mt-4 position-absolute top-0 end-0">${langFont['closure']}</button>
                 <slot name="content" :page="page"></slot>
-                <div class="container">
-                    <div class="row">
-                        <button @click="Clear" class="btn btn-outline-secondary mx-auto mt-4 col-12 col-md-6">${langFont['closure']}</button>
-                    </div>
-                </div>
             </div>
         </div>
     `,
