@@ -55,6 +55,7 @@
     },
     computed: {
         totalPages: function () {
+            this.currentPage = 1;
             return this.total;
         },
         pagesToShow: function () {

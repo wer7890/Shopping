@@ -110,6 +110,8 @@
                             self.beforePagesTotal = self.pagesTotal;
                             break;
                         case 101:
+                            self.dataArray = '';
+                            self.pagesTotal = 0;
                             self.message = langFont["noData"];
                             break;
                         default:
@@ -285,7 +287,7 @@
         this.GetAllUserData(1, this.pageSize);
     },
     components: {
-        'pagination-component': PaginationComponent,
+        'pagination-component': PaginationComponent2,
         'table-component': TableComponent,
         'add-user-component': AddUserComponent,
         'edit-user-component': EditUserComponent,

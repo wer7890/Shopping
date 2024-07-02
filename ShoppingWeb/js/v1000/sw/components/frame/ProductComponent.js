@@ -59,7 +59,7 @@
                  </table-component>
             </div>
 
-            <pagination-component @Choose="GetAllProductData" :size="pageSize" :total="pagesTotal"></pagination-component>
+            <pagination-component @Choose="PageChoose" :size="pageSize" :total="pagesTotal"></pagination-component>
 
             <div class="row">
                 <span v-text="message" class="col-12 col-sm-12 text-center text-success"></span>
@@ -144,6 +144,7 @@
                 { id: 11, name: langFont['del'] },
             ],
             dataArray: '',
+            isGetAll: true,
 
             pageSize: 4,
             pagesTotal: null,
@@ -162,6 +163,8 @@
     methods: {
         //全部商品資料
         GetAllProductData: function (pageNumber, pageSize) {
+            this.isGetAll = true;
+
             if (!pageNumber || !pageSize || !this.beforePagesTotal) {
                 this.message = langFont["inputError"];
                 return;
@@ -194,6 +197,8 @@
                             self.beforePagesTotal = self.pagesTotal;
                             break;
                         case 101:
+                            self.dataArray = '';
+                            self.pagesTotal = 0;
                             self.message = langFont["noData"];
                             break;
                         default:
@@ -209,6 +214,7 @@
         //搜尋商品
         SearchProduct: function (pageNumber, pageSize) {
             var productNum = this.mainCategoryNum + this.smallCategoryNum + this.brandNum
+            this.isGetAll = false;
             var self = this;
 
             $.ajax({
@@ -236,6 +242,8 @@
                             self.beforePagesTotal = self.pagesTotal;
                             break;
                         case 101:
+                            self.dataArray = '';
+                            self.pagesTotal = 0;
                             self.message = langFont["noData"];
                             break;
                         default:
@@ -433,6 +441,15 @@
         //更新表格
         Updata: function () {
             this.GetAllProductData(this.pageIndex, this.pageSize);
+        },
+
+        //分頁組件按鈕所觸發的事件
+        PageChoose: function (pageNumber, pageSize) {
+            if (this.isGetAll) {
+                this.GetAllProductData(pageNumber, pageSize);
+            } else {
+                this.SearchProduct(pageNumber, pageSize);
+            }
         }
     },
     mounted: function () {  //掛載後
@@ -444,7 +461,7 @@
         }, 30000);
     },
     components: {
-        'pagination-component': PaginationComponent,
+        'pagination-component': PaginationComponent2,
         'table-component': TableComponent,
         'add-product-component': AddProductComponent,
         'edit-product-component': EditProductComponent,

@@ -108,6 +108,8 @@
                             self.beforePagesTotal = self.pagesTotal;
                             break;
                         case 101:
+                            self.dataArray = '';
+                            self.pagesTotal = 0;
                             self.message = langFont["noData"];
                             break;
                         default:
