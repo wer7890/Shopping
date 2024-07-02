@@ -9,23 +9,23 @@
                 </div>
 
                 <ul :class="directType ? 'pagination-direct' : 'pagination'">
-                    <li v-if="showFirstLastButtons && (total > showButtons) && (currentPage > 1)" @click="First" :class="directType ? 'page-item-direct' : 'page-item'">
+                    <li v-if="showFirst" @click="First" :class="pageBtnClass">
                         <span class="page-link">|<</span>
                     </li>
 
-                    <li v-if="showPrevNext && (total > showButtons) && (currentPage > 1)" @click="Prev" :class="directType ? 'page-item-direct' : 'page-item'">
+                    <li v-if="showPrev" @click="Prev" :class="pageBtnClass">
                         <span class="page-link"><</span>
                     </li>
 
-                    <li v-for="page in pagesToShow" :key="page" @click="Page(page)" :class="[directType ? 'page-item-direct' : 'page-item', { active: currentPage === page }]">
+                    <li v-for="page in pagesToShow" :key="page" @click="Page(page)" :class="[pageBtnClass, { active: currentPage === page }]">
                         <a class="page-link" href="javascript:;" v-text="page"></a>
                     </li>
 
-                    <li v-if="showPrevNext && (total > showButtons) && (currentPage < total)" @click="Next" :class="directType ? 'page-item-direct' : 'page-item'">
+                    <li v-if="showNext" @click="Next" :class="pageBtnClass">
                         <span class="page-link">></span>
                     </li>
 
-                    <li v-if="showFirstLastButtons && (total > showButtons) && (currentPage < total)" @click="Last" :class="directType ? 'page-item-direct' : 'page-item'">
+                    <li v-if="showLast" @click="Last" :class="pageBtnClass">
                         <span class="page-link">>|</span>
                     </li>
                 </ul>
@@ -77,6 +77,37 @@
             }
 
             return pages;
+        },
+        showFirst: function () {
+            if (this.showFirstLastButtons && (this.total > this.showButtons) && (this.currentPage > 1) ) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        showPrev: function () {
+            if (this.showPrevNext && (this.total > this.showButtons) && (this.currentPage > 1)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        showNext: function () {
+            if (this.showPrevNext && (this.total > this.showButtons) && (this.currentPage < this.total)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        showLast: function () {
+            if (this.showFirstLastButtons && (this.total > this.showButtons) && (this.currentPage < this.total)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        pageBtnClass: function () {
+            return this.directType ? 'page-item-direct' : 'page-item';
         }
     },
     watch: {

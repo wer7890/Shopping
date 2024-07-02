@@ -19,3 +19,10 @@
     background-color: white; /* 純白色背景 */
     z-index: 98;
 }
+
+.fixed-button {
+    position: fixed;
+    top: 20px; 
+    right: 27%; 
+    z-index: 1000; /* 確保按鈕在其他元素之上 */
+}
