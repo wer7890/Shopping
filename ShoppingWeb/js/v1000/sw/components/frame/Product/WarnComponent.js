@@ -1,7 +1,7 @@
 ﻿var WarnComponent = {
     name: 'WarnComponent',
     template: `
-        <div id="lowStockProductsDiv" class="container my-4">
+        <div class="container my-4">
             <h3 class="text-center text-danger mb-4">${langFont['lowStock']}</h3>
 
             <table-component :theadData="theadData" :dataArray="dataArray" v-if="show">
