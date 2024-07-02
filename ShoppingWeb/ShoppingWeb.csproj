@@ -90,18 +90,11 @@
     <Content Include="css\v1000\OrderManagement.css" />
     <Content Include="css\v1000\Pagination.css" />
     <Content Include="Global.asax" />
-    <Content Include="js\v1000\AddProduct.js" />
-    <Content Include="js\v1000\AddUser.js" />
     <Content Include="js\v1000\login\App.js" />
     <Content Include="js\v1000\sw\App.js" />
-    <Content Include="js\v1000\EditUser.js" />
     <Content Include="js\v1000\jquery-3.7.1.min.js" />
     <Content Include="js\v1000\language\Language_EN.js" />
     <Content Include="js\v1000\language\Language_TW.js" />
-    <Content Include="js\v1000\MemberManagement.js" />
-    <Content Include="js\v1000\OrderManagement.js" />
-    <Content Include="js\v1000\Pagination.js" />
-    <Content Include="js\v1000\ProductCategories.js" />
     <Content Include="js\v1000\SetNLog.js" />
     <Content Include="js\v1000\sw\components\FrameComponent.js" />
     <Content Include="js\v1000\sw\components\frame\components\PaginationComponent.js" />
@@ -120,24 +113,12 @@
     <Content Include="js\v1000\sw\components\frame\ProductComponent.js" />
     <Content Include="js\v1000\sw\components\frame\UserComponent.js" />
     <Content Include="js\v1000\sw\components\MenuComponent.js" />
-    <Content Include="js\v1000\UserManagement.js" />
     <Content Include="js\v1000\bootstrap.bundle.min.js" />
-    <Content Include="js\v1000\EditProduct.js" />
-    <Content Include="js\v1000\ProductManagement.js" />
     <Content Include="js\v1000\vue.js" />
     <Content Include="js\v1000\vue.min.js" />
     <Content Include="Web.config" />
-    <Content Include="Web\AddProduct.aspx" />
-    <Content Include="Web\AddUser.aspx" />
-    <Content Include="Web\Default.aspx" />
     <Content Include="Web\Frame.aspx" />
     <Content Include="Web\Login.aspx" />
-    <Content Include="Web\EditProduct.aspx" />
-    <Content Include="Web\EditUser.aspx" />
-    <Content Include="Web\MemberManagement.aspx" />
-    <Content Include="Web\OrderManagement.aspx" />
-    <Content Include="Web\ProductManagement.aspx" />
-    <Content Include="Web\UserManagement.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Data\Enums\Language.cs" />
@@ -208,27 +189,6 @@
     <Compile Include="Response\Product\GetProductDataResponse.cs" />
     <Compile Include="Response\User\GetAllUserDataResponse.cs" />
     <Compile Include="Response\User\GetUserDataForEditResponse.cs" />
-    <Compile Include="Web\AddProduct.aspx.cs">
-      <DependentUpon>AddProduct.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\AddProduct.aspx.designer.cs">
-      <DependentUpon>AddProduct.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\AddUser.aspx.cs">
-      <DependentUpon>AddUser.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\AddUser.aspx.designer.cs">
-      <DependentUpon>AddUser.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Web\Frame.aspx.cs">
       <DependentUpon>Frame.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -242,48 +202,6 @@
     </Compile>
     <Compile Include="Web\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\EditProduct.aspx.cs">
-      <DependentUpon>EditProduct.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\EditProduct.aspx.designer.cs">
-      <DependentUpon>EditProduct.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\EditUser.aspx.cs">
-      <DependentUpon>EditUser.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\EditUser.aspx.designer.cs">
-      <DependentUpon>EditUser.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\MemberManagement.aspx.cs">
-      <DependentUpon>MemberManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\MemberManagement.aspx.designer.cs">
-      <DependentUpon>MemberManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\OrderManagement.aspx.cs">
-      <DependentUpon>OrderManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\OrderManagement.aspx.designer.cs">
-      <DependentUpon>OrderManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\ProductManagement.aspx.cs">
-      <DependentUpon>ProductManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\ProductManagement.aspx.designer.cs">
-      <DependentUpon>ProductManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Web\UserManagement.aspx.cs">
-      <DependentUpon>UserManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Web\UserManagement.aspx.designer.cs">
-      <DependentUpon>UserManagement.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
