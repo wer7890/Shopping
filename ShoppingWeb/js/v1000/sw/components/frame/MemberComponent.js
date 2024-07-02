@@ -286,7 +286,7 @@
                 return Math.floor(Math.random() * (min - max) + max)
             }
             var name = ""
-            for (let i = 0; i < 3; i++) {
+            for (var i = 0; i < 3; i++) {
                 name += String.fromCharCode(RandomAccess(0x4E00, 0x9FFF))
             }
             return name

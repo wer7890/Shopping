@@ -308,7 +308,7 @@
             }
 
             var self = this;
-            let yes = confirm(langFont["confirmEditProduct"]);
+            var yes = confirm(langFont["confirmEditProduct"]);
             if (yes == true) {
                 $.ajax({
                     type: "POST",
