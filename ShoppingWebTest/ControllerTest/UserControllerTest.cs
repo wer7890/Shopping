@@ -12,18 +12,14 @@ namespace ShoppingWebTest.ControllerTest
         [TestMethod]
         public void AddUserInput()
         {
-            AddUserDto addUserDto = new AddUserDto();            
-            addUserDto.Account = "tda";
-            addUserDto.Pwd = "123456";
-            addUserDto.Roles = 3;
+            var _userController = new UserController();
+            Mock<IUserRepository> repo = new Mock<IUserRepository>();  //IUserRepository是Mock的一個介面
+            repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));  //AddUser是其內部定義的方法，<AddUserDto>為調用該方法時的參數類型，(null, 1)為調用該方法時返回的值
 
-            var _userController = new TestRepository();
-            Mock<IUserRepository> repo = new Mock<IUserRepository>();
-            repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
-            
-            PrivateObject privateObject = new PrivateObject(_userController);
+            PrivateObject privateObject = new PrivateObject(_userController);  //PrivateObject用於實例方法的測試
             privateObject.SetFieldOrProperty("_userRepo", repo.Object);
-                
+
+            AddUserDto addUserDto = new AddUserDto();
             var result = _userController.AddUser(addUserDto);
             Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, ActionResult.Success);
