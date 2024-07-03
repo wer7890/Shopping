@@ -1,0 +1,5152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataSchemaModel FileFormatVersion="1.2" SchemaVersion="2.9" DspName="Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider" CollationLcid="2052" CollationCaseSensitive="False" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+	<Header>
+		<CustomData Category="AnsiNulls">
+			<Metadata Name="AnsiNulls" Value="True" />
+		</CustomData>
+		<CustomData Category="QuotedIdentifier">
+			<Metadata Name="QuotedIdentifier" Value="True" />
+		</CustomData>
+		<CustomData Category="CompatibilityMode">
+			<Metadata Name="CompatibilityMode" Value="130" />
+		</CustomData>
+		<CustomData Category="Reference" Type="Assembly">
+			<Metadata Name="LogicalName" Value="ShoppingWeb.DB.dll" />
+			<Metadata Name="FileName" Value="D:\CODE2\SHOPPINGWEB\SHOPPINGWEB.DB\OBJ\DEBUG\SHOPPINGWEB.DB.DLL" />
+			<Metadata Name="AssemblyName" Value="ShoppingWeb.DB" />
+			<Metadata Name="PermissionSet" Value="SAFE" />
+			<Metadata Name="Owner" Value="" />
+			<Metadata Name="GenerateSqlClrDdl" Value="True" />
+			<Metadata Name="IsVisible" Value="True" />
+			<Metadata Name="IsModelAware" Value="True" />
+			<Metadata Name="SkipCreationIfEmpty" Value="True" />
+			<Metadata Name="AssemblySymbolsName" Value="D:\Code2\ShoppingWeb\ShoppingWeb.DB\obj\Debug\ShoppingWeb.DB.pdb" />
+		</CustomData>
+		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
+	</Header>
+	<Model>
+		<Element Type="SqlDatabaseOptions">
+			<Property Name="Collation" Value="Chinese_PRC_CI_AS" />
+			<Property Name="IsAnsiNullDefaultOn" Value="True" />
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="IsAnsiWarningsOn" Value="True" />
+			<Property Name="IsArithAbortOn" Value="True" />
+			<Property Name="IsConcatNullYieldsNullOn" Value="True" />
+			<Property Name="IsTornPageProtectionOn" Value="False" />
+			<Property Name="IsFullTextEnabled" Value="True" />
+			<Property Name="PageVerifyMode" Value="3" />
+			<Property Name="DefaultLanguage" Value="" />
+			<Property Name="DefaultFullTextLanguage" Value="" />
+			<Property Name="QueryStoreStaleQueryThreshold" Value="367" />
+			<Relationship Name="DefaultFilegroup">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[PRIMARY]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlRoleMembership">
+			<Relationship Name="Member">
+				<Entry>
+					<References Name="[SH_USER]" Disambiguator="6" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Role">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[db_owner]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlRoleMembership">
+			<Relationship Name="Member">
+				<Entry>
+					<References Name="[SH_USER]" Disambiguator="6" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Role">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[db_datareader]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlRoleMembership">
+			<Relationship Name="Member">
+				<Entry>
+					<References Name="[SH_USER]" Disambiguator="6" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Role">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[db_datawriter]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_member_f_accountStatus]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[((1))]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_member].[f_accountStatus]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_member_f_createdTime]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(getdate())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_member].[f_createdTime]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_member_f_level]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[((0))]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_member].[f_level]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_order_f_createdTime]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(getdate())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_order]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_order].[f_createdTime]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_order_f_deliveryStatus]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[((1))]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_order]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryStatus]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_order_f_orderStatus]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[((1))]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_order]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_order].[f_orderStatus]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_product_f_createdTime]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(getdate())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_product].[f_createdTime]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_totalSpent_f_totalSpent]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[((0))]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_totalSpent]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_totalSpent].[f_totalSpent]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="14" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_wallet_f_amount]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[((0))]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_wallet]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_wallet].[f_amount]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="15" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_t_walletChanges_f_createdTime]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(getdate())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_walletChanges]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[t_walletChanges].[f_createdTime]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_t_member]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[t_member].[f_id]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="17" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_t_order]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[t_order].[f_id]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_order]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="18" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_t_orderDetails]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[t_orderDetails].[f_id]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_orderDetails]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="19" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_t_product]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[t_product].[f_id]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="20" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_t_totalSpent]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[t_totalSpent].[f_memberId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_totalSpent]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="21" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_t_userInfo]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[t_userInfo].[f_id]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_userInfo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="22" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_t_wallet]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[t_wallet].[f_memberId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_wallet]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="23" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_t_walletChanges]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[t_walletChanges].[f_id]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[t_walletChanges]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="24" />
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_addMemberData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @dbId INT;
+
+	BEGIN TRANSACTION; -- 開始交易
+
+    BEGIN TRY
+		
+		INSERT INTO t_member(f_account, f_pwd, f_name, f_birthday, f_phoneNumber, f_email, f_address)
+		VALUES (@account, @pwd, @name, @birthday, @phone, @email, @address);
+
+		SELECT @dbId = f_id FROM t_member WHERE f_account = @account;
+		INSERT INTO t_wallet(f_memberId, f_amount)
+		VALUES (@dbId, 0);
+
+		INSERT INTO t_totalSpent(f_memberId, f_totalSpent)
+		VALUES (@dbId, 0);
+
+        COMMIT TRANSACTION; -- 提交交易
+        SELECT 1; -- 操作成功，回傳1
+
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION; -- 回滾交易
+        SELECT 0; -- 錯誤，回傳0
+    END CATCH
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_account]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_pwd]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_birthday]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_phoneNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_email]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_address]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addMemberData].[@account]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addMemberData].[@pwd]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addMemberData].[@name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addMemberData].[@birthday]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addMemberData].[@phone]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addMemberData].[@email]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addMemberData].[@address]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_wallet]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_wallet].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_wallet].[f_amount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_totalSpent]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_totalSpent].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_totalSpent].[f_totalSpent]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addMemberData].[@account]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addMemberData].[@pwd]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addMemberData].[@name]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="15" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addMemberData].[@birthday]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addMemberData].[@phone]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addMemberData].[@email]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addMemberData].[@address]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="25" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="892" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_addMemberData]&#xD;&#xA;    @account VARCHAR(16),&#xD;&#xA;    @pwd VARCHAR(16),&#xD;&#xA;    @name NVARCHAR(15),&#xD;&#xA;    @birthday date,&#xD;&#xA;    @phone VARCHAR(10),&#xD;&#xA;    @email VARCHAR(40),&#xD;&#xA;    @address NVARCHAR(25)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_addProductData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM dbo.t_product WITH(NOLOCK) WHERE f_img = @img)
+    BEGIN
+        INSERT INTO dbo.t_product (f_nameTW, f_nameEN, f_category, f_img, f_price, f_stock, f_isOpen, f_introduceTW, f_introduceEN, f_warningValue, f_createdUser)
+        VALUES (@name, @nameEN, @category, @img, @price, @stock, @isOpen, @introduce, @introduceEN, @warningValue, @owner);
+		SELECT 1;
+    END
+    ELSE
+    BEGIN
+        SELECT 0;
+    END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_img]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@img]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_img]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_isOpen]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_warningValue]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_createdUser]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@nameEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@isOpen]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@introduce]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@introduceEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@warningValue]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addProductData].[@owner]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@name]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@nameEN]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@category]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@img]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@price]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@stock]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@isOpen]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@introduce]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="500" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@introduceEN]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="500" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@warningValue]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addProductData].[@owner]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="782" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_addProductData]&#xD;&#xA;    @name NVARCHAR(100),&#xD;&#xA;&#x9;@nameEN NVARCHAR(100),&#xD;&#xA;    @category INT,&#xD;&#xA;    @img NVARCHAR(40),&#xD;&#xA;    @price INT,&#xD;&#xA;    @stock INT,&#xD;&#xA;    @isOpen BIT,&#xD;&#xA;    @introduce NVARCHAR(500),&#xD;&#xA;&#x9;@introduceEN NVARCHAR(500),&#xD;&#xA;&#x9;@warningValue INT,&#xD;&#xA;    @owner INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_addUserData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @userCount INT;
+    SELECT @userCount = COUNT(1) FROM t_userInfo WITH(NOLOCK) WHERE f_account = @account COLLATE SQL_Latin1_General_CP1_CS_AS;
+
+    IF (@userCount = 0)
+    BEGIN
+        INSERT INTO t_userInfo(f_account, f_pwd, f_roles, f_sessionId)
+        VALUES(@account, @pwd, @roles, NULL);
+
+        SELECT 1;
+    END
+    ELSE
+    BEGIN
+        SELECT 0;
+    END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_account]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addUserData].[@account]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_pwd]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_roles]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_sessionId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addUserData].[@pwd]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_addUserData].[@roles]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addUserData].[@account]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addUserData].[@pwd]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_addUserData].[@roles]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="537" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE pro_sw_addUserData&#xD;&#xA;    @account VARCHAR(16),&#xD;&#xA;    @pwd VARCHAR(64),&#xD;&#xA;    @roles TINYINT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_delProductData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+   
+    DECLARE @productImg VARCHAR(40);
+
+    SELECT @productImg = f_img
+    FROM t_product WITH(NOLOCK)
+    WHERE f_id = @productId;
+
+    -- 刪除商品
+    DELETE FROM t_product WHERE f_id = @productId;
+
+    -- 賦值
+    SET @deletedProductImg = @productImg;
+
+    SELECT @@ROWCOUNT;
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_img]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_delProductData].[@productId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_delProductData].[@deletedProductImg]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_delProductData].[@productId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_delProductData].[@deletedProductImg]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="428" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE pro_sw_delProductData&#xD;&#xA;    @productId INT,&#xD;&#xA;    @deletedProductImg VARCHAR(40) OUTPUT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_delUserData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+	SET NOCOUNT ON;
+	DELETE FROM t_userInfo WHERE f_id = @userId
+	SELECT @@ROWCOUNT 
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[t_userInfo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_delUserData].[@userId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_delUserData].[@userId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="152" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE pro_sw_delUserData&#xD;&#xA;&#x9;@userId INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_editMemberLevel]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+	SET NOCOUNT ON;
+	UPDATE t_member WITH(ROWLOCK)
+	SET f_level = @level
+	WHERE f_Id = @memberId
+	SELECT @@ROWCOUNT 
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_level]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editMemberLevel].[@level]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editMemberLevel].[@memberId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editMemberLevel].[@memberId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editMemberLevel].[@level]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="210" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE pro_sw_editMemberLevel&#xD;&#xA;&#x9;@memberId INT,&#xD;&#xA;&#x9;@level TINYINT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_editMemberStatus]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+	SET NOCOUNT ON;
+	UPDATE t_member WITH(ROWLOCK)
+	SET f_accountStatus = CASE WHEN f_accountStatus = 1 THEN 0 ELSE 1 END
+	WHERE f_Id = @memberId
+	SELECT @@ROWCOUNT 
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_accountStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editMemberStatus].[@memberId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editMemberStatus].[@memberId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="242" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE pro_sw_editMemberStatus&#xD;&#xA;&#x9;@memberId INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_editOrderData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @newStock INT
+	BEGIN TRANSACTION; -- 開始交易
+
+    BEGIN TRY
+		
+		--訂單狀態為已付款，配送狀態為發貨中
+        IF (@orderStatus = 1 AND @deliveryStatus = 2)
+        BEGIN
+            -- 檢查庫存是否足夠
+            IF EXISTS (
+                SELECT 1
+                FROM t_product p WITH(NOLOCK)
+                INNER JOIN t_orderDetails od ON p.f_id = od.f_productId
+                WHERE od.f_orderId = @orderId
+                GROUP BY p.f_id
+                HAVING SUM(p.f_stock) - SUM(od.f_quantity) < 0
+            )
+            BEGIN
+                -- 库存不足，配送狀態為發貨中，回傳0
+                UPDATE t_order WITH(ROWLOCK)
+                SET f_orderStatus = @orderStatus, f_deliveryStatus = 1, f_deliveryMethod = @deliveryMethod
+                WHERE f_Id = @orderId;
+
+                COMMIT TRANSACTION; -- 提交交易
+                SELECT 0; -- 操作成功，回傳0
+                RETURN;
+            END;
+
+            -- 更新庫存
+            UPDATE p WITH(ROWLOCK)
+            SET p.f_stock = p.f_stock - od.f_quantity
+            FROM t_product p
+            INNER JOIN t_orderDetails od ON p.f_id = od.f_productId
+            WHERE od.f_orderId = @orderId;
+
+            -- 更新訂單資料
+            UPDATE t_order WITH(ROWLOCK)
+            SET f_orderStatus = @orderStatus, f_deliveryStatus = 2, f_deliveryMethod = @deliveryMethod
+            WHERE f_Id = @orderId;
+
+			-- 如果庫存小於等於0，就關閉商品
+			SELECT @newStock = p.f_stock
+			FROM t_product p WITH(NOLOCK)
+            INNER JOIN t_orderDetails od ON p.f_id = od.f_productId
+            WHERE od.f_orderId = @orderId;
+
+			IF (@newStock <= 0)
+			BEGIN
+				UPDATE p WITH(ROWLOCK)
+				SET p.f_isOpen = 0
+				FROM t_product p
+				INNER JOIN t_orderDetails od ON p.f_id = od.f_productId
+				WHERE od.f_orderId = @orderId;
+			END
+
+        END
+
+		--訂單狀態為已退款，配送狀態為已退貨
+		ELSE IF (@orderStatus = 4 AND @deliveryStatus = 6)
+		BEGIN
+			DECLARE @totalAmount INT;
+			DECLARE @memberId INT;
+			DECLARE @walletAmount INT;
+
+			-- 鎖定 t_order 和 t_wallet 表
+			SELECT @totalAmount = f_total, @memberId = f_memberId
+			FROM t_order WITH(ROWLOCK)
+			WHERE f_id = @orderId;
+
+			SELECT @walletAmount = f_amount
+			FROM t_wallet WITH(ROWLOCK)
+			WHERE f_memberId = @memberId;
+
+			-- 更新會員總花費
+			UPDATE t_totalSpent WITH(ROWLOCK)
+			SET f_totalSpent = f_totalSpent - @totalAmount
+			WHERE f_memberId = @memberId;
+
+			-- 退款給會員錢包中的金額
+			UPDATE t_wallet WITH(ROWLOCK)
+			SET f_amount = f_amount + @totalAmount
+			WHERE f_memberId = @memberId;
+
+			-- 記錄會員錢包異動
+			INSERT INTO t_walletChanges (f_memberId, f_previousAmount, f_finalAmount, f_changeAmount)
+			VALUES (@memberId, @walletAmount, @walletAmount + @totalAmount, @totalAmount);
+
+			-- 更新訂單資料
+			UPDATE t_order WITH(ROWLOCK)
+			SET f_orderStatus = 4, f_deliveryStatus = 6
+			WHERE f_Id = @orderId;
+		END
+
+        ELSE
+        BEGIN
+            -- 更新訂單資料
+            UPDATE t_order WITH(ROWLOCK)
+            SET f_orderStatus = @orderStatus, f_deliveryStatus = @deliveryStatus, f_deliveryMethod = @deliveryMethod
+            WHERE f_Id = @orderId;
+        END
+
+        COMMIT TRANSACTION; -- 提交交易
+        SELECT 1; -- 操作成功，回傳1
+
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION; -- 回滾交易
+        -- 在這裡處理錯誤
+        SELECT 0; -- 錯誤，回傳0
+    END CATCH
+
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editOrderData].[@orderStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editOrderData].[@deliveryStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_productId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_orderId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editOrderData].[@orderId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_orderStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryMethod]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editOrderData].[@deliveryMethod]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_productId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_orderId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_isOpen]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_total]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_wallet]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_wallet].[f_amount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_wallet].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_totalSpent]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_totalSpent].[f_totalSpent]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_totalSpent].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_walletChanges]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_walletChanges].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_walletChanges].[f_previousAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_walletChanges].[f_finalAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_walletChanges].[f_changeAmount]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editOrderData].[@orderId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editOrderData].[@orderStatus]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editOrderData].[@deliveryStatus]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editOrderData].[@deliveryMethod]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="3458" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_editOrderData]&#xD;&#xA;&#x9;@orderId INT,&#xD;&#xA;&#x9;@orderStatus INT,&#xD;&#xA;&#x9;@deliveryStatus INT,&#xD;&#xA;&#x9;@deliveryMethod INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_editProductData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @dbStock INT;
+	SELECT @dbStock = f_stock FROM t_product WITH(NOLOCK) WHERE f_id = @productId;
+
+	IF(@checkStoct = 1)
+	BEGIN
+        UPDATE t_product WITH(ROWLOCK) SET f_price = @price, f_stock = @dbStock + @stock, f_introduceTW = @introduce, f_introduceEN = @introduceEN, f_warningValue = @warningValue WHERE f_id = @productId
+		SELECT @@ROWCOUNT
+    END
+    ELSE
+    BEGIN
+
+		IF (@dbStock - @stock = 0)
+		BEGIN
+			UPDATE t_product WITH(ROWLOCK) SET f_isOpen = 0 WHERE f_id = @productId;
+		END
+
+		UPDATE t_product WITH(ROWLOCK) SET f_price = @price, f_stock = @dbStock - @stock, f_introduceTW = @introduce, f_introduceEN = @introduceEN, f_warningValue = @warningValue WHERE f_id = @productId AND @stock <= @dbStock
+			
+		SELECT @@ROWCOUNT
+    END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editProductData].[@productId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editProductData].[@checkStoct]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editProductData].[@price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editProductData].[@stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editProductData].[@introduce]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editProductData].[@introduceEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_warningValue]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editProductData].[@warningValue]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_isOpen]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editProductData].[@productId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editProductData].[@price]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editProductData].[@stock]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editProductData].[@introduce]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="500" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editProductData].[@introduceEN]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="500" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editProductData].[@warningValue]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editProductData].[@checkStoct]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="999" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_editProductData]&#xD;&#xA;&#x9;@productId INT,&#xD;&#xA;&#x9;@price INT,&#xD;&#xA;&#x9;@stock INT,&#xD;&#xA;&#x9;@introduce NVARCHAR(500),&#xD;&#xA;&#x9;@introduceEN NVARCHAR(500),&#xD;&#xA;&#x9;@warningValue INT,&#xD;&#xA;&#x9;@checkStoct BIT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_editProductStatus]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @dbStock INT;
+	SELECT @dbStock = f_stock FROM t_product WITH(NOLOCK) WHERE f_id = @productId;
+
+	IF (@dbStock <= 0)
+    BEGIN
+		SELECT 0;
+    END
+    ELSE
+    BEGIN
+        UPDATE t_product WITH(ROWLOCK)
+		SET f_isOpen = CASE WHEN f_isOpen = 1 THEN 0 ELSE 1 END
+		WHERE f_Id = @productId
+		SELECT @@ROWCOUNT;
+    END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editProductStatus].[@productId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_isOpen]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editProductStatus].[@productId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="441" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_editProductStatus]&#xD;&#xA;&#x9;@productId INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_editPwd]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+	UPDATE t_userInfo WITH(ROWLOCK) SET f_pwd=@pwd, f_sessionId = NULL WHERE f_id = @userId
+	SELECT @@ROWCOUNT 
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[t_userInfo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_pwd]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editPwd].[@pwd]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_sessionId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editPwd].[@userId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editPwd].[@userId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editPwd].[@pwd]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="229" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_editPwd]&#xD;&#xA;    @userId INT,&#xD;&#xA;    @pwd VARCHAR(64)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_editReturnOrder]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SET NOCOUNT ON;
+	IF (@boolReturn = 1)
+	BEGIN
+		-- 更新訂單資料
+		UPDATE t_order WITH(ROWLOCK)
+		SET f_orderStatus = 3, f_deliveryStatus = 5
+		WHERE f_Id = @orderId;
+
+		SELECT @@ROWCOUNT 
+	END
+	ELSE
+	BEGIN 
+		-- 更新訂單資料
+		UPDATE t_order WITH(ROWLOCK)
+		SET f_orderStatus = 1, f_deliveryStatus = 4
+		WHERE f_Id = @orderId;
+
+		SELECT @@ROWCOUNT 
+	END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[pro_sw_editReturnOrder].[@boolReturn]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_orderStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editReturnOrder].[@orderId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editReturnOrder].[@orderId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editReturnOrder].[@boolReturn]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="458" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_editReturnOrder]&#xD;&#xA;&#x9;@orderId INT,&#xD;&#xA;&#x9;@boolReturn BIT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_editRoles]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+	SET NOCOUNT ON;
+	UPDATE t_userInfo WITH(ROWLOCK)
+	SET f_roles = @roles, f_sessionId = NULL
+	WHERE f_Id = @userId
+	SELECT @@ROWCOUNT 
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[t_userInfo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_roles]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editRoles].[@roles]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_sessionId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_editRoles].[@userId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editRoles].[@userId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_editRoles].[@roles]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="230" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_editRoles]&#xD;&#xA;&#x9;@userId INT,&#xD;&#xA;&#x9;@roles TINYINT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getAllMemberData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+	SELECT @totalCount = COUNT(f_id) FROM t_member WITH(NOLOCK);
+
+	DECLARE @offset INT
+
+	IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+    BEGIN
+        SET @offset = 0
+    END
+    ELSE
+    BEGIN
+        SET @offset = (@pageNumber - 1) * @pageSize
+    END
+
+	SELECT m.f_id, m.f_account, m.f_pwd, m.f_name, m.f_level, m.f_phoneNumber, m.f_email, m.f_accountStatus, w.f_amount, ts.f_totalSpent
+	FROM t_member m WITH (NOLOCK)
+	LEFT JOIN t_wallet w WITH (NOLOCK) ON w.f_memberId = m.f_id
+	LEFT JOIN t_totalSpent ts WITH (NOLOCK) ON ts.f_memberId = m.f_id
+	ORDER BY m.f_id
+	OFFSET @offset ROWS
+	FETCH NEXT @pageSize ROWS ONLY; 
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllMemberData].[@totalCount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllMemberData].[@beforePagesTotal]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllMemberData].[@pageSize]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllMemberData].[@pageNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_wallet]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_wallet].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_totalSpent]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_totalSpent].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_account]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_pwd]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_level]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_phoneNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_email]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_accountStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_wallet].[f_amount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_totalSpent].[f_totalSpent]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllMemberData].[@pageNumber]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllMemberData].[@pageSize]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllMemberData].[@beforePagesTotal]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllMemberData].[@totalCount]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="843" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getAllMemberData]&#xD;&#xA;&#x9;@pageNumber INT,&#xD;&#xA;    @pageSize INT,&#xD;&#xA;&#x9;@beforePagesTotal INT,&#xD;&#xA;&#x9;@totalCount INT OUTPUT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getAllOrderData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    	SET NOCOUNT ON;
+
+		SELECT @totalCount = COUNT(f_id) FROM t_order WITH(NOLOCK);
+
+		DECLARE @offset INT
+
+		IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+		BEGIN
+			SET @offset = 0
+		END
+		ELSE
+		BEGIN
+			SET @offset = (@pageNumber - 1) * @pageSize
+		END
+
+		SELECT o.f_id, m.f_account, CONVERT(VARCHAR(16), o.f_createdTime, 20) as f_createdTime, o.f_orderStatus, o.f_deliveryStatus, o.f_deliveryMethod, o.f_total
+		FROM t_order o WITH (NOLOCK)
+		LEFT JOIN t_member m WITH (NOLOCK) ON m.f_id = o.f_memberId
+		ORDER BY o.f_id
+		OFFSET @offset ROWS
+		FETCH NEXT @pageSize ROWS ONLY;  
+
+		SELECT
+		COUNT(f_deliveryStatus) AS 'statusAll',
+        SUM(CASE WHEN f_deliveryStatus = 1 THEN 1 ELSE 0 END) AS 'status1',
+        SUM(CASE WHEN f_deliveryStatus = 2 THEN 1 ELSE 0 END) AS 'status2',
+        SUM(CASE WHEN f_deliveryStatus = 3 THEN 1 ELSE 0 END) AS 'status3',
+        SUM(CASE WHEN f_deliveryStatus = 4 THEN 1 ELSE 0 END) AS 'status4',
+        SUM(CASE WHEN f_deliveryStatus = 5 THEN 1 ELSE 0 END) AS 'status5',
+        SUM(CASE WHEN f_deliveryStatus = 6 THEN 1 ELSE 0 END) AS 'status6',
+		SUM(CASE WHEN f_orderStatus = 2 THEN 1 ELSE 0 END) AS 'orderStatus2'
+		FROM t_order WITH (NOLOCK);
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllOrderData].[@totalCount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllOrderData].[@beforePagesTotal]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllOrderData].[@pageSize]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllOrderData].[@pageNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_account]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_createdTime]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_orderStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryMethod]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_total]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_orderStatus]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllOrderData].[@pageNumber]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllOrderData].[@pageSize]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllOrderData].[@beforePagesTotal]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllOrderData].[@totalCount]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="1405" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getAllOrderData]&#xD;&#xA;&#x9;@pageNumber INT,&#xD;&#xA;    @pageSize INT,&#xD;&#xA;&#x9;@beforePagesTotal INT,&#xD;&#xA;&#x9;@totalCount INT OUTPUT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getAllProductData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+	SELECT @totalCount = COUNT(f_id) FROM t_product WITH(NOLOCK);
+
+    DECLARE @offset INT
+
+	IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+    BEGIN
+        SET @offset = 0
+    END
+    ELSE
+    BEGIN
+        SET @offset = (@pageNumber - 1) * @pageSize
+    END
+
+	IF(@languageNum = 0)
+	BEGIN
+		SELECT f_id, f_nameTW AS f_name, f_category, f_price, f_stock, f_isOpen, f_introduceTW AS f_introduce, f_img, f_warningValue
+		FROM t_product WITH(NOLOCK)
+		ORDER BY f_id
+		OFFSET @offset ROWS
+		FETCH NEXT @pageSize ROWS ONLY;
+	END
+	ELSE IF(@languageNum = 1)
+	BEGIN
+		SELECT f_id, f_nameEN AS f_name, f_category, f_price, f_stock, f_isOpen, f_introduceEN AS f_introduce, f_img, f_warningValue
+		FROM t_product WITH(NOLOCK)
+		ORDER BY f_id
+		OFFSET @offset ROWS
+		FETCH NEXT @pageSize ROWS ONLY;
+	END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllProductData].[@totalCount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllProductData].[@beforePagesTotal]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllProductData].[@pageSize]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllProductData].[@pageNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllProductData].[@languageNum]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_isOpen]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_img]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_warningValue]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceEN]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllProductData].[@pageNumber]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllProductData].[@pageSize]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllProductData].[@beforePagesTotal]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllProductData].[@totalCount]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllProductData].[@languageNum]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="1043" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getAllProductData]&#xD;&#xA;&#x9;@pageNumber INT,&#xD;&#xA;    @pageSize INT,&#xD;&#xA;&#x9;@beforePagesTotal INT,&#xD;&#xA;&#x9;@totalCount INT OUTPUT,&#xD;&#xA;&#x9;@languageNum INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getAllUserData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+	SELECT @totalCount = COUNT(f_id) FROM t_userInfo WITH(NOLOCK);
+
+    DECLARE @offset INT
+
+	IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+    BEGIN
+        SET @offset = 0
+    END
+    ELSE
+    BEGIN
+        SET @offset = (@pageNumber - 1) * @pageSize
+    END
+
+	-- 使用 OFFSET FETCH 方法來實現分頁
+	SELECT f_id, f_account, f_roles
+	FROM t_userInfo WITH(NOLOCK)
+	ORDER BY f_id
+	OFFSET @offset ROWS
+	FETCH NEXT @pageSize ROWS ONLY;  --offset 10 rows ，将前10条记录舍去，fetch next 10 rows only ，向后再读取10条数据。
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllUserData].[@totalCount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllUserData].[@beforePagesTotal]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllUserData].[@pageSize]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getAllUserData].[@pageNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_account]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_roles]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllUserData].[@pageNumber]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllUserData].[@pageSize]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllUserData].[@beforePagesTotal]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getAllUserData].[@totalCount]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="713" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getAllUserData]&#xD;&#xA;    @pageNumber INT,&#xD;&#xA;    @pageSize INT,  &#xD;&#xA;&#x9;@beforePagesTotal INT,&#xD;&#xA;&#x9;@totalCount INT OUTPUT  &#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getLowStock]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+	SELECT f_id, f_nameTW, f_nameEN, f_stock, f_isOpen, f_warningValue
+	FROM t_product WITH(NOLOCK)
+	WHERE f_stock <= f_warningValue AND f_isOpen = 1 AND f_warningValue >0;
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_isOpen]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_warningValue]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="255" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getLowStock]&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getOrderData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+	SELECT @totalCount = COUNT(f_id) 
+	FROM t_order WITH(NOLOCK)
+	WHERE f_deliveryStatus = @deliveryStatusNum;
+
+    DECLARE @offset INT
+
+	IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+    BEGIN
+        SET @offset = 0
+    END
+    ELSE
+    BEGIN
+        SET @offset = (@pageNumber - 1) * @pageSize
+    END
+
+    SELECT o.f_id, m.f_account, CONVERT(VARCHAR(16), o.f_createdTime, 20) as f_createdTime, o.f_orderStatus, o.f_deliveryStatus, o.f_deliveryMethod, o.f_total
+	FROM t_order o WITH (NOLOCK)
+	LEFT JOIN t_member m WITH (NOLOCK) ON m.f_id = o.f_memberId
+	WHERE o.f_deliveryStatus = @deliveryStatusNum
+    ORDER BY o.f_id
+    OFFSET @offset ROWS
+    FETCH NEXT @pageSize ROWS ONLY;  
+
+	SELECT
+	COUNT(f_deliveryStatus) AS 'statusAll',
+    SUM(CASE WHEN f_deliveryStatus = 1 THEN 1 ELSE 0 END) AS 'status1',
+    SUM(CASE WHEN f_deliveryStatus = 2 THEN 1 ELSE 0 END) AS 'status2',
+	SUM(CASE WHEN f_deliveryStatus = 3 THEN 1 ELSE 0 END) AS 'status3',
+	SUM(CASE WHEN f_deliveryStatus = 4 THEN 1 ELSE 0 END) AS 'status4',
+	SUM(CASE WHEN f_deliveryStatus = 5 THEN 1 ELSE 0 END) AS 'status5',
+	SUM(CASE WHEN f_deliveryStatus = 6 THEN 1 ELSE 0 END) AS 'status6',
+	SUM(CASE WHEN f_orderStatus = 2 THEN 1 ELSE 0 END) AS 'orderStatus2'
+	FROM t_order WITH (NOLOCK);
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getOrderData].[@totalCount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getOrderData].[@deliveryStatusNum]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getOrderData].[@beforePagesTotal]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getOrderData].[@pageSize]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getOrderData].[@pageNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_account]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_createdTime]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_orderStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryMethod]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_total]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_orderStatus]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getOrderData].[@deliveryStatusNum]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getOrderData].[@pageNumber]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getOrderData].[@pageSize]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getOrderData].[@beforePagesTotal]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getOrderData].[@totalCount]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="1510" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getOrderData]&#xD;&#xA;&#x9;@deliveryStatusNum INT,&#xD;&#xA;&#x9;@pageNumber INT,&#xD;&#xA;    @pageSize INT,&#xD;&#xA;&#x9;@beforePagesTotal INT,&#xD;&#xA;&#x9;@totalCount INT OUTPUT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getOrderDetailsData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+	IF(@languageNum = 0)
+    BEGIN
+        SELECT f_productNameTW AS f_productName, f_productPrice, f_productCategory, f_quantity, f_subtotal
+		FROM t_orderDetails WITH (NOLOCK)
+		WHERE f_orderId = @orderId
+    END
+    ELSE IF(@languageNum = 1)
+    BEGIN
+        SELECT f_productNameEN AS f_productName, f_productPrice, f_productCategory, f_quantity, f_subtotal
+		FROM t_orderDetails WITH (NOLOCK)
+		WHERE f_orderId = @orderId
+    END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[pro_sw_getOrderDetailsData].[@languageNum]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_productNameTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_productPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_productCategory]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_subtotal]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_orderId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getOrderDetailsData].[@orderId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_orderDetails].[f_productNameEN]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getOrderDetailsData].[@orderId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getOrderDetailsData].[@languageNum]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="569" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getOrderDetailsData]&#xD;&#xA;&#x9;@orderId INT,&#xD;&#xA;&#x9;@languageNum INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getProductData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+	SET NOCOUNT ON;
+	SELECT f_id, f_nameTW, f_nameEN, f_category, f_price, f_stock, f_createdUser, CONVERT(VARCHAR(16), f_createdTime, 20) as f_createdTime, f_introduceTW, f_introduceEN, f_img, f_warningValue
+	FROM t_product WITH(NOLOCK) 
+	WHERE f_id = @productId;
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_createdUser]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_createdTime]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceEN]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_img]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_warningValue]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getProductData].[@productId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getProductData].[@productId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="347" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getProductData]&#xD;&#xA;&#x9;@productId INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getPwdAndEditSessionId]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @dbPwd NVARCHAR(64);
+    SELECT @dbPwd = f_pwd FROM t_userInfo WITH(NOLOCK) WHERE f_account = @account COLLATE SQL_Latin1_General_CP1_CS_AS;
+
+    IF (@dbPwd IS NOT NULL AND @dbPwd = @pwd COLLATE SQL_Latin1_General_CP1_CS_AS)
+    BEGIN
+		
+        UPDATE t_userInfo WITH(ROWLOCK) SET f_sessionId = @sessionId WHERE f_account = @account;
+		
+		SELECT @userId = f_id, @roles = f_roles FROM t_userInfo WITH(NOLOCK) WHERE f_account = @account
+
+        SELECT 1; -- 返回登入成功
+    END
+    ELSE
+    BEGIN
+        SELECT 0; -- 返回登入失敗
+    END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_pwd]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_account]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@account]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@pwd]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_sessionId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@sessionId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@userId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@roles]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_roles]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@account]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@pwd]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@sessionId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="24" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@userId]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getPwdAndEditSessionId].[@roles]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="774" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getPwdAndEditSessionId]&#xD;&#xA;    @account VARCHAR(16),&#xD;&#xA;    @pwd VARCHAR(64),&#xD;&#xA;    @sessionId VARCHAR(24),&#xD;&#xA;&#x9;@userId INT OUTPUT,&#xD;&#xA;&#x9;@roles TINYINT OUTPUT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getReturnOrderData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT @totalCount = COUNT(f_id) 
+	FROM t_order WITH(NOLOCK)
+	WHERE f_orderStatus = 2;
+
+    DECLARE @offset INT
+
+	IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+    BEGIN
+        SET @offset = 0
+    END
+    ELSE
+    BEGIN
+        SET @offset = (@pageNumber - 1) * @pageSize
+    END
+
+    -- 使用 OFFSET FETCH 方法來實現分頁
+    SELECT o.f_id, m.f_account, CONVERT(VARCHAR(16), o.f_createdTime, 20) as f_createdTime, o.f_orderStatus, o.f_deliveryStatus, o.f_deliveryMethod, o.f_total
+	FROM t_order o WITH (NOLOCK)
+	LEFT JOIN t_member m WITH (NOLOCK) ON m.f_id = o.f_memberId
+	WHERE o.f_orderStatus = 2
+    ORDER BY o.f_id
+    OFFSET @offset ROWS
+    FETCH NEXT @pageSize ROWS ONLY;  
+
+	SELECT
+	COUNT(f_deliveryStatus) AS 'statusAll',
+    SUM(CASE WHEN f_deliveryStatus = 1 THEN 1 ELSE 0 END) AS 'status1',
+    SUM(CASE WHEN f_deliveryStatus = 2 THEN 1 ELSE 0 END) AS 'status2',
+	SUM(CASE WHEN f_deliveryStatus = 3 THEN 1 ELSE 0 END) AS 'status3',
+	SUM(CASE WHEN f_deliveryStatus = 4 THEN 1 ELSE 0 END) AS 'status4',
+	SUM(CASE WHEN f_deliveryStatus = 5 THEN 1 ELSE 0 END) AS 'status5',
+	SUM(CASE WHEN f_deliveryStatus = 6 THEN 1 ELSE 0 END) AS 'status6',
+	SUM(CASE WHEN f_orderStatus = 2 THEN 1 ELSE 0 END) AS 'orderStatus2'
+	FROM t_order WITH (NOLOCK);
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getReturnOrderData].[@totalCount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_orderStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getReturnOrderData].[@beforePagesTotal]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getReturnOrderData].[@pageSize]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getReturnOrderData].[@pageNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_memberId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_member].[f_account]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_createdTime]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_orderStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryStatus]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryMethod]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_total]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_order].[f_deliveryStatus]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getReturnOrderData].[@pageNumber]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getReturnOrderData].[@pageSize]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getReturnOrderData].[@beforePagesTotal]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getReturnOrderData].[@totalCount]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="1479" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getReturnOrderData]&#xD;&#xA;&#x9;@pageNumber INT,&#xD;&#xA;    @pageSize INT,&#xD;&#xA;&#x9;@beforePagesTotal INT,&#xD;&#xA;&#x9;@totalCount INT OUTPUT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getSearchProductData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @offset INT
+
+	IF(@languageNum = 0)
+    BEGIN
+        IF (@allMinorCategories = 0)
+		BEGIN
+			SELECT @totalCount = COUNT(f_id)
+			FROM t_product WITH(NOLOCK)
+			WHERE (
+					(@allBrand = 0 AND f_category = @category)
+					OR 
+					(@allBrand = 1 AND f_category BETWEEN @category AND (@category / 100) * 100 + 99)
+				  )
+				  AND f_nameTW LIKE '%' + @name + '%';	
+			
+			IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+			BEGIN
+				SET @offset = 0
+			END
+			ELSE
+			BEGIN
+				SET @offset = (@pageNumber - 1) * @pageSize
+			END
+
+			SELECT f_id, f_nameTW AS f_name, f_category, f_price, f_stock, f_isOpen, f_introduceTW AS f_introduce, f_img, f_warningValue
+			FROM t_product WITH(NOLOCK)
+			WHERE (
+					(@allBrand = 0 AND f_category = @category)
+					OR 
+					(@allBrand = 1 AND f_category BETWEEN @category AND (@category / 100) * 100 + 99)
+				  )
+				  AND f_nameTW LIKE '%' + @name + '%'
+			ORDER BY f_id
+			OFFSET @offset ROWS
+			FETCH NEXT @pageSize ROWS ONLY; 
+		END
+		ELSE
+		BEGIN
+			SELECT @totalCount = COUNT(f_id)
+			FROM t_product WITH(NOLOCK)
+			WHERE (
+					(@allBrand = 0 AND f_category BETWEEN @category AND (@category / 10000) * 10000 + 9999 AND f_category % 100 = @category % 100)
+					OR 
+					(@allBrand = 1 AND f_category BETWEEN @category AND (@category / 10000) * 10000 + 9999)
+				  )
+				  AND f_nameTW LIKE '%' + @name + '%';	
+
+			IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+			BEGIN
+				SET @offset = 0
+			END
+			ELSE
+			BEGIN
+				SET @offset = (@pageNumber - 1) * @pageSize
+			END			
+
+			SELECT f_id, f_nameTW AS f_name, f_category, f_price, f_stock, f_isOpen, f_introduceTW AS f_introduce, f_img, f_warningValue
+			FROM t_product WITH(NOLOCK)
+			WHERE (
+					(@allBrand = 0 AND f_category BETWEEN @category AND (@category / 10000) * 10000 + 9999 AND f_category % 100 = @category % 100)
+					OR
+					(@allBrand = 1 AND f_category BETWEEN @category AND (@category / 10000) * 10000 + 9999)
+				  )
+				  AND f_nameTW LIKE '%' + @name + '%'
+			ORDER BY f_id
+			OFFSET @offset ROWS
+			FETCH NEXT @pageSize ROWS ONLY; 
+		END
+    END
+    ELSE IF(@languageNum = 1)
+    BEGIN
+        IF (@allMinorCategories = 0)
+		BEGIN
+			SELECT @totalCount = COUNT(f_id)
+			FROM t_product WITH(NOLOCK)
+			WHERE (
+					(@allBrand = 0 AND f_category = @category)
+					OR 
+					(@allBrand = 1 AND f_category BETWEEN @category AND (@category / 100) * 100 + 99)
+				  )
+				  AND f_nameEN LIKE '%' + @name + '%';	
+			
+			IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+			BEGIN
+				SET @offset = 0
+			END
+			ELSE
+			BEGIN
+				SET @offset = (@pageNumber - 1) * @pageSize
+			END
+
+			SELECT f_id, f_nameEN AS f_name, f_category, f_price, f_stock, f_isOpen, f_introduceEN AS f_introduce, f_img, f_warningValue
+			FROM t_product WITH(NOLOCK)
+			WHERE (
+					(@allBrand = 0 AND f_category = @category)
+					OR 
+					(@allBrand = 1 AND f_category BETWEEN @category AND (@category / 100) * 100 + 99)
+				  )
+				  AND f_nameEN LIKE '%' + @name + '%'
+			ORDER BY f_id
+			OFFSET @offset ROWS
+			FETCH NEXT @pageSize ROWS ONLY; 
+		END
+		ELSE
+		BEGIN
+			SELECT @totalCount = COUNT(f_id)
+			FROM t_product WITH(NOLOCK)
+			WHERE (
+					(@allBrand = 0 AND f_category BETWEEN @category AND (@category / 10000) * 10000 + 9999 AND f_category % 100 = @category % 100)
+					OR 
+					(@allBrand = 1 AND f_category BETWEEN @category AND (@category / 10000) * 10000 + 9999)
+				  )
+				  AND f_nameEN LIKE '%' + @name + '%';	
+			
+			IF (@beforePagesTotal != CEILING(CAST(@totalCount as float) / @pageSize))
+			BEGIN
+				SET @offset = 0
+			END
+			ELSE
+			BEGIN
+				SET @offset = (@pageNumber - 1) * @pageSize
+			END
+
+			SELECT f_id, f_nameEN AS f_name, f_category, f_price, f_stock, f_isOpen, f_introduceEN AS f_introduce, f_img, f_warningValue
+			FROM t_product WITH(NOLOCK)
+			WHERE (
+					(@allBrand = 0 AND f_category BETWEEN @category AND (@category / 10000) * 10000 + 9999 AND f_category % 100 = @category % 100)
+					OR
+					(@allBrand = 1 AND f_category BETWEEN @category AND (@category / 10000) * 10000 + 9999)
+				  )
+				  AND f_nameEN LIKE '%' + @name + '%'
+			ORDER BY f_id
+			OFFSET @offset ROWS
+			FETCH NEXT @pageSize ROWS ONLY; 
+		END
+    END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSearchProductData].[@languageNum]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSearchProductData].[@allMinorCategories]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSearchProductData].[@totalCount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSearchProductData].[@allBrand]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSearchProductData].[@category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSearchProductData].[@name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSearchProductData].[@beforePagesTotal]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSearchProductData].[@pageSize]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSearchProductData].[@pageNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_stock]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_isOpen]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceTW]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_img]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_warningValue]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_nameEN]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_product].[f_introduceEN]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[float]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSearchProductData].[@category]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSearchProductData].[@name]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSearchProductData].[@allMinorCategories]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSearchProductData].[@allBrand]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSearchProductData].[@pageNumber]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSearchProductData].[@pageSize]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSearchProductData].[@beforePagesTotal]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSearchProductData].[@totalCount]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSearchProductData].[@languageNum]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="4643" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getSearchProductData]&#xD;&#xA;&#x9;@category INT,&#xD;&#xA;&#x9;@name NVARCHAR(100),&#xD;&#xA;&#x9;@allMinorCategories BIT,&#xD;&#xA;&#x9;@allBrand BIT,&#xD;&#xA;&#x9;@pageNumber INT,&#xD;&#xA;    @pageSize INT,&#xD;&#xA;&#x9;@beforePagesTotal INT,&#xD;&#xA;&#x9;@totalCount INT OUTPUT,&#xD;&#xA;&#x9;@languageNum INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getSessionId]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	DECLARE @dbSessionId VARCHAR(24);
+
+    SET NOCOUNT ON;
+    SELECT @dbSessionId = f_sessionId 
+	FROM t_userInfo WITH(NOLOCK) 
+	WHERE f_id = @userId
+
+	IF (@dbSessionId IS NOT NULL AND @sessionId != @dbSessionId)
+    BEGIN		
+        SELECT 0; -- 返回登入失敗
+    END
+    ELSE
+    BEGIN
+		SELECT 1; -- 返回登入成功
+    END
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_sessionId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSessionId].[@userId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getSessionId].[@sessionId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSessionId].[@userId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getSessionId].[@sessionId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="24" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="423" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[pro_sw_getSessionId]&#xD;&#xA;&#x9;@userId INT,&#xD;&#xA;&#x9;@sessionId VARCHAR(24)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[pro_sw_getUserData]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+
+	SET NOCOUNT ON;
+	SELECT f_id, f_account, f_roles FROM t_userInfo WITH(NOLOCK) WHERE f_id = @userId
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[t_userInfo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_account]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[t_userInfo].[f_roles]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[pro_sw_getUserData].[@userId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[pro_sw_getUserData].[@userId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="169" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE pro_sw_getUserData&#xD;&#xA;&#x9;@userId INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[t_member]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_id]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_account]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_pwd]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_name]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="15" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_birthday]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_level]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="9" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_phoneNumber]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_email]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_address]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_accountStatus]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="7" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_member].[f_createdTime]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="8" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="17" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[t_order]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_id]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_serialNumber]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="24" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_memberId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_total]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_orderStatus]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="12" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_deliveryStatus]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="11" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_deliveryMethod]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_destination]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_arrivalDate]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_order].[f_createdTime]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="10" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="18" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[t_orderDetails]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_orderDetails].[f_id]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_orderDetails].[f_orderId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_orderDetails].[f_productId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_orderDetails].[f_productNameTW]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_orderDetails].[f_productNameEN]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_orderDetails].[f_productPrice]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_orderDetails].[f_productCategory]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_orderDetails].[f_quantity]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_orderDetails].[f_subtotal]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="19" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[t_product]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_id]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_nameTW]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_nameEN]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_category]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_img]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_price]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_stock]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_isOpen]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_introduceTW]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="500" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_introduceEN]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="500" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_warningValue]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_createdTime]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="13" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_product].[f_createdUser]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="20" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[t_totalSpent]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_totalSpent].[f_memberId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_totalSpent].[f_totalSpent]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="14" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="21" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[t_userInfo]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_userInfo].[f_id]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_userInfo].[f_account]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_userInfo].[f_pwd]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_userInfo].[f_roles]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_userInfo].[f_sessionId]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="24" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="22" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[t_wallet]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_wallet].[f_memberId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_wallet].[f_amount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="15" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="23" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[t_walletChanges]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_walletChanges].[f_id]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_walletChanges].[f_memberId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_walletChanges].[f_previousAmount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_walletChanges].[f_finalAmount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_walletChanges].[f_changeAmount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[t_walletChanges].[f_createdTime]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="16" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="24" />
+		</Element>
+		<Element Type="SqlLogin" Name="[SH_USER]">
+			<Property Name="Password" Value="nb.fld!+yy{vosaEtszrbYqcmsFT7_&amp;#$!~&lt;sg|oorjVcZrz" />
+			<Property Name="DefaultDatabase" Value="ShoppingWeb" />
+			<Property Name="DefaultLanguage" Value="简体中文" />
+			<Property Name="Sid" Value="0x07D56BA1BC8CF140BBC6C97BD19C0582" />
+			<Property Name="IsCheckExpirationOn" Value="True" />
+			<Annotation Type="GloballyScoped" />
+		</Element>
+		<Element Type="SqlUser" Name="[SH_USER]" Disambiguator="6">
+			<Property Name="LoginIdentifierScript">
+				<Value><![CDATA[[SH_USER]]]></Value>
+			</Property>
+			<Property Name="AuthenticationType" Value="1" />
+			<Relationship Name="Login">
+				<Entry>
+					<References Name="[SH_USER]" />
+				</Entry>
+			</Relationship>
+		</Element>
+	</Model>
+</DataSchemaModel>

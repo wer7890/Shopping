@@ -1,0 +1,52 @@
+2024-07-03 14:14:24.6563 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:15:52.4776 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:18:39.2052 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:18:52.3786 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:19:17.8652 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:19:32.4419 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:20:20.4716 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:20:46.6458 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:24:41.1084 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:25:01.0344 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:25:19.5893 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:26:41.2527 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
+2024-07-03 14:27:14.2919 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Controller.LoginController.LoginUser 行號: 75 
+
