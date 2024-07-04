@@ -206,7 +206,7 @@ namespace ShoppingWebTest.ControllerTest
 
 
         /// <summary>
-        /// AddUser帳號特殊符號判斷
+        /// AddUser密碼特殊符號判斷
         /// </summary>
         /// <param name="account"></param>
         /// <param name="res"></param>
