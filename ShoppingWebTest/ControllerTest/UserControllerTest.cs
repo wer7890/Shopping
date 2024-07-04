@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShoppingWeb.Repository;
+using ShoppingWeb.Controller;
 using ShoppingWeb;
 using System;
 using Moq;
@@ -9,6 +10,7 @@ namespace ShoppingWebTest.ControllerTest
     [TestClass]
     public class UserControllerTest
     {
+
         /// <summary>
         /// 新增管理員成功
         /// </summary>
