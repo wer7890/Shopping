@@ -43,13 +43,13 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                //if (Regex.IsMatch(dto.Account, @"^[A-Za-z0-9]{6,16}$") || Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$") || dto.Roles >= 1 && dto.Roles <= 3)
-                //{
-                //    return new BaseResponse
-                //    {
-                //        Status = ActionResult.InputError
-                //    };
-                //}
+                if (!Regex.IsMatch(dto.Account, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$") || !(dto.Roles >= 1 && dto.Roles <= 3))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
 
                 (Exception exc, int? result) = this.UserRepo.AddUser(dto);
 

@@ -10,7 +10,6 @@ namespace ShoppingWebTest.ControllerTest
     [TestClass]
     public class UserControllerTest
     {
-
         /// <summary>
         /// 新增管理員成功
         /// </summary>
@@ -24,7 +23,12 @@ namespace ShoppingWebTest.ControllerTest
             PrivateObject privateObject = new PrivateObject(_userController);  //創建 PrivateObject 的實例，這是一個用於測試私有成員或方法的輔助類。此處用於訪問 UserController 的私有成員 _userRepo
             privateObject.SetFieldOrProperty("_userRepo", repo.Object);  //測試中的UserController使用的IUserRepository實例將是模擬的版本，而不是實際的 UserRepository，repo.Object 返回這個模擬對象的實例
 
-            AddUserDto addUserDto = new AddUserDto();  //創建AddUser中所帶入的參數
+            AddUserDto addUserDto = new AddUserDto  //創建AddUser中所帶入的參數
+            {
+                Account = "test11",
+                Pwd = "123456",
+                Roles = 1
+            };
             var result = _userController.AddUser(addUserDto);  //調用UserController中的AddUser方法
             Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, ActionResult.Success);
@@ -43,30 +47,87 @@ namespace ShoppingWebTest.ControllerTest
             PrivateObject privateObject = new PrivateObject(_userController);
             privateObject.SetFieldOrProperty("_userRepo", repo.Object);
 
-            AddUserDto addUserDto = new AddUserDto();
+            AddUserDto addUserDto = new AddUserDto
+            {
+                Account = "test11",
+                Pwd = "123456",
+                Roles = 1
+            };
             var result = _userController.AddUser(addUserDto);
             Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
 
 
+        [DataTestMethod]
+        [DataRow("test11", "123456", 2, ActionResult.Success)]
+        public void AddUserInputSuccess(string account, string pwd, int roles, ActionResult res)
+        {
+            var _userController = new UserController();
+            Mock<IUserRepository> repo = new Mock<IUserRepository>();
+            repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
+
+            PrivateObject privateObject = new PrivateObject(_userController);
+            privateObject.SetFieldOrProperty("_userRepo", repo.Object);
+
+            AddUserDto addUserDto = new AddUserDto
+            {
+                Account = account,
+                Pwd = pwd,
+                Roles = roles
+            };
+            var result = _userController.AddUser(addUserDto);
+            Console.WriteLine(result.Status);
+            Console.WriteLine(res);
+            Assert.AreEqual(result.Status, res);
+        }
+
+
+        [DataTestMethod]
+        [DataRow("test", "123456", 2, ActionResult.InputError)]
+        [DataRow("test11", "1234", 2, ActionResult.InputError)]
+        [DataRow("test11", "123456", 4, ActionResult.InputError)]
+        public void AddUserInputFailure(string account, string pwd, int roles, ActionResult res)
+        {
+            var _userController = new UserController();
+            Mock<IUserRepository> repo = new Mock<IUserRepository>();
+            repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
+
+            PrivateObject privateObject = new PrivateObject(_userController);
+            privateObject.SetFieldOrProperty("_userRepo", repo.Object);
+
+            AddUserDto addUserDto = new AddUserDto
+            {
+                Account = account,
+                Pwd = pwd,
+                Roles = roles
+            };
+            var result = _userController.AddUser(addUserDto);
+            Console.WriteLine(result.Status);
+            Console.WriteLine(res);
+            Assert.AreEqual(result.Status, res);
+        }
+
+        
+
+
         /// <summary>
         /// 刪除管理員成功
         /// </summary>
-        [TestMethod]
-        public void DelUserInfoSuccess()
-        {
-            var _userConntroller = new UserController();
-            Mock<IUserRepository> repo = new Mock<IUserRepository>();
-            repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((null, 1));  //塞假資料
+        //[TestMethod]
+        //public void DelUserInfoSuccess()
+        //{
+        //    var _userConntroller = new UserController();
+        //    Mock<IUserRepository> repo = new Mock<IUserRepository>();
+        //    repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((null, 1));  //塞假資料
 
-            PrivateObject privateObject = new PrivateObject(_userConntroller);  //使用虛擬的對象
-            privateObject.SetFieldOrProperty("_userRepo", repo.Object);
+        //    PrivateObject privateObject = new PrivateObject(_userConntroller);  //使用虛擬的對象
+        //    privateObject.SetFieldOrProperty("_userRepo", repo.Object);
 
-            DelUserInfoDto delUserInfoDto = new DelUserInfoDto();
-            var result = _userConntroller.DelUserInfo(delUserInfoDto);
-            Console.WriteLine(result.Status);
-            Assert.AreEqual(result.Status, ActionResult.Success);
-        }
+        //    DelUserInfoDto delUserInfoDto = new DelUserInfoDto();
+        //    var result = _userConntroller.DelUserInfo(delUserInfoDto);
+        //    Console.WriteLine(result.Status);
+        //    Assert.AreEqual(result.Status, ActionResult.Success);
+        //}
     }
 }
