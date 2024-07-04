@@ -22,6 +22,47 @@ namespace ShoppingWebTest.ControllerTest
             _privateObject = new PrivateObject(_userController);
         }
 
+        /// <summary>
+        /// 帳號資料
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<object[]> UserAccountData()
+        {
+            for (int i = 1; i <= 20; i++)
+            {
+                string account = new string('a', i);
+                ActionResult expected = (i >= 6 && i <= 16) ? ActionResult.Success : ActionResult.InputError;
+                yield return new object[] { account, expected };
+            }
+        }
+
+        /// <summary>
+        /// 密碼資料
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<object[]> UserPwdData()
+        {
+            for (int i = 1; i <= 20; i++)
+            {
+                string pwd = new string('a', i);
+                ActionResult expected = (i >= 6 && i <= 16) ? ActionResult.Success : ActionResult.InputError;
+                yield return new object[] { pwd, expected };
+            }
+        }
+
+        /// <summary>
+        /// 身分資料
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<object[]> UserRolesData()
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                int roles = i;
+                ActionResult expected = (i >= 1 && i <= 3) ? ActionResult.Success : ActionResult.InputError;
+                yield return new object[] { roles, expected };
+            }
+        }
 
         /// <summary>
         /// 新增管理員成功
@@ -68,37 +109,82 @@ namespace ShoppingWebTest.ControllerTest
 
 
         /// <summary>
-        /// 帳號資料
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<object[]> GenerateUserAccountData()
-        {
-            for (int i = 1; i <= 20; i++)
-            {
-                string account = new string('a', i);
-                ActionResult expected = (i >= 6 && i <= 16) ? ActionResult.Success : ActionResult.InputError;
-                yield return new object[] { new AddUserDto { Account = account, Pwd = "123456", Roles = 1 }, expected };
-            }
-        }
-
-        /// <summary>
         /// 帳號參數判斷
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="expected"></param>
         [DataTestMethod]
-        [DynamicData(nameof(GenerateUserAccountData), DynamicDataSourceType.Method)]  //DynamicData用來指定測試方法所需的測試數據將動態生成。GenerateUserAccountData 方法生成一組測試數據，這些數據將傳遞給測試方法 
-        public void AddUserAccountInput(AddUserDto dto, ActionResult expected)
+        [DynamicData(nameof(UserAccountData), DynamicDataSourceType.Method)]  //DynamicData用來指定測試方法所需的測試數據將動態生成。GenerateUserAccountData 方法生成一組測試數據，這些數據將傳遞給測試方法 
+        public void AddUserAccountInput(string account, ActionResult expected)
         {
             _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
-        
-            var result = _userController.AddUser(dto);
+
+            AddUserDto addUserDto = new AddUserDto
+            {
+                Account = account,
+                Pwd = "123456",
+                Roles = 1
+            };
+            var result = _userController.AddUser(addUserDto);
+
+            Console.WriteLine(account);
             Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, expected);
         }
 
+        /// <summary>
+        /// 密碼參數判斷
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(UserPwdData), DynamicDataSourceType.Method)]
+        public void AddUserPwdInput(string pwd, ActionResult expected)
+        {
+            _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            AddUserDto addUserDto = new AddUserDto
+            {
+                Account = "test11",
+                Pwd = pwd,
+                Roles = 1
+            };
+            var result = _userController.AddUser(addUserDto);
+
+            Console.WriteLine(pwd);
+            Console.WriteLine(result.Status);
+            Assert.AreEqual(result.Status, expected);
+        }
+
+        /// <summary>
+        /// 身分參數判斷
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(UserRolesData), DynamicDataSourceType.Method)]
+        public void AddUserRolesInput(int roles, ActionResult expected)
+        {
+            _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            AddUserDto addUserDto = new AddUserDto
+            {
+                Account = "test11",
+                Pwd = "123456",
+                Roles = roles
+            };
+            var result = _userController.AddUser(addUserDto);
+
+            Console.WriteLine(roles);
+            Console.WriteLine(result.Status);
+            Assert.AreEqual(result.Status, expected);
+        }
 
 
 
