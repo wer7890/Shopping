@@ -85,6 +85,14 @@ namespace ShoppingWeb.Controller
         {
             try
             {
+                if (!(dto.UserId >= 1 && dto.UserId <= int.MaxValue))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
                 (Exception exc, int? result) = this.UserRepo.DelUserInfo(dto);
 
                 if (exc != null)

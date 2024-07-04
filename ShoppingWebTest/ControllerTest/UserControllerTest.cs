@@ -56,7 +56,7 @@ namespace ShoppingWebTest.ControllerTest
         /// <returns></returns>
         public static IEnumerable<object[]> UserRolesData()
         {
-            for (int i = 1; i <= 10; i++)
+            for (int i = -10; i <= 10; i++)
             {
                 int roles = i;
                 ActionResult expected = (i >= 1 && i <= 3) ? ActionResult.Success : ActionResult.InputError;
@@ -65,7 +65,23 @@ namespace ShoppingWebTest.ControllerTest
         }
 
         /// <summary>
-        /// 新增管理員成功
+        /// ID資料
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<object[]> UserIdData()
+        {
+            for (int i = -10; i <= 10; i++)
+            {
+                int id = i;
+                ActionResult expected = (i >= 1 && i <= int.MaxValue) ? ActionResult.Success : ActionResult.InputError;
+                yield return new object[] { id, expected };
+            }
+        }
+
+
+
+        /// <summary>
+        /// AddUser成功
         /// </summary>
         [TestMethod]
         public void AddUserSuccess()
@@ -87,7 +103,7 @@ namespace ShoppingWebTest.ControllerTest
 
 
         /// <summary>
-        /// 新增管理員失敗
+        /// AddUser失敗
         /// </summary>
         [TestMethod]
         public void AddUserFailure()
@@ -109,13 +125,13 @@ namespace ShoppingWebTest.ControllerTest
 
 
         /// <summary>
-        /// 帳號參數判斷
+        /// AddUser帳號長度判斷
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="account"></param>
         /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(UserAccountData), DynamicDataSourceType.Method)]  //DynamicData用來指定測試方法所需的測試數據將動態生成。GenerateUserAccountData 方法生成一組測試數據，這些數據將傳遞給測試方法 
-        public void AddUserAccountInput(string account, ActionResult expected)
+        public void AddUserAccountLength(string account, ActionResult expected)
         {
             _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
 
@@ -134,14 +150,42 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, expected);
         }
 
+
         /// <summary>
-        /// 密碼參數判斷
+        /// AddUser帳號特殊符號判斷
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="account"></param>
+        /// <param name="res"></param>
+        [DataTestMethod]
+        [DataRow("test11", ActionResult.Success)]
+        [DataRow("test11-", ActionResult.InputError)]
+        public void AddUserAccountSpecial(string account, ActionResult res)
+        {
+            _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            AddUserDto addUserDto = new AddUserDto
+            {
+                Account = account,
+                Pwd = "123456",
+                Roles = 1
+            };
+            var result = _userController.AddUser(addUserDto);
+            Console.WriteLine(account);
+
+            Assert.AreEqual(result.Status, res);
+        }
+
+
+        /// <summary>
+        /// AddUser密碼長度判斷
+        /// </summary>
+        /// <param name="pwd"></param>
         /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(UserPwdData), DynamicDataSourceType.Method)]
-        public void AddUserPwdInput(string pwd, ActionResult expected)
+        public void AddUserPwdLength(string pwd, ActionResult expected)
         {
             _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
 
@@ -160,14 +204,42 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, expected);
         }
 
+
         /// <summary>
-        /// 身分參數判斷
+        /// AddUser帳號特殊符號判斷
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="res"></param>
+        [DataTestMethod]
+        [DataRow("123456", ActionResult.Success)]
+        [DataRow("123456+", ActionResult.InputError)]
+        public void AddUserPwdSpecial(string pwd, ActionResult res)
+        {
+            _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            AddUserDto addUserDto = new AddUserDto
+            {
+                Account = "test11",
+                Pwd = pwd,
+                Roles = 1
+            };
+            var result = _userController.AddUser(addUserDto);
+            Console.WriteLine(pwd);
+
+            Assert.AreEqual(result.Status, res);
+        }
+
+
+        /// <summary>
+        /// AddUser身分判斷
         /// </summary>
         /// <param name="roles"></param>
         /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(UserRolesData), DynamicDataSourceType.Method)]
-        public void AddUserRolesInput(int roles, ActionResult expected)
+        public void AddUserRolesRange(int roles, ActionResult expected)
         {
             _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
 
@@ -188,42 +260,76 @@ namespace ShoppingWebTest.ControllerTest
 
 
 
+        /// <summary>
+        /// DelUserInfo成功
+        /// </summary>
+        [TestMethod]
+        public void DelUserInfoSuccess()
+        {
+            _repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((null, 1));
 
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
+            DelUserInfoDto delUserInfoDto = new DelUserInfoDto
+            {
+                UserId = 1
+            };
+            var result = _userController.DelUserInfo(delUserInfoDto);
 
-
-
+            Assert.AreEqual(result.Status, ActionResult.Success);
+        }
 
 
         /// <summary>
-        /// AddUser參數判斷失敗
+        /// DelUserInfo失敗
         /// </summary>
-        /// <param name="account"></param>
-        /// <param name="pwd"></param>
-        /// <param name="roles"></param>
+        [TestMethod]
+        public void DelUserInfoFailure()
+        {
+            _repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((null, 0));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            DelUserInfoDto delUserInfoDto = new DelUserInfoDto
+            {
+                UserId = 1
+            };
+            var result = _userController.DelUserInfo(delUserInfoDto);
+
+            Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+
+        /// <summary>
+        /// DelUserInfo id判斷
+        /// </summary>
+        /// <param name="id"></param>
         /// <param name="res"></param>
-        //[DataTestMethod]
-        //[DataRow("test", "123456", 2, ActionResult.InputError)]  //最後的參數為預期的結果
-        //[DataRow("test11", "1234", 2, ActionResult.InputError)]
-        //[DataRow("test11", "123456", 4, ActionResult.InputError)]
-        //public void AddUserInputFailure(string account, string pwd, int roles, ActionResult res)
-        //{
-        //    _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
+        [DataTestMethod]
+        [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
+        public void DelUserInfoIdInput(int id, ActionResult expected)
+        {
+            _repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((null, 1));
 
-        //    _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
-        //    AddUserDto addUserDto = new AddUserDto
-        //    {
-        //        Account = account,
-        //        Pwd = pwd,
-        //        Roles = roles
-        //    };
-        //    var result = _userController.AddUser(addUserDto);
-        //    Console.WriteLine(result.Status);
-        //    Console.WriteLine(res);
-        //    Assert.AreEqual(result.Status, res);
-        //}
+            DelUserInfoDto delUserInfoDto = new DelUserInfoDto
+            {
+                UserId = id
+            };
+            var result = _userController.DelUserInfo(delUserInfoDto);
+            Console.WriteLine(id);
+            Console.WriteLine(result.Status);
 
+            Assert.AreEqual(result.Status, expected);
+        }
+
+
+
+
+
+
+       
 
 
 
@@ -247,8 +353,6 @@ namespace ShoppingWebTest.ControllerTest
         //    Console.WriteLine(result.Status);
         //    Assert.AreEqual(result.Status, ActionResult.Success);
         //}
-
-
 
 
         /// <summary>
