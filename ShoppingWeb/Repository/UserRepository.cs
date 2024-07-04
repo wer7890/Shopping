@@ -22,7 +22,13 @@ namespace ShoppingWeb.Repository
             return sb.ToString();
         }
 
-
+        /// <summary>
+        /// 新增管理員，會先判斷使用者名稱是否存在
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="pwd"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
         public (Exception, int?) AddUser(AddUserDto dto)
         {
             try
@@ -36,6 +42,33 @@ namespace ShoppingWeb.Repository
                         cmd.Parameters.Add(new SqlParameter("@account", dto.Account));
                         cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(dto.Pwd)));
                         cmd.Parameters.Add(new SqlParameter("@roles", dto.Roles));
+
+                        return (null, (int)cmd.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex, null);
+            }
+        }
+
+        /// <summary>
+        /// 刪除管理員
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public (Exception, int?) DelUserInfo(DelUserInfoDto dto)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_delUserData", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@userId", dto.UserId));
 
                         return (null, (int)cmd.ExecuteScalar());
                     }
