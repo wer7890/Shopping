@@ -22,7 +22,7 @@
                                 <option v-for="role in rolesArray" :key="role.value" :value="role.value" v-text="role.name"></option>
                             </select>
                         </td>
-                        <td><button @click="SetEditUser(data.Id)" class="btn btn-primary">${langFont['edit']}</button></td>
+                        <td><button @click="SetEditUser(data.Id, data.Account, data.Roles)" class="btn btn-primary">${langFont['edit']}</button></td>
                         <td><button @click="DeleteUser(data.Id)" class="btn btn-danger">${langFont['del']}</button></td>
                     </template>
                  </table-component>
@@ -218,7 +218,7 @@
         },
 
         //跳轉更改管理員組件
-        SetEditUser: function (userId) {
+        SetEditUser: function (userId, account, roles) {
             if (!userId) {
                 this.message = langFont["inputError"];
                 return;
