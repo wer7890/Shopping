@@ -117,6 +117,48 @@ namespace ShoppingWeb.Controller
         }
 
 
+        /// <summary>
+        /// 更改密碼
+        /// </summary>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("EditUser")]
+        public BaseResponse EditUser([FromBody] EditUserDto dto)
+        {
+            try
+            {
+                if (!Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$"))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? result) = this.UserRepo.EditUser(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
+
 
 
 
@@ -373,41 +415,41 @@ namespace ShoppingWeb.Controller
         /// </summary>
         /// <param name="pwd"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("EditUser")]
-        public BaseResponse EditUser([FromBody] EditUserDto dto)
-        {
-            try
-            {
-                string sessionUserId = HttpContext.Current.Session["selectUserId"].ToString();
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_editPwd", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
+        //[HttpPost]
+        //[Route("EditUser")]
+        //public BaseResponse EditUser([FromBody] EditUserDto dto)
+        //{
+        //    try
+        //    {
+        //        string sessionUserId = HttpContext.Current.Session["selectUserId"].ToString();
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_editPwd", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
 
-                        cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(dto.Pwd)));
+        //                cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
+        //                cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(dto.Pwd)));
 
-                        int rowsAffected = (int)cmd.ExecuteScalar();
+        //                int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return new BaseResponse
-                        {
-                            Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
-                        };
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-        }
+        //                return new BaseResponse
+        //                {
+        //                    Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
+        //                };
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
+        //    }
+        //}
     }
 }

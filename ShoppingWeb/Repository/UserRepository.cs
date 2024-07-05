@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 
 namespace ShoppingWeb.Repository
 {
@@ -25,9 +26,7 @@ namespace ShoppingWeb.Repository
         /// <summary>
         /// 新增管理員，會先判斷使用者名稱是否存在
         /// </summary>
-        /// <param name="account"></param>
-        /// <param name="pwd"></param>
-        /// <param name="roles"></param>
+        /// <param name="dto"></param>
         /// <returns></returns>
         public (Exception, int?) AddUser(AddUserDto dto)
         {
@@ -56,7 +55,7 @@ namespace ShoppingWeb.Repository
         /// <summary>
         /// 刪除管理員
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="dto"></param>
         /// <returns></returns>
         public (Exception, int?) DelUserInfo(DelUserInfoDto dto)
         {
@@ -79,5 +78,36 @@ namespace ShoppingWeb.Repository
                 return (ex, null);
             }
         }
+
+        /// <summary>
+        /// 更改密碼
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public (Exception, int?) EditUser(EditUserDto dto)
+        {
+            try
+            {
+                string sessionUserId = HttpContext.Current.Session["selectUserId"].ToString();
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_editPwd", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+
+                        cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
+                        cmd.Parameters.Add(new SqlParameter("@pwd", GetSHA256HashFromString(dto.Pwd)));
+                     
+                        return (null, (int)cmd.ExecuteScalar());                      
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex, null);
+            }
+        }
+    
     }
 }

@@ -325,11 +325,91 @@ namespace ShoppingWebTest.ControllerTest
         }
 
 
+        /// <summary>
+        /// EditUser成功
+        /// </summary>
+        [TestMethod]
+        public void EditUserSuccess()
+        {
+            _repo.Setup(x => x.EditUser(It.IsAny<EditUserDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditUserDto editUserDto = new EditUserDto
+            {
+                Pwd = "123456"
+            };
+            var result = _userController.EditUser(editUserDto);
+
+            Assert.AreEqual(result.Status, ActionResult.Success);
+        }
+
+        /// <summary>
+        /// EditUser失敗
+        /// </summary>
+        [TestMethod]
+        public void EditUserFailure()
+        {
+            _repo.Setup(x => x.EditUser(It.IsAny<EditUserDto>())).Returns((null, 0));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditUserDto editUserDto = new EditUserDto
+            {
+                Pwd = "123456"
+            };
+            var result = _userController.EditUser(editUserDto);
+
+            Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+
+        /// <summary>
+        /// EditUser密碼長度判斷
+        /// </summary>
+        /// <param name="pwd"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(UserPwdData), DynamicDataSourceType.Method)]
+        public void EditUserPwdLength(string pwd, ActionResult expected)
+        {
+            _repo.Setup(x => x.EditUser(It.IsAny<EditUserDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditUserDto editUserDto = new EditUserDto
+            {
+                Pwd = pwd
+            };
+            var result = _userController.EditUser(editUserDto);
+            Assert.AreEqual(result.Status, expected);
+        }
+
+
+        /// <summary>
+        /// EditUser密碼特殊符號判斷
+        /// </summary>
+        /// <param name="pwd"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DataRow("123456", ActionResult.Success)]
+        [DataRow("123456+", ActionResult.InputError)]
+        public void EditUserPwdSpecial(string pwd, ActionResult expected)
+        {
+            _repo.Setup(x => x.EditUser(It.IsAny<EditUserDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditUserDto editUserDto = new EditUserDto
+            {
+                Pwd = pwd
+            };
+            var result = _userController.EditUser(editUserDto);
+            Assert.AreEqual(result.Status, expected);
+        }
 
 
 
-
-       
 
 
 
