@@ -101,7 +101,6 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
-
         /// <summary>
         /// AddUser失敗
         /// </summary>
@@ -122,7 +121,6 @@ namespace ShoppingWebTest.ControllerTest
             Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
-
 
         /// <summary>
         /// AddUser帳號長度判斷
@@ -150,7 +148,6 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, expected);
         }
 
-
         /// <summary>
         /// AddUser帳號特殊符號判斷
         /// </summary>
@@ -176,7 +173,6 @@ namespace ShoppingWebTest.ControllerTest
 
             Assert.AreEqual(result.Status, res);
         }
-
 
         /// <summary>
         /// AddUser密碼長度判斷
@@ -204,7 +200,6 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, expected);
         }
 
-
         /// <summary>
         /// AddUser密碼特殊符號判斷
         /// </summary>
@@ -230,7 +225,6 @@ namespace ShoppingWebTest.ControllerTest
 
             Assert.AreEqual(result.Status, res);
         }
-
 
         /// <summary>
         /// AddUser身分判斷
@@ -279,7 +273,6 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
-
         /// <summary>
         /// DelUserInfo失敗
         /// </summary>
@@ -298,7 +291,6 @@ namespace ShoppingWebTest.ControllerTest
 
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
-
 
         /// <summary>
         /// DelUserInfo id判斷
@@ -323,6 +315,7 @@ namespace ShoppingWebTest.ControllerTest
 
             Assert.AreEqual(result.Status, expected);
         }
+
 
 
         /// <summary>
@@ -363,7 +356,6 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
 
-
         /// <summary>
         /// EditUser密碼長度判斷
         /// </summary>
@@ -384,7 +376,6 @@ namespace ShoppingWebTest.ControllerTest
             var result = _userController.EditUser(editUserDto);
             Assert.AreEqual(result.Status, expected);
         }
-
 
         /// <summary>
         /// EditUser密碼特殊符號判斷
@@ -430,7 +421,6 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
-
         /// <summary>
         /// EditUserRoles失敗
         /// </summary>
@@ -450,8 +440,6 @@ namespace ShoppingWebTest.ControllerTest
 
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
-
-
 
         /// <summary>
         /// EditUserRoles ID判斷
@@ -474,8 +462,6 @@ namespace ShoppingWebTest.ControllerTest
             var result = _userController.EditUserRoles(editRolesDto);
             Assert.AreEqual(result.Status, expected);
         }
-
-
 
         /// <summary>
         /// EditUserRoles身分判斷
@@ -500,6 +486,65 @@ namespace ShoppingWebTest.ControllerTest
         }
 
 
+
+        /// <summary>
+        /// SetSessionSelectUserId成功
+        /// </summary>
+        [TestMethod]
+        public void SetSessionSelectUserIdSuccess()
+        {
+            _repo.Setup(x => x.SetSessionSelectUserId(It.IsAny<SetSessionSelectUserIdDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            SetSessionSelectUserIdDto setSessionSelectUserIdDto = new SetSessionSelectUserIdDto
+            {
+                UserId = 1,
+            };
+            var result = _userController.SetSessionSelectUserId(setSessionSelectUserIdDto);
+
+            Assert.AreEqual(result.Status, ActionResult.Success);
+        }
+
+        /// <summary>
+        /// SetSessionSelectUserId失敗
+        /// </summary>
+        [TestMethod]
+        public void SetSessionSelectUserIdFailure()
+        {
+            _repo.Setup(x => x.SetSessionSelectUserId(It.IsAny<SetSessionSelectUserIdDto>())).Returns((null, 0));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            SetSessionSelectUserIdDto setSessionSelectUserIdDto = new SetSessionSelectUserIdDto
+            {
+                UserId = 1,
+            };
+            var result = _userController.SetSessionSelectUserId(setSessionSelectUserIdDto);
+
+            Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+        /// <summary>
+        /// SetSessionSelectUserId ID判斷
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="res"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
+        public void SetSessionSelectUserIdInput(int id, ActionResult expected)
+        {
+            _repo.Setup(x => x.SetSessionSelectUserId(It.IsAny<SetSessionSelectUserIdDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            SetSessionSelectUserIdDto setSessionSelectUserIdDto = new SetSessionSelectUserIdDto
+            {
+                UserId = id,
+            };
+            var result = _userController.SetSessionSelectUserId(setSessionSelectUserIdDto);
+            Assert.AreEqual(result.Status, expected);
+        }
 
 
 

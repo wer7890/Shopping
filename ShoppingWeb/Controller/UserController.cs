@@ -116,7 +116,6 @@ namespace ShoppingWeb.Controller
             }
         }
 
-
         /// <summary>
         /// 更改密碼
         /// </summary>
@@ -158,7 +157,6 @@ namespace ShoppingWeb.Controller
                 };
             }
         }
-
 
         /// <summary>
         /// 更改管理員身分
@@ -202,6 +200,47 @@ namespace ShoppingWeb.Controller
             }
         }
 
+        /// <summary>
+        /// 設定Session["selectUserId"]
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("SetSessionSelectUserId")]
+        public BaseResponse SetSessionSelectUserId([FromBody] SetSessionSelectUserIdDto dto)
+        {
+            try
+            {
+                if (!(dto.UserId >= 1 && dto.UserId <= int.MaxValue))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? result) = this.UserRepo.SetSessionSelectUserId(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
 
 
 
@@ -249,16 +288,33 @@ namespace ShoppingWeb.Controller
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("SetSessionSelectUserId")]
-        public BaseResponse SetSessionSelectUserId([FromBody] SetSessionSelectUserIdDto dto)
-        {
-            HttpContext.Current.Session["selectUserId"] = dto.UserId;  //存儲資料到 Session 變數
-            return new BaseResponse
-            {
-                Status = ActionResult.Success
-            };
-        }
+        //[HttpPost]
+        //[Route("SetSessionSelectUserId")]
+        //public BaseResponse SetSessionSelectUserId([FromBody] SetSessionSelectUserIdDto dto)
+        //{
+        //    if (!(dto.UserId >= 1 && dto.UserId <= int.MaxValue))
+        //    {
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.InputError
+        //        };
+        //    }
+
+        //    HttpContext.Current.Session["selectUserId"] = dto.UserId;  //存儲資料到 Session 變數
+
+        //    if ((int)HttpContext.Current.Session["selectUserId"] == dto.UserId)
+        //    {
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.Success
+        //        };
+        //    }
+
+        //    return new BaseResponse
+        //    {
+        //        Status = ActionResult.Failure
+        //    };
+        //}
 
         /// <summary>
         /// 顯示所有管理員，依照分頁

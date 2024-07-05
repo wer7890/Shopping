@@ -136,5 +136,32 @@ namespace ShoppingWeb.Repository
                 return (ex, null);
             }
         }
+
+        /// <summary>
+        /// 設定Session["selectUserId"]
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public (Exception, int?) SetSessionSelectUserId(SetSessionSelectUserIdDto dto)
+        {
+            try
+            {
+                HttpContext.Current.Session["selectUserId"] = dto.UserId;  //存儲資料到 Session 變數
+
+                if ((int)HttpContext.Current.Session["selectUserId"] == dto.UserId)
+                {
+                    return (null, 1);
+                }
+                else
+                {
+                    return (null, 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex, null);
+            }
+            
+        }
     }
 }
