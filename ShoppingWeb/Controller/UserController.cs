@@ -160,6 +160,48 @@ namespace ShoppingWeb.Controller
         }
 
 
+        /// <summary>
+        /// 更改管理員身分
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("EditUserRoles")]
+        public BaseResponse EditUserRoles([FromBody] EditRolesDto dto)
+        {
+            try
+            {
+                if (!(dto.UserId >= 1 && dto.UserId <= int.MaxValue) || !(dto.Roles >= 1 && dto.Roles <= 3))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? result) = this.UserRepo.EditUserRoles(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
+
 
 
 
@@ -284,40 +326,40 @@ namespace ShoppingWeb.Controller
         /// <param name="userId"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("EditUserRoles")]
-        public BaseResponse EditUserRoles([FromBody] EditRolesDto dto)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_editRoles", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", dto.UserId));
-                        cmd.Parameters.Add(new SqlParameter("@roles", dto.Roles));
+        //[HttpPost]
+        //[Route("EditUserRoles")]
+        //public BaseResponse EditUserRoles([FromBody] EditRolesDto dto)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_editRoles", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
+        //                cmd.Parameters.Add(new SqlParameter("@userId", dto.UserId));
+        //                cmd.Parameters.Add(new SqlParameter("@roles", dto.Roles));
 
-                        int rowsAffected = (int)cmd.ExecuteScalar();
+        //                int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return new BaseResponse
-                        {
-                            Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
-                        };
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-        }
+        //                return new BaseResponse
+        //                {
+        //                    Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
+        //                };
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
+        //    }
+        //}
 
 
         /// <summary>

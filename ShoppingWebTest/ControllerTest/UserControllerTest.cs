@@ -410,6 +410,94 @@ namespace ShoppingWebTest.ControllerTest
 
 
 
+        /// <summary>
+        /// EditUserRoles成功
+        /// </summary>
+        [TestMethod]
+        public void EditUserRolesSuccess()
+        {
+            _repo.Setup(x => x.EditUserRoles(It.IsAny<EditRolesDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditRolesDto editRolesDto = new EditRolesDto
+            {
+                UserId = 1,
+                Roles = 1
+            };
+            var result = _userController.EditUserRoles(editRolesDto);
+
+            Assert.AreEqual(result.Status, ActionResult.Success);
+        }
+
+
+        /// <summary>
+        /// EditUserRoles失敗
+        /// </summary>
+        [TestMethod]
+        public void EditUserRolesFailure()
+        {
+            _repo.Setup(x => x.EditUserRoles(It.IsAny<EditRolesDto>())).Returns((null, 0));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditRolesDto editRolesDto = new EditRolesDto
+            {
+                UserId = 1,
+                Roles = 1
+            };
+            var result = _userController.EditUserRoles(editRolesDto);
+
+            Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+
+
+        /// <summary>
+        /// EditUserRoles ID判斷
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="res"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
+        public void EditUserRolesIdInput(int id, ActionResult expected)
+        {
+            _repo.Setup(x => x.EditUserRoles(It.IsAny<EditRolesDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditRolesDto editRolesDto = new EditRolesDto
+            {
+                UserId = id,
+                Roles = 1
+            };
+            var result = _userController.EditUserRoles(editRolesDto);
+            Assert.AreEqual(result.Status, expected);
+        }
+
+
+
+        /// <summary>
+        /// EditUserRoles身分判斷
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(UserRolesData), DynamicDataSourceType.Method)]
+        public void EditUserRolesRange(int roles, ActionResult expected)
+        {
+            _repo.Setup(x => x.EditUserRoles(It.IsAny<EditRolesDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditRolesDto editRolesDto = new EditRolesDto
+            {
+                UserId = 1,
+                Roles = roles
+            };
+            var result = _userController.EditUserRoles(editRolesDto);
+            Assert.AreEqual(result.Status, expected);
+        }
 
 
 

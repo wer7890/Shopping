@@ -9,5 +9,7 @@ namespace ShoppingWeb.Repository
         (Exception, int?) DelUserInfo(DelUserInfoDto dto);
 
         (Exception, int?) EditUser(EditUserDto dto);
+
+        (Exception, int?) EditUserRoles(EditRolesDto dto);
     };
 }

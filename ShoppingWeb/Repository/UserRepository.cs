@@ -108,6 +108,33 @@ namespace ShoppingWeb.Repository
                 return (ex, null);
             }
         }
-    
+
+        /// <summary>
+        /// 更改管理員身分
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public (Exception, int?) EditUserRoles(EditRolesDto dto)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_editRoles", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@userId", dto.UserId));
+                        cmd.Parameters.Add(new SqlParameter("@roles", dto.Roles));
+
+                        return (null, (int)cmd.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex, null);
+            }
+        }
     }
 }
