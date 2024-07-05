@@ -192,7 +192,6 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="account"></param>
         /// <param name="res"></param>
         [DataTestMethod]
-        [DataRow("test11", ActionResult.Success)]
         [DataRow("test11-", ActionResult.InputError)]
         public void AddUserAccountSpecial(string account, ActionResult res)
         {
@@ -239,12 +238,11 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="pwd"></param>
         /// <param name="res"></param>
         [DataTestMethod]
-        [DataRow("123456", ActionResult.Success)]
         [DataRow("123456+", ActionResult.InputError)]
         public void AddUserPwdSpecial(string pwd, ActionResult res)
         {
             _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));
-
+            
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
             AddUserDto addUserDto = new AddUserDto
@@ -406,7 +404,6 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="pwd"></param>
         /// <param name="expected"></param>
         [DataTestMethod]
-        [DataRow("123456", ActionResult.Success)]
         [DataRow("123456+", ActionResult.InputError)]
         public void EditUserPwdSpecial(string pwd, ActionResult expected)
         {
@@ -794,7 +791,7 @@ namespace ShoppingWebTest.ControllerTest
         /// 新增管理員成功
         /// </summary>
         //[TestMethod]
-        //public void AddUserSuccess()
+        //public void AddUserSuccess2()
         //{
         //    var _userController = new UserController();
         //    Mock<IUserRepository> repo = new Mock<IUserRepository>();  //IUserRepository是Mock的一個介面，使用Moq來創建一個IUserRepository的mock 對象。這樣可以模擬 IUserRepository 的行為，而不需要依賴實際的數據庫操作

@@ -126,13 +126,13 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                //if (!Regex.IsMatch(dto.Account, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Name, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Birthday, @"^[0-9-]{8,10}$") || !Regex.IsMatch(dto.Phone, @"^[0-9]{10}$") || !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9_.+-]{1,25}@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$") || !Regex.IsMatch(dto.Address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$"))
-                //{
-                //    return new BaseResponse
-                //    {
-                //        Status = ActionResult.InputError
-                //    };
-                //}
+                if (!Regex.IsMatch(dto.Account, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Name, @"^[\u4E00-\u9FFF]{1,15}$") || !Regex.IsMatch(dto.Birthday, @"^[0-9-]{8,10}$") || !Regex.IsMatch(dto.Phone, @"^[0-9]{10}$") || !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9_.+-]{1,25}@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$") || !Regex.IsMatch(dto.Address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$"))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
 
                 (Exception exc, int? result) = this.MemberRepo.AddMember(dto);
 

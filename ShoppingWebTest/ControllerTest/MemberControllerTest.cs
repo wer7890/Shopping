@@ -50,6 +50,34 @@ namespace ShoppingWebTest.ControllerTest
             }
         }
 
+        /// <summary>
+        /// Account資料
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<object[]> MemberAccountData()
+        {
+            for (int i = 1; i <= 20; i++)
+            {
+                string account = new string('a', i);
+                ActionResult expected = (i >= 6 && i <= 16) ? ActionResult.Success : ActionResult.InputError;
+                yield return new object[] { account, expected };
+            }
+        }
+
+        /// <summary>
+        /// Pwd資料
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<object[]> MemberPwdData()
+        {
+            for (int i = 1; i <= 20; i++)
+            {
+                string pwd = new string('a', i);
+                ActionResult expected = (i >= 6 && i <= 16) ? ActionResult.Success : ActionResult.InputError;
+                yield return new object[] { pwd, expected };
+            }
+        }
+
 
 
         /// <summary>
@@ -207,6 +235,8 @@ namespace ShoppingWebTest.ControllerTest
 
             AddMemberDto addMemberDto = new AddMemberDto
             {
+                Account = "test11",
+                Pwd = "123456",
                 Name = "東南西",
                 Birthday = "2019-01-27",
                 Phone = "0934413574",
@@ -229,6 +259,8 @@ namespace ShoppingWebTest.ControllerTest
 
             AddMemberDto addMemberDto = new AddMemberDto
             {
+                Account = "test11",
+                Pwd = "123456",
                 Name = "東南西",
                 Birthday = "2019-01-27",
                 Phone = "0934413574",
@@ -237,6 +269,56 @@ namespace ShoppingWebTest.ControllerTest
             };
             var result = _memberController.AddMember(addMemberDto);
             Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+        /// <summary>
+        /// AddMember帳號長度判斷
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(MemberAccountData), DynamicDataSourceType.Method)]
+        public void AddMemberAccountLength(string account, ActionResult expected)
+        {
+            _repo.Setup(x => x.AddMember(It.IsAny<AddMemberDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_memberRepo", _repo.Object);
+
+            AddMemberDto addMemberDto = new AddMemberDto
+            {
+                Account = account,
+                Pwd = "123456",
+                Name = "東南西",
+                Birthday = "2019-01-27",
+                Phone = "0934413574",
+                Email = "J6LO27Dnn3@yahoo.com",
+                Address = "台中市"
+            };
+            var result = _memberController.AddMember(addMemberDto);
+            Assert.AreEqual(result.Status, expected);
+        }
+
+
+        [DataTestMethod]
+        [DynamicData(nameof(MemberPwdData), DynamicDataSourceType.Method)]
+        public void AddMemberPwdLength(string pwd, ActionResult expected)
+        {
+            _repo.Setup(x => x.AddMember(It.IsAny<AddMemberDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_memberRepo", _repo.Object);
+
+            AddMemberDto addMemberDto = new AddMemberDto
+            {
+                Account = "test11",
+                Pwd = pwd,
+                Name = "東南西",
+                Birthday = "2019-01-27",
+                Phone = "0934413574",
+                Email = "J6LO27Dnn3@yahoo.com",
+                Address = "台中市"
+            };
+            var result = _memberController.AddMember(addMemberDto);
+            Assert.AreEqual(result.Status, expected);
         }
     }
 }
