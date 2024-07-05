@@ -2,10 +2,10 @@
 using ShoppingWeb.Repository;
 using ShoppingWeb.Controller;
 using ShoppingWeb;
-using System;
 using Moq;
 using System.Collections.Generic;
 using System.Data;
+using System;
 
 namespace ShoppingWebTest.ControllerTest
 {
@@ -325,7 +325,7 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
-        public void DelUserInfoIdInput(int id, ActionResult expected)
+        public void DelUserInfoInputId(int id, ActionResult expected)
         {
             _repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((null, 1));
 
@@ -471,7 +471,7 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="res"></param>
         [DataTestMethod]
         [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
-        public void EditUserRolesIdInput(int id, ActionResult expected)
+        public void EditUserRolesInputId(int id, ActionResult expected)
         {
             _repo.Setup(x => x.EditUserRoles(It.IsAny<EditRolesDto>())).Returns((null, 1));
 
@@ -555,7 +555,7 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
-        public void SetSessionSelectUserIdInput(int id, ActionResult expected)
+        public void SetSessionSelectUserIdInputId(int id, ActionResult expected)
         {
             _repo.Setup(x => x.SetSessionSelectUserId(It.IsAny<SetSessionSelectUserIdDto>())).Returns((null, 1));
 
@@ -629,7 +629,7 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(PageNumberData), DynamicDataSourceType.Method)]
-        public void GetAllUserDataPageNumberInput(int pageNumber, ActionResult expected)
+        public void GetAllUserDataInputPageNumber(int pageNumber, ActionResult expected)
         {
             DataTable dt = new DataTable("Test");
             dt.Columns.Add("f_id", typeof(int));
@@ -662,7 +662,7 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(PageSizeData), DynamicDataSourceType.Method)]
-        public void GetAllUserDataPageSizeInput(int pageSize, ActionResult expected)
+        public void GetAllUserDataInputPageSize(int pageSize, ActionResult expected)
         {
             DataTable dt = new DataTable("Test");
             dt.Columns.Add("f_id", typeof(int));
@@ -695,7 +695,7 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(PageSizeData), DynamicDataSourceType.Method)]
-        public void GetAllUserDataBeforePagesTotalInput(int beforePagesTotal, ActionResult expected)
+        public void GetAllUserDataInputBeforePagesTotal(int beforePagesTotal, ActionResult expected)
         {
             DataTable dt = new DataTable("Test");
             dt.Columns.Add("f_id", typeof(int));

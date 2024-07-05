@@ -1,0 +1,10 @@
+2024-07-05 14:37:30.5777 ERROR 
+System.Exception: 單元測試中自定義異常消息
+   在 ShoppingWeb.Controller.UserController.AddUser(AddUserDto dto) 位置 D:\Code2\ShoppingWeb\ShoppingWeb\Controller\UserController.cs:行号 57 帳號: test 
+位置: ShoppingWeb.Controller.UserController.AddUser 行號: 68 
+
+2024-07-05 14:38:05.5199 ERROR 
+System.Exception: 單元測試中自定義異常消息
+   在 ShoppingWeb.Controller.UserController.AddUser(AddUserDto dto) 位置 D:\Code2\ShoppingWeb\ShoppingWeb\Controller\UserController.cs:行号 57 帳號: test 
+位置: ShoppingWeb.Controller.UserController.AddUser 行號: 68 
+

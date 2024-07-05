@@ -1,9 +1,11 @@
 ﻿using NLog;
 using ShoppingWeb.Filters;
+using ShoppingWeb.Repository;
 using ShoppingWeb.Response;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 
@@ -13,6 +15,154 @@ namespace ShoppingWeb.Controller
     [RolesFilter((int)Roles.Member)]
     public class MemberController : BaseController
     {
+        private IMemberRepository _memberRepo;
+
+        private IMemberRepository MemberRepo
+        {
+            get
+            {
+                if (this._memberRepo == null)
+                {
+                    this._memberRepo = new MemberRepository();
+                }
+
+                return this._memberRepo;
+            }
+        }
+
+        /// <summary>
+        /// 是否啟用
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("EditMemberStatus")]
+        public BaseResponse EditMemberStatus([FromBody] EditMemberStatusDto dto)
+        {
+            try
+            {
+                if (!(dto.MemberId >= 1 && dto.MemberId <= int.MaxValue))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? result) = this.MemberRepo.EditMemberStatus(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
+
+        /// <summary>
+        /// 更改會員等級
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("EditMemberLevel")]
+        public BaseResponse EditMemberLevel([FromBody] EditMemberLevelDto dto)
+        {
+            try
+            {
+                if (!(dto.MemberId >= 1 && dto.MemberId <= int.MaxValue) || !(dto.Level >= 0 && dto.Level <= 3))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? result) = this.MemberRepo.EditMemberLevel(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+
+            }
+        }
+
+        /// <summary>
+        /// 新增會員資料
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddMember")]
+        public BaseResponse AddMember([FromBody] AddMemberDto dto)
+        {
+            try
+            {
+                //if (!Regex.IsMatch(dto.Account, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Name, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Birthday, @"^[0-9-]{8,10}$") || !Regex.IsMatch(dto.Phone, @"^[0-9]{10}$") || !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9_.+-]{1,25}@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$") || !Regex.IsMatch(dto.Address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$"))
+                //{
+                //    return new BaseResponse
+                //    {
+                //        Status = ActionResult.InputError
+                //    };
+                //}
+
+                (Exception exc, int? result) = this.MemberRepo.AddMember(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+
+            }
+        }
+
+
+
+
+
+
         /// <summary>
         /// 一開始顯示所有會員資訊
         /// </summary>
@@ -75,40 +225,40 @@ namespace ShoppingWeb.Controller
         /// </summary>
         /// <param name="memberId"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("EditMemberStatus")]
-        public BaseResponse EditMemberStatus([FromBody] EditMemberStatusDto dto)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_editMemberStatus", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@memberId", dto.MemberId));
+        //[HttpPost]
+        //[Route("EditMemberStatus")]
+        //public BaseResponse EditMemberStatus([FromBody] EditMemberStatusDto dto)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_editMemberStatus", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
+        //                cmd.Parameters.Add(new SqlParameter("@memberId", dto.MemberId));
 
-                        int rowsAffected = (int)cmd.ExecuteScalar();
+        //                int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return new BaseResponse
-                        {
-                            Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
-                        };
+        //                return new BaseResponse
+        //                {
+        //                    Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
+        //                };
 
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-        }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
+        //    }
+        //}
 
         /// <summary>
         /// 更改會員等級
@@ -116,86 +266,86 @@ namespace ShoppingWeb.Controller
         /// <param name="memberId"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("EditMemberLevel")]
-        public BaseResponse EditMemberLevel([FromBody] EditMemberLevelDto dto)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_editMemberLevel", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@memberId", dto.MemberId));
-                        cmd.Parameters.Add(new SqlParameter("@level", dto.Level));
+        //[HttpPost]
+        //[Route("EditMemberLevel")]
+        //public BaseResponse EditMemberLevel([FromBody] EditMemberLevelDto dto)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_editMemberLevel", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
+        //                cmd.Parameters.Add(new SqlParameter("@memberId", dto.MemberId));
+        //                cmd.Parameters.Add(new SqlParameter("@level", dto.Level));
 
-                        int rowsAffected = (int)cmd.ExecuteScalar();
+        //                int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        return new BaseResponse
-                        {
-                            Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
-                        };
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
-                {
-                    Status = ActionResult.Error
-                };
+        //                return new BaseResponse
+        //                {
+        //                    Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
+        //                };
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
 
-            }
-        }
+        //    }
+        //}
 
         /// <summary>
         /// 新增會員資料
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        [Route("AddMember")]
-        public BaseResponse AddMember([FromBody] AddMemberDto dto)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_addMemberData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@account", dto.Account));
-                        cmd.Parameters.Add(new SqlParameter("@pwd", dto.Pwd));
-                        cmd.Parameters.Add(new SqlParameter("@name", dto.Name));
-                        cmd.Parameters.Add(new SqlParameter("@birthday", DateTime.Parse(dto.Birthday)));
-                        cmd.Parameters.Add(new SqlParameter("@phone", dto.Phone));
-                        cmd.Parameters.Add(new SqlParameter("@email", dto.Email));
-                        cmd.Parameters.Add(new SqlParameter("@address", dto.Address));
+        //[HttpPost]
+        //[Route("AddMember")]
+        //public BaseResponse AddMember([FromBody] AddMemberDto dto)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_addMemberData", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
+        //                cmd.Parameters.Add(new SqlParameter("@account", dto.Account));
+        //                cmd.Parameters.Add(new SqlParameter("@pwd", dto.Pwd));
+        //                cmd.Parameters.Add(new SqlParameter("@name", dto.Name));
+        //                cmd.Parameters.Add(new SqlParameter("@birthday", DateTime.Parse(dto.Birthday)));
+        //                cmd.Parameters.Add(new SqlParameter("@phone", dto.Phone));
+        //                cmd.Parameters.Add(new SqlParameter("@email", dto.Email));
+        //                cmd.Parameters.Add(new SqlParameter("@address", dto.Address));
 
-                        int result = (int)cmd.ExecuteScalar();
+        //                int result = (int)cmd.ExecuteScalar();
 
-                        return new BaseResponse
-                        {
-                            Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
-                        };
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
-                {
-                    Status = ActionResult.Error
-                };
+        //                return new BaseResponse
+        //                {
+        //                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+        //                };
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
 
-            }
-        }
+        //    }
+        //}
 
     }
 }

@@ -3,7 +3,6 @@ using ShoppingWeb.Filters;
 using ShoppingWeb.Response;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.Http;
 using ShoppingWeb.Repository;

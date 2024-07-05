@@ -10,15 +10,15 @@ namespace ShoppingWeb
         /// <summary>
         /// 會員ID
         /// </summary>
-        [Required]
-        [Range(1, int.MaxValue)]
+        //[Required]
+        //[Range(1, int.MaxValue)]
         public int MemberId { get; set; }
 
         /// <summary>
         /// 等級
         /// </summary>
-        [Required]
-        [Range(0, 3)]
+        //[Required]
+        //[Range(0, 3)]
         public int Level { get; set; }
     }
 }
