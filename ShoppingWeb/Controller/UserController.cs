@@ -242,6 +242,59 @@ namespace ShoppingWeb.Controller
             }
         }
 
+        /// <summary>
+        /// 顯示所有管理員，依照分頁
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("SetSessionSelectUserId")]
+        public GetAllUserDataResponse GetAllUserData([FromBody] GetAllUserDataDto dto)
+        {
+            try
+            {
+                if (!(dto.PageNumber >= 1 && dto.PageNumber <= int.MaxValue) || !(dto.PageSize >= 1 && dto.PageSize <= int.MaxValue) || !(dto.BeforePagesTotal >= 1 && dto.BeforePagesTotal <= int.MaxValue))
+                {
+                    return new GetAllUserDataResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? totalCount, object data) = this.UserRepo.GetAllUserData(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                if (totalCount > 0)
+                { 
+                    int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                    GetAllUserDataResponse result = GetAllUserDataResponse.GetInstance((DataTable)data);
+                    result.TotalPages = totalPages;
+                    result.Status = ActionResult.Success;
+
+                    return result;
+                }
+                else
+                {
+                    return new GetAllUserDataResponse
+                    {
+                        Status = ActionResult.Failure
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                return new GetAllUserDataResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
 
 
         /// <summary>
@@ -322,59 +375,59 @@ namespace ShoppingWeb.Controller
         /// <param name="pageNumber"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("SetSessionSelectUserId")]
-        public GetAllUserDataResponse GetAllUserData([FromBody] GetAllUserDataDto dto)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllUserData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
-                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+        //[HttpPost]
+        //[Route("SetSessionSelectUserId")]
+        //public GetAllUserDataResponse GetAllUserData([FromBody] GetAllUserDataDto dto)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_getAllUserData", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
+        //                cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
+        //                cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
+        //                cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
+        //                cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+        //                cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
 
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
+        //                SqlDataReader reader = cmd.ExecuteReader();
+        //                DataTable dt = new DataTable();
+        //                dt.Load(reader);
 
-                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+        //                int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+        //                int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
 
-                        if (totalCount > 0)
-                        {
-                            GetAllUserDataResponse result = GetAllUserDataResponse.GetInstance(dt);
-                            result.TotalPages = totalPages;
-                            result.Status = ActionResult.Success;
+        //                if (totalCount > 0)
+        //                {
+        //                    GetAllUserDataResponse result = GetAllUserDataResponse.GetInstance(dt);
+        //                    result.TotalPages = totalPages;
+        //                    result.Status = ActionResult.Success;
 
-                            return result;
-                        }
-                        else
-                        {
-                            return new GetAllUserDataResponse
-                            {
-                                Status = ActionResult.Failure
-                            };
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new GetAllUserDataResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-        }
+        //                    return result;
+        //                }
+        //                else
+        //                {
+        //                    return new GetAllUserDataResponse
+        //                    {
+        //                        Status = ActionResult.Failure
+        //                    };
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new GetAllUserDataResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
+        //    }
+        //}
 
         /// <summary>
         /// 更改管理員身分

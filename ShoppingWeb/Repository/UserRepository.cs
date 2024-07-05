@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShoppingWeb.Response;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -162,6 +163,38 @@ namespace ShoppingWeb.Repository
                 return (ex, null);
             }
             
+        }
+
+        public (Exception, int?, object) GetAllUserData(GetAllUserDataDto dto)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllUserData", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
+                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+
+                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                        
+                        return (null, totalCount, dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex, null, null);
+            }
         }
     }
 }

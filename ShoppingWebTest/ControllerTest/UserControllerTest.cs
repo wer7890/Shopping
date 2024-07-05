@@ -5,6 +5,7 @@ using ShoppingWeb;
 using System;
 using Moq;
 using System.Collections.Generic;
+using System.Data;
 
 namespace ShoppingWebTest.ControllerTest
 {
@@ -78,6 +79,48 @@ namespace ShoppingWebTest.ControllerTest
             }
         }
 
+        /// <summary>
+        /// PageNumber資料
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<object[]> PageNumberData()
+        {
+            for (int i = -10; i <= 10; i++)
+            {
+                int pageNumber = i;
+                ActionResult expected = (i >= 1 && i <= int.MaxValue) ? ActionResult.Success : ActionResult.InputError;
+                yield return new object[] { pageNumber, expected };
+            }
+        }
+
+        /// <summary>
+        /// PageSize資料
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<object[]> PageSizeData()
+        {
+            for (int i = -10; i <= 10; i++)
+            {
+                int pageSize = i;
+                ActionResult expected = (i >= 1 && i <= int.MaxValue) ? ActionResult.Success : ActionResult.InputError;
+                yield return new object[] { pageSize, expected };
+            }
+        }
+
+        /// <summary>
+        /// BeforePagesTotal資料
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<object[]> BeforePagesTotalData()
+        {
+            for (int i = -10; i <= 10; i++)
+            {
+                int beforePagesTotal = i;
+                ActionResult expected = (i >= 0 && i <= int.MaxValue) ? ActionResult.Success : ActionResult.InputError;
+                yield return new object[] { beforePagesTotal, expected };
+            }
+        }
+
 
 
         /// <summary>
@@ -97,7 +140,6 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.AddUser(addUserDto);
-            Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
@@ -118,7 +160,6 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.AddUser(addUserDto);
-            Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
 
@@ -142,9 +183,6 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.AddUser(addUserDto);
-
-            Console.WriteLine(account);
-            Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, expected);
         }
 
@@ -169,8 +207,6 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.AddUser(addUserDto);
-            Console.WriteLine(account);
-
             Assert.AreEqual(result.Status, res);
         }
 
@@ -194,16 +230,13 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.AddUser(addUserDto);
-
-            Console.WriteLine(pwd);
-            Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, expected);
         }
 
         /// <summary>
         /// AddUser密碼特殊符號判斷
         /// </summary>
-        /// <param name="account"></param>
+        /// <param name="pwd"></param>
         /// <param name="res"></param>
         [DataTestMethod]
         [DataRow("123456", ActionResult.Success)]
@@ -221,8 +254,6 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.AddUser(addUserDto);
-            Console.WriteLine(pwd);
-
             Assert.AreEqual(result.Status, res);
         }
 
@@ -246,9 +277,6 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = roles
             };
             var result = _userController.AddUser(addUserDto);
-
-            Console.WriteLine(roles);
-            Console.WriteLine(result.Status);
             Assert.AreEqual(result.Status, expected);
         }
 
@@ -269,7 +297,6 @@ namespace ShoppingWebTest.ControllerTest
                 UserId = 1
             };
             var result = _userController.DelUserInfo(delUserInfoDto);
-
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
@@ -288,7 +315,6 @@ namespace ShoppingWebTest.ControllerTest
                 UserId = 1
             };
             var result = _userController.DelUserInfo(delUserInfoDto);
-
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
 
@@ -296,7 +322,7 @@ namespace ShoppingWebTest.ControllerTest
         /// DelUserInfo id判斷
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="res"></param>
+        /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
         public void DelUserInfoIdInput(int id, ActionResult expected)
@@ -310,9 +336,6 @@ namespace ShoppingWebTest.ControllerTest
                 UserId = id
             };
             var result = _userController.DelUserInfo(delUserInfoDto);
-            Console.WriteLine(id);
-            Console.WriteLine(result.Status);
-
             Assert.AreEqual(result.Status, expected);
         }
 
@@ -545,6 +568,163 @@ namespace ShoppingWebTest.ControllerTest
             var result = _userController.SetSessionSelectUserId(setSessionSelectUserIdDto);
             Assert.AreEqual(result.Status, expected);
         }
+
+
+
+        /// <summary>
+        /// GetAllUserData成功
+        /// </summary>
+        [TestMethod]
+        public void GetAllUserDataSuccess()
+        {
+            DataTable dt = new DataTable("Test");
+            dt.Columns.Add("f_id", typeof(int));
+            dt.Columns.Add("f_account", typeof(string));
+            dt.Columns.Add("f_roles", typeof(byte));
+            DataRow row = dt.NewRow();
+            row["f_id"] = 1;
+            row["f_account"] = "test11";
+            row["f_roles"] = 1;
+            dt.Rows.Add(row);
+
+            _repo.Setup(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>())).Returns((null, 1, dt));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            GetAllUserDataDto getAllUserDataDto = new GetAllUserDataDto
+            {
+                PageNumber = 1,
+                PageSize = 1,
+                BeforePagesTotal = 1
+            };
+            var result = _userController.GetAllUserData(getAllUserDataDto);
+            Console.WriteLine(result.Status);
+            Assert.AreEqual(result.Status, ActionResult.Success);
+        }
+
+        /// <summary>
+        /// GetAllUserData失敗
+        /// </summary>
+        [TestMethod]
+        public void GetAllUserDataFailure()
+        {
+            _repo.Setup(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>())).Returns((null, 0, null));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            GetAllUserDataDto getAllUserDataDto = new GetAllUserDataDto
+            {
+                PageNumber = 1,
+                PageSize = 1,
+                BeforePagesTotal = 1
+            };
+            var result = _userController.GetAllUserData(getAllUserDataDto);
+
+            Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+        /// <summary>
+        /// GetAllUserData的PageNumber參數判斷
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="res"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(PageNumberData), DynamicDataSourceType.Method)]
+        public void GetAllUserDataPageNumberInput(int pageNumber, ActionResult expected)
+        {
+            DataTable dt = new DataTable("Test");
+            dt.Columns.Add("f_id", typeof(int));
+            dt.Columns.Add("f_account", typeof(string));
+            dt.Columns.Add("f_roles", typeof(byte));
+            DataRow row = dt.NewRow();
+            row["f_id"] = 1;
+            row["f_account"] = "test11";
+            row["f_roles"] = 1;
+            dt.Rows.Add(row);
+
+            _repo.Setup(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>())).Returns((null, 1, dt));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            GetAllUserDataDto getAllUserDataDto = new GetAllUserDataDto
+            {
+                PageNumber = pageNumber,
+                PageSize = 1,
+                BeforePagesTotal = 1
+            };
+            var result = _userController.GetAllUserData(getAllUserDataDto);
+            Assert.AreEqual(result.Status, expected);
+        }
+
+        /// <summary>
+        /// GetAllUserData的PageSize參數判斷
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(PageSizeData), DynamicDataSourceType.Method)]
+        public void GetAllUserDataPageSizeInput(int pageSize, ActionResult expected)
+        {
+            DataTable dt = new DataTable("Test");
+            dt.Columns.Add("f_id", typeof(int));
+            dt.Columns.Add("f_account", typeof(string));
+            dt.Columns.Add("f_roles", typeof(byte));
+            DataRow row = dt.NewRow();
+            row["f_id"] = 1;
+            row["f_account"] = "test11";
+            row["f_roles"] = 1;
+            dt.Rows.Add(row);
+
+            _repo.Setup(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>())).Returns((null, 1, dt));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            GetAllUserDataDto getAllUserDataDto = new GetAllUserDataDto
+            {
+                PageNumber = 1,
+                PageSize = pageSize,
+                BeforePagesTotal = 1
+            };
+            var result = _userController.GetAllUserData(getAllUserDataDto);
+            Assert.AreEqual(result.Status, expected);
+        }
+
+        /// <summary>
+        /// GetAllUserData的BeforePagesTotal參數判斷
+        /// </summary>
+        /// <param name="beforePagesTotal"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(PageSizeData), DynamicDataSourceType.Method)]
+        public void GetAllUserDataBeforePagesTotalInput(int beforePagesTotal, ActionResult expected)
+        {
+            DataTable dt = new DataTable("Test");
+            dt.Columns.Add("f_id", typeof(int));
+            dt.Columns.Add("f_account", typeof(string));
+            dt.Columns.Add("f_roles", typeof(byte));
+            DataRow row = dt.NewRow();
+            row["f_id"] = 1;
+            row["f_account"] = "test11";
+            row["f_roles"] = 1;
+            dt.Rows.Add(row);
+
+            _repo.Setup(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>())).Returns((null, 1, dt));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            GetAllUserDataDto getAllUserDataDto = new GetAllUserDataDto
+            {
+                PageNumber = 1,
+                PageSize = 1,
+                BeforePagesTotal = beforePagesTotal
+            };
+            var result = _userController.GetAllUserData(getAllUserDataDto);
+            Assert.AreEqual(result.Status, expected);
+        }
+
+
+
+
 
 
 
