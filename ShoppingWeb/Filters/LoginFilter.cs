@@ -17,6 +17,14 @@ namespace ShoppingWeb.Filters
     {
         public override void OnAuthorization(HttpActionContext actionContext)
         {
+            if (HttpContext.Current.Session["userInfo"] == null)
+            {
+                actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
+                {
+                    Status = ActionResult.DuplicateLogin
+                });
+            }
+
             try
             {
                 //類上或方法上有標記[AllowAnonymous]有就return
