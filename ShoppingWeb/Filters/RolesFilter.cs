@@ -29,7 +29,7 @@ namespace ShoppingWeb.Filters
                     return;
                 }
 
-                if (!(((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 1 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == _roles))
+                if (!(((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 0 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == 1 || ((UserInfo)HttpContext.Current.Session["userInfo"]).Roles == _roles))
                 {
                     actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
                     {

@@ -67,7 +67,8 @@ namespace ShoppingWeb.Repository
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", dto.UserId));
+                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
+                        cmd.Parameters.Add(new SqlParameter("@delUserId", dto.UserId));
 
                         return (null, (int)cmd.ExecuteScalar());
                     }

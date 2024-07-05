@@ -65,6 +65,8 @@
                 success: function (response) {
                     self.message = response.Account
                     switch (response.Roles) {
+                        case 0:
+                            break;
                         case 1:  //超級管理員
                             break;
                         case 2:  //會員管理員
