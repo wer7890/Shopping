@@ -1,9 +1,17 @@
-﻿CREATE PROCEDURE pro_sw_delUserData
-	@userId INT
+﻿CREATE PROCEDURE [dbo].[pro_sw_delUserData]
+	@userId INT,
+	@delUserId INT
 AS
 BEGIN
 
 	SET NOCOUNT ON;
-	DELETE FROM t_userInfo WHERE f_id = @userId
-	SELECT @@ROWCOUNT 
+	IF (@delUserId != 1 AND @userId != @delUserId)
+    BEGIN		
+        DELETE FROM t_userInfo WHERE f_id = @delUserId
+		SELECT @@ROWCOUNT 
+    END
+    ELSE
+    BEGIN
+		SELECT 0;
+    END
 END

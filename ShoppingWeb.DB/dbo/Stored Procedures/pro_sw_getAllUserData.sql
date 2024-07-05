@@ -23,6 +23,7 @@ BEGIN
 	-- 使用 OFFSET FETCH 方法來實現分頁
 	SELECT f_id, f_account, f_roles
 	FROM t_userInfo WITH(NOLOCK)
+	WHERE f_roles > 0
 	ORDER BY f_id
 	OFFSET @offset ROWS
 	FETCH NEXT @pageSize ROWS ONLY;  --offset 10 rows ，将前10条记录舍去，fetch next 10 rows only ，向后再读取10条数据。
