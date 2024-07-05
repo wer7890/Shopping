@@ -552,7 +552,7 @@ namespace ShoppingWebTest.ControllerTest
         /// SetSessionSelectUserId ID判斷
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="res"></param>
+        /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
         public void SetSessionSelectUserIdInput(int id, ActionResult expected)
@@ -626,8 +626,8 @@ namespace ShoppingWebTest.ControllerTest
         /// <summary>
         /// GetAllUserData的PageNumber參數判斷
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="res"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="expected"></param>
         [DataTestMethod]
         [DynamicData(nameof(PageNumberData), DynamicDataSourceType.Method)]
         public void GetAllUserDataPageNumberInput(int pageNumber, ActionResult expected)
