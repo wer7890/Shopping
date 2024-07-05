@@ -165,7 +165,12 @@ namespace ShoppingWeb.Repository
             
         }
 
-        public (Exception, int?, object) GetAllUserData(GetAllUserDataDto dto)
+        /// <summary>
+        /// 顯示所有管理員，依照分頁
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public (Exception, int?, DataTable) GetAllUserData(GetAllUserDataDto dto)
         {
             try
             {
@@ -194,6 +199,40 @@ namespace ShoppingWeb.Repository
             catch (Exception ex)
             {
                 return (ex, null, null);
+            }
+        }
+
+        /// <summary>
+        /// 設定跳轉道編輯帳號頁面時，input裡面的預設值
+        /// </summary>
+        /// <returns></returns>
+        public (Exception, DataTable) GetUserDataForEdit()
+        {
+            try
+            {
+                string sessionUserId = HttpContext.Current.Session["selectUserId"].ToString();
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getUserData", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
+
+                        using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
+                        {
+                            SqlDataReader reader = cmd.ExecuteReader();
+                            DataTable dt = new DataTable();
+                            dt.Load(reader);
+                            
+                            return (null, dt);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex, null);
             }
         }
     }

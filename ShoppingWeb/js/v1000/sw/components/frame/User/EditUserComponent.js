@@ -91,6 +91,9 @@
                                     break;
                             }
                             break;
+                        case 101:
+                            self.message = langFont["noData"];
+                            break;
                         default:
                             self.message = langFont["errorLog"];
                     }

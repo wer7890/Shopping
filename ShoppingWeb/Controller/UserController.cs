@@ -261,7 +261,7 @@ namespace ShoppingWeb.Controller
                     };
                 }
 
-                (Exception exc, int? totalCount, object data) = this.UserRepo.GetAllUserData(dto);
+                (Exception exc, int? totalCount, DataTable dt) = this.UserRepo.GetAllUserData(dto);
 
                 if (exc != null)
                 {
@@ -271,7 +271,7 @@ namespace ShoppingWeb.Controller
                 if (totalCount > 0)
                 { 
                     int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-                    GetAllUserDataResponse result = GetAllUserDataResponse.GetInstance((DataTable)data);
+                    GetAllUserDataResponse result = GetAllUserDataResponse.GetInstance(dt);
                     result.TotalPages = totalPages;
                     result.Status = ActionResult.Success;
 
@@ -295,6 +295,50 @@ namespace ShoppingWeb.Controller
                 };
             }
         }
+
+        /// <summary>
+        /// 設定跳轉道編輯帳號頁面時，input裡面的預設值
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetUserDataForEdit")]
+        public GetUserDataForEditResponse GetUserDataForEdit()
+        {
+            try
+            {
+                (Exception exc, DataTable dt) = this.UserRepo.GetUserDataForEdit();
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                if (dt.Rows.Count > 0)
+                {
+                    GetUserDataForEditResponse result = GetUserDataForEditResponse.GetInstance(dt);
+                    result.Status = ActionResult.Success;
+                    return result;
+                }
+                else
+                {
+                    return new GetUserDataForEditResponse
+                    {
+                        Status = ActionResult.Failure
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                return new GetUserDataForEditResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+
+        }
+
 
 
         /// <summary>
@@ -519,47 +563,46 @@ namespace ShoppingWeb.Controller
         /// 設定跳轉道編輯帳號頁面時，input裡面的預設值
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        [Route("GetUserDataForEdit")]
-        public GetUserDataForEditResponse GetUserDataForEdit()
-        {
-            try
-            {
-                string sessionUserId = HttpContext.Current.Session["selectUserId"].ToString();
+        //[HttpPost]
+        //[Route("GetUserDataForEdit")]
+        //public GetUserDataForEditResponse GetUserDataForEdit()
+        //{
+        //    try
+        //    {
+        //        string sessionUserId = HttpContext.Current.Session["selectUserId"].ToString();
 
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getUserData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_getUserData", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
+        //                cmd.Parameters.Add(new SqlParameter("@userId", sessionUserId));
 
-                        using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
-                        {
-                            SqlDataReader reader = cmd.ExecuteReader();
-                            DataTable dt = new DataTable();
-                            dt.Load(reader);
+        //                using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
+        //                {
+        //                    SqlDataReader reader = cmd.ExecuteReader();
+        //                    DataTable dt = new DataTable();
+        //                    dt.Load(reader);
+        //                    GetUserDataForEditResponse result = GetUserDataForEditResponse.GetInstance(dt);
+        //                    result.Status = ActionResult.Success;
 
-                            GetUserDataForEditResponse result = GetUserDataForEditResponse.GetInstance(dt);
-                            result.Status = ActionResult.Success;
+        //                    return result;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new GetUserDataForEditResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
+        //    }
 
-                            return result;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new GetUserDataForEditResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-
-        }
+        //}
 
         /// <summary>
         /// 更改密碼

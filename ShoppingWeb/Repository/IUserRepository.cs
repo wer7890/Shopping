@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 
 namespace ShoppingWeb.Repository
 {
@@ -14,6 +15,8 @@ namespace ShoppingWeb.Repository
 
         (Exception, int?) SetSessionSelectUserId(SetSessionSelectUserIdDto dto);
 
-        (Exception, int?, object) GetAllUserData(GetAllUserDataDto dto);
+        (Exception, int?, DataTable) GetAllUserData(GetAllUserDataDto dto);
+
+        (Exception, DataTable) GetUserDataForEdit();
     };
 }
