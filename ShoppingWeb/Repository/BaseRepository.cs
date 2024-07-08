@@ -1,6 +1,8 @@
 ﻿using NLog;
 using System;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -58,5 +60,31 @@ namespace ShoppingWeb.Repository
             
         }
 
+        /// <summary>
+        /// 判斷是否重複登入
+        /// </summary>
+        /// <returns></returns>
+        public (Exception, int?) RepeatLogin()
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getSessionId", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
+                        cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
+
+                        return (null, (int)cmd.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex, null);
+            }
+        }
     }
 }

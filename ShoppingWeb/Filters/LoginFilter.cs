@@ -1,4 +1,5 @@
 ﻿using NLog;
+using ShoppingWeb.Repository;
 using ShoppingWeb.Response;
 using System;
 using System.Configuration;
@@ -15,6 +16,20 @@ namespace ShoppingWeb.Filters
 {
     public class LoginFilter : AuthorizationFilterAttribute
     {
+        private IBaseRepository _baseRepo;
+
+        private IBaseRepository BaseRepo
+        {
+            get
+            {
+                if (this._baseRepo == null)
+                {
+                    this._baseRepo = new BaseRepository();
+                }
+
+                return this._baseRepo;
+            }
+        }
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             if (HttpContext.Current.Session["userInfo"] == null)
@@ -33,31 +48,22 @@ namespace ShoppingWeb.Filters
                     return;
                 }
 
-                string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
 
-                // 判斷同一隻帳號是否有重複登入
-                using (SqlConnection con = new SqlConnection(connectionString))
+                (Exception exc, int? result) = this.BaseRepo.RepeatLogin();
+
+                if (exc != null)
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getSessionId", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@userId", ((UserInfo)HttpContext.Current.Session["userInfo"]).UserId));
-                        cmd.Parameters.Add(new SqlParameter("@sessionId", HttpContext.Current.Session.SessionID.ToString()));
-
-                        int result = (int)cmd.ExecuteScalar();
-
-                        if (result == 0)
-                        {
-                            HttpContext.Current.Session["userInfo"] = null;
-                            actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
-                            {
-                                Status = ActionResult.DuplicateLogin
-                            });
-                        }
-                    }
+                    throw exc;
                 }
 
+                if (result == 0)
+                {
+                    HttpContext.Current.Session["userInfo"] = null;
+                    actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
+                    {
+                        Status = ActionResult.DuplicateLogin
+                    });
+                }
             }
             catch (Exception ex)
             {

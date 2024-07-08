@@ -16,5 +16,7 @@ namespace ShoppingWeb.Repository
         void SetNLog(Exception ex);
 
         string GetSHA256HashFromString(string strData);
+
+        (Exception, int?) RepeatLogin();
     }
 }
