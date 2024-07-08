@@ -59,6 +59,11 @@ namespace ShoppingWeb.Repository
         /// <returns></returns>
         public (Exception, int?) DelUserInfo(DelUserInfoDto dto)
         {
+            if (HttpContext.Current.Session["userInfo"] == null)
+            {
+                return (null, 0);
+            }
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
