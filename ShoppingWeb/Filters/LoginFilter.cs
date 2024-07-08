@@ -1,10 +1,6 @@
-﻿using NLog;
-using ShoppingWeb.Repository;
+﻿using ShoppingWeb.Repository;
 using ShoppingWeb.Response;
 using System;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -41,15 +37,42 @@ namespace ShoppingWeb.Filters
                 });
             }
 
+            //類上或方法上有標記[AllowAnonymous]有就return
+            if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any() || actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())
+            {
+                return;
+            }
+
+            var loginResult = IsRepeatLogin();
+
+            switch (loginResult.Status)
+            {
+                case ActionResult.DuplicateLogin:
+                    HttpContext.Current.Session["userInfo"] = null;
+                    actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
+                    {
+                        Status = ActionResult.DuplicateLogin
+                    });
+                    break;
+                case ActionResult.Error:
+                    actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
+                    {
+                        Status = ActionResult.Error
+                    });
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 判斷是否有重複登入
+        /// </summary>
+        /// <returns></returns>
+        public BaseResponse IsRepeatLogin()
+        {
             try
             {
-                //類上或方法上有標記[AllowAnonymous]有就return
-                if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any() || actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())  
-                {
-                    return;
-                }
-
-
                 (Exception exc, int? result) = this.BaseRepo.RepeatLogin();
 
                 if (exc != null)
@@ -59,21 +82,24 @@ namespace ShoppingWeb.Filters
 
                 if (result == 0)
                 {
-                    HttpContext.Current.Session["userInfo"] = null;
-                    actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
+                    return new BaseResponse
                     {
                         Status = ActionResult.DuplicateLogin
-                    });
+                    };
                 }
+
+                return new BaseResponse
+                {
+                    Status = ActionResult.LoginCorrect
+                };
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex);
-                actionContext.Response = actionContext.Request.CreateResponse(new BaseResponse
+                this.BaseRepo.SetNLog(ex);
+                return new BaseResponse
                 {
                     Status = ActionResult.Error
-                });
+                };
             }
         }
     }

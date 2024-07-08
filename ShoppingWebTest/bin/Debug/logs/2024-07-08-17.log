@@ -1,0 +1,4 @@
+2024-07-08 17:53:34.0762 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Filters.LoginFilter.IsRepeatLogin 行號: 100 
+

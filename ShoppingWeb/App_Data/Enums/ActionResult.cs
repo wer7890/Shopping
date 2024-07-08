@@ -20,6 +20,11 @@
         /// </summary>
         InputError = 2,
 
+        /// <summary>
+        /// 登入正確
+        /// </summary>
+        LoginCorrect = 3,
+
 
         /// <summary>
         /// 更改成功
