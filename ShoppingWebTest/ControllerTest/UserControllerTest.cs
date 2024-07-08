@@ -140,6 +140,7 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.AddUser(addUserDto);
+            _repo.Verify(x => x.AddUser(It.IsAny<AddUserDto>()), Times.Once);  //判斷AddUser是否有被調用1次
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
@@ -160,6 +161,7 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.AddUser(addUserDto);
+            _repo.Verify(x => x.AddUser(It.IsAny<AddUserDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
 
@@ -180,6 +182,7 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.AddUser(addUserDto);
+            _repo.Verify(x => x.AddUser(It.IsAny<AddUserDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
@@ -315,6 +318,7 @@ namespace ShoppingWebTest.ControllerTest
                 UserId = 1
             };
             var result = _userController.DelUserInfo(delUserInfoDto);
+            _repo.Verify(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
@@ -333,6 +337,7 @@ namespace ShoppingWebTest.ControllerTest
                 UserId = 1
             };
             var result = _userController.DelUserInfo(delUserInfoDto);
+            _repo.Verify(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
 
@@ -351,7 +356,8 @@ namespace ShoppingWebTest.ControllerTest
                 UserId = 1
             };
             var result = _userController.DelUserInfo(delUserInfoDto);
-            Assert.AreEqual(result.Status, ActionResult.Error);
+            _repo.Verify(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>()), Times.Once);
+            Assert.AreEqual(result.Status, ActionResult.Error);           
         }
 
         /// <summary>
@@ -393,7 +399,7 @@ namespace ShoppingWebTest.ControllerTest
                 Pwd = "123456"
             };
             var result = _userController.EditUser(editUserDto);
-
+            _repo.Verify(x => x.EditUser(It.IsAny<EditUserDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
@@ -413,7 +419,7 @@ namespace ShoppingWebTest.ControllerTest
                 Pwd = "123456"
             };
             var result = _userController.EditUser(editUserDto);
-
+            _repo.Verify(x => x.EditUser(It.IsAny<EditUserDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
 
@@ -433,6 +439,7 @@ namespace ShoppingWebTest.ControllerTest
                 Pwd = "123456"
             };
             var result = _userController.EditUser(editUserDto);
+            _repo.Verify(x => x.EditUser(It.IsAny<EditUserDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
@@ -520,7 +527,7 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.EditUserRoles(editRolesDto);
-
+            _repo.Verify(x => x.EditUserRoles(It.IsAny<EditRolesDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
@@ -540,7 +547,7 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.EditUserRoles(editRolesDto);
-
+            _repo.Verify(x => x.EditUserRoles(It.IsAny<EditRolesDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
 
@@ -560,6 +567,7 @@ namespace ShoppingWebTest.ControllerTest
                 Roles = 1
             };
             var result = _userController.EditUserRoles(editRolesDto);
+            _repo.Verify(x => x.EditUserRoles(It.IsAny<EditRolesDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
@@ -636,6 +644,7 @@ namespace ShoppingWebTest.ControllerTest
                 BeforePagesTotal = 1
             };
             var result = _userController.GetAllUserData(getAllUserDataDto);
+            _repo.Verify(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Success);
         }
 
@@ -656,7 +665,7 @@ namespace ShoppingWebTest.ControllerTest
                 BeforePagesTotal = 1
             };
             var result = _userController.GetAllUserData(getAllUserDataDto);
-
+            _repo.Verify(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Failure);
         }
 
@@ -677,6 +686,7 @@ namespace ShoppingWebTest.ControllerTest
                 BeforePagesTotal = 1
             };
             var result = _userController.GetAllUserData(getAllUserDataDto);
+            _repo.Verify(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
