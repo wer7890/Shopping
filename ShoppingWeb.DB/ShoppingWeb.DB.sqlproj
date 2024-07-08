@@ -82,7 +82,6 @@
     <Build Include="dbo\Stored Procedures\pro_sw_delUserData.sql" />
     <Build Include="dbo\Stored Procedures\pro_sw_getAllUserData.sql" />
     <Build Include="dbo\Stored Procedures\pro_sw_editRoles.sql" />
-    <Build Include="dbo\Stored Procedures\pro_sw_getUserData.sql" />
     <Build Include="dbo\Stored Procedures\pro_sw_editPwd.sql" />
     <Build Include="dbo\Stored Procedures\pro_sw_getAllProductData.sql" />
     <Build Include="dbo\Stored Procedures\pro_sw_getSearchProductData.sql" />

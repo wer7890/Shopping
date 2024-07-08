@@ -126,7 +126,7 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                if (!Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$"))
+                if (!(dto.UserId >= 1 && dto.UserId <= int.MaxValue) || !Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$"))
                 {
                     return new BaseResponse
                     {
@@ -177,48 +177,6 @@ namespace ShoppingWeb.Controller
                 }
 
                 (Exception exc, int? result) = this.UserRepo.EditUserRoles(dto);
-
-                if (exc != null)
-                {
-                    throw exc;
-                }
-
-                return new BaseResponse
-                {
-                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
-                };
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-        }
-
-        /// <summary>
-        /// 設定Session["selectUserId"]
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("SetSessionSelectUserId")]
-        public BaseResponse SetSessionSelectUserId([FromBody] SetSessionSelectUserIdDto dto)
-        {
-            try
-            {
-                if (!(dto.UserId >= 1 && dto.UserId <= int.MaxValue))
-                {
-                    return new BaseResponse
-                    {
-                        Status = ActionResult.InputError
-                    };
-                }
-
-                (Exception exc, int? result) = this.UserRepo.SetSessionSelectUserId(dto);
 
                 if (exc != null)
                 {
@@ -293,49 +251,6 @@ namespace ShoppingWeb.Controller
                     Status = ActionResult.Error
                 };
             }
-        }
-
-        /// <summary>
-        /// 設定跳轉道編輯帳號頁面時，input裡面的預設值
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetUserDataForEdit")]
-        public GetUserDataForEditResponse GetUserDataForEdit()
-        {
-            try
-            {
-                (Exception exc, DataTable dt) = this.UserRepo.GetUserDataForEdit();
-
-                if (exc != null)
-                {
-                    throw exc;
-                }
-
-                if (dt.Rows.Count > 0)
-                {
-                    GetUserDataForEditResponse result = GetUserDataForEditResponse.GetInstance(dt);
-                    result.Status = ActionResult.Success;
-                    return result;
-                }
-                else
-                {
-                    return new GetUserDataForEditResponse
-                    {
-                        Status = ActionResult.Failure
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new GetUserDataForEditResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-
         }
     }
 }

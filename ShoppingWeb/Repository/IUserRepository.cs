@@ -13,10 +13,6 @@ namespace ShoppingWeb.Repository
 
         (Exception, int?) EditUserRoles(EditRolesDto dto);
 
-        (Exception, int?) SetSessionSelectUserId(SetSessionSelectUserIdDto dto);
-
         (Exception, int?, DataTable) GetAllUserData(GetAllUserDataDto dto);
-
-        (Exception, DataTable) GetUserDataForEdit();
     };
 }

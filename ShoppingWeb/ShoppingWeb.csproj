@@ -161,7 +161,6 @@
     <Compile Include="App_Data\ActionAttribute\Product\SetSessionProductIdDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\EditProductStatusDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\DelUserInfoDto.cs" />
-    <Compile Include="App_Data\ActionAttribute\User\SetSessionSelectUserIdDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\EditUserRolesDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\AddUserDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\SetLanguageDto.cs" />
@@ -190,7 +189,6 @@
     <Compile Include="Response\Product\GetProductDataForEditResponse.cs" />
     <Compile Include="Response\Product\GetProductDataResponse.cs" />
     <Compile Include="Response\User\GetAllUserDataResponse.cs" />
-    <Compile Include="Response\User\GetUserDataForEditResponse.cs" />
     <Compile Include="Web\Frame.aspx.cs">
       <DependentUpon>Frame.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
