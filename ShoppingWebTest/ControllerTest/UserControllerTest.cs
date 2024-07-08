@@ -164,6 +164,27 @@ namespace ShoppingWebTest.ControllerTest
         }
 
         /// <summary>
+        /// AddUser例外
+        /// </summary>
+        [TestMethod]
+        public void AddUserException()
+        {
+            Exception ex = new Exception("AddUser單元測試");
+            _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((ex, null));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            AddUserDto addUserDto = new AddUserDto
+            {
+                Account = "test11",
+                Pwd = "123456",
+                Roles = 1
+            };
+            var result = _userController.AddUser(addUserDto);
+            Assert.AreEqual(result.Status, ActionResult.Error);
+        }
+
+        /// <summary>
         /// AddUser帳號長度判斷
         /// </summary>
         /// <param name="account"></param>
@@ -277,7 +298,7 @@ namespace ShoppingWebTest.ControllerTest
             var result = _userController.AddUser(addUserDto);
             Assert.AreEqual(result.Status, expected);
         }
-        
+      
 
 
         /// <summary>
@@ -314,6 +335,25 @@ namespace ShoppingWebTest.ControllerTest
             };
             var result = _userController.DelUserInfo(delUserInfoDto);
             Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+        /// <summary>
+        /// DelUserInfo例外
+        /// </summary>
+        [TestMethod]
+        public void DelUserInfoException()
+        {
+            Exception ex = new Exception("DelUserInfo單元測試");
+            _repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((ex, null));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            DelUserInfoDto delUserInfoDto = new DelUserInfoDto
+            {
+                UserId = 1
+            };
+            var result = _userController.DelUserInfo(delUserInfoDto);
+            Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
         /// <summary>
@@ -377,6 +417,26 @@ namespace ShoppingWebTest.ControllerTest
             var result = _userController.EditUser(editUserDto);
 
             Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+        /// <summary>
+        /// EditUser例外
+        /// </summary>
+        [TestMethod]
+        public void EditUserException()
+        {
+            Exception ex = new Exception("EditUser單元測試");
+            _repo.Setup(x => x.EditUser(It.IsAny<EditUserDto>())).Returns((ex, null));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditUserDto editUserDto = new EditUserDto
+            {
+                UserId = 1,
+                Pwd = "123456"
+            };
+            var result = _userController.EditUser(editUserDto);
+            Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
         /// <summary>
@@ -446,6 +506,7 @@ namespace ShoppingWebTest.ControllerTest
         }
 
 
+
         /// <summary>
         /// EditUserRoles成功
         /// </summary>
@@ -484,6 +545,26 @@ namespace ShoppingWebTest.ControllerTest
             var result = _userController.EditUserRoles(editRolesDto);
 
             Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+        /// <summary>
+        /// EditUserRoles例外
+        /// </summary>
+        [TestMethod]
+        public void EditUserRolesException()
+        {
+            Exception ex = new Exception("EditUserRoles單元測試");
+            _repo.Setup(x => x.EditUserRoles(It.IsAny<EditRolesDto>())).Returns((ex, null));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditRolesDto editRolesDto = new EditRolesDto
+            {
+                UserId = 1,
+                Roles = 1
+            };
+            var result = _userController.EditUserRoles(editRolesDto);
+            Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
         /// <summary>
@@ -581,6 +662,27 @@ namespace ShoppingWebTest.ControllerTest
             var result = _userController.GetAllUserData(getAllUserDataDto);
 
             Assert.AreEqual(result.Status, ActionResult.Failure);
+        }
+
+        /// <summary>
+        /// GetAllUserData例外
+        /// </summary>
+        [TestMethod]
+        public void GetAllUserDataException()
+        {
+            Exception ex = new Exception("GetAllUserData單元測試");
+            _repo.Setup(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>())).Returns((ex, null, null));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            GetAllUserDataDto getAllUserDataDto = new GetAllUserDataDto
+            {
+                PageNumber = 1,
+                PageSize = 1,
+                BeforePagesTotal = 1
+            };
+            var result = _userController.GetAllUserData(getAllUserDataDto);
+            Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
         /// <summary>
