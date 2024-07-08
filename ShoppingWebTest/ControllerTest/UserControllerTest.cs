@@ -277,7 +277,7 @@ namespace ShoppingWebTest.ControllerTest
             var result = _userController.AddUser(addUserDto);
             Assert.AreEqual(result.Status, expected);
         }
-
+        
 
 
         /// <summary>
@@ -351,6 +351,7 @@ namespace ShoppingWebTest.ControllerTest
 
             EditUserDto editUserDto = new EditUserDto
             {
+                UserId = 1,
                 Pwd = "123456"
             };
             var result = _userController.EditUser(editUserDto);
@@ -370,6 +371,7 @@ namespace ShoppingWebTest.ControllerTest
 
             EditUserDto editUserDto = new EditUserDto
             {
+                UserId = 1,
                 Pwd = "123456"
             };
             var result = _userController.EditUser(editUserDto);
@@ -392,6 +394,7 @@ namespace ShoppingWebTest.ControllerTest
 
             EditUserDto editUserDto = new EditUserDto
             {
+                UserId = 1,
                 Pwd = pwd
             };
             var result = _userController.EditUser(editUserDto);
@@ -413,12 +416,34 @@ namespace ShoppingWebTest.ControllerTest
 
             EditUserDto editUserDto = new EditUserDto
             {
+                UserId = 1,
                 Pwd = pwd
             };
             var result = _userController.EditUser(editUserDto);
             Assert.AreEqual(result.Status, expected);
         }
 
+        /// <summary>
+        /// EditUser id判斷
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
+        public void EditUserInputId(int id, ActionResult expected)
+        {
+            _repo.Setup(x => x.EditUser(It.IsAny<EditUserDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
+
+            EditUserDto editUserDto = new EditUserDto
+            {
+                UserId = id,
+                Pwd = "123456"
+            };
+            var result = _userController.EditUser(editUserDto);
+            Assert.AreEqual(result.Status, expected);
+        }
 
 
         /// <summary>
