@@ -1,0 +1,8 @@
+2024-07-08 16:41:10.7570 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Filters.LoginFilter.OnAuthorization 行號: 69 
+
+2024-07-08 16:57:48.9386 ERROR 
+System.NullReferenceException: 未将对象引用设置到对象的实例。 
+位置: ShoppingWeb.Filters.LoginFilter.OnAuthorization 行號: 69 
+

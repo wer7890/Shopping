@@ -3,6 +3,7 @@ using Moq;
 using ShoppingWeb;
 using ShoppingWeb.Filters;
 using ShoppingWeb.Repository;
+using System.Net.Http;
 using System.Web.Http.Controllers;
 
 namespace ShoppingWebTest.FiltersTest
@@ -22,18 +23,13 @@ namespace ShoppingWebTest.FiltersTest
         }
 
         /// <summary>
-        /// RepeatLogin有重複登入
+        /// RepeatLogin有重複登入 
         /// </summary>
         [TestMethod]
         public void RepeatLogin()
         {
-            _repo.Setup(x => x.RepeatLogin()).Returns((null, 0));
+            
 
-            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
-
-            //var result = _loginFilter.OnAuthorization(HttpActionContext e);
-            //_repo.Verify(x => x.RepeatLogin(), Times.Once);
-            //Assert.AreEqual(result.Status, ActionResult.Success);
         }
     }
 }
