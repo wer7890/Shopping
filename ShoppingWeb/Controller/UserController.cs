@@ -64,8 +64,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.UserRepo.SetNLog(ex);
                 return new BaseResponse
                 {
                     Status = ActionResult.Error
@@ -106,8 +105,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.UserRepo.SetNLog(ex);
                 return new BaseResponse
                 {
                     Status = ActionResult.Error
@@ -148,8 +146,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.UserRepo.SetNLog(ex);
                 return new BaseResponse
                 {
                     Status = ActionResult.Error
@@ -190,8 +187,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.UserRepo.SetNLog(ex);
                 return new BaseResponse
                 {
                     Status = ActionResult.Error
@@ -244,8 +240,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.UserRepo.SetNLog(ex);
                 return new GetAllUserDataResponse
                 {
                     Status = ActionResult.Error
