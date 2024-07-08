@@ -1,5 +1,4 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,22 +8,8 @@ using System.Web;
 
 namespace ShoppingWeb.Repository
 {
-    public class UserRepository : IUserRepository  //實作介面(介面有宣告哪些方法或變數，實作中就必須都要去定義)
+    public class UserRepository : BaseRepository, IUserRepository  //實作介面(介面有宣告哪些方法或變數，實作中就必須都要去定義)
     {
-        public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-        public string GetSHA256HashFromString(string strData)
-        {
-            byte[] bytValue = Encoding.UTF8.GetBytes(strData);
-            byte[] retVal = SHA256.Create().ComputeHash(bytValue);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < retVal.Length; i++)
-            {
-                sb.Append(retVal[i].ToString("x2"));
-            }
-            return sb.ToString();
-        }
-
-
         /// <summary>
         /// 新增管理員，會先判斷使用者名稱是否存在
         /// </summary>
@@ -180,30 +165,6 @@ namespace ShoppingWeb.Repository
                 return (ex, null, null);
             }
         }
-
-        /// <summary>
-        /// 記錄錯誤日誌
-        /// </summary>
-        /// <param name="ex"></param>
-        public void SetNLog(Exception ex)
-        {
-            Logger logger = LogManager.GetCurrentClassLogger();
-
-            try
-            {
-                if (HttpContext.Current.Session["userInfo"] == null)
-                {
-                    logger.Error(ex + " 帳號: null");
-                }
-                else
-                {
-                    logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                }
-            }
-            catch (Exception)
-            {
-                logger.Error(ex, "後端紀錄NLog錯誤");
-            }
-        }
+    
     }
 }

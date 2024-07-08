@@ -1,9 +1,7 @@
-﻿using NLog;
-using ShoppingWeb.Filters;
+﻿using ShoppingWeb.Filters;
 using ShoppingWeb.Response;
 using System;
 using System.Data;
-using System.Web;
 using System.Web.Http;
 using ShoppingWeb.Repository;
 using System.Text.RegularExpressions;
