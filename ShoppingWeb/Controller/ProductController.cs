@@ -256,22 +256,7 @@ namespace ShoppingWeb.Controller
             }
         }
 
-        /// <summary>
-        /// 設定Session["productId"]
-        /// </summary>
-        /// <param name="productId"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("SetSessionProductId")]
-        public BaseResponse SetSessionProductId([FromBody] SetSessionProductIdDto dto)
-        {
-            HttpContext.Current.Session["productId"] = dto.ProductId;
-            return new BaseResponse
-            {
-                Status = ActionResult.Success
-            };
-        }
-
+ 
         /// <summary>
         /// 回傳stockInsufficient變數
         /// </summary>
@@ -479,19 +464,17 @@ namespace ShoppingWeb.Controller
         /// <returns></returns>
         [HttpPost]
         [Route("GetProductDataForEdit")]
-        public GetProductDataForEditResponse GetProductDataForEdit()
+        public GetProductDataForEditResponse GetProductDataForEdit([FromBody] GetProductDataForEditDto dto)
         {
             try
             {
-                string sessionProductId = HttpContext.Current.Session["productId"].ToString();
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_getProductData", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@productId", sessionProductId));
+                        cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
 
                         using (SqlDataAdapter sqlData = new SqlDataAdapter(cmd))
                         {
@@ -532,7 +515,6 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                string sessionProductId = HttpContext.Current.Session["productId"].ToString();
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("pro_sw_editProductData", con))
@@ -540,7 +522,7 @@ namespace ShoppingWeb.Controller
                         cmd.CommandType = CommandType.StoredProcedure;
                         con.Open();
 
-                        cmd.Parameters.Add(new SqlParameter("@productId", sessionProductId));
+                        cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
                         cmd.Parameters.Add(new SqlParameter("@price", dto.ProductPrice));
                         cmd.Parameters.Add(new SqlParameter("@stock", dto.ProductStock));
                         cmd.Parameters.Add(new SqlParameter("@introduce", dto.ProductIntroduce));

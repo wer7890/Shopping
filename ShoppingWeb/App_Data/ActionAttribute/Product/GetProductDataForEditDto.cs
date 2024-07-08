@@ -1,11 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShoppingWeb
+namespace ShoppingWeb.Controller
 {
-    /// <summary>
-    /// SetSessionProductId方法參數驗證
-    /// </summary>
-    public class SetSessionProductIdDto
+    public class GetProductDataForEditDto
     {
         /// <summary>
         /// 商品ID

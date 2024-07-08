@@ -354,40 +354,9 @@
                 this.message = langFont["inputError"];
                 return;
             }
-
-            var self = this;
-
-            $.ajax({
-                type: "POST",
-                url: "/api/Controller/product/SetSessionProductId",
-                data: JSON.stringify({ productId: productId }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    switch (response.Status) {
-                        case 0:
-                            alert(langFont["duplicateLogin"]);
-                            window.parent.location.href = "Login.aspx";
-                            break;
-                        case 1:
-                            alert(langFont["accessDenied"]);
-                            parent.location.reload();
-                            break;
-                        case 2:
-                            self.message = langFont["inputError"];
-                            break;
-                        case 100:
-                            self.$bus.$emit('PopWindow:Set', 'edit-product-component');
-                            break;
-                        default:
-                            alert(langFont["editFailed"]);
-                            break;
-                    }
-                },
-                error: function (error) {
-                    self.message = langFont["ajaxError"];
-                }
-            });
+            var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?productId=' + productId ;
+            window.history.pushState({ path: newUrl }, '', newUrl);
+            this.$bus.$emit('PopWindow:Set', 'edit-product-component');
         },
 
         //跳轉至新增商品組件

@@ -8,6 +8,13 @@ namespace ShoppingWeb
     public class EditProductDto
     {
         /// <summary>
+        /// 商品ID
+        /// </summary>
+        [Required]
+        [Range(1, int.MaxValue)]
+        public int ProductId { get; set; }
+
+        /// <summary>
         /// 商品價格
         /// </summary>
         [Required]

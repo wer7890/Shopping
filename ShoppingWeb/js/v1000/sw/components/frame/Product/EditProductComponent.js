@@ -84,6 +84,7 @@
         </div>
     `,
     data: function () {
+        var urlParams = new URLSearchParams(window.location.search);
         return {
             message: '',
             dbData: '',
@@ -142,6 +143,7 @@
                 { id: 5, value: '04', name: langFont['adidas'] },
                 { id: 6, value: '04', name: langFont['puma'] },
             ],
+            productId: urlParams.get('productId'),
         }
     },
     watch: {
@@ -166,6 +168,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/Controller/product/GetProductDataForEdit",
+                data: JSON.stringify({ productId: this.productId }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -211,7 +214,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/Controller/product/EditProduct",
-                data: JSON.stringify({ productPrice: this.price, productStock: this.stock, productIntroduce: this.introduceTW, productIntroduceEN: this.introduceEN, productCheckStock: this.stockChange, productStockWarning: this.warningValue }),
+                data: JSON.stringify({ productId: this.productId, productPrice: this.price, productStock: this.stock, productIntroduce: this.introduceTW, productIntroduceEN: this.introduceEN, productCheckStock: this.stockChange, productStockWarning: this.warningValue }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {

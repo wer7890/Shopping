@@ -149,6 +149,7 @@
     <Compile Include="App_Data\ActionAttribute\Product\GetProductDataDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\GetAllUserDataDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\EditUserDto.cs" />
+    <Compile Include="App_Data\ActionAttribute\Product\GetProductDataForEditDto.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="App_Data\ActionAttribute\User\LoginUserDto.cs" />
     <Compile Include="Controller\MemberController.cs" />
@@ -158,7 +159,6 @@
     <Compile Include="App_Data\ActionAttribute\Member\EditMemberStatusDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Member\EditMemberLevelDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\DelProductDto.cs" />
-    <Compile Include="App_Data\ActionAttribute\Product\SetSessionProductIdDto.cs" />
     <Compile Include="App_Data\ActionAttribute\Product\EditProductStatusDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\DelUserInfoDto.cs" />
     <Compile Include="App_Data\ActionAttribute\User\EditUserRolesDto.cs" />
