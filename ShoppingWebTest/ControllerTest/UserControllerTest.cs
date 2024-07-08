@@ -508,67 +508,6 @@ namespace ShoppingWebTest.ControllerTest
 
 
         /// <summary>
-        /// SetSessionSelectUserId成功
-        /// </summary>
-        [TestMethod]
-        public void SetSessionSelectUserIdSuccess()
-        {
-            _repo.Setup(x => x.SetSessionSelectUserId(It.IsAny<SetSessionSelectUserIdDto>())).Returns((null, 1));
-
-            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
-
-            SetSessionSelectUserIdDto setSessionSelectUserIdDto = new SetSessionSelectUserIdDto
-            {
-                UserId = 1,
-            };
-            var result = _userController.SetSessionSelectUserId(setSessionSelectUserIdDto);
-
-            Assert.AreEqual(result.Status, ActionResult.Success);
-        }
-
-        /// <summary>
-        /// SetSessionSelectUserId失敗
-        /// </summary>
-        [TestMethod]
-        public void SetSessionSelectUserIdFailure()
-        {
-            _repo.Setup(x => x.SetSessionSelectUserId(It.IsAny<SetSessionSelectUserIdDto>())).Returns((null, 0));
-
-            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
-
-            SetSessionSelectUserIdDto setSessionSelectUserIdDto = new SetSessionSelectUserIdDto
-            {
-                UserId = 1,
-            };
-            var result = _userController.SetSessionSelectUserId(setSessionSelectUserIdDto);
-
-            Assert.AreEqual(result.Status, ActionResult.Failure);
-        }
-
-        /// <summary>
-        /// SetSessionSelectUserId ID判斷
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="expected"></param>
-        [DataTestMethod]
-        [DynamicData(nameof(UserIdData), DynamicDataSourceType.Method)]
-        public void SetSessionSelectUserIdInputId(int id, ActionResult expected)
-        {
-            _repo.Setup(x => x.SetSessionSelectUserId(It.IsAny<SetSessionSelectUserIdDto>())).Returns((null, 1));
-
-            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
-
-            SetSessionSelectUserIdDto setSessionSelectUserIdDto = new SetSessionSelectUserIdDto
-            {
-                UserId = id,
-            };
-            var result = _userController.SetSessionSelectUserId(setSessionSelectUserIdDto);
-            Assert.AreEqual(result.Status, expected);
-        }
-
-
-
-        /// <summary>
         /// GetAllUserData成功
         /// </summary>
         [TestMethod]
@@ -718,50 +657,6 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, expected);
         }
 
-
-
-        /// <summary>
-        /// GetUserDataForEdit成功
-        /// </summary>
-        [TestMethod]
-        public void GetUserDataForEditSuccess()
-        {
-            DataTable dt = new DataTable("Test");
-            dt.Columns.Add("f_id", typeof(int));
-            dt.Columns.Add("f_account", typeof(string));
-            dt.Columns.Add("f_roles", typeof(byte));
-            DataRow row = dt.NewRow();
-            row["f_id"] = 1;
-            row["f_account"] = "test11";
-            row["f_roles"] = 1;
-            dt.Rows.Add(row);
-
-            _repo.Setup(x => x.GetUserDataForEdit()).Returns((null, dt));
-
-            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
-           
-            var result = _userController.GetUserDataForEdit();
-            Assert.AreEqual(result.Status, ActionResult.Success);
-        }
-
-        /// <summary>
-        /// GetUserDataForEdit沒有資料
-        /// </summary>
-        [TestMethod]
-        public void GetUserDataForEditFailure()
-        {
-            DataTable dt = new DataTable("Test");
-            dt.Columns.Add("f_id", typeof(int));
-            dt.Columns.Add("f_account", typeof(string));
-            dt.Columns.Add("f_roles", typeof(byte));          
-
-            _repo.Setup(x => x.GetUserDataForEdit()).Returns((null, dt));
-
-            _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
-
-            var result = _userController.GetUserDataForEdit();
-            Assert.AreEqual(result.Status, ActionResult.Failure);
-        }
 
 
 

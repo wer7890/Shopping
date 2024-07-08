@@ -205,7 +205,7 @@ namespace ShoppingWeb.Controller
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("SetSessionSelectUserId")]
+        [Route("GetAllUserData")]
         public GetAllUserDataResponse GetAllUserData([FromBody] GetAllUserDataDto dto)
         {
             try
