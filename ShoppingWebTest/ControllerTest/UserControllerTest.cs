@@ -172,6 +172,7 @@ namespace ShoppingWebTest.ControllerTest
         public void AddUserException()
         {
             _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((new Exception("AddUser單元測試"), null));
+            _repo.Setup(x => x.SetNLog(It.IsAny<Exception>()));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
@@ -183,6 +184,7 @@ namespace ShoppingWebTest.ControllerTest
             };
             var result = _userController.AddUser(addUserDto);
             _repo.Verify(x => x.AddUser(It.IsAny<AddUserDto>()), Times.Once);
+            _repo.Verify(x => x.SetNLog(It.IsAny<Exception>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
@@ -348,6 +350,7 @@ namespace ShoppingWebTest.ControllerTest
         public void DelUserInfoException()
         {
             _repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((new Exception("DelUserInfo單元測試"), null));
+            _repo.Setup(x => x.SetNLog(It.IsAny<Exception>()));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
@@ -357,6 +360,7 @@ namespace ShoppingWebTest.ControllerTest
             };
             var result = _userController.DelUserInfo(delUserInfoDto);
             _repo.Verify(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>()), Times.Once);
+            _repo.Verify(x => x.SetNLog(It.IsAny<Exception>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Error);           
         }
 
@@ -430,6 +434,7 @@ namespace ShoppingWebTest.ControllerTest
         public void EditUserException()
         {
             _repo.Setup(x => x.EditUser(It.IsAny<EditUserDto>())).Returns((new Exception("EditUser單元測試"), null));
+            _repo.Setup(x => x.SetNLog(It.IsAny<Exception>()));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
@@ -440,6 +445,7 @@ namespace ShoppingWebTest.ControllerTest
             };
             var result = _userController.EditUser(editUserDto);
             _repo.Verify(x => x.EditUser(It.IsAny<EditUserDto>()), Times.Once);
+            _repo.Verify(x => x.SetNLog(It.IsAny<Exception>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
@@ -558,6 +564,7 @@ namespace ShoppingWebTest.ControllerTest
         public void EditUserRolesException()
         {
             _repo.Setup(x => x.EditUserRoles(It.IsAny<EditRolesDto>())).Returns((new Exception("EditUserRoles單元測試"), null));
+            _repo.Setup(x => x.SetNLog(It.IsAny<Exception>()));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
@@ -568,6 +575,7 @@ namespace ShoppingWebTest.ControllerTest
             };
             var result = _userController.EditUserRoles(editRolesDto);
             _repo.Verify(x => x.EditUserRoles(It.IsAny<EditRolesDto>()), Times.Once);
+            _repo.Verify(x => x.SetNLog(It.IsAny<Exception>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
@@ -676,6 +684,7 @@ namespace ShoppingWebTest.ControllerTest
         public void GetAllUserDataException()
         {
             _repo.Setup(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>())).Returns((new Exception("GetAllUserData單元測試"), null, null));
+            _repo.Setup(x => x.SetNLog(It.IsAny<Exception>()));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
@@ -687,6 +696,7 @@ namespace ShoppingWebTest.ControllerTest
             };
             var result = _userController.GetAllUserData(getAllUserDataDto);
             _repo.Verify(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>()), Times.Once);
+            _repo.Verify(x => x.SetNLog(It.IsAny<Exception>()), Times.Once);
             Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
@@ -822,7 +832,7 @@ namespace ShoppingWebTest.ControllerTest
         //{
         //    var _userController = new UserController();
         //    Mock<IUserRepository> repo = new Mock<IUserRepository>();  //IUserRepository是Mock的一個介面，使用Moq來創建一個IUserRepository的mock 對象。這樣可以模擬 IUserRepository 的行為，而不需要依賴實際的數據庫操作
-        //    repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));  //設置mock對象的AddUser方法，AddUser是其內部定義的方法，<AddUserDto>為調用該方法時的參數類型，(null, 1)為調用該方法時返回的值
+        //    repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((null, 1));  //設置mock對象的AddUser方法(Setup 方法来设置模拟对象)，AddUser是其內部定義的方法，<AddUserDto>為調用該方法時的參數類型，(null, 1)為調用該方法時返回的值
 
         //    PrivateObject privateObject = new PrivateObject(_userController);  //創建 PrivateObject 的實例，這是一個用於測試私有成員或方法的輔助類。此處用於訪問 UserController 的私有成員 _userRepo
         //    privateObject.SetFieldOrProperty("_userRepo", repo.Object);  //測試中的UserController使用的IUserRepository實例將是模擬的版本，而不是實際的 UserRepository，repo.Object 返回這個模擬對象的實例
