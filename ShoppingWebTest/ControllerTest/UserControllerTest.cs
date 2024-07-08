@@ -169,8 +169,7 @@ namespace ShoppingWebTest.ControllerTest
         [TestMethod]
         public void AddUserException()
         {
-            Exception ex = new Exception("AddUser單元測試");
-            _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((ex, null));
+            _repo.Setup(x => x.AddUser(It.IsAny<AddUserDto>())).Returns((new Exception("AddUser單元測試"), null));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
@@ -343,8 +342,7 @@ namespace ShoppingWebTest.ControllerTest
         [TestMethod]
         public void DelUserInfoException()
         {
-            Exception ex = new Exception("DelUserInfo單元測試");
-            _repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((ex, null));
+            _repo.Setup(x => x.DelUserInfo(It.IsAny<DelUserInfoDto>())).Returns((new Exception("DelUserInfo單元測試"), null));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
@@ -425,8 +423,7 @@ namespace ShoppingWebTest.ControllerTest
         [TestMethod]
         public void EditUserException()
         {
-            Exception ex = new Exception("EditUser單元測試");
-            _repo.Setup(x => x.EditUser(It.IsAny<EditUserDto>())).Returns((ex, null));
+            _repo.Setup(x => x.EditUser(It.IsAny<EditUserDto>())).Returns((new Exception("EditUser單元測試"), null));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
@@ -553,8 +550,7 @@ namespace ShoppingWebTest.ControllerTest
         [TestMethod]
         public void EditUserRolesException()
         {
-            Exception ex = new Exception("EditUserRoles單元測試");
-            _repo.Setup(x => x.EditUserRoles(It.IsAny<EditRolesDto>())).Returns((ex, null));
+            _repo.Setup(x => x.EditUserRoles(It.IsAny<EditRolesDto>())).Returns((new Exception("EditUserRoles單元測試"), null));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
@@ -670,8 +666,7 @@ namespace ShoppingWebTest.ControllerTest
         [TestMethod]
         public void GetAllUserDataException()
         {
-            Exception ex = new Exception("GetAllUserData單元測試");
-            _repo.Setup(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>())).Returns((ex, null, null));
+            _repo.Setup(x => x.GetAllUserData(It.IsAny<GetAllUserDataDto>())).Returns((new Exception("GetAllUserData單元測試"), null, null));
 
             _privateObject.SetFieldOrProperty("_userRepo", _repo.Object);
 
