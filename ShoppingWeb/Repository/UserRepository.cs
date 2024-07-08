@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web;
 
 namespace ShoppingWeb.Repository

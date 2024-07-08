@@ -30,6 +30,7 @@ namespace ShoppingWeb.Filters
                 return this._baseRepo;
             }
         }
+        
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             if (HttpContext.Current.Session["userInfo"] == null)
