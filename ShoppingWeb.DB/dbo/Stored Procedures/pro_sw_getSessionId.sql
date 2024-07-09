@@ -10,12 +10,12 @@ BEGIN
 	FROM t_userInfo WITH(NOLOCK) 
 	WHERE f_id = @userId
 
-	IF (@dbSessionId IS NOT NULL AND @sessionId != @dbSessionId)
+	IF (@dbSessionId IS NOT NULL AND @sessionId = @dbSessionId)
     BEGIN		
-        SELECT 0; -- 返回登入失敗
+		SELECT 1; -- 返回登入成功
     END
     ELSE
     BEGIN
-		SELECT 1; -- 返回登入成功
+		SELECT 0; -- 返回登入失敗
     END
 END
