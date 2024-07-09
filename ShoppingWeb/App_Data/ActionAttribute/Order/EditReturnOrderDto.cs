@@ -10,14 +10,14 @@ namespace ShoppingWeb
         /// <summary>
         /// 訂單ID
         /// </summary>
-        [Required]
-        [Range(1, int.MaxValue)]
+        //[Required]
+        //[Range(1, int.MaxValue)]
         public int OrderId { get; set; }
 
         /// <summary>
         /// 是否同意退貨
         /// </summary>
-        [Required]
+        //[Required]
         public bool BoolReturn { get; set; }
     }
 }

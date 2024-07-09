@@ -1,10 +1,8 @@
-﻿using NLog;
-using ShoppingWeb.Filters;
+﻿using ShoppingWeb.Filters;
+using ShoppingWeb.Repository;
 using ShoppingWeb.Response;
 using System;
 using System.Data;
-using System.Data.SqlClient;
-using System.Web;
 using System.Web.Http;
 
 namespace ShoppingWeb.Controller
@@ -13,105 +11,18 @@ namespace ShoppingWeb.Controller
     [RolesFilter((int)Roles.Member)]
     public class OrderController : BaseController
     {
-        /// <summary>
-        /// 一開始顯示所有訂單資訊
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetAllOrderData")]
-        public GetAllOrderDataResponse GetAllOrderData([FromBody] GetAllOrderDataDto dto)
+        private IOrderRepository _orderRepo;
+
+        private IOrderRepository OrderRepo
         {
-            try
+            get
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                if (this._orderRepo == null)
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllOrderData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
-                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
-
-                        SqlDataAdapter da = new SqlDataAdapter(); //宣告一個配接器(DataTable與DataSet必須)
-                        DataSet ds = new DataSet(); //宣告DataSet物件
-                        da.SelectCommand = cmd; //執行
-                        da.Fill(ds); //結果存放至DataTable
-
-                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-
-                        if (totalCount > 0)
-                        {
-                            GetAllOrderDataResponse result = GetAllOrderDataResponse.GetInstance(ds);
-                            result.TotalPages = totalPages;
-                            result.Status = ActionResult.Success;
-
-                            return result;
-                        }
-                        else
-                        {
-                            return new GetAllOrderDataResponse
-                            {
-                                Status = ActionResult.Failure
-                            };
-                        }
-                    }
+                    this._orderRepo = new OrderRepository();
                 }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new GetAllOrderDataResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-        }
 
-        /// <summary>
-        /// 顯示訂單詳細資訊
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetOrderDetailsData")]
-        public GetOrderDetailsDataResponse GetOrderDetailsData([FromBody] GetOrderDetailsDataDto dto)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getOrderDetailsData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@orderId", dto.OrderId));
-                        int languageNum = (HttpContext.Current.Request.Cookies["language"].Value == "TW") ? (int)Language.TW : (int)Language.EN;
-                        cmd.Parameters.Add(new SqlParameter("@languageNum", languageNum));
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-
-                        GetOrderDetailsDataResponse result = GetOrderDetailsDataResponse.GetInstance(dt);
-                        result.Status = ActionResult.Success;
-
-                        return result;
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new GetOrderDetailsDataResponse
-                {
-                    Status = ActionResult.Error
-                };
+                return this._orderRepo;
             }
         }
 
@@ -129,41 +40,29 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                if (!(dto.OrderId >= 1 && dto.OrderId <= int.MaxValue) || !(dto.OrderStatusNum >= 1 && dto.OrderStatusNum <= 4) || !(dto.DeliveryStatusNum >= 1 && dto.DeliveryStatusNum <= 6) || !(dto.DeliveryMethodNum >= 1 && dto.DeliveryMethodNum <= 3))
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_editOrderData", con))
+                    return new BaseResponse
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@orderId", dto.OrderId));
-                        cmd.Parameters.Add(new SqlParameter("@orderStatus", dto.OrderStatusNum));
-                        cmd.Parameters.Add(new SqlParameter("@deliveryStatus", dto.DeliveryStatusNum));
-                        cmd.Parameters.Add(new SqlParameter("@deliveryMethod", dto.DeliveryMethodNum));
-
-                        int rowsAffected = (int)cmd.ExecuteScalar();
-
-                        if (rowsAffected > 0)
-                        {
-                            StockInsufficientCache.SetIsEditStock(true);
-                            return new BaseResponse
-                            {
-                                Status = ActionResult.Success
-                            };
-                        }
-                        else
-                        {
-                            return new BaseResponse
-                            {
-                                Status = ActionResult.Failure
-                            };
-                        }
-                    }
+                        Status = ActionResult.InputError
+                    };
                 }
+
+                (Exception exc, int? result) = this.OrderRepo.EditOrder(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.OrderRepo.SetNLog(ex);
                 return new BaseResponse
                 {
                     Status = ActionResult.Error
@@ -172,61 +71,144 @@ namespace ShoppingWeb.Controller
         }
 
         /// <summary>
-        /// 顯示相關訂單資訊
+        /// /更改退貨訂單資訊
         /// </summary>
-        /// <param name="deliveryStatusNum"></param>
+        /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("GetOrderData")]
-        public GetOrderDataResponse GetOrderData([FromBody] GetOrderDataDto dto)
+        [Route("EditReturnOrder")]
+        public BaseResponse EditReturnOrder([FromBody] EditReturnOrderDto dto)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                if (!(dto.OrderId >= 1 && dto.OrderId <= int.MaxValue))
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getOrderData", con))
+                    return new BaseResponse
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@deliveryStatusNum", dto.DeliveryStatusNum));
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
-                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+                        Status = ActionResult.InputError
+                    };
+                }
 
-                        SqlDataAdapter da = new SqlDataAdapter();
-                        DataSet ds = new DataSet();
-                        da.SelectCommand = cmd;
-                        da.Fill(ds);
+                (Exception exc, int? result) = this.OrderRepo.EditReturnOrder(dto);
 
-                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
-                     
-                        if (totalCount > 0)
-                        {
-                            GetOrderDataResponse result = GetOrderDataResponse.GetInstance(ds);
-                            result.TotalPages = totalPages;
-                            result.Status = ActionResult.Success;
+                if (exc != null)
+                {
+                    throw exc;
+                }
 
-                            return result;
-                        }
-                        else
-                        {
-                            return new GetOrderDataResponse
-                            {
-                                Status = ActionResult.Failure
-                            };
-                        }
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                this.OrderRepo.SetNLog(ex);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
 
-                    }
+        /// <summary>
+        /// 顯示訂單詳細資訊
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetOrderDetailsData")]
+        public GetOrderDetailsDataResponse GetOrderDetailsData([FromBody] GetOrderDetailsDataDto dto)
+        {
+            try
+            {
+                if (!(dto.OrderId >= 1 && dto.OrderId <= int.MaxValue))
+                {
+                    return new GetOrderDetailsDataResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, DataTable dt) = this.OrderRepo.GetOrderDetailsData(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                if (dt != null)
+                {
+                    GetOrderDetailsDataResponse result = GetOrderDetailsDataResponse.GetInstance(dt);
+                    result.Status = ActionResult.Success;
+
+                    return result;
+                }
+                else
+                {
+                    return new GetOrderDetailsDataResponse
+                    {
+                        Status = ActionResult.Failure
+                    };
                 }
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new GetOrderDataResponse
+                this.OrderRepo.SetNLog(ex);
+                return new GetOrderDetailsDataResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
+
+        /// <summary>
+        /// 一開始顯示所有訂單資訊
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetAllOrderData")]
+        public GetAllOrderDataResponse GetAllOrderData([FromBody] GetAllOrderDataDto dto)
+        {
+            try
+            {
+                if (!(dto.PageNumber >= 1 && dto.PageNumber <= int.MaxValue) || !(dto.PageSize >= 1 && dto.PageSize <= int.MaxValue) || !(dto.BeforePagesTotal >= 1 && dto.BeforePagesTotal <= int.MaxValue))
+                {
+                    return new GetAllOrderDataResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? totalCount, DataSet ds) = this.OrderRepo.GetAllOrderData(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                if (totalCount > 0)
+                {
+                    int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  
+                    GetAllOrderDataResponse result = GetAllOrderDataResponse.GetInstance(ds);
+                    result.TotalPages = totalPages;
+                    result.Status = ActionResult.Success;
+
+                    return result;
+                }
+                else
+                {
+                    return new GetAllOrderDataResponse
+                    {
+                        Status = ActionResult.Failure
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                this.OrderRepo.SetNLog(ex);
+                return new GetAllOrderDataResponse
                 {
                     Status = ActionResult.Error
                 };
@@ -236,7 +218,7 @@ namespace ShoppingWeb.Controller
         /// <summary>
         /// 顯示申請退貨訂單資訊
         /// </summary>
-        /// <param name="orderStatusNum"></param>
+        /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("GetReturnOrderData")]
@@ -244,48 +226,41 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                if (!(dto.PageNumber >= 1 && dto.PageNumber <= int.MaxValue) || !(dto.PageSize >= 1 && dto.PageSize <= int.MaxValue) || !(dto.BeforePagesTotal >= 1 && dto.BeforePagesTotal <= int.MaxValue))
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getReturnOrderData", con))
+                    return new GetReturnOrderDataResponse
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
-                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+                        Status = ActionResult.InputError
+                    };
+                }
 
-                        SqlDataAdapter da = new SqlDataAdapter();
-                        DataSet ds = new DataSet();
-                        da.SelectCommand = cmd;
-                        da.Fill(ds);
+                (Exception exc, int? totalCount, DataSet ds) = this.OrderRepo.GetReturnOrderData(dto);
 
-                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                if (exc != null)
+                {
+                    throw exc;
+                }
 
-                        if (totalCount > 0)
-                        {
-                            GetReturnOrderDataResponse result = GetReturnOrderDataResponse.GetInstance(ds);
-                            result.TotalPages = totalPages;
-                            result.Status = ActionResult.Success;
+                if (totalCount > 0)
+                {
+                    int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);
+                    GetReturnOrderDataResponse result = GetReturnOrderDataResponse.GetInstance(ds);
+                    result.TotalPages = totalPages;
+                    result.Status = ActionResult.Success;
 
-                            return result;
-                        }
-                        else
-                        {
-                            return new GetReturnOrderDataResponse
-                            {
-                                Status = ActionResult.Failure
-                            };
-                        }
-                    }
+                    return result;
+                }
+                else
+                {
+                    return new GetReturnOrderDataResponse
+                    {
+                        Status = ActionResult.Failure
+                    };
                 }
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.OrderRepo.SetNLog(ex);
                 return new GetReturnOrderDataResponse
                 {
                     Status = ActionResult.Error
@@ -294,43 +269,57 @@ namespace ShoppingWeb.Controller
         }
 
         /// <summary>
-        /// 更改退貨訂單資訊
+        /// 顯示相關訂單資訊
         /// </summary>
-        /// <param name="orderId"></param>
+        /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("EditReturnOrder")]
-        public BaseResponse EditReturnOrder([FromBody] EditReturnOrderDto dto)
+        [Route("GetOrderData")]
+        public GetOrderDataResponse GetOrderData([FromBody] GetOrderDataDto dto)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                if (!(dto.DeliveryStatusNum >= 1 && dto.DeliveryStatusNum <= 6) || !(dto.PageNumber >= 1 && dto.PageNumber <= int.MaxValue) || !(dto.PageSize >= 1 && dto.PageSize <= int.MaxValue) || !(dto.BeforePagesTotal >= 1 && dto.BeforePagesTotal <= int.MaxValue))
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_editReturnOrder", con))
+                    return new GetOrderDataResponse
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@orderId", dto.OrderId));
-                        cmd.Parameters.Add(new SqlParameter("@boolReturn", dto.BoolReturn));
+                        Status = ActionResult.InputError
+                    };
+                }
 
-                        int rowsAffected = (int)cmd.ExecuteScalar();
+                (Exception exc, int? totalCount, DataSet ds) = this.OrderRepo.GetOrderData(dto);
 
-                        return new BaseResponse
-                        {
-                            Status = (rowsAffected > 0) ? ActionResult.Success : ActionResult.Failure
-                        };
-                    }
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                if (totalCount > 0)
+                {
+                    int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);
+                    GetOrderDataResponse result = GetOrderDataResponse.GetInstance(ds);
+                    result.TotalPages = totalPages;
+                    result.Status = ActionResult.Success;
+
+                    return result;
+                }
+                else
+                {
+                    return new GetOrderDataResponse
+                    {
+                        Status = ActionResult.Failure
+                    };
                 }
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
+                this.OrderRepo.SetNLog(ex);
+                return new GetOrderDataResponse
                 {
                     Status = ActionResult.Error
                 };
             }
         }
+
     }
 }
