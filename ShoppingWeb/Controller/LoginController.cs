@@ -69,26 +69,6 @@ namespace ShoppingWeb.Controller
         }
 
        
-
-
-
-        /// <summary>
-        /// 按下中英文按鈕時，Cookies["language"]紀錄該語言
-        /// </summary>
-        /// <param name="language"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("SetLanguage")]
-        public void SetLanguage([FromBody] SetLanguageDto dto)
-        {
-            if (HttpContext.Current.Request.Cookies["language"] != null)
-            {
-                HttpContext.Current.Response.Cookies["language"].Value = dto.Language;
-                HttpContext.Current.Response.Cookies["language"].Expires = DateTime.Now.AddDays(30);
-            }
-        }
-    
-
         /// <summary>
         /// 取得管理員身分
         /// </summary>
