@@ -276,5 +276,31 @@ namespace ShoppingWebTest.ControllerTest
             Assert.AreEqual(result.Status, ActionResult.Error);
         }
 
+        /// <summary>
+        /// EditProduct id判斷
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="expected"></param>
+        [DataTestMethod]
+        [DynamicData(nameof(IdData), DynamicDataSourceType.Method)]
+        public void EditProductInputId(int id, ActionResult res)
+        {
+            _repo.Setup(x => x.EditProduct(It.IsAny<EditProductDto>())).Returns((null, 1));
+
+            _privateObject.SetFieldOrProperty("_productRepo", _repo.Object);
+
+            EditProductDto editProductDto = new EditProductDto
+            {
+                ProductId = id,
+                ProductPrice = 10,
+                ProductStock = 10,
+                ProductIntroduce = "中文詳情",
+                ProductIntroduceEN = "英文詳情",
+                ProductCheckStock = true,
+                ProductStockWarning = 100
+            };
+            var result = _productController.EditProduct(editProductDto);
+            Assert.AreEqual(result.Status, res);
+        }
     }
 }
