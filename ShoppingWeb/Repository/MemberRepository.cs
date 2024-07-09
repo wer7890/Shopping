@@ -8,10 +8,8 @@ using System.Web;
 
 namespace ShoppingWeb.Repository
 {
-    public class MemberRepository : IMemberRepository
+    public class MemberRepository : BaseRepository, IMemberRepository
     {
-        public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
         /// <summary>
         /// 是否啟用
         /// </summary>
@@ -99,7 +97,40 @@ namespace ShoppingWeb.Repository
                 return (ex, null);
             }
         }
-    
-    
+
+        /// <summary>
+        ///  一開始顯示所有會員資訊
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public (Exception, int?, DataTable) GetAllMemberData(GetAllMemberDataDto dto)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllMemberData", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
+                        cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
+                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
+                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+
+                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+                        return (null, totalCount, dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex, null, null);
+            }
+        }
     }
 }

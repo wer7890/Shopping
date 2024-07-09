@@ -63,8 +63,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.MemberRepo.SetNLog(ex);
                 return new BaseResponse
                 {
                     Status = ActionResult.Error
@@ -105,8 +104,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.MemberRepo.SetNLog(ex);
                 return new BaseResponse
                 {
                     Status = ActionResult.Error
@@ -126,7 +124,7 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                if (!Regex.IsMatch(dto.Account, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Name, @"^[\u4E00-\u9FFF]{1,15}$") || !Regex.IsMatch(dto.Birthday, @"^[0-9-]{8,10}$") || !Regex.IsMatch(dto.Phone, @"^[0-9]{10}$") || !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9_.+-]{1,25}@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$") || !Regex.IsMatch(dto.Address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$"))
+                if (!Regex.IsMatch(dto.Account, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Name, @"^[\u4E00-\u9FFF]{1,15}$") || !Regex.IsMatch(dto.Birthday, @"^[0-9-]{10}$") || !Regex.IsMatch(dto.Phone, @"^[0-9]{10}$") || !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9_.+-]{1,25}@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$") || !Regex.IsMatch(dto.Address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$"))
                 {
                     return new BaseResponse
                     {
@@ -148,8 +146,7 @@ namespace ShoppingWeb.Controller
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.MemberRepo.SetNLog(ex);
                 return new BaseResponse
                 {
                     Status = ActionResult.Error
@@ -157,11 +154,6 @@ namespace ShoppingWeb.Controller
 
             }
         }
-
-
-
-
-
 
         /// <summary>
         /// 一開始顯示所有會員資訊
@@ -173,52 +165,108 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                if (!(dto.PageNumber >= 1 && dto.PageNumber <= int.MaxValue) || !(dto.PageSize >= 1 && dto.PageSize <= int.MaxValue) || !(dto.BeforePagesTotal >= 1 && dto.BeforePagesTotal <= int.MaxValue))
                 {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_getAllMemberData", con))
+                    return new GetAllMemberDataResponse
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
-                        cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
-                        cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
-                        cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
-                        cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
+                        Status = ActionResult.InputError
+                    };
+                }
 
-                        int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
-                        int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                (Exception exc, int? totalCount, DataTable dt) = this.MemberRepo.GetAllMemberData(dto);
 
-                        if (totalCount > 0)
-                        {
-                            GetAllMemberDataResponse result = GetAllMemberDataResponse.GetInstance(dt);
-                            result.TotalPages = totalPages;
-                            result.Status = ActionResult.Success;
+                if (exc != null)
+                {
+                    throw exc;
+                }
 
-                            return result;
-                        }
-                        else
-                        {
-                            return new GetAllMemberDataResponse
-                            {
-                                Status = ActionResult.Failure
-                            };
-                        }
-                    }
+                if (totalCount > 0)
+                {
+                    int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+                    GetAllMemberDataResponse result = GetAllMemberDataResponse.GetInstance(dt);
+                    result.TotalPages = totalPages;
+                    result.Status = ActionResult.Success;
+
+                    return result;
+                }
+                else
+                {
+                    return new GetAllMemberDataResponse
+                    {
+                        Status = ActionResult.Failure
+                    };
                 }
             }
             catch (Exception ex)
             {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+                this.MemberRepo.SetNLog(ex);
                 return new GetAllMemberDataResponse
                 {
                     Status = ActionResult.Error
                 };
             }
         }
+
+
+
+
+
+        /// <summary>
+        /// 一開始顯示所有會員資訊
+        /// </summary>
+        /// <returns></returns>
+        //[HttpPost]
+        //[Route("GetAllMemberData")]
+        //public GetAllMemberDataResponse GetAllMemberData([FromBody] GetAllMemberDataDto dto)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_getAllMemberData", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
+        //                cmd.Parameters.Add(new SqlParameter("@pageNumber", dto.PageNumber));
+        //                cmd.Parameters.Add(new SqlParameter("@pageSize", dto.PageSize));
+        //                cmd.Parameters.Add(new SqlParameter("@beforePagesTotal", dto.BeforePagesTotal));
+        //                cmd.Parameters.Add(new SqlParameter("@totalCount", SqlDbType.Int));
+        //                cmd.Parameters["@totalCount"].Direction = ParameterDirection.Output;
+        //                SqlDataReader reader = cmd.ExecuteReader();
+        //                DataTable dt = new DataTable();
+        //                dt.Load(reader);
+
+        //                int totalCount = int.Parse(cmd.Parameters["@totalCount"].Value.ToString());
+        //                int totalPages = (int)Math.Ceiling((double)totalCount / dto.PageSize);  // 計算總頁數，Math.Ceiling向上進位取整數
+
+        //                if (totalCount > 0)
+        //                {
+        //                    GetAllMemberDataResponse result = GetAllMemberDataResponse.GetInstance(dt);
+        //                    result.TotalPages = totalPages;
+        //                    result.Status = ActionResult.Success;
+
+        //                    return result;
+        //                }
+        //                else
+        //                {
+        //                    return new GetAllMemberDataResponse
+        //                    {
+        //                        Status = ActionResult.Failure
+        //                    };
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new GetAllMemberDataResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
+        //    }
+        //}
 
         /// <summary>
         /// 是否啟用

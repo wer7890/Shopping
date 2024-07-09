@@ -27,7 +27,7 @@ namespace ShoppingWebTest.FiltersTest
         /// RepeatLogin有重複登入 
         /// </summary>
         [TestMethod]
-        public void RepeatLogin()
+        public void RepeatLoginDuplicateLogin()
         {
             _repo.Setup(x => x.RepeatLogin()).Returns((null, 0));
 
@@ -42,7 +42,7 @@ namespace ShoppingWebTest.FiltersTest
         /// RepeatLogin無重複登入 
         /// </summary>
         [TestMethod]
-        public void NotRepeatLogin()
+        public void NotRepeatLoginCorrect()
         {
             _repo.Setup(x => x.RepeatLogin()).Returns((null, 1));
 
@@ -59,7 +59,7 @@ namespace ShoppingWebTest.FiltersTest
         [TestMethod]
         public void RepeatLoginException()
         {
-            _repo.Setup(x => x.RepeatLogin()).Returns((new Exception("AddUser單元測試"), null));
+            _repo.Setup(x => x.RepeatLogin()).Returns((new Exception("RepeatLogin單元測試"), null));
             _repo.Setup(x => x.SetNLog(It.IsAny<Exception>()));
 
             _privateObject.SetFieldOrProperty("_baseRepo", _repo.Object);

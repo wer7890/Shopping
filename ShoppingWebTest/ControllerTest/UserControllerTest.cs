@@ -116,7 +116,7 @@ namespace ShoppingWebTest.ControllerTest
             for (int i = -10; i <= 10; i++)
             {
                 int beforePagesTotal = i;
-                ActionResult expected = (i >= 0 && i <= int.MaxValue) ? ActionResult.Success : ActionResult.InputError;
+                ActionResult expected = (i >= 1 && i <= int.MaxValue) ? ActionResult.Success : ActionResult.InputError;
                 yield return new object[] { beforePagesTotal, expected };
             }
         }
@@ -772,7 +772,7 @@ namespace ShoppingWebTest.ControllerTest
         /// <param name="beforePagesTotal"></param>
         /// <param name="expected"></param>
         [DataTestMethod]
-        [DynamicData(nameof(PageSizeData), DynamicDataSourceType.Method)]
+        [DynamicData(nameof(BeforePagesTotalData), DynamicDataSourceType.Method)]
         public void GetAllUserDataInputBeforePagesTotal(int beforePagesTotal, ActionResult expected)
         {
             DataTable dt = new DataTable("Test");
