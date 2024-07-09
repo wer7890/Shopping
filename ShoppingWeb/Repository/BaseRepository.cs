@@ -11,6 +11,9 @@ namespace ShoppingWeb.Repository
 {
     public class BaseRepository : IBaseRepository
     {
+        /// <summary>
+        /// 資料庫連接字串
+        /// </summary>
         public string connectionString {
             get { 
                 return ConfigurationManager.ConnectionStrings["cns"].ConnectionString;

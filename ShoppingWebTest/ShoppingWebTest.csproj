@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerTest\LoginControllerTest.cs" />
     <Compile Include="ControllerTest\MemberControllerTest.cs" />
     <Compile Include="ControllerTest\OrderControllerTest.cs" />
     <Compile Include="ControllerTest\UserControllerTest.cs" />

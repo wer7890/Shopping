@@ -2,8 +2,6 @@
 using ShoppingWeb.Filters;
 using System;
 using System.Configuration;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web.Http;
 
 namespace ShoppingWeb.Controller
@@ -12,25 +10,7 @@ namespace ShoppingWeb.Controller
     [ValidationFilter]
     public class BaseController : ApiController
     {
-        public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;
-
-        /// <summary>
-        /// SHA256加密
-        /// </summary>
-        /// <param name="strData"></param>
-        /// <returns></returns>
-        [NonAction]
-        public string GetSHA256HashFromString(string strData)
-        {
-            byte[] bytValue = Encoding.UTF8.GetBytes(strData);
-            byte[] retVal = SHA256.Create().ComputeHash(bytValue);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < retVal.Length; i++)
-            {
-                sb.Append(retVal[i].ToString("x2"));
-            }
-            return sb.ToString();
-        }
+        public readonly string connectionString = ConfigurationManager.ConnectionStrings["cns"].ConnectionString;     
 
         /// <summary>
         /// 紀錄前端錯誤
