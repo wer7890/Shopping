@@ -16,7 +16,3 @@ D:\Code2\ShoppingWeb\ShoppingWeb.DB\bin\Debug\ShoppingWeb.DB.pdb
 D:\Code2\ShoppingWeb\ShoppingWeb.DB\obj\Debug\ShoppingWeb.DB.sqlprojAssemblyReference.cache
 D:\Code2\ShoppingWeb\ShoppingWeb.DB\obj\Debug\ShoppingWeb.DB.dll
 D:\Code2\ShoppingWeb\ShoppingWeb.DB\obj\Debug\ShoppingWeb.DB.pdb
-D:\Code2\ShoppingWeb\ShoppingWeb.DB\obj\Debug\Model.xml
-D:\Code2\ShoppingWeb\ShoppingWeb.DB\obj\Debug\refactor.xml
-D:\Code2\ShoppingWeb\ShoppingWeb.DB\obj\Debug\postdeploy.sql
-D:\Code2\ShoppingWeb\ShoppingWeb.DB\obj\Debug\predeploy.sql
