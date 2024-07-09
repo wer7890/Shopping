@@ -102,7 +102,7 @@ namespace ShoppingWebTest.ControllerTest
             for (int i = 1; i <= 20; i++)
             {
                 string birthday = new string('1', i);
-                ActionResult res = (i == 10) ? ActionResult.Success : ActionResult.InputError;
+                ActionResult res = (i >= 8 && i <= 10) ? ActionResult.Success : ActionResult.InputError;
                 yield return new object[] { birthday, res };
             }
         }

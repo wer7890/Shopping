@@ -1,12 +1,9 @@
-﻿using NLog;
-using ShoppingWeb.Filters;
+﻿using ShoppingWeb.Filters;
 using ShoppingWeb.Repository;
 using ShoppingWeb.Response;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Http;
 
 namespace ShoppingWeb.Controller
@@ -124,7 +121,7 @@ namespace ShoppingWeb.Controller
         {
             try
             {
-                if (!Regex.IsMatch(dto.Account, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Name, @"^[\u4E00-\u9FFF]{1,15}$") || !Regex.IsMatch(dto.Birthday, @"^[0-9-]{10}$") || !Regex.IsMatch(dto.Phone, @"^[0-9]{10}$") || !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9_.+-]{1,25}@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$") || !Regex.IsMatch(dto.Address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$"))
+                if (!Regex.IsMatch(dto.Account, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Pwd, @"^[A-Za-z0-9]{6,16}$") || !Regex.IsMatch(dto.Name, @"^[\u4E00-\u9FFF]{1,15}$") || !Regex.IsMatch(dto.Birthday, @"^[0-9-]{8,10}$") || !Regex.IsMatch(dto.Phone, @"^[0-9]{10}$") || !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9_.+-]{1,25}@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$") || !Regex.IsMatch(dto.Address, @"^[\u4E00-\u9FFF0-9A-Za-z]{2,50}$"))
                 {
                     return new BaseResponse
                     {
