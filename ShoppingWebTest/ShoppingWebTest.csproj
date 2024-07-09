@@ -76,6 +76,7 @@
     <Compile Include="ControllerTest\LoginControllerTest.cs" />
     <Compile Include="ControllerTest\MemberControllerTest.cs" />
     <Compile Include="ControllerTest\OrderControllerTest.cs" />
+    <Compile Include="ControllerTest\ProductControllerTest.cs" />
     <Compile Include="ControllerTest\UserControllerTest.cs" />
     <Compile Include="FiltersTest\LoginFilterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

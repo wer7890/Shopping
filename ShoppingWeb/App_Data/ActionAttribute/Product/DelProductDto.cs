@@ -10,8 +10,8 @@ namespace ShoppingWeb
         /// <summary>
         /// 商品ID
         /// </summary>
-        [Required]
-        [Range(1, int.MaxValue)]
+        //[Required]
+        //[Range(1, int.MaxValue)]
         public int ProductId { get; set; }
     }
 }

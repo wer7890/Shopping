@@ -177,10 +177,12 @@
     <Compile Include="Repository\ILoginRepository.cs" />
     <Compile Include="Repository\IMemberRepository.cs" />
     <Compile Include="Repository\IOrderRepository.cs" />
+    <Compile Include="Repository\IProductRepository.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
     <Compile Include="Repository\MemberRepository.cs" />
     <Compile Include="Repository\OrderRepository.cs" />
+    <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Response\BaseResponse.cs" />
     <Compile Include="Response\Login\GetUserPermissionResponse.cs" />

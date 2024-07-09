@@ -1,5 +1,6 @@
 ﻿using NLog;
 using ShoppingWeb.Filters;
+using ShoppingWeb.Repository;
 using ShoppingWeb.Response;
 using System;
 using System.Data;
@@ -15,6 +16,147 @@ namespace ShoppingWeb.Controller
     [RolesFilter((int)Roles.Product)]
     public class ProductController : BaseController
     {
+        private IProductRepository _productRepo;
+
+        private IProductRepository ProductRepo
+        {
+            get
+            {
+                if (this._productRepo == null)
+                {
+                    this._productRepo = new ProductRepository();
+                }
+
+                return this._productRepo;
+            }
+        }
+
+        /// <summary>
+        /// 刪除商品
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("DelProduct")]
+        public BaseResponse DelProduct([FromBody] DelProductDto dto)
+        {
+            try
+            {
+                if (!(dto.ProductId >= 1 && dto.ProductId <= int.MaxValue))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? result) = this.ProductRepo.DelProduct(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                this.ProductRepo.SetNLog(ex);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
+
+        /// <summary>
+        /// 是否開放開關
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("ToggleProductStatus")]
+        public BaseResponse EditProductStatus([FromBody] EditProductStatusDto dto)
+        {
+            try
+            {
+                if (!(dto.ProductId >= 1 && dto.ProductId <= int.MaxValue))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? result) = this.ProductRepo.EditProductStatus(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                this.ProductRepo.SetNLog(ex);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
+
+        /// <summary>
+        /// 更改商品資料
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("EditProduct")]
+        public BaseResponse EditProduct([FromBody] EditProductDto dto)
+        {
+            try
+            {
+                if (!(dto.ProductId >= 1 && dto.ProductId <= int.MaxValue) || !(dto.ProductPrice >= 1 && dto.ProductPrice <= int.MaxValue) || !(dto.ProductStock >= 1 && dto.ProductStock <= int.MaxValue))
+                {
+                    return new BaseResponse
+                    {
+                        Status = ActionResult.InputError
+                    };
+                }
+
+                (Exception exc, int? result) = this.ProductRepo.EditProduct(dto);
+
+                if (exc != null)
+                {
+                    throw exc;
+                }
+
+                return new BaseResponse
+                {
+                    Status = (result == 1) ? ActionResult.Success : ActionResult.Failure
+                };
+            }
+            catch (Exception ex)
+            {
+                this.ProductRepo.SetNLog(ex);
+                return new BaseResponse
+                {
+                    Status = ActionResult.Error
+                };
+            }
+        }
+
+
+
+
         private string pubguid = "";
 
         /// <summary>
@@ -150,111 +292,111 @@ namespace ShoppingWeb.Controller
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("DelProduct")]
-        public BaseResponse DelProduct([FromBody] DelProductDto dto)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_delProductData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
+        //[HttpPost]
+        //[Route("DelProduct")]
+        //public BaseResponse DelProduct([FromBody] DelProductDto dto)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_delProductData", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
+        //                cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
 
-                        //設定預存程序輸出參數的名稱與資料類型
-                        cmd.Parameters.Add(new SqlParameter("@deletedProductImg", SqlDbType.NVarChar, 50));
-                        //設定參數名稱的傳遞方向
-                        cmd.Parameters["@deletedProductImg"].Direction = ParameterDirection.Output;
+        //                //設定預存程序輸出參數的名稱與資料類型
+        //                cmd.Parameters.Add(new SqlParameter("@deletedProductImg", SqlDbType.NVarChar, 50));
+        //                //設定參數名稱的傳遞方向
+        //                cmd.Parameters["@deletedProductImg"].Direction = ParameterDirection.Output;
 
-                        int r = (int)cmd.ExecuteScalar();
-                        //取得預存程序的輸出參數值
-                        string deletedProductImg = cmd.Parameters["@deletedProductImg"].Value.ToString();
+        //                int r = (int)cmd.ExecuteScalar();
+        //                //取得預存程序的輸出參數值
+        //                string deletedProductImg = cmd.Parameters["@deletedProductImg"].Value.ToString();
 
-                        if (r > 0)
-                        {
-                            string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
-                            File.Delete(imagePath);
-                            StockInsufficientCache.SetIsEditStock(true);
-                            return new BaseResponse
-                            {
-                                Status = ActionResult.Success
-                            };
-                        }
-                        else
-                        {
-                            return new BaseResponse
-                            {
-                                Status = ActionResult.Failure
-                            };
-                        }
+        //                if (r > 0)
+        //                {
+        //                    string imagePath = HttpContext.Current.Server.MapPath("~/ProductImg/" + deletedProductImg);
+        //                    File.Delete(imagePath);
+        //                    StockInsufficientCache.SetIsEditStock(true);
+        //                    return new BaseResponse
+        //                    {
+        //                        Status = ActionResult.Success
+        //                    };
+        //                }
+        //                else
+        //                {
+        //                    return new BaseResponse
+        //                    {
+        //                        Status = ActionResult.Failure
+        //                    };
+        //                }
 
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-        }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
+        //    }
+        //}
 
         /// <summary>
         /// 是否開放開關
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("ToggleProductStatus")]
-        public BaseResponse EditProductStatus([FromBody] EditProductStatusDto dto)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_editProductStatus", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
-                        cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
+        //[HttpPost]
+        //[Route("ToggleProductStatus")]
+        //public BaseResponse EditProductStatus([FromBody] EditProductStatusDto dto)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_editProductStatus", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
+        //                cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
 
-                        int rowsAffected = (int)cmd.ExecuteScalar();
+        //                int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        if (rowsAffected > 0)
-                        {
-                            StockInsufficientCache.SetIsEditStock(true);
-                            return new BaseResponse
-                            {
-                                Status = ActionResult.Success
-                            };
-                        }
-                        else
-                        {
-                            return new BaseResponse
-                            {
-                                Status = ActionResult.Failure
-                            };
-                        }
+        //                if (rowsAffected > 0)
+        //                {
+        //                    StockInsufficientCache.SetIsEditStock(true);
+        //                    return new BaseResponse
+        //                    {
+        //                        Status = ActionResult.Success
+        //                    };
+        //                }
+        //                else
+        //                {
+        //                    return new BaseResponse
+        //                    {
+        //                        Status = ActionResult.Failure
+        //                    };
+        //                }
 
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-        }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
+        //    }
+        //}
 
  
         /// <summary>
@@ -509,57 +651,57 @@ namespace ShoppingWeb.Controller
         /// <param name="productStock"></param>
         /// <param name="productIntroduce"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("EditProduct")]
-        public BaseResponse EditProduct([FromBody] EditProductDto dto)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("pro_sw_editProductData", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        con.Open();
+        //[HttpPost]
+        //[Route("EditProduct")]
+        //public BaseResponse EditProduct([FromBody] EditProductDto dto)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand("pro_sw_editProductData", con))
+        //            {
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                con.Open();
 
-                        cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
-                        cmd.Parameters.Add(new SqlParameter("@price", dto.ProductPrice));
-                        cmd.Parameters.Add(new SqlParameter("@stock", dto.ProductStock));
-                        cmd.Parameters.Add(new SqlParameter("@introduce", dto.ProductIntroduce));
-                        cmd.Parameters.Add(new SqlParameter("@introduceEN", dto.ProductIntroduceEN));
-                        cmd.Parameters.Add(new SqlParameter("@warningValue", dto.ProductStockWarning));
-                        cmd.Parameters.Add(new SqlParameter("@checkStoct", dto.ProductCheckStock));
+        //                cmd.Parameters.Add(new SqlParameter("@productId", dto.ProductId));
+        //                cmd.Parameters.Add(new SqlParameter("@price", dto.ProductPrice));
+        //                cmd.Parameters.Add(new SqlParameter("@stock", dto.ProductStock));
+        //                cmd.Parameters.Add(new SqlParameter("@introduce", dto.ProductIntroduce));
+        //                cmd.Parameters.Add(new SqlParameter("@introduceEN", dto.ProductIntroduceEN));
+        //                cmd.Parameters.Add(new SqlParameter("@warningValue", dto.ProductStockWarning));
+        //                cmd.Parameters.Add(new SqlParameter("@checkStoct", dto.ProductCheckStock));
 
-                        int rowsAffected = (int)cmd.ExecuteScalar();
+        //                int rowsAffected = (int)cmd.ExecuteScalar();
 
-                        if (rowsAffected > 0)
-                        {
-                            StockInsufficientCache.SetIsEditStock(true);
-                            return new BaseResponse
-                            {
-                                Status = ActionResult.Success
-                            };
-                        }
-                        else
-                        {
-                            return new BaseResponse
-                            {
-                                Status = ActionResult.Failure
-                            };
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger logger = LogManager.GetCurrentClassLogger();
-                logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
-                return new BaseResponse
-                {
-                    Status = ActionResult.Error
-                };
-            }
-        }
+        //                if (rowsAffected > 0)
+        //                {
+        //                    StockInsufficientCache.SetIsEditStock(true);
+        //                    return new BaseResponse
+        //                    {
+        //                        Status = ActionResult.Success
+        //                    };
+        //                }
+        //                else
+        //                {
+        //                    return new BaseResponse
+        //                    {
+        //                        Status = ActionResult.Failure
+        //                    };
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger logger = LogManager.GetCurrentClassLogger();
+        //        logger.Error(ex + " 帳號: " + ((UserInfo)HttpContext.Current.Session["userInfo"]).Account);
+        //        return new BaseResponse
+        //        {
+        //            Status = ActionResult.Error
+        //        };
+        //    }
+        //}
 
     }
 }
