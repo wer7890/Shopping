@@ -4,8 +4,6 @@ using ShoppingWeb;
 using ShoppingWeb.Filters;
 using ShoppingWeb.Repository;
 using System;
-using System.Net.Http;
-using System.Web.Http.Controllers;
 
 namespace ShoppingWebTest.FiltersTest
 {
